@@ -1,81 +1,103 @@
 /**
  * Refresh automático das rentabilidades (12 meses) do etfs.json.
  * -------------------------------------------------------------------
- * Roda no GitHub Actions (cron). Não tem dependências: usa o fetch nativo
- * do Node 20+. As chaves ficam em GitHub Secrets (nunca no código):
- *   - BRAPI_TOKEN       → brapi.dev (ETFs da B3). Grátis, exige cadastro.
- *   - TWELVEDATA_KEY    → twelvedata.com (ETFs US/UCITS). Grátis, exige cadastro.
+ * Roda no GitHub Actions (cron). Sem dependências e SEM CHAVE: usa o
+ * endpoint público de gráfico do Yahoo Finance, que funciona server-side
+ * (não há CORS na Action) e cobre B3 (.SA) e mercados dos EUA.
  *
- * Fonte por ETF (inferida do domicílio):
- *   - Brasil  → brapi (símbolo = ticker)
- *   - EUA     → twelvedata (símbolo = ticker)
- *   - Irlanda → twelvedata SE houver "simbolo_ext" no item (ex.: "CSPX:LSE");
- *               senão pula (o site já herda a rentabilidade do índice).
+ * Símbolo por domicílio:
+ *   - Brasil  → <ticker>.SA
+ *   - EUA     → <ticker>
+ *   - Irlanda → usa "simbolo_ext" do item (ex.: "CSPX.L"); senão pula
+ *               (o site já herda a rentabilidade do índice).
  *
- * Tolerante a falhas: chave ausente ou erro de API → apenas pula aquele item,
- * mantém o valor anterior e segue. Só reescreve etfs.json se algo mudou.
+ * GUARDAS DE SEGURANÇA (dado ruim nunca é publicado):
+ *   - exige >= 12 pontos mensais (fundo novo → pula, cai no índice);
+ *   - descarta série "congelada" (primeiros meses idênticos = dado stale);
+ *   - descarta retorno fora de uma banda sã (|ret| > 80%).
+ * Item que não passa nas guardas mantém o valor anterior e segue.
+ *
+ * TWELVEDATA_KEY (opcional): se presente, é usado como fallback quando o
+ * Yahoo falha para um ticker. Não é necessário.
  */
 
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const FILE = new URL('../etfs.json', import.meta.url);
-const BRAPI_TOKEN = process.env.BRAPI_TOKEN || '';
 const TWELVEDATA_KEY = process.env.TWELVEDATA_KEY || '';
+const UA = 'Mozilla/5.0 (compatible; prancheta-refresh)';
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 function fmtPct(n) {
   if (!isFinite(n)) return '';
-  const s = (n >= 0 ? '+' : '') + n.toFixed(1);
-  return s.replace('.', ',') + '%';
+  return (n >= 0 ? '+' : '') + n.toFixed(1).replace('.', ',') + '%';
+}
+
+// Calcula o retorno 12m de uma série de fechamentos, com as guardas.
+function ret12FromSeries(closes) {
+  const c = closes.filter(x => x != null && isFinite(x));
+  if (c.length < 12) return null;                 // histórico curto → fundo novo
+  if (c[0] === c[3]) return null;                 // início "congelado" → dado stale
+  const pct = (c[c.length - 1] / c[0] - 1) * 100;
+  if (!isFinite(pct) || Math.abs(pct) > 80) return null; // fora da banda sã
+  return pct;
 }
 
 async function getJson(url) {
-  const r = await fetch(url, { headers: { 'User-Agent': 'prancheta-refresh' } });
+  const r = await fetch(url, { headers: { 'User-Agent': UA } });
   if (!r.ok) throw new Error('HTTP ' + r.status);
   return r.json();
 }
 
-// Retorno de 12 meses via brapi (B3).
-async function ret12Brapi(ticker) {
-  if (!BRAPI_TOKEN) return null;
-  const url = `https://brapi.dev/api/quote/${encodeURIComponent(ticker)}?range=1y&interval=1mo&token=${BRAPI_TOKEN}`;
+// Yahoo Finance (sem chave).
+async function ret12Yahoo(symbol) {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1y&interval=1mo`;
   const d = await getJson(url);
-  const res = d && d.results && d.results[0];
-  const hist = res && res.historicalDataPrice;
-  if (!hist || hist.length < 2) return null;
-  const first = hist[0].close, last = hist[hist.length - 1].close;
-  if (!first || !last) return null;
-  return (last / first - 1) * 100;
+  const r = d && d.chart && d.chart.result && d.chart.result[0];
+  const q = r && r.indicators && r.indicators.quote && r.indicators.quote[0];
+  const adj = r && r.indicators && r.indicators.adjclose && r.indicators.adjclose[0];
+  const closes = (adj && adj.adjclose) || (q && q.close);
+  if (!closes) return null;
+  return ret12FromSeries(closes);
 }
 
-// Retorno de 12 meses via Twelve Data (US / UCITS).
+// Twelve Data (fallback opcional).
 async function ret12Twelve(symbol) {
   if (!TWELVEDATA_KEY) return null;
   const url = `https://api.twelvedata.com/time_series?symbol=${encodeURIComponent(symbol)}&interval=1month&outputsize=14&apikey=${TWELVEDATA_KEY}`;
   const d = await getJson(url);
-  const vals = d && d.values;
-  if (!vals || vals.length < 13) return null;
-  const last = parseFloat(vals[0].close);      // mais recente
-  const yearAgo = parseFloat(vals[12].close);   // ~12 meses atrás
-  if (!last || !yearAgo) return null;
-  return (last / yearAgo - 1) * 100;
+  if (!d || !d.values) return null;
+  const closes = d.values.map(v => parseFloat(v.close)).reverse(); // antigo → recente
+  return ret12FromSeries(closes);
+}
+
+function symbolFor(etf) {
+  const dom = (etf.domicilio || '').toLowerCase();
+  if (dom.includes('brasil')) return etf.simbolo_ext || (etf.ticker + '.SA');
+  if (dom.includes('eua')) return etf.simbolo_ext || etf.ticker;
+  if (dom.includes('irlanda')) return etf.simbolo_ext || (etf.ticker + '.L'); // UCITS na LSE
+  return etf.simbolo_ext || etf.ticker;
 }
 
 async function ret12For(etf) {
-  const dom = (etf.domicilio || '').toLowerCase();
+  const sym = symbolFor(etf);
+  if (!sym) return null;
   try {
-    if (dom.includes('brasil')) return await ret12Brapi(etf.ticker);
-    if (dom.includes('eua')) return await ret12Twelve(etf.simbolo_ext || etf.ticker);
-    if (dom.includes('irlanda') && etf.simbolo_ext) return await ret12Twelve(etf.simbolo_ext);
+    const y = await ret12Yahoo(sym);
+    if (y !== null) return y;
   } catch (e) {
-    console.warn(`  ! ${etf.ticker}: ${e.message}`);
+    console.warn(`  ! ${etf.ticker} (yahoo): ${e.message}`);
+  }
+  try {
+    const t = await ret12Twelve((etf.domicilio || '').toLowerCase().includes('eua') ? etf.ticker : sym);
+    if (t !== null) return t;
+  } catch (e) {
+    console.warn(`  ! ${etf.ticker} (twelvedata): ${e.message}`);
   }
   return null;
 }
 
 async function main() {
-  if (!BRAPI_TOKEN) console.warn('BRAPI_TOKEN ausente — ETFs da B3 serão pulados.');
-  if (!TWELVEDATA_KEY) console.warn('TWELVEDATA_KEY ausente — ETFs US/UCITS serão pulados.');
-
   const doc = JSON.parse(readFileSync(FILE, 'utf8'));
   const list = Array.isArray(doc) ? doc : (doc.etfs || []);
   let changed = 0;
@@ -83,7 +105,8 @@ async function main() {
   for (const etf of list) {
     if (etf.avulso) continue;
     const pct = await ret12For(etf);
-    if (pct === null) continue;
+    await sleep(250); // gentileza com o Yahoo
+    if (pct === null) { console.log(`  · ${etf.ticker}: sem dado confiável (mantém)`); continue; }
     const novo = fmtPct(pct);
     if (novo && novo !== etf.retorno_12m) {
       console.log(`  ✓ ${etf.ticker}: ${etf.retorno_12m || '—'} → ${novo}`);
