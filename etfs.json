@@ -1,5 +1,5 @@
 {
-  "data_atualizacao": "2026-07-27",
+  "data_atualizacao": "2026-07-28",
   "etfs": [
     {
       "ticker": "NLFA11",
@@ -32,7 +32,10 @@
       "vol": "",
       "pl": "",
       "observacao": "Títulos públicos; duração-alvo.",
-      "confirmar": ["índice exato", "prazo médio → alíquota"],
+      "confirmar": [
+        "índice exato",
+        "prazo médio → alíquota"
+      ],
       "avulso": false
     },
     {
@@ -49,7 +52,9 @@
       "vol": "",
       "pl": "",
       "observacao": "IPCA+ longo; proteção real; alta duration (marcação a mercado relevante — não é caixa).",
-      "confirmar": ["taxa a.a."],
+      "confirmar": [
+        "taxa a.a."
+      ],
       "avulso": false
     },
     {
@@ -100,7 +105,10 @@
       "vol": "",
       "pl": "",
       "observacao": "Mercado acionário global inteiro (~10 mil empresas, desenvolvidos + emergentes), em reais, sem conta no exterior. Embute risco cambial (retorno em BRL).",
-      "confirmar": ["gestora", "taxa a.a."],
+      "confirmar": [
+        "gestora",
+        "taxa a.a."
+      ],
       "avulso": false
     },
     {
@@ -112,7 +120,7 @@
       "classe_fiscal": "offshore_14754",
       "domicilio": "EUA",
       "bucket": "us_listed",
-      "retorno_12m": "~+20,5%",
+      "retorno_12m": "+17,3%",
       "retorno_longo": "~14,95% a.a. (10a)",
       "vol": "",
       "pl": "~US$ 1,03 tri",
@@ -129,12 +137,14 @@
       "classe_fiscal": "offshore_14754",
       "domicilio": "EUA",
       "bucket": "us_listed",
-      "retorno_12m": "~+25,4%",
+      "retorno_12m": "+19,9%",
       "retorno_longo": "~20,8% a.a. (10a)",
       "vol": "",
       "pl": "~US$ 481 bi",
       "observacao": "",
-      "confirmar": ["taxa a.a."],
+      "confirmar": [
+        "taxa a.a."
+      ],
       "avulso": false
     },
     {
@@ -146,7 +156,7 @@
       "classe_fiscal": "offshore_14754",
       "domicilio": "EUA",
       "bucket": "us_listed",
-      "retorno_12m": "~+20,8%",
+      "retorno_12m": "+17,8%",
       "retorno_longo": "~14,45% a.a. (10a)",
       "vol": "",
       "pl": "~US$ 667 bi",
@@ -163,12 +173,14 @@
       "classe_fiscal": "offshore_14754",
       "domicilio": "EUA",
       "bucket": "us_listed",
-      "retorno_12m": "",
+      "retorno_12m": "+21,8%",
       "retorno_longo": "",
       "vol": "",
       "pl": "",
       "observacao": "",
-      "confirmar": ["taxa a.a."],
+      "confirmar": [
+        "taxa a.a."
+      ],
       "avulso": false
     },
     {
@@ -180,12 +192,14 @@
       "classe_fiscal": "offshore_14754",
       "domicilio": "EUA",
       "bucket": "us_listed",
-      "retorno_12m": "",
+      "retorno_12m": "+18,9%",
       "retorno_longo": "",
       "vol": "",
       "pl": "",
       "observacao": "Mundo inteiro (desenvolvidos + emergentes) num fundo.",
-      "confirmar": ["taxa a.a."],
+      "confirmar": [
+        "taxa a.a."
+      ],
       "avulso": false
     },
     {
@@ -197,12 +211,14 @@
       "classe_fiscal": "offshore_14754",
       "domicilio": "EUA",
       "bucket": "us_listed",
-      "retorno_12m": "",
+      "retorno_12m": "+27,8%",
       "retorno_longo": "",
       "vol": "",
       "pl": "",
       "observacao": "Foco em dividendos EUA.",
-      "confirmar": ["taxa a.a."],
+      "confirmar": [
+        "taxa a.a."
+      ],
       "avulso": false
     },
     {
@@ -214,12 +230,14 @@
       "classe_fiscal": "offshore_14754",
       "domicilio": "EUA",
       "bucket": "us_listed",
-      "retorno_12m": "",
+      "retorno_12m": "-0,8%",
       "retorno_longo": "",
       "vol": "",
       "pl": "",
       "observacao": "Renda fixa agregada dos EUA.",
-      "confirmar": ["taxa a.a."],
+      "confirmar": [
+        "taxa a.a."
+      ],
       "avulso": false
     },
     {
@@ -231,12 +249,14 @@
       "classe_fiscal": "offshore_14754",
       "domicilio": "EUA",
       "bucket": "us_listed",
-      "retorno_12m": "",
+      "retorno_12m": "+13,5%",
       "retorno_longo": "",
       "vol": "",
       "pl": "",
       "observacao": "Fundos imobiliários (REITs) dos EUA.",
-      "confirmar": ["taxa a.a."],
+      "confirmar": [
+        "taxa a.a."
+      ],
       "avulso": false
     },
     {
@@ -253,7 +273,9 @@
       "vol": "",
       "pl": "",
       "observacao": "Ouro. Situs EUA → exposto a US estate tax (trust de ouro). Alternativa mais líquida: IAU (~0,25%); GLDM é a mais barata.",
-      "confirmar": ["taxa a.a."],
+      "confirmar": [
+        "taxa a.a."
+      ],
       "avulso": false
     },
     {
@@ -304,7 +326,9 @@
       "vol": "",
       "pl": "",
       "observacao": "Tech/growth. Acumulação.",
-      "confirmar": ["taxa a.a."],
+      "confirmar": [
+        "taxa a.a."
+      ],
       "avulso": false
     },
     {
@@ -321,7 +345,9 @@
       "vol": "",
       "pl": "",
       "observacao": "Emergentes. Acumulação.",
-      "confirmar": ["taxa a.a."],
+      "confirmar": [
+        "taxa a.a."
+      ],
       "avulso": false
     },
     {
@@ -338,7 +364,9 @@
       "vol": "",
       "pl": "",
       "observacao": "Renda fixa global.",
-      "confirmar": ["taxa a.a."],
+      "confirmar": [
+        "taxa a.a."
+      ],
       "avulso": false
     }
   ]
