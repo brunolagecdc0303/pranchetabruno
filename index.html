@@ -940,12 +940,56 @@
   #module-etf .etf-rm:hover{border-color:var(--clay);background:#fff}
   /* ===== MODULE:ETF:CSS:END ===== */
 
+  /* ===== MODULE:EXTERIOR:CSS:START ===== */
+  #module-exterior .wrap{max-width:1100px}
+  #module-exterior .ext-sec{margin:0 0 30px}
+  #module-exterior .ext-sec>h2{font-family:var(--f-display);font-weight:600;font-size:clamp(18px,2.4vw,23px);margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  #module-exterior .ext-sec>h3{font-family:var(--f-display);font-weight:600;font-size:15.5px;margin:18px 0 8px}
+  #module-exterior .ext-sec>.sub{color:var(--muted);font-size:14px;margin:0 0 16px;line-height:1.55}
+  #module-exterior .ext-kicker{font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin:0 0 8px}
+
+  #module-exterior .ext-callout{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:0 12px 12px 0;padding:16px 18px;margin:0 0 16px}
+  #module-exterior .ext-callout.brass{border-left-color:var(--brass)}
+  #module-exterior .ext-callout.clay{border-left-color:var(--clay)}
+  #module-exterior .ext-callout .ct{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  #module-exterior .ext-callout p{margin:0 0 8px;font-size:14px;line-height:1.6}
+  #module-exterior .ext-callout p:last-child{margin-bottom:0}
+  #module-exterior .ext-callout b{color:var(--ink)}
+  #module-exterior .ext-quote{font-style:italic;color:var(--brass-deep);border-left:2px solid var(--brass);padding-left:12px;margin:10px 0 0;font-size:13.5px}
+
+  #module-exterior .ext-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:860px){#module-exterior .ext-cols{grid-template-columns:1fr}}
+  #module-exterior .ext-col{border:1px solid var(--line);border-radius:12px;padding:15px 16px;background:#fff}
+  #module-exterior .ext-col h4{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-deep);margin:0 0 10px}
+  #module-exterior .ext-col ul{margin:0;padding-left:16px}
+  #module-exterior .ext-col li{font-size:13px;line-height:1.55;margin-bottom:6px;color:var(--ink)}
+
+  #module-exterior .ext-tblwrap{overflow-x:auto;margin:0 -4px}
+  #module-exterior table.ext-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+  #module-exterior .ext-tbl th,#module-exterior .ext-tbl td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  #module-exterior .ext-tbl thead th{font-family:var(--f-mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid var(--line-strong);white-space:nowrap}
+  #module-exterior .ext-tbl tbody td{font-size:13px}
+  #module-exterior .ext-tbl tbody td:first-child{font-weight:500;color:var(--ink);white-space:nowrap}
+  #module-exterior .ext-tbl tbody tr:last-child td{border-bottom:0}
+
+  #module-exterior .ext-texts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 4px}
+  @media (max-width:860px){#module-exterior .ext-texts{grid-template-columns:1fr}}
+  #module-exterior .ext-text{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:13px 14px;display:flex;flex-direction:column}
+  #module-exterior .ext-text .tt{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+  #module-exterior .ext-text .tt .lbl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-deep)}
+  #module-exterior .ext-text .body{font-size:12.5px;line-height:1.55;color:var(--ink);white-space:pre-wrap;flex:1}
+  #module-exterior .ext-copy{font-family:var(--f-mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--teal);background:none;border:1px solid var(--line);border-radius:8px;padding:4px 9px;cursor:pointer;white-space:nowrap}
+  #module-exterior .ext-copy:hover{background:#fff;border-color:var(--teal)}
+
+  #module-exterior .ext-disc{font-size:11.5px;color:var(--muted);line-height:1.55;border-top:1px solid var(--line);padding-top:14px;margin-top:24px}
+  /* ===== MODULE:EXTERIOR:CSS:END ===== */
+
   /* ===== SHARED:CSS:PRINT (ao adicionar módulo novo, inclua #module-X na lista abaixo para escondê-lo da impressão) ===== */
   @media print{
     @page{size:A4;margin:14mm 14mm 16mm}
     body{background:#fff;font-size:11pt}
     /* PRINT:HIDE-MODULES:LIST — adicione aqui o #id do <section class="module"> de cada módulo novo (exceto o que efetivamente imprime) */
-    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions{display:none!important}
+    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions{display:none!important}
     .app,.app-main,.module{display:block!important}
     #report{display:block!important;color:#111;max-width:none}
     .rep-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:18px}
@@ -1059,6 +1103,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
         ETF
       </button>
+      <button class="side-item" data-module="module-exterior" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Exterior
+      </button>
       <!-- MODULE:REGISTRY:SIDEBAR:END -->
       <span class="side-sec">Em breve</span>
       <span class="side-item soon">Mais módulos a caminho</span>
@@ -1078,6 +1126,7 @@
       <button class="mt-item" data-module="module-comparador" type="button">Isento vs. trib.</button>
       <button class="mt-item" data-module="module-dolar" type="button">Dolarizar</button>
       <button class="mt-item" data-module="module-etf" type="button">ETF</button>
+      <button class="mt-item" data-module="module-exterior" type="button">Exterior</button>
       <!-- MODULE:REGISTRY:TOPBAR:END -->
       <span class="mt-item soon">Em breve</span>
     </div>
@@ -2460,6 +2509,251 @@
       </main>
     </section>
     <!-- MODULE:ETF:HTML:END -->
+
+    <!-- MODULE:EXTERIOR:HTML:START -->
+    <section class="module" id="module-exterior" hidden>
+      <header class="masthead">
+        <div class="wrap">
+          <p class="eyebrow">Arquitetura Patrimonial &middot; Cliente multi-jurisdicional</p>
+          <h1>Estruturação patrimonial no <b>exterior</b></h1>
+          <p class="lede">Offshore (PIC) e Trust não são produto — são <b style="color:#fff">arquitetura jurídica e sucessória</b>. Fazem sentido quando o patrimônio já cruzou fronteiras e a sucessão da família também vai cruzar. Este módulo organiza o racional, o regime tributário da Lei 14.754/2023 e os textos para abrir a conversa — a estruturação em si sempre passa por parceiro especializado.</p>
+        </div>
+      </header>
+      <main class="wrap" style="padding-top:26px;padding-bottom:60px">
+
+        <!-- 0. Abertura — leitura interna do assessor -->
+        <div class="ext-sec">
+          <p class="ext-kicker">Como usar &middot; leitura interna do assessor</p>
+          <div class="ext-callout brass">
+            <div class="ct">Para quem este módulo é relevante</div>
+            <p>Cliente com patrimônio relevante, exposição a mais de uma jurisdição (ativos, negócios ou família fora do Brasil) e uma sucessão que não é trivial — herdeiros menores, famílias recompostas, sócios, ou simplesmente o desejo de não deixar múltiplos inventários abertos em países diferentes.</p>
+            <p class="ext-quote">"Direto, o patrimônio fica preso à lei de um único país. Estruturado, a família escolhe as regras com antecedência."</p>
+          </div>
+          <div class="ext-callout clay">
+            <div class="ct">Limite do seu papel aqui</div>
+            <p>Você identifica o perfil e abre a conversa. O desenho, a constituição e a manutenção de compliance da estrutura (PIC ou Trust) são trabalho de escritório especializado em direito internacional e tributário — nunca uma entrega própria da assessoria.</p>
+          </div>
+        </div>
+
+        <!-- 1. Racional econômico -->
+        <div class="ext-sec">
+          <h2>Por que internacionalizar patrimônio</h2>
+          <p class="sub">O racional não é fiscal isolado — é de risco, governança e sucessão.</p>
+          <div class="ext-cols">
+            <div class="ext-col"><h4>Risco doméstico</h4><ul><li>Mitiga exposição a risco macroeconômico e institucional concentrado num único país.</li></ul></div>
+            <div class="ext-col"><h4>Diversificação</h4><ul><li>Câmbio e geografia — acesso a mercados financeiros mais profundos e sofisticados.</li></ul></div>
+            <div class="ext-col"><h4>Sucessão e governança</h4><ul><li>Mais instrumentos de organização sucessória e de governança familiar multigeracional.</li></ul></div>
+          </div>
+        </div>
+
+        <!-- 2. Três caminhos -->
+        <div class="ext-sec">
+          <h2>Três caminhos de estruturação</h2>
+          <p class="sub">A escolha depende do perfil patrimonial, do grau de controle desejado e do objetivo sucessório.</p>
+          <div class="ext-cols">
+            <div class="ext-col">
+              <h4>Direto (pessoa física)</h4>
+              <ul>
+                <li>Simplicidade estrutural — sem entidade intermediária.</li>
+                <li>Multiplica inventários (um por jurisdição onde há ativo).</li>
+                <li>Sujeito às regras sucessórias e tributárias de cada país.</li>
+                <li>Menor flexibilidade sucessória e de proteção patrimonial.</li>
+              </ul>
+            </div>
+            <div class="ext-col">
+              <h4>Offshore (PIC)</h4>
+              <ul>
+                <li>Centraliza gestão e padroniza governança patrimonial.</li>
+                <li>Investidor pode ser acionista e diretor — opera como pessoa física no dia a dia.</li>
+                <li>Camada adicional de proteção jurídica e racionalidade sucessória.</li>
+                <li>Exige substância, contabilidade e compliance contínuo.</li>
+              </ul>
+            </div>
+            <div class="ext-col">
+              <h4>Trust</h4>
+              <ul>
+                <li>Veículo de <i>common law</i>; sem equivalente no direito brasileiro, mas reconhecido para fins fiscais/patrimoniais.</li>
+                <li>Autoexecutável — evita inventário (<i>probate</i>) na jurisdição do ativo.</li>
+                <li>Ideal para sucessão multigeracional e proteção patrimonial.</li>
+                <li>Irrevogável = renúncia de controle; revogável = mais flexível, menos proteção.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Offshore / PIC detalhado -->
+        <div class="ext-sec">
+          <h2>Offshore (Private Investment Company)</h2>
+          <p class="sub">Entidade constituída no exterior para deter e administrar ativos financeiros, participações societárias, imóveis, direitos creditórios ou intangíveis. A forma jurídica varia por jurisdição.</p>
+          <div class="ext-cols">
+            <div class="ext-col">
+              <h4>Vantagens estruturais</h4>
+              <ul>
+                <li>Organização patrimonial e sucessória via titularidade indireta.</li>
+                <li>Maior controle sobre regras de sucessão e liquidez.</li>
+                <li>Camada adicional de proteção jurídica aos ativos.</li>
+                <li>Confidencialidade dentro dos padrões internacionais de compliance.</li>
+              </ul>
+            </div>
+            <div class="ext-col">
+              <h4>Pontos de atenção</h4>
+              <ul>
+                <li>Observância das regras de substância e contabilidade.</li>
+                <li>Obrigações declaratórias no Brasil: DIRPF e DCBE.</li>
+                <li>Segregação correta entre renda ativa e renda passiva.</li>
+                <li>Análise da caracterização como "entidade controlada" (Lei 14.754/2023).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Regime tributário das controladas -->
+        <div class="ext-sec">
+          <h2>Regime tributário das entidades controladas (Lei 14.754/2023)</h2>
+          <p class="sub">A lei consagra o <b>antidiferimento</b>: lucro de entidade controlada por pessoa física residente no Brasil passa a ser tributado de forma automática. "Controlada" inclui participação indireta e via pessoas vinculadas.</p>
+          <div class="ext-callout">
+            <div class="ct">Quando a tributação automática se aplica</div>
+            <p>Há controle <b>e</b> pelo menos um destes fatores: a entidade está em paraíso fiscal ou regime fiscal privilegiado (Lei 9.430/1996), <b>ou</b> a renda ativa própria é inferior a 60% da renda total.</p>
+          </div>
+          <div class="ext-cols">
+            <div class="ext-col">
+              <h4>Regime Geral (Opaco)</h4>
+              <ul>
+                <li>Lucro apurado tributado <b>anualmente</b> (31/dez), independente de distribuição.</li>
+                <li>Alíquota fixa de <b>15%</b>, declarada e recolhida pela pessoa física.</li>
+                <li>Balanço contábil anual (BR GAAP) é obrigatório.</li>
+              </ul>
+            </div>
+            <div class="ext-col">
+              <h4>Regime Alternativo (Transparente)</h4>
+              <ul>
+                <li>Ativos e rendimentos tratados como se detidos diretamente pela pessoa física.</li>
+                <li>Opção <b>individual por entidade</b> e <b>irrevogável</b> enquanto durar a participação.</li>
+                <li>Exige uniformidade entre sócios pessoas físicas.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="ext-note" style="font-size:12.5px;color:var(--muted);margin-top:8px">A escolha é feita na Declaração de Ajuste Anual do ano seguinte à aquisição da participação. Quem já detinha participação antes da Lei 14.754/2023 optou na DAA de 2024 (ano-calendário 2023).</p>
+
+          <h3>Comparativo: direto × offshore transparente × offshore opaco</h3>
+          <div class="ext-tblwrap">
+            <table class="ext-tbl">
+              <thead><tr><th>Característica</th><th>Direto (pessoa física)</th><th>Offshore transparente</th><th>Offshore opaco</th></tr></thead>
+              <tbody>
+                <tr><td>Alíquota de IR</td><td>15%</td><td>15%</td><td>15%</td></tr>
+                <tr><td>Momento da tributação</td><td>Na realização (resgate, venda, recebimento)</td><td>Na realização (resgate, venda, recebimento)</td><td>Anual (31/dez), sobre o lucro apurado no balanço</td></tr>
+                <tr><td>Variação cambial</td><td>Tributada na realização (ganho em BRL)</td><td>Tributada na realização (ganho em BRL)</td><td>Diferida até redução de capital ou liquidação da offshore</td></tr>
+                <tr><td>Compensação de perdas</td><td>Compensa com outros rendimentos financeiros no exterior</td><td>Compensa com outros rendimentos financeiros no exterior</td><td>Não carrega para o ano seguinte (uso conforme IN 2.180/2024)</td></tr>
+                <tr><td>Declaração de bens (DIRPF)</td><td>Cada ativo listado individualmente</td><td>Cada ativo listado individualmente</td><td>Declarada na DAA; balanço obrigatório apura o lucro</td></tr>
+                <tr><td>Exigência de balanço</td><td>Não se aplica</td><td>Obrigatório (BR GAAP)</td><td>Obrigatório (BR GAAP)</td></tr>
+                <tr><td>Base de cálculo</td><td>Rendimentos e ganhos percebidos</td><td>Rendimentos e ganhos percebidos</td><td>Lucro anual apurado (inclui ganhos não realizados)</td></tr>
+                <tr><td>Fluxo de caixa do imposto</td><td>Só quando o recurso é realizado</td><td>Só quando o recurso é realizado</td><td>Anual, independe de distribuição</td></tr>
+                <tr><td>Regime de opção</td><td>Não se aplica</td><td>Opcional, irrevogável e irretratável</td><td>Opcional, irrevogável e irretratável</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5. Trusts -->
+        <div class="ext-sec">
+          <h2>Trust — estrutura jurídica e finalidade</h2>
+          <p class="sub">O instituidor (<i>settlor</i>) transfere a titularidade formal de bens a um <i>trustee</i>, que os administra em benefício de terceiros (beneficiários), conforme regras do próprio instrumento. Sem figura equivalente no Brasil, mas reconhecido para fins fiscais e patrimoniais — analisado pela função.</p>
+          <div class="ext-cols">
+            <div class="ext-col">
+              <h4>Trust revogável</h4>
+              <ul>
+                <li>Instituidor pode alterar termos, beneficiários ou extinguir o Trust a qualquer momento; pode ser o próprio <i>trustee</i>.</li>
+                <li>Funciona como alternativa ao inventário: transferência mais rápida e privada aos herdeiros.</li>
+                <li>Bens ainda contam como patrimônio do instituidor (fiscal e sucessório) — <b>não protege contra credores</b>.</li>
+                <li>Torna-se irrevogável na morte do instituidor.</li>
+              </ul>
+            </div>
+            <div class="ext-col">
+              <h4>Trust irrevogável</h4>
+              <ul>
+                <li>Estrutura permanente: uma vez criada, não pode ser revogada.</li>
+                <li>Instituidor renuncia a controle e propriedade sobre os ativos transferidos.</li>
+                <li>Ganho relevante em proteção patrimonial.</li>
+                <li>Usado em planejamentos mais complexos e de longo prazo.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="ext-callout">
+            <div class="ct">Trust em vez de testamento — por quê</div>
+            <p>No testamento, os herdeiros precisam abrir inventário (<i>probate</i>) na jurisdição onde a PIC está sediada — custo de advogados e demora até o acesso aos ativos. O Trust é <b>autoexecutável</b>: dispensa esse inventário.</p>
+          </div>
+          <h3>Usos típicos</h3>
+          <div class="ext-cols">
+            <div class="ext-col"><ul><li>Planejamento sucessório multigeracional.</li></ul></div>
+            <div class="ext-col"><ul><li>Proteção patrimonial (no Trust irrevogável).</li></ul></div>
+            <div class="ext-col"><ul><li>Gestão de ativos para herdeiros menores, incapazes ou sem aptidão gerencial; mitigação de disputas familiares.</li></ul></div>
+          </div>
+        </div>
+
+        <!-- 6. Obrigações declaratórias -->
+        <div class="ext-sec">
+          <h2>Obrigações declaratórias no Brasil</h2>
+          <div class="ext-cols">
+            <div class="ext-col">
+              <h4>DIRPF</h4>
+              <ul><li>Declaração de ajuste anual de bens e rendimentos.</li></ul>
+            </div>
+            <div class="ext-col">
+              <h4>DCBE (Banco Central)</h4>
+              <ul><li>Obrigatória hoje para quem possui <b>US$ 1 milhão ou mais</b> em ativos no exterior.</li></ul>
+            </div>
+            <div class="ext-col">
+              <h4>Segregação contábil</h4>
+              <ul><li>Custo de aquisição, rendimento tributável e variação cambial precisam ficar separados.</li></ul>
+            </div>
+          </div>
+          <p class="ext-note" style="font-size:12.5px;color:var(--muted);margin-top:8px">O descumprimento dessas obrigações pode gerar contingência fiscal e regulatória relevante.</p>
+        </div>
+
+        <!-- 7. Sucessão e DIPr -->
+        <div class="ext-sec">
+          <h2>Sucessão e direito internacional privado</h2>
+          <div class="ext-callout">
+            <div class="ct">Precedente</div>
+            <p>Ativos situados no exterior <b>não são inventariados no Brasil</b> (STJ, 3ª Turma — REsp 2.080.842/SP). A sucessão ocorre, em regra, na jurisdição onde está o ativo ou o veículo societário.</p>
+          </div>
+          <div class="ext-cols">
+            <div class="ext-col"><ul><li>Recomendável ter testamento específico em cada jurisdição relevante.</li></ul></div>
+            <div class="ext-col"><ul><li>PIC e Trust reduzem fricção procedimental e dão racionalidade sucessória.</li></ul></div>
+            <div class="ext-col"><ul><li>Sem planejamento: múltiplos inventários, mais custo e insegurança jurídica.</li></ul></div>
+          </div>
+        </div>
+
+        <!-- 8. Textos prontos -->
+        <div class="ext-sec">
+          <h2>Textos prontos</h2>
+          <p class="sub">Para abrir a conversa — nunca para fechar a estruturação, que é sempre trabalho de parceiro especializado.</p>
+          <div class="ext-texts">
+            <div class="ext-text">
+              <div class="tt"><span class="lbl">WhatsApp</span><button class="ext-copy" type="button">Copiar</button></div>
+              <div class="body">Pelo que conversamos, seu patrimônio já cruza mais de um país. Vale a pena olharmos se faz sentido uma estrutura lá fora — não é sobre imposto, é sobre você decidir hoje como a sucessão vai funcionar, em vez de deixar isso pra lei de cada país resolver depois.</div>
+            </div>
+            <div class="ext-text">
+              <div class="tt"><span class="lbl">Consultivo</span><button class="ext-copy" type="button">Copiar</button></div>
+              <div class="body">Existe uma diferença entre ter ativos no exterior e ter uma estrutura no exterior. No primeiro caso, cada país onde há um ativo seu vira um inventário separado — com advogado, tempo e regras próprias. Numa estrutura bem desenhada (uma holding patrimonial ou um Trust), você organiza isso em vida: quem recebe o quê, quando, e sem abrir inventário lá fora. Isso não é sobre pagar menos imposto — o regime de hoje tributa os dois caminhos de forma parecida. É sobre governança e previsibilidade para a família. Esse desenho eu não faço sozinho — eu trago o parceiro certo e acompanho o processo com você.</div>
+            </div>
+            <div class="ext-text">
+              <div class="tt"><span class="lbl">E-mail</span><button class="ext-copy" type="button">Copiar</button></div>
+              <div class="body">Assunto: Estruturação patrimonial internacional — vale uma conversa?
+
+Prezado(a) [Nome],
+Dado o perfil da sua carteira e a presença de ativos/família em mais de uma jurisdição, acredito que vale avaliarmos uma estrutura patrimonial no exterior — holding (offshore) e/ou Trust, dependendo do objetivo.
+O racional não é fiscal isolado: hoje, tanto a detenção direta quanto a via estrutura são tributadas a 15% sobre o ganho (Lei 14.754/2023) — a diferença está na governança, na proteção e, principalmente, na sucessão. Uma estrutura bem desenhada evita múltiplos inventários em jurisdições diferentes e dá a você o controle sobre como e quando os bens passam para os herdeiros.
+Trata-se de decisão técnica que exige parceiro especializado em direito internacional e tributário — proponho uma conversa inicial para entender se o seu caso justifica seguir adiante. Abraço, [Assessor].</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="ext-disc">Conteúdo de apoio ao assessor; não constitui parecer jurídico, tributário ou consultoria de qualquer natureza. Baseado em material técnico de referência sobre a Lei nº 14.754/2023 (BPtax Global Advisory). A legislação e sua interpretação podem mudar — cada caso concreto deve ser avaliado por advogado/tributarista especializado antes de qualquer estruturação ou recomendação ao cliente.</p>
+
+      </main>
+    </section>
+    <!-- MODULE:EXTERIOR:HTML:END -->
 
   </div>
 </div>
@@ -6235,10 +6529,27 @@ initDolar();
 })();
 /* ===== MODULE:ETF:JS:END ===== */
 
+/* ===== MODULE:EXTERIOR:JS:START ===== */
+(function(){
+  function initExterior(){
+    const host = document.getElementById('module-exterior');
+    if(!host) return;
+    host.querySelectorAll('.ext-copy').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const body = btn.closest('.ext-text').querySelector('.body');
+        apsCopy(body.textContent, ()=>{ const o=btn.textContent; btn.textContent='Copiado ✓'; setTimeout(()=>{btn.textContent=o;},1400); });
+      });
+    });
+  }
+  window.initExterior = initExterior;
+})();
+/* ===== MODULE:EXTERIOR:JS:END ===== */
+
 initRecados();
 initOrient();
 initLinks();
 initEtf();
+initExterior();
 
 
 /* ===== SHARED:JS:START (restaura o último módulo aberto — genérico, não mexer) ===== */
