@@ -1,0 +1,37 @@
+name: Atualizar rentabilidades dos ETFs
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'   # toda segunda-feira, 09:00 UTC (~06:00 BRT)
+  workflow_dispatch: {}     # permite rodar manualmente pela aba Actions
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Rodar refresh
+        env:
+          BRAPI_TOKEN: ${{ secrets.BRAPI_TOKEN }}
+          TWELVEDATA_KEY: ${{ secrets.TWELVEDATA_KEY }}
+        run: node scripts/refresh-etfs.mjs
+
+      - name: Commitar se houve mudança
+        run: |
+          if [ -n "$(git status --porcelain etfs.json)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add etfs.json
+            git commit -m "chore: atualiza rentabilidades dos ETFs (refresh automático)"
+            git push
+          else
+            echo "Sem alterações no etfs.json."
+          fi

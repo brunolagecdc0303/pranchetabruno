@@ -6077,12 +6077,11 @@ initDolar();
     return null;
   }
   function resolveRet(e){
-    let r12=e.retorno_12m, rl=e.retorno_longo, fromIdx=false;
-    if((!r12||r12==='') && (!rl||rl==='')){
-      const m=lookupIndice(e.indice);
-      if(m){ r12=m.r12; rl=m.rlongo; fromIdx=true; }
-    }
-    return { r12:r12, rl:rl, fromIdx:fromIdx };
+    let r12=e.retorno_12m, rl=e.retorno_longo, i12=false, iL=false;
+    const m=lookupIndice(e.indice);
+    if((!r12||r12==='') && m){ r12=m.r12; i12=true; }
+    if((!rl||rl==='') && m){ rl=m.rlongo; iL=true; }
+    return { r12:r12, rl:rl, i12:i12, iL:iL };
   }
 
   function warnBadge(arr){
@@ -6107,8 +6106,8 @@ initDolar();
         + '<td>'+cell(e.gestora)+'</td>'
         + '<td>'+cell(e.taxa_aa)+'</td>'
         + '<td><span class="fisc">'+esc(FISC_LABEL[e.classe_fiscal]||e.classe_fiscal||'—')+'</span></td>'
-        + '<td>'+retCell(r.r12, r.fromIdx)+'</td>'
-        + '<td>'+retCell(r.rl, r.fromIdx)+'</td>'
+        + '<td>'+retCell(r.r12, r.i12)+'</td>'
+        + '<td>'+retCell(r.rl, r.iL)+'</td>'
         + '<td>'+cell(e.pl)+'</td>'
         + '<td class="obs">'+((e.observacao?esc(e.observacao):'—'))+warnBadge(e.confirmar)+rm+'</td>'
         + '</tr>';

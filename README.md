@@ -41,10 +41,32 @@ A publicação **não grava mais em tempo real**. O fluxo é:
 3. No [Netlify](https://app.netlify.com): **Add new site → Import an existing project → GitHub** e escolha o repositório. O `netlify.toml` já configura tudo (`publish = "."`). Clique em **Deploy**.
 4. (Híbrido/anexos) Publique o `apps-script/upload.gs` como Web App e cole a URL `/exec` em `APS_UPLOAD`, no topo do bloco de script do `index.html`. Se você **não usa anexos**, pode ignorar este passo.
 
+## Refresh automático das rentabilidades (v2)
+
+Uma **GitHub Action agendada** atualiza sozinha a rentabilidade de 12 meses dos ETFs curados, sem ninguém digitar número:
+
+- Workflow: [`.github/workflows/refresh-etfs.yml`](.github/workflows/refresh-etfs.yml) — roda toda **segunda 09:00 UTC** (ou manualmente na aba **Actions → Run workflow**).
+- Script: [`scripts/refresh-etfs.mjs`](scripts/refresh-etfs.mjs) — sem dependências (fetch nativo do Node 20).
+- Fonte por domicílio: **Brasil → [brapi.dev](https://brapi.dev)** · **EUA → [twelvedata.com](https://twelvedata.com)** · **UCITS (Irlanda)** herda do índice no site (ou via `simbolo_ext` no `etfs.json`, ex.: `"CSPX:LSE"`).
+- Ao mudar algo, commita o `etfs.json` → Netlify republica.
+
+### Ativar (uma vez)
+
+1. Crie contas grátis e pegue as chaves em **brapi.dev** e **twelvedata.com**.
+2. No GitHub: **Settings → Secrets and variables → Actions → New repository secret** e crie:
+   - `BRAPI_TOKEN` = seu token da brapi
+   - `TWELVEDATA_KEY` = sua chave da Twelve Data
+3. Rode uma vez manualmente em **Actions → "Atualizar rentabilidades dos ETFs" → Run workflow** para testar.
+
+Sem os secrets configurados, a Action roda mas **pula tudo** (não quebra) — o site continua com os valores atuais + a herança de índice. No site, rentabilidades marcadas **(índice)** são do benchmark, não do fundo.
+
+> **Retorno de longo prazo (10a)** e **PL** seguem manuais/por índice — as APIs grátis não cobrem 10 anos de histórico de forma confiável. Dá para estender depois.
+
 ## Roadmap
 
-- **v1 (atual):** repo + `.json` + leitura + edição por commit (gerador de JSON embutido). Sem refresh automático de cotações.
-- **v2:** GitHub Action agendada (cron) para atualizar retorno/PL dos ETFs via [brapi.dev](https://brapi.dev) (B3) + API global, com tokens em GitHub Secrets, commitando `etfs.json`. Opcional: Netlify Function para "Salvar" in-app.
+- **v1:** repo + `.json` + leitura + edição por commit. ✅
+- **v2:** refresh automático das rentabilidades (acima). ✅
+- **Futuro:** Netlify Function para "Salvar" in-app (opcional); estender refresh para retorno longo/PL.
 
 ## Notas
 
