@@ -63,6 +63,10 @@
   .side-item.active svg{opacity:1}
   .side-item.soon{color:rgba(234,240,238,.34);cursor:default;font-size:13px}
   .side-item.soon:hover{background:transparent;color:rgba(234,240,238,.34)}
+  /* destaque do Guia de atendimento (módulo principal) */
+  .side-item.side-hl{background:var(--teal);color:#fff;font-weight:600;box-shadow:0 1px 8px rgba(44,107,102,.35)}
+  .side-item.side-hl svg{opacity:1}
+  .side-item.side-hl:hover{background:#22544f;color:#fff}
   .side-foot{padding:14px 20px 18px;border-top:1px solid rgba(255,255,255,.08);font-size:10.5px;color:rgba(234,240,238,.42);line-height:1.5}
   .app-main{flex:1;min-width:0;display:flex;flex-direction:column}
   .module[hidden]{display:none}
@@ -80,6 +84,7 @@
     .mod-topbar .mt-brand{font-family:var(--f-display);font-weight:700;font-size:16px;color:#fff;margin-right:8px;white-space:nowrap}
     .mt-item{appearance:none;border:0;background:rgba(255,255,255,.08);color:rgba(234,240,238,.8);cursor:pointer;font-family:var(--f-body);font-size:13px;padding:7px 14px;border-radius:20px;white-space:nowrap;transition:all .12s}
     .mt-item.active{background:var(--brass);color:#fff}
+    .mt-item.mt-hl{background:var(--teal);color:#fff;font-weight:600}
     .mt-item.soon{opacity:.4;cursor:default}
   }
 
@@ -1022,7 +1027,11 @@
     <nav class="side-nav" aria-label="Módulos">
       <span class="side-sec">Ferramentas</span>
       <!-- MODULE:REGISTRY:SIDEBAR:START (novo <button class="side-item" data-module="module-X"> entra aqui, antes de "Em breve") -->
-      <button class="side-item active" data-module="module-prev" type="button">
+      <button class="side-item active side-hl" data-module="module-guia" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Guia de atendimento
+      </button>
+      <button class="side-item" data-module="module-prev" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
         Previdência
       </button>
@@ -1037,10 +1046,6 @@
       <button class="side-item" data-module="module-links" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L11 4.93"/><path d="M14 11a5 5 0 0 0-7.07 0L4.81 13.12a5 5 0 0 0 7.07 7.07L13 19.07"/></svg>
         Links importantes
-      </button>
-      <button class="side-item" data-module="module-guia" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        Guia de atendimento
       </button>
       <button class="side-item" data-module="module-comparador" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="4"/><polyline points="5,11 12,4 19,11"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
@@ -1065,11 +1070,11 @@
     <div class="mod-topbar">
       <span class="mt-brand">Prancheta</span>
       <!-- MODULE:REGISTRY:TOPBAR:START (mesma regra: novo <button class="mt-item" data-module="module-X"> entra aqui) -->
-      <button class="mt-item active" data-module="module-prev" type="button">Previdência</button>
+      <button class="mt-item active mt-hl" data-module="module-guia" type="button">Guia</button>
+      <button class="mt-item" data-module="module-prev" type="button">Previdência</button>
       <button class="mt-item" data-module="module-cartas" type="button">Cartas mensais</button>
       <button class="mt-item" data-module="module-recados" type="button">Recados</button>
       <button class="mt-item" data-module="module-links" type="button">Links</button>
-      <button class="mt-item" data-module="module-guia" type="button">Guia</button>
       <button class="mt-item" data-module="module-comparador" type="button">Isento vs. trib.</button>
       <button class="mt-item" data-module="module-dolar" type="button">Dolarizar</button>
       <button class="mt-item" data-module="module-etf" type="button">ETF</button>
@@ -1078,7 +1083,7 @@
     </div>
 
     <!-- MODULE:PREVIDENCIA:HTML:START (não abrir/ler para adicionar módulo novo) -->
-    <section class="module" id="module-prev">
+    <section class="module" id="module-prev" hidden>
 <header class="masthead">
   <div class="wrap">
     <p class="eyebrow">Arquitetura Patrimonial · Acúmulo em Previdência</p>
@@ -1995,7 +2000,7 @@
     <!-- MODULE:LINKS:HTML:END -->
 
     <!-- MODULE:GUIA:HTML:START -->
-    <section class="module" id="module-guia" hidden>
+    <section class="module" id="module-guia">
       <header class="masthead">
         <div class="wrap">
           <p class="eyebrow">Comercial &middot; Consulta rapida</p>
