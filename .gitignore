@@ -1,0 +1,8 @@
+node_modules/
+.netlify/
+.env
+.DS_Store
+Thumbs.db
+.claude/
+_raw_*.json
+dev-server.js

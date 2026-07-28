@@ -1,0 +1,119 @@
+[
+  {
+    "id": "link_792086bc",
+    "title": "Cursos Gratuitos Ancord",
+    "url": "https://ancordeducacional.com.br/course/index.php?categoryid=1",
+    "category": "Geral",
+    "note": "Link para cursos gratuitos da Ancord que pontuam na PEC.",
+    "createdAt": "2026-07-16T19:42:35.205Z",
+    "updatedAt": "2026-07-16T19:42:54.114Z"
+  },
+  {
+    "id": "link_c3fee806",
+    "title": "Ancord - PEC",
+    "url": "https://credenciamento.ancord.org.br/login.html#",
+    "category": "Assessoria",
+    "note": "Gerenciamento de pontuação Ancord",
+    "createdAt": "2026-07-10T14:45:19.458Z",
+    "updatedAt": "2026-07-10T14:45:19.458Z"
+  },
+  {
+    "id": "link_5d7631b7",
+    "title": "HP-12C",
+    "url": "https://simulado.estacio.br/img/Hp/",
+    "category": "Assessoria",
+    "note": "Calculadora HP-12C online",
+    "createdAt": "2026-07-10T14:39:28.637Z",
+    "updatedAt": "2026-07-10T14:39:28.637Z"
+  },
+  {
+    "id": "link_9e5100e4",
+    "title": "SmartC",
+    "url": "https://smartc.app/login",
+    "category": "Assessoria",
+    "note": "Gerenciamento de comissões",
+    "createdAt": "2026-07-10T14:38:26.944Z",
+    "updatedAt": "2026-07-10T14:38:26.944Z"
+  },
+  {
+    "id": "link_6c9bf0cc",
+    "title": "Agendamento de Sala de Reunião",
+    "url": "https://crm.hub-bnk.com/calendar/rooms/",
+    "category": "Assessoria",
+    "note": "Link para agendar sala de reunião - após acessar, clicar em \"reservar\" e selecionar a sala em \"Localização\"",
+    "createdAt": "2026-07-10T14:10:33.206Z",
+    "updatedAt": "2026-07-10T14:28:25.643Z"
+  },
+  {
+    "id": "link_22d098b9",
+    "title": "Plataforma Basement - Ações BEST3",
+    "url": "https://basement.io/",
+    "category": "Assessoria",
+    "note": "",
+    "createdAt": "2026-07-10T14:27:14.007Z",
+    "updatedAt": "2026-07-10T14:27:14.007Z"
+  },
+  {
+    "id": "link_0fee08f2",
+    "title": "SplitC - Ferramenta de Comissões",
+    "url": "https://www.splitc.com.br/",
+    "category": "Assessoria",
+    "note": "",
+    "createdAt": "2026-07-10T14:26:45.955Z",
+    "updatedAt": "2026-07-10T14:26:45.955Z"
+  },
+  {
+    "id": "link_be0282ca",
+    "title": "FP Client Online",
+    "url": "https://ai.investsmart.com.br/",
+    "category": "Assessoria",
+    "note": "Ferramenta FP Cliente Online e outros documentos",
+    "createdAt": "2026-07-10T14:13:28.188Z",
+    "updatedAt": "2026-07-10T14:13:28.188Z"
+  },
+  {
+    "id": "link_9b656479",
+    "title": "Acesso MB",
+    "url": "https://cloudpro.mb.com.br/login?ReturnUrl=https%3A%2F%2Fcloudpro.mb.com.br%2Fconnect%2Fauthorize%2Fcallback%3Fclient_id%3Dbroker.webapp%26redirect_uri%3Dhttps%253A%252F%252Fcloudpro.mb.com.br%252Flogin%252Fcallback%252Fredirect%26response_type%3Dcode%26scope%3Dopenid%2520email%2520roles%2520api.broker%2520api%2520IdentityServerApi%26state%3D6234951a684e465580b04e313b1a4776%26code_challenge%3DVRsGfM4gg389_vH5-IMnaTYmpoUa7E-erunKiyy9O8U%26code_challenge_method%3DS256%26acr_values%3Dsupport_email%253Asuporte@mb.com.br%2520register_url%253Ahttps%253A%252F%252Fcloudpro.mb.com.br%252Fregister%26response_mode%3Dquery",
+    "category": "Assessoria",
+    "note": "Acesso do Assessor -  MB",
+    "createdAt": "2026-07-10T14:11:51.103Z",
+    "updatedAt": "2026-07-10T14:11:51.103Z"
+  },
+  {
+    "id": "link_d5a7af5b",
+    "title": "Acesso Avenue",
+    "url": "https://avenue.us.auth0.com/u/login?state=hKFo2SB5akNNY0RCbER6WnFVQWpET1R1S1BPVzJQTGw1cUJoeqFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIGpfUHFnU2V1VlUyS01zRE1vdmowYjV4d2J2RkFhYklqo2NpZNkgSlNtR2hPTmYxRjg1OGxxbVN4MHhreTZPRjZLb093T0Y",
+    "category": "Assessoria",
+    "note": "Acesso do Assessor - Avenue",
+    "createdAt": "2026-07-10T14:11:26.920Z",
+    "updatedAt": "2026-07-10T14:11:26.920Z"
+  },
+  {
+    "id": "link_53c6261c",
+    "title": "Acesso EqSeed",
+    "url": "https://eqseed.com/user/login?destination=user/register%253Futm_source%253DPANTHEON_STRIPPED%2526utm_medium%253DPANTHEON_STRIPPED%2526utm_campaign%253DPANTHEON_STRIPPED%2526utm_content%253DPANTHEON_STRIPPED%2526utm_term%253DPANTHEON_STRIPPED&utm_source=google&utm_medium=cpc&utm_campaign=investir-bofu&utm_content=rodadas&utm_term=na",
+    "category": "Assessoria",
+    "note": "Acesso do Assessor - EqSeed",
+    "createdAt": "2026-07-10T14:08:49.137Z",
+    "updatedAt": "2026-07-10T14:08:49.137Z"
+  },
+  {
+    "id": "link_53cff2a0",
+    "title": "Gopliance",
+    "url": "https://app.gopliance.com.br/login/?HashGroup=045117b0e0a11a242b9765e79cbf113f",
+    "category": "Assessoria",
+    "note": "",
+    "createdAt": "2026-07-10T14:06:11.599Z",
+    "updatedAt": "2026-07-10T14:06:11.599Z"
+  },
+  {
+    "id": "link_cd7ec6d1",
+    "title": "HubSmart",
+    "url": "https://hub.besmart.com.br/home",
+    "category": "Assessoria",
+    "note": "BeSmart: cotações e agendamento de reuniões",
+    "createdAt": "2026-07-07T18:55:02.005Z",
+    "updatedAt": "2026-07-07T18:55:02.005Z"
+  }
+]

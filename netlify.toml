@@ -1,0 +1,5 @@
+[build]
+  publish = "."
+
+# Site 100% estático: index.html + arquivos .json versionados no repo.
+# Sem functions, sem variáveis de ambiente, sem token. Deploy a cada push.
