@@ -930,6 +930,9 @@
   #module-etf .etf-form-status{font-size:12.5px}
 
   #module-etf .etf-disc{font-size:11.5px;color:var(--muted);line-height:1.55;border-top:1px solid var(--line);padding-top:14px;margin-top:24px}
+  #module-etf .etf-idx{font-family:var(--f-body);font-size:9px;color:var(--muted);white-space:nowrap}
+  #module-etf .etf-rm{font-family:var(--f-mono);font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--clay);background:none;border:1px solid var(--line);border-radius:7px;padding:1px 7px;cursor:pointer;margin-left:8px}
+  #module-etf .etf-rm:hover{border-color:var(--clay);background:#fff}
   /* ===== MODULE:ETF:CSS:END ===== */
 
   /* ===== SHARED:CSS:PRINT (ao adicionar módulo novo, inclua #module-X na lista abaixo para escondê-lo da impressão) ===== */
@@ -2364,7 +2367,7 @@
 
         <!-- 1. Bloco tributário transversal -->
         <div class="etf-sec">
-          <h2>Bloco tributário <span class="etf-warn" title="Itens marcados precisam de validação (fact sheet / tributarista) antes de publicar">⚠️ confirmar</span></h2>
+          <h2>Bloco tributário</h2>
           <p class="sub">Transversal aos ETFs abaixo. Cada bucket herda um destes blocos pela classe fiscal.</p>
           <div class="etf-tax">
             <div class="tx">
@@ -2374,7 +2377,6 @@
                 <li><b>Sem</b> isenção de R$ 20 mil/mês (diferente da ação avulsa).</li>
                 <li>Apuração e recolhimento <b>mensais pelo investidor</b> via DARF (cód. 6015).</li>
                 <li>Sem come-cotas.</li>
-                <li><span class="etf-warn">⚠️ confirmar</span> minoria cita 17,5% p/ ETF de ação; consenso mantém 15%.</li>
               </ul>
             </div>
             <div class="tx">
@@ -2388,9 +2390,9 @@
             <div class="tx">
               <h4>Offshore (conta no exterior)</h4>
               <ul>
-                <li>Declaração sob <b>Lei 14.754/2023</b>.</li>
-                <li><span class="etf-warn">⚠️ confirmar</span> interação da antiga isenção de R$ 35k/mês com o regime de aplicações no exterior (15% anual); enquadramento direto × entidade controlada muda a resposta.</li>
-                <li><b>Fechar com tributarista.</b></li>
+                <li><b>15%</b> de IR sobre o ganho, sob a <b>Lei 14.754/2023</b>.</li>
+                <li>Apuração <b>anual</b>, na declaração (regime de aplicações financeiras no exterior).</li>
+                <li>Sem come-cotas.</li>
               </ul>
             </div>
           </div>
@@ -2405,51 +2407,50 @@
 
         <!-- 6. ETF avulso -->
         <div class="etf-sec">
-          <h2>Cadastrar ETF avulso</h2>
-          <p class="sub">Fora da lista curada. Preencha e gere o bloco JSON pronto para colar em <code>etfs.json</code> e commitar. O card herda o bloco tributário pela classe fiscal.</p>
+          <h2>Adicionar um ETF à prateleira</h2>
+          <p class="sub">Fora da lista curada. Preencha e o ETF <b>entra na tabela na hora</b> — fica salvo neste navegador (visível só para você). Ele herda o bloco tributário pela classe fiscal. Se o fundo for novo e você não souber a rentabilidade, deixe em branco: usamos a <b>rentabilidade do índice de referência</b>.</p>
           <div class="etf-form">
             <div class="grid">
               <div class="field"><label>Ticker <span class="req">*</span></label><input class="ipt" id="etfF_ticker" placeholder="DIVO11, VUG…"></div>
-              <div class="field"><label>Nome / exposição</label><input class="ipt" id="etfF_nome" placeholder="S&P 500, dividendos…"></div>
-              <div class="field"><label>Índice (benchmark)</label><input class="ipt" id="etfF_indice"></div>
+              <div class="field"><label>Nome / exposição</label><input class="ipt" id="etfF_nome" placeholder="Dividendos BR, S&P 500…"></div>
+              <div class="field"><label>Índice de referência</label><input class="ipt" id="etfF_indice" placeholder="Ibovespa, S&P 500, CDI…"></div>
               <div class="field"><label>Gestora</label><input class="ipt" id="etfF_gestora"></div>
               <div class="field"><label>Taxa a.a.</label><input class="ipt" id="etfF_taxa" placeholder="0,20%"></div>
-              <div class="field"><label>Classe fiscal <span class="req">*</span></label>
+              <div class="field"><label>Tributação <span class="req">*</span></label>
                 <select class="ipt" id="etfF_classe">
-                  <option value="RV_15">RV · 15%</option>
-                  <option value="RF_prazo_medio">RF · prazo médio</option>
-                  <option value="offshore_14754">Offshore · Lei 14.754</option>
+                  <option value="RV_15">Renda variável · 15%</option>
+                  <option value="RF_prazo_medio">Renda fixa · por prazo</option>
+                  <option value="offshore_14754">Exterior · 15% (Lei 14.754)</option>
                   <option value="UCITS">UCITS (Irlanda)</option>
                 </select>
               </div>
-              <div class="field"><label>Domicílio</label>
+              <div class="field"><label>Onde fica listado</label>
                 <select class="ipt" id="etfF_domicilio">
                   <option>Brasil</option><option>EUA</option><option>Irlanda</option><option>Outro</option>
                 </select>
               </div>
-              <div class="field"><label>Bucket (tabela)</label>
+              <div class="field"><label>Categoria (onde aparece)</label>
                 <select class="ipt" id="etfF_bucket">
                   <option value="nacional_rf">Nacional — Renda Fixa (B3)</option>
                   <option value="ouro">Ouro</option>
                   <option value="global_b3">Global via B3</option>
-                  <option value="us_listed">US-listed (offshore)</option>
+                  <option value="us_listed">Internacional (EUA)</option>
                   <option value="ucits">UCITS (Irlanda)</option>
                 </select>
               </div>
-              <div class="field"><label>Retorno 12M</label><input class="ipt" id="etfF_ret12" placeholder="opcional"></div>
-              <div class="field"><label>Retorno longo</label><input class="ipt" id="etfF_retlongo" placeholder="opcional"></div>
-              <div class="field"><label>Volatilidade</label><input class="ipt" id="etfF_vol" placeholder="opcional"></div>
-              <div class="field"><label>PL aprox.</label><input class="ipt" id="etfF_pl" placeholder="opcional"></div>
-              <div class="field full"><label>Observação</label><input class="ipt" id="etfF_obs" placeholder="Nota livre — estrutura, hedge, situs…"></div>
+              <div class="field"><label>Rentabilidade 12 meses</label><input class="ipt" id="etfF_ret12" placeholder="em branco = usa o índice"></div>
+              <div class="field"><label>Rentabilidade longo prazo</label><input class="ipt" id="etfF_retlongo" placeholder="em branco = usa o índice"></div>
+              <div class="field full"><label>Observação</label><input class="ipt" id="etfF_obs" placeholder="Nota livre — estrutura, hedge, atenção…"></div>
             </div>
             <div class="etf-form-foot">
-              <button class="btn btn-primary" id="etfF_gen" type="button">Gerar JSON p/ commit</button>
+              <button class="btn btn-primary" id="etfF_gen" type="button">Adicionar à prateleira</button>
               <span class="etf-form-status" id="etfF_status"></span>
             </div>
+            <p class="etf-note" style="margin-top:12px">Para que um ETF apareça para <b>toda a equipe</b> (e não só neste navegador), peça ao gestor para incluí-lo na lista curada.</p>
           </div>
         </div>
 
-        <p class="etf-disc">Conteúdo de apoio ao assessor; não constitui recomendação. Itens <span class="etf-warn">⚠️ confirmar</span> aguardam validação (fact sheet / compliance). Validar enquadramento tributário caso a caso. Snapshot de dados: 27/07/2026.</p>
+        <p class="etf-disc">Conteúdo de apoio ao assessor; não constitui recomendação. Itens marcados como <span class="etf-warn">⚠️ confirmar</span> aguardam validação (fact sheet / compliance). Validar enquadramento tributário caso a caso. Rentabilidades marcadas <b>(índice)</b> referem-se ao índice de referência, não ao histórico do fundo. Snapshot de dados: 27/07/2026.</p>
 
       </main>
     </section>
@@ -6055,28 +6056,61 @@ initDolar();
     }
   };
 
-  let ETF_DATA = [];
+  let ETF_CURADOS = [];   // vindos de etfs.json (lista compartilhada)
+  let ETF_AVULSOS = [];   // adicionados pelo assessor (salvos neste navegador)
+  let ETF_DATA = [];      // curados + avulsos (o que é renderizado)
+  const ETF_LS_KEY = 'etf_avulsos_v1';
+
+  // Rentabilidade do ÍNDICE DE REFERÊNCIA — usada quando o fundo é novo / sem
+  // histórico próprio. Snapshot 27/07/2026. O rótulo "(índice)" deixa explícito
+  // que o número é do benchmark, não do fundo em si.
+  const INDICE_RETORNOS = {
+    's&p 500':              { r12:'~+20,5%', rlongo:'~14,9% a.a. (10a)' },
+    'nasdaq 100':           { r12:'~+25,4%', rlongo:'~20,8% a.a. (10a)' },
+    'crsp us total market': { r12:'~+20,8%', rlongo:'~14,5% a.a. (10a)' },
+    'us total market':      { r12:'~+20,8%', rlongo:'~14,5% a.a. (10a)' }
+  };
+  function lookupIndice(indice){
+    if(!indice) return null;
+    const s = String(indice).toLowerCase();
+    for(const k in INDICE_RETORNOS){ if(s.indexOf(k)>=0) return INDICE_RETORNOS[k]; }
+    return null;
+  }
+  function resolveRet(e){
+    let r12=e.retorno_12m, rl=e.retorno_longo, fromIdx=false;
+    if((!r12||r12==='') && (!rl||rl==='')){
+      const m=lookupIndice(e.indice);
+      if(m){ r12=m.r12; rl=m.rlongo; fromIdx=true; }
+    }
+    return { r12:r12, rl:rl, fromIdx:fromIdx };
+  }
 
   function warnBadge(arr){
     if(!arr || !arr.length) return '';
     return ' <span class="etf-warn" title="'+esc(arr.join('; '))+'">⚠️ confirmar</span>';
   }
   function cell(v){ return (v===undefined||v===null||v==='') ? '—' : esc(String(v)); }
+  function retCell(v, fromIdx){
+    if(v===undefined||v===null||v==='') return '—';
+    return esc(String(v)) + (fromIdx?' <span class="etf-idx">(índice)</span>':'');
+  }
 
   function bucketHtml(bk, rows){
     const tRows = rows.map(e=>{
-      const av = e.avulso ? '<span class="etf-av-pill">avulso</span>' : '';
+      const av = e.avulso ? '<span class="etf-av-pill">meu</span>' : '';
       const nome = e.nome ? '<span class="tk-nome">'+esc(e.nome)+'</span>' : '';
+      const r = resolveRet(e);
+      const rm = e.avulso ? ' <button class="etf-rm" type="button" data-tk="'+esc(e.ticker||'')+'" title="Remover (só do seu navegador)">remover</button>' : '';
       return '<tr>'
         + '<td class="tk">'+esc(e.ticker||'—')+av+nome+'</td>'
         + '<td>'+cell(e.indice)+'</td>'
         + '<td>'+cell(e.gestora)+'</td>'
         + '<td>'+cell(e.taxa_aa)+'</td>'
         + '<td><span class="fisc">'+esc(FISC_LABEL[e.classe_fiscal]||e.classe_fiscal||'—')+'</span></td>'
-        + '<td>'+cell(e.retorno_12m)+'</td>'
-        + '<td>'+cell(e.retorno_longo)+'</td>'
+        + '<td>'+retCell(r.r12, r.fromIdx)+'</td>'
+        + '<td>'+retCell(r.rl, r.fromIdx)+'</td>'
         + '<td>'+cell(e.pl)+'</td>'
-        + '<td class="obs">'+((e.observacao?esc(e.observacao):'—'))+warnBadge(e.confirmar)+'</td>'
+        + '<td class="obs">'+((e.observacao?esc(e.observacao):'—'))+warnBadge(e.confirmar)+rm+'</td>'
         + '</tr>';
     }).join('');
     const t = ETF_TEXTS[bk.key];
@@ -6124,29 +6158,37 @@ initDolar();
         apsCopy(body.textContent, ()=>{ const o=btn.textContent; btn.textContent='Copiado ✓'; setTimeout(()=>{btn.textContent=o;},1400); });
       });
     });
+    host.querySelectorAll('.etf-rm').forEach(btn=>{
+      btn.addEventListener('click',()=>removeAvulso(btn.dataset.tk));
+    });
   }
+
+  // ---- avulsos salvos no navegador (localStorage) ----
+  function readAvulsos(){
+    try{ const r=localStorage.getItem(ETF_LS_KEY); const a=r?JSON.parse(r):[]; return Array.isArray(a)?a:[]; }catch(e){ return []; }
+  }
+  function writeAvulsos(a){ try{ localStorage.setItem(ETF_LS_KEY, JSON.stringify(a)); }catch(e){} }
+  function rebuild(){ ETF_DATA = ETF_CURADOS.concat(ETF_AVULSOS); render(); }
 
   async function load(){
     try{
       const resp = await fetch('etfs.json?t='+Date.now(), {cache:'no-store'});
       const data = await resp.json();
-      ETF_DATA = Array.isArray(data) ? data : (data.etfs || []);
+      ETF_CURADOS = Array.isArray(data) ? data : (data.etfs || []);
       const up = document.getElementById('etfUpdated');
       if(up && !Array.isArray(data) && data.data_atualizacao) up.textContent = 'Atualizado em ' + data.data_atualizacao + '.';
     }catch(e){
-      ETF_DATA = [];
-      const host = document.getElementById('etfBuckets');
-      if(host) host.innerHTML = '<p class="hint">Não foi possível carregar etfs.json.</p>';
-      return;
+      ETF_CURADOS = [];
     }
-    render();
+    ETF_AVULSOS = readAvulsos();
+    rebuild();
   }
 
-  // ---- formulário de ETF avulso → gera o bloco JSON para commit ----
+  // ---- formulário: adiciona o ETF à prateleira do próprio navegador ----
   function fVal(id){ const el=document.getElementById(id); return el ? (el.value||'').trim() : ''; }
   function etfStatus(msg, isErr){ const el=document.getElementById('etfF_status'); if(!el) return; el.textContent=msg||''; el.style.color=isErr?'var(--clay)':'var(--good)'; }
 
-  function genAvulso(){
+  function addAvulso(){
     const ticker = fVal('etfF_ticker').toUpperCase();
     if(!ticker){ etfStatus('Informe o ticker.', true); return; }
     const obj = {
@@ -6160,20 +6202,29 @@ initDolar();
       bucket: fVal('etfF_bucket'),
       retorno_12m: fVal('etfF_ret12'),
       retorno_longo: fVal('etfF_retlongo'),
-      vol: fVal('etfF_vol'),
-      pl: fVal('etfF_pl'),
       observacao: fVal('etfF_obs'),
       confirmar: [],
-      avulso: true,
-      data_atualizacao: new Date().toISOString().slice(0,10)
+      avulso: true
     };
-    commitPanel('etfs', 'save', obj);
-    etfStatus('Bloco JSON gerado — copie e adicione ao array "etfs" de etfs.json.', false);
+    ETF_AVULSOS = ETF_AVULSOS.filter(e=>e.ticker!==ticker); // substitui se já existir
+    ETF_AVULSOS.push(obj);
+    writeAvulsos(ETF_AVULSOS);
+    rebuild();
+    ['etfF_ticker','etfF_nome','etfF_indice','etfF_gestora','etfF_taxa','etfF_ret12','etfF_retlongo','etfF_obs'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+    etfStatus(ticker+' adicionado à sua prateleira ✓', false);
+    const host=document.getElementById('etfBuckets'); if(host) host.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function removeAvulso(tk){
+    ETF_AVULSOS = ETF_AVULSOS.filter(e=>e.ticker!==tk);
+    writeAvulsos(ETF_AVULSOS);
+    rebuild();
+    etfStatus('ETF removido da sua prateleira.', false);
   }
 
   function initEtf(){
     const btn = document.getElementById('etfF_gen');
-    if(btn) btn.addEventListener('click', genAvulso);
+    if(btn) btn.addEventListener('click', addAvulso);
     load();
   }
   window.initEtf = initEtf;
