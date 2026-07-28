@@ -2,6 +2,8 @@
 
 Ferramenta single-file (`index.html`) usada pela equipe de assessores. Reúne calculadoras (Previdência, Isento vs. tributado, Dolarizar), conteúdo publicado pelo gestor (Cartas mensais, Recados, Orientação, Links) e a prateleira de **ETFs**.
 
+> **Vai adicionar um módulo novo ou pedir isso ao Claude?** Leia primeiro [`docs/ADICIONAR_MODULO.md`](docs/ADICIONAR_MODULO.md) — evita precisar ler o `index.html` inteiro (6000+ linhas) a cada incremento.
+
 ## Arquitetura (GitHub-native, sem Google Sheets)
 
 - **Fonte da verdade = arquivos `.json` versionados neste repositório**, lidos pela página do mesmo domínio do deploy (sem CORS, sem API).
