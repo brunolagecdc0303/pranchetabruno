@@ -984,12 +984,62 @@
   #module-exterior .ext-disc{font-size:11.5px;color:var(--muted);line-height:1.55;border-top:1px solid var(--line);padding-top:14px;margin-top:24px}
   /* ===== MODULE:EXTERIOR:CSS:END ===== */
 
+  /* ===== MODULE:SUCESSAO:CSS:START ===== */
+  #module-sucessao .wrap{max-width:1100px}
+  #module-sucessao .suc-sec{margin:0 0 30px}
+  #module-sucessao .suc-sec>h2{font-family:var(--f-display);font-weight:600;font-size:clamp(18px,2.4vw,23px);margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  #module-sucessao .suc-sec>h3{font-family:var(--f-display);font-weight:600;font-size:15.5px;margin:18px 0 8px}
+  #module-sucessao .suc-sec>.sub{color:var(--muted);font-size:14px;margin:0 0 16px;line-height:1.55}
+  #module-sucessao .suc-kicker{font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin:0 0 8px}
+
+  #module-sucessao .suc-callout{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:0 12px 12px 0;padding:16px 18px;margin:0 0 16px}
+  #module-sucessao .suc-callout.brass{border-left-color:var(--brass)}
+  #module-sucessao .suc-callout.clay{border-left-color:var(--clay)}
+  #module-sucessao .suc-callout .ct{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  #module-sucessao .suc-callout p{margin:0 0 8px;font-size:14px;line-height:1.6}
+  #module-sucessao .suc-callout p:last-child{margin-bottom:0}
+  #module-sucessao .suc-callout b{color:var(--ink)}
+
+  #module-sucessao .suc-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:860px){#module-sucessao .suc-cols{grid-template-columns:1fr}}
+  #module-sucessao .suc-col{border:1px solid var(--line);border-radius:12px;padding:15px 16px;background:#fff}
+  #module-sucessao .suc-col h4{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-deep);margin:0 0 10px}
+  #module-sucessao .suc-col ul{margin:0;padding-left:16px}
+  #module-sucessao .suc-col li{font-size:13px;line-height:1.55;margin-bottom:6px;color:var(--ink)}
+
+  #module-sucessao .suc-tblwrap{overflow-x:auto;margin:0 -4px}
+  #module-sucessao table.suc-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+  #module-sucessao .suc-tbl th,#module-sucessao .suc-tbl td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  #module-sucessao .suc-tbl thead th{font-family:var(--f-mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid var(--line-strong);white-space:nowrap}
+  #module-sucessao .suc-tbl tbody td{font-size:13px}
+  #module-sucessao .suc-tbl tbody td:first-child{font-weight:500;color:var(--ink);white-space:nowrap}
+  #module-sucessao .suc-tbl tbody tr:last-child td{border-bottom:0}
+
+  #module-sucessao .suc-texts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 4px}
+  @media (max-width:860px){#module-sucessao .suc-texts{grid-template-columns:1fr}}
+  #module-sucessao .suc-text{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:13px 14px;display:flex;flex-direction:column}
+  #module-sucessao .suc-text .tt{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+  #module-sucessao .suc-text .tt .lbl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-deep)}
+  #module-sucessao .suc-text .body{font-size:12.5px;line-height:1.55;color:var(--ink);white-space:pre-wrap;flex:1}
+  #module-sucessao .suc-copy{font-family:var(--f-mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--teal);background:none;border:1px solid var(--line);border-radius:8px;padding:4px 9px;cursor:pointer;white-space:nowrap}
+  #module-sucessao .suc-copy:hover{background:#fff;border-color:var(--teal)}
+
+  #module-sucessao .suc-disc{font-size:11.5px;color:var(--muted);line-height:1.55;border-top:1px solid var(--line);padding-top:14px;margin-top:24px}
+
+  #module-sucessao .suc-cols2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media (max-width:860px){#module-sucessao .suc-cols2{grid-template-columns:1fr}}
+
+  #module-sucessao .suc-num{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+  #module-sucessao .suc-num .n{font-family:var(--f-display);font-size:28px;font-weight:700;color:var(--brass-deep);line-height:1}
+  #module-sucessao .suc-num .u{font-size:12px;color:var(--muted)}
+  /* ===== MODULE:SUCESSAO:CSS:END ===== */
+
   /* ===== SHARED:CSS:PRINT (ao adicionar módulo novo, inclua #module-X na lista abaixo para escondê-lo da impressão) ===== */
   @media print{
     @page{size:A4;margin:14mm 14mm 16mm}
     body{background:#fff;font-size:11pt}
     /* PRINT:HIDE-MODULES:LIST — adicione aqui o #id do <section class="module"> de cada módulo novo (exceto o que efetivamente imprime) */
-    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions{display:none!important}
+    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#module-sucessao,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions{display:none!important}
     .app,.app-main,.module{display:block!important}
     #report{display:block!important;color:#111;max-width:none}
     .rep-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:18px}
@@ -1107,6 +1157,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         Estruturas no exterior
       </button>
+      <button class="side-item" data-module="module-sucessao" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Sucessão no Brasil
+      </button>
       <!-- MODULE:REGISTRY:SIDEBAR:END -->
       <span class="side-sec">Em breve</span>
       <span class="side-item soon">Mais módulos a caminho</span>
@@ -1127,6 +1181,7 @@
       <button class="mt-item" data-module="module-dolar" type="button">Dolarizar</button>
       <button class="mt-item" data-module="module-etf" type="button">ETF</button>
       <button class="mt-item" data-module="module-exterior" type="button">Estruturas no exterior</button>
+      <button class="mt-item" data-module="module-sucessao" type="button">Sucessão BR</button>
       <!-- MODULE:REGISTRY:TOPBAR:END -->
       <span class="mt-item soon">Em breve</span>
     </div>
@@ -2754,6 +2809,291 @@ Trata-se de decisão técnica que exige parceiro especializado em direito intern
       </main>
     </section>
     <!-- MODULE:EXTERIOR:HTML:END -->
+
+    <!-- MODULE:SUCESSAO:HTML:START -->
+    <section class="module" id="module-sucessao" hidden>
+      <header class="masthead">
+        <div class="wrap">
+          <p class="eyebrow">Planejamento Patrimonial &middot; Transmissão de bens no Brasil</p>
+          <h1>Sucessão no <b>Brasil</b></h1>
+          <p class="lede">Todo patrimônio vai trocar de mãos — a única variável é se a família decide como ou se a lei decide por ela. Este módulo organiza os caminhos de transmissão, o custo tributário (ITCMD), os instrumentos de planejamento e os textos prontos para abrir a conversa com o cliente.</p>
+        </div>
+      </header>
+      <main class="wrap" style="padding-top:26px;padding-bottom:60px">
+
+        <!-- 0. Abertura — leitura interna -->
+        <div class="suc-sec">
+          <p class="suc-kicker">Como usar &middot; leitura interna do assessor</p>
+          <div class="suc-callout brass">
+            <div class="ct">Para quem este módulo é relevante</div>
+            <p>Todo cliente com patrimônio acima de R$ 1 milhão, família com mais de um herdeiro, casal com regime de bens diferente de comunhão universal, empresário ou profissional liberal com bens em nome próprio, ou qualquer pessoa que queira <b>decidir agora</b> como o patrimônio será transmitido.</p>
+          </div>
+          <div class="suc-callout clay">
+            <div class="ct">Limite do seu papel</div>
+            <p>Você identifica a necessidade, explica os caminhos e conecta o cliente ao advogado/tributarista. A formalização (escritura de doação, testamento, constituição de holding) é trabalho de profissional habilitado — nunca entrega da assessoria.</p>
+          </div>
+        </div>
+
+        <!-- 1. O problema: sem planejamento -->
+        <div class="suc-sec">
+          <h2>O que acontece sem planejamento</h2>
+          <p class="sub">Quando não há planejamento, a lei e o Judiciário decidem tudo — e o custo não é só financeiro.</p>
+          <div class="suc-cols">
+            <div class="suc-col">
+              <h4>Inventário judicial</h4>
+              <ul>
+                <li>Dura em média <b>2 a 5 anos</b> no Brasil.</li>
+                <li>Custas judiciais + honorários advocatícios (em geral 6% a 20% do espólio).</li>
+                <li>Patrimônio fica bloqueado até a partilha — ninguém vende, resgata ou movimenta.</li>
+              </ul>
+            </div>
+            <div class="suc-col">
+              <h4>ITCMD sobre tudo</h4>
+              <ul>
+                <li>Incide sobre o valor de mercado dos bens na data do óbito.</li>
+                <li>Com a Reforma Tributária, as alíquotas passam a ser <b>progressivas</b> (até 8%).</li>
+                <li>Não dá para parcelar em muitos estados — o herdeiro pode precisar vender ativos para pagar o imposto.</li>
+              </ul>
+            </div>
+            <div class="suc-col">
+              <h4>Conflito familiar</h4>
+              <ul>
+                <li>Sem regras claras, herdeiros disputam — o inventário vira litígio.</li>
+                <li>Cônjuge sobrevivente e filhos de diferentes casamentos geram partilhas complexas.</li>
+                <li>Empresa familiar sem acordo societário pode ser paralisada.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. ITCMD -->
+        <div class="suc-sec">
+          <h2>ITCMD — o imposto da transmissão</h2>
+          <p class="sub">Incide sobre doações (em vida) e heranças (causa mortis). Cada estado define a alíquota — mas a Reforma Tributária (EC 132/2023) muda as regras.</p>
+
+          <div class="suc-callout">
+            <div class="ct">O que muda com a Reforma Tributária</div>
+            <p>Todos os estados passam a adotar alíquotas <b>progressivas</b> (quanto maior o valor transmitido, maior a alíquota). O teto constitucional segue em <b>8%</b>, mas o Senado pode elevar para até 16% via Resolução. Cada estado editará sua própria lei — a transição está em andamento.</p>
+          </div>
+
+          <h3>Alíquotas atuais por estado (principais)</h3>
+          <div class="suc-tblwrap">
+            <table class="suc-tbl">
+              <thead><tr><th>Estado</th><th>Alíquota atual</th><th>Observação</th></tr></thead>
+              <tbody>
+                <tr><td>São Paulo</td><td>4% (fixa)</td><td>Projeto de lei para progressividade em tramitação</td></tr>
+                <tr><td>Rio de Janeiro</td><td>4% a 8% (progressiva)</td><td>Já adota progressividade</td></tr>
+                <tr><td>Minas Gerais</td><td>5% (fixa)</td><td>Projeto de progressividade em tramitação</td></tr>
+                <tr><td>Paraná</td><td>4% (fixa)</td><td>Projeto de progressividade em tramitação</td></tr>
+                <tr><td>Rio Grande do Sul</td><td>3% a 6% (progressiva)</td><td>Já adota progressividade</td></tr>
+                <tr><td>Bahia</td><td>3,5% a 8% (progressiva)</td><td>Já adota progressividade</td></tr>
+                <tr><td>Distrito Federal</td><td>4% a 6% (progressiva)</td><td>Já adota progressividade</td></tr>
+                <tr><td>Santa Catarina</td><td>1% a 8% (progressiva)</td><td>Já adota progressividade</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin-top:8px">Alíquotas sujeitas a alteração legislativa. Verifique sempre a lei estadual vigente antes de orientar o cliente.</p>
+
+          <div class="suc-callout brass" style="margin-top:16px">
+            <div class="ct">Ponto comercial para o assessor</div>
+            <p>Enquanto SP ainda está em 4% fixa, <b>doar agora</b> pode ser significativamente mais barato do que esperar a progressividade entrar em vigor. Esse é um gatilho de urgência real — não é alarmismo, é aritmética.</p>
+          </div>
+        </div>
+
+        <!-- 3. Instrumentos de planejamento -->
+        <div class="suc-sec">
+          <h2>Instrumentos de planejamento sucessório</h2>
+          <p class="sub">Cada instrumento resolve um problema diferente. Na prática, o planejamento combina mais de um.</p>
+
+          <div class="suc-cols2">
+            <div class="suc-col">
+              <h4>Doação em vida</h4>
+              <ul>
+                <li>Transfere bens aos herdeiros <b>antes do óbito</b>, com escritura pública.</li>
+                <li>Pode ter <b>reserva de usufruto</b> (o doador continua usando o bem/recebendo rendimentos até a morte).</li>
+                <li>Pode ter <b>cláusulas restritivas</b>: inalienabilidade, impenhorabilidade, incomunicabilidade (protege contra divórcio do herdeiro, dívidas etc.).</li>
+                <li>Incide ITCMD sobre doação — mas a alíquota pode ser menor que a de herança em alguns estados.</li>
+                <li>Limite: a doação não pode ultrapassar <b>50% do patrimônio</b> (metade é "legítima" dos herdeiros necessários).</li>
+              </ul>
+            </div>
+            <div class="suc-col">
+              <h4>Testamento</h4>
+              <ul>
+                <li>Organiza a distribuição da herança e pode designar beneficiários fora da linha de herdeiros necessários (até o limite da parte disponível — 50%).</li>
+                <li>Nomeia <b>testamenteiro</b> (quem executa a vontade) e pode nomear <b>tutor</b> para filhos menores.</li>
+                <li>Pode ser público (cartório), cerrado ou particular — o público é o mais seguro e menos contestado.</li>
+                <li>Não elimina inventário, mas <b>simplifica</b> ao deixar regras claras.</li>
+                <li>Pode ser revogado ou alterado a qualquer momento em vida.</li>
+              </ul>
+            </div>
+            <div class="suc-col">
+              <h4>Holding familiar</h4>
+              <ul>
+                <li>Sociedade (geralmente Ltda. ou S.A. fechada) que <b>concentra o patrimônio</b> da família (imóveis, participações, aplicações).</li>
+                <li>A transmissão é feita via <b>doação de cotas/ações</b> com cláusula de usufruto — não via transferência de cada bem individual.</li>
+                <li>Vantagens: simplifica a gestão, facilita a doação em vida, e o contrato social/acordo de acionistas funciona como <b>governança familiar</b>.</li>
+                <li>Custos: contabilidade, IRPJ/CSLL sobre rendimentos, manutenção da empresa. Não é "mais barato" automaticamente — faz sentido a partir de certo volume de patrimônio e complexidade familiar.</li>
+                <li>Exige advogado e contador especializados para constituição e manutenção.</li>
+              </ul>
+            </div>
+            <div class="suc-col">
+              <h4>Seguro de vida</h4>
+              <ul>
+                <li><b>Não entra em inventário</b> — o beneficiário recebe direto da seguradora, sem esperar a partilha.</li>
+                <li><b>Isento de ITCMD</b> na maioria dos estados (jurisprudência dominante; alguns estados tentam tributar).</li>
+                <li><b>Impenhorável</b> em regra — protegido de credores do segurado e do beneficiário.</li>
+                <li>Uso principal: gerar <b>liquidez imediata</b> para os herdeiros pagarem ITCMD, custas e despesas do inventário sem precisar vender ativos.</li>
+                <li>Também funciona como equalização — compensar herdeiro que não recebe imóvel ou empresa, por exemplo.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="suc-callout" style="margin-top:16px">
+            <div class="ct">VGBL como ferramenta sucessória</div>
+            <p>O VGBL não é seguro de vida, mas tem tratamento similar: <b>não entra em inventário</b> e o beneficiário recebe direto. Por isso, é usado como instrumento de planejamento — principalmente para gerar liquidez fora do espólio. Atenção: o STJ (Tema 1214, julgado em 2024) decidiu que VGBL <b>pode ser tributado por ITCMD</b> quando configurar "excesso" (acumulação desproporcional próxima ao óbito). A tese varia por estado — consultar caso a caso.</p>
+          </div>
+        </div>
+
+        <!-- 4. Comparativo dos caminhos -->
+        <div class="suc-sec">
+          <h2>Comparativo: sem planejamento vs. com planejamento</h2>
+          <div class="suc-tblwrap">
+            <table class="suc-tbl">
+              <thead><tr><th>Aspecto</th><th>Sem planejamento</th><th>Doação + testamento</th><th>Holding familiar</th></tr></thead>
+              <tbody>
+                <tr><td>Tempo até os herdeiros acessarem</td><td>2 a 5 anos (inventário)</td><td>Imediato (doação) / meses (inventário simplificado)</td><td>Imediato (já são cotistas)</td></tr>
+                <tr><td>Custo estimado</td><td>ITCMD + custas + honorários (pode chegar a 15-20% do espólio)</td><td>ITCMD sobre doação (geralmente menor) + custos de cartório</td><td>ITCMD sobre doação de cotas + custo de manutenção da empresa</td></tr>
+                <tr><td>Proteção patrimonial</td><td>Nenhuma — bens respondem por dívidas do herdeiro</td><td>Cláusulas restritivas (inalienabilidade, impenhorabilidade)</td><td>Bens são da empresa, não do herdeiro pessoalmente</td></tr>
+                <tr><td>Governança</td><td>Cada herdeiro faz o que quer com seu quinhão</td><td>Regras do testamento (limitadas ao permitido pela lei)</td><td>Contrato social / acordo de acionistas define regras de gestão</td></tr>
+                <tr><td>Complexidade</td><td>Baixa (mas o inventário compensa)</td><td>Média (escrituras, cartório)</td><td>Alta (constituição, contabilidade, IRPJ)</td></tr>
+                <tr><td>Para quem faz sentido</td><td>Patrimônio pequeno e família simples</td><td>Patrimônio moderado ou família com regras claras</td><td>Patrimônio relevante, múltiplos bens, empresa familiar</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5. Números que o assessor precisa ter na cabeça -->
+        <div class="suc-sec">
+          <h2>Números que você precisa ter na cabeça</h2>
+          <div class="suc-cols">
+            <div class="suc-col">
+              <div class="suc-num"><span class="n">50%</span><span class="u">legítima</span></div>
+              <p style="font-size:13px;color:var(--ink);line-height:1.55;margin:0">Metade do patrimônio pertence obrigatoriamente aos herdeiros necessários (filhos, cônjuge, pais). O titular só dispõe livremente da outra metade.</p>
+            </div>
+            <div class="suc-col">
+              <div class="suc-num"><span class="n">8%</span><span class="u">teto ITCMD</span></div>
+              <p style="font-size:13px;color:var(--ink);line-height:1.55;margin:0">Teto constitucional atual. Senado pode elevar para até 16%. Com progressividade obrigatória, patrimônios maiores pagarão mais.</p>
+            </div>
+            <div class="suc-col">
+              <div class="suc-num"><span class="n">60</span><span class="u">dias</span></div>
+              <p style="font-size:13px;color:var(--ink);line-height:1.55;margin:0">Prazo para abrir inventário após o óbito (maioria dos estados). Fora do prazo, multa de 10% a 20% sobre o ITCMD.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Passo a passo para o assessor -->
+        <div class="suc-sec">
+          <h2>Roteiro prático do assessor</h2>
+          <p class="sub">Use este roteiro para conduzir a conversa de sucessão — o objetivo é identificar a necessidade e conectar o cliente ao profissional certo.</p>
+          <div class="suc-cols2">
+            <div class="suc-col">
+              <h4>1. Identifique o perfil</h4>
+              <ul>
+                <li>Qual o patrimônio total estimado? (Para calibrar urgência do ITCMD)</li>
+                <li>Quantos herdeiros? Filhos de diferentes casamentos?</li>
+                <li>Regime de bens do casamento atual?</li>
+                <li>Tem empresa em nome próprio?</li>
+                <li>Tem imóveis? Quantos e onde?</li>
+              </ul>
+            </div>
+            <div class="suc-col">
+              <h4>2. Abra a conversa</h4>
+              <ul>
+                <li>Use os textos prontos abaixo — comece leve, sem alarmar.</li>
+                <li>Contextualize com o cenário tributário atual (ITCMD pode subir).</li>
+                <li>Mostre que não é sobre "morrer" — é sobre <b>decidir em vida</b>.</li>
+              </ul>
+            </div>
+            <div class="suc-col">
+              <h4>3. Conecte ao especialista</h4>
+              <ul>
+                <li>Advogado de família/sucessões para doação, testamento, holding.</li>
+                <li>Contador para análise tributária da holding.</li>
+                <li>Seu papel: acompanhar, garantir que os ativos financeiros estejam integrados ao plano.</li>
+              </ul>
+            </div>
+            <div class="suc-col">
+              <h4>4. Integre com a carteira</h4>
+              <ul>
+                <li>Seguro de vida para liquidez no inventário.</li>
+                <li>VGBL como complemento sucessório (com cuidado pós-STJ).</li>
+                <li>Previdência privada: beneficiário designado, não passa por inventário.</li>
+                <li>Carteira de investimentos precisa estar alinhada com o plano — ativos ilíquidos podem travar a partilha.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Textos prontos -->
+        <div class="suc-sec">
+          <h2>Textos prontos</h2>
+          <p class="sub">Para abrir a conversa — o objetivo é despertar a reflexão, não vender um produto. Adapte ao perfil do cliente.</p>
+          <div class="suc-texts">
+            <div class="suc-text">
+              <div class="tt"><span class="lbl">WhatsApp</span><button class="suc-copy" type="button">Copiar</button></div>
+              <div class="body">Tenho pensado numa coisa que vale a pena conversarmos. A gente cuida bem da carteira, mas nunca falamos sobre o que acontece com ela se algo imprevisto ocorrer. Não é um assunto confortável, mas a diferença entre ter e não ter um planejamento sucessório pode poupar a família de anos de inventário e um custo que chega a 15-20% do patrimônio. E com as mudanças no ITCMD que estão vindo, fazer isso agora pode ser bem mais barato do que esperar. Posso te explicar melhor — é mais simples do que parece.</div>
+            </div>
+            <div class="suc-text">
+              <div class="tt"><span class="lbl">Consultivo</span><button class="suc-copy" type="button">Copiar</button></div>
+              <div class="body">O planejamento sucessório não é sobre morrer — é sobre decidir. Hoje, se nada for feito, o patrimônio vai para um inventário que leva de 2 a 5 anos, custa entre custas, honorários e ITCMD algo na faixa de 15% do total, e durante esse tempo ninguém da família mexe em nada. Com um planejamento simples — uma doação com reserva de usufruto, por exemplo — o titular continua usando tudo normalmente em vida, mas na hora da transmissão os bens já estão no nome dos herdeiros. Sem inventário, sem bloqueio, sem disputa. E tem um ponto de urgência real: hoje o ITCMD em São Paulo é 4% fixo. Com a reforma tributária, vai virar progressivo — quem tem patrimônio maior vai pagar mais. Fazer a doação agora, com a alíquota atual, é uma economia concreta. Esse desenho eu não faço sozinho — trago o advogado certo e acompanho o processo com você.</div>
+            </div>
+            <div class="suc-text">
+              <div class="tt"><span class="lbl">E-mail</span><button class="suc-copy" type="button">Copiar</button></div>
+              <div class="body">Assunto: Planejamento sucessório — vale conversarmos?
+
+Prezado(a) [Nome],
+
+Ao longo do tempo em que cuidamos da sua carteira, construímos uma estratégia sólida de investimentos. Mas existe um tema adjacente que merece atenção: o planejamento sucessório.
+
+Sem esse planejamento, o patrimônio passa por inventário — um processo que no Brasil leva em média de 2 a 5 anos, com custos que podem chegar a 15-20% do espólio entre ITCMD, custas judiciais e honorários. Durante esse período, os herdeiros não acessam os bens.
+
+Com instrumentos relativamente simples (doação com usufruto, testamento, e em alguns casos uma holding familiar), é possível organizar a transmissão em vida, manter o controle total dos bens e reduzir significativamente o custo e o tempo.
+
+Há um ponto de atenção adicional: a Reforma Tributária determinou que o ITCMD passe a ser progressivo em todos os estados. Quem antecipar a doação com as alíquotas atuais pode ter uma economia relevante.
+
+Proponho uma conversa breve para avaliar se faz sentido no seu caso. A formalização é feita por advogado especializado — meu papel é garantir que a carteira de investimentos esteja integrada ao plano.
+
+Abraço,
+[Assessor]</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Textos por perfil -->
+        <div class="suc-sec">
+          <h2>Textos por perfil de cliente</h2>
+          <p class="sub">Mensagens adaptadas para situações específicas — use como ponto de partida.</p>
+          <div class="suc-texts">
+            <div class="suc-text">
+              <div class="tt"><span class="lbl">Empresário</span><button class="suc-copy" type="button">Copiar</button></div>
+              <div class="body">Quero te trazer um ponto que é crítico pra quem tem empresa: sem planejamento sucessório, a empresa fica travada no inventário junto com todo o resto. Nenhum sócio quer ter o Judiciário decidindo quem entra na sociedade. A solução mais comum é uma holding que separa o patrimônio pessoal da operação, com um acordo de sócios que define as regras de governança. Assim, se algo acontecer, a empresa continua funcionando e a família tem clareza sobre o que é de quem. É algo que a gente pode avaliar juntos — trago o advogado certo pra fazer o desenho.</div>
+            </div>
+            <div class="suc-text">
+              <div class="tt"><span class="lbl">Família recomposta</span><button class="suc-copy" type="button">Copiar</button></div>
+              <div class="body">Quando a família tem filhos de casamentos diferentes, o planejamento sucessório deixa de ser opcional — vira necessário. Sem regras claras, a lei divide o patrimônio de um jeito que pode não refletir a vontade de ninguém: o cônjuge concorre com os filhos do primeiro casamento, e o inventário vira um campo de disputa. Com um testamento bem feito e doações estruturadas, dá pra respeitar todos os vínculos — proteger o cônjuge atual, garantir a parte dos filhos, e evitar que a família vire um processo judicial. É um assunto delicado, mas importante. Posso te explicar as opções.</div>
+            </div>
+            <div class="suc-text">
+              <div class="tt"><span class="lbl">Patrimônio imobiliário</span><button class="suc-copy" type="button">Copiar</button></div>
+              <div class="body">Quem tem patrimônio concentrado em imóveis tem um problema específico na sucessão: imóvel não se divide fácil, o inventário trava a venda, e o ITCMD incide sobre o valor de mercado — que pode ser bem diferente do valor declarado no IR. A doação com reserva de usufruto resolve isso de forma simples: você transfere a propriedade para os herdeiros, continua morando e recebendo os aluguéis, e quando chegar a hora não tem inventário nem bloqueio. E com o ITCMD ainda em 4% em SP, o custo de fazer agora é uma fração do que pode ser depois. Vale a pena conversarmos sobre isso.</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="suc-disc">Conteúdo de apoio ao assessor; não constitui parecer jurídico, tributário ou consultoria de qualquer natureza. Alíquotas e regras de ITCMD variam por estado e estão sujeitas a alteração legislativa — especialmente no contexto da Reforma Tributária (EC 132/2023). Cada caso concreto deve ser avaliado por advogado e/ou tributarista especializado antes de qualquer recomendação ao cliente.</p>
+
+      </main>
+    </section>
+    <!-- MODULE:SUCESSAO:HTML:END -->
 
   </div>
 </div>
@@ -6545,11 +6885,28 @@ initDolar();
 })();
 /* ===== MODULE:EXTERIOR:JS:END ===== */
 
+/* ===== MODULE:SUCESSAO:JS:START ===== */
+(function(){
+  function initSucessao(){
+    const host = document.getElementById('module-sucessao');
+    if(!host) return;
+    host.querySelectorAll('.suc-copy').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const body = btn.closest('.suc-text').querySelector('.body');
+        apsCopy(body.textContent, ()=>{ const o=btn.textContent; btn.textContent='Copiado ✓'; setTimeout(()=>{btn.textContent=o;},1400); });
+      });
+    });
+  }
+  window.initSucessao = initSucessao;
+})();
+/* ===== MODULE:SUCESSAO:JS:END ===== */
+
 initRecados();
 initOrient();
 initLinks();
 initEtf();
 initExterior();
+initSucessao();
 
 
 /* ===== SHARED:JS:START (restaura o último módulo aberto — genérico, não mexer) ===== */
