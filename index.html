@@ -2632,9 +2632,9 @@
               </div>
             </div>
             <div class="cmp-foot">
-              <button class="btn btn-primary" id="cmpCalc" type="button">Comparar</button>
+              <button class="btn btn-primary" id="etfCmpCalc" type="button">Comparar</button>
             </div>
-            <div class="cmp-result" id="cmpResult" style="display:none"></div>
+            <div class="cmp-result" id="etfCmpResult" style="display:none"></div>
           </div>
         </div>
 
@@ -7034,8 +7034,8 @@ initDolar();
       ccNote=`<p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">Come-cotas desativado. A diferença reflete apenas o impacto da taxa de administração no longo prazo.</p>`;
     }
 
-    document.getElementById('cmpResult').style.display='';
-    document.getElementById('cmpResult').innerHTML = `
+    document.getElementById('etfCmpResult').style.display='';
+    document.getElementById('etfCmpResult').innerHTML = `
       <div class="cmp-vant">
         <p class="cmp-vant-tag">Vantagem do ETF em ${anos} anos</p>
         <p class="cmp-vant-num">+ ${BRL(diff)}</p>
@@ -7075,7 +7075,7 @@ initDolar();
       </div>`;
   }
 
-  const btn=document.getElementById('cmpCalc');
+  const btn=document.getElementById('etfCmpCalc');
   if(btn) btn.addEventListener('click', cmpSimulate);
 })();
 /* ===== MODULE:ETF:JS:END ===== */
