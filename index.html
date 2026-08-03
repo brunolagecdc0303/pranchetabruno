@@ -938,6 +938,53 @@
   #module-etf .etf-idx{font-family:var(--f-body);font-size:9px;color:var(--muted);white-space:nowrap}
   #module-etf .etf-rm{font-family:var(--f-mono);font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--clay);background:none;border:1px solid var(--line);border-radius:7px;padding:1px 7px;cursor:pointer;margin-left:8px}
   #module-etf .etf-rm:hover{border-color:var(--clay);background:#fff}
+  /* comparador ETF vs Fundo */
+  #module-etf .cmp-card{border:1px solid var(--line);border-radius:14px;padding:20px;background:#fff}
+  #module-etf .cmp-inputs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+  @media(max-width:860px){#module-etf .cmp-inputs{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){#module-etf .cmp-inputs{grid-template-columns:1fr}}
+  #module-etf .cmp-col{display:flex;flex-direction:column;gap:10px}
+  #module-etf .cmp-hd{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 2px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+  #module-etf .cmp-hd.etf{color:var(--teal);border-bottom-color:var(--teal)}
+  #module-etf .cmp-hd.fundo{color:var(--clay);border-bottom-color:var(--clay)}
+  #module-etf .cmp-hd.shared{color:var(--brass);border-bottom-color:var(--brass)}
+  #module-etf .cmp-col .field{display:flex;flex-direction:column;gap:4px}
+  #module-etf .cmp-col label{font-size:12px;font-weight:500;color:var(--ink)}
+  #module-etf .cmp-check{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink);cursor:pointer;margin-top:2px}
+  #module-etf .cmp-check input{accent-color:var(--teal);width:15px;height:15px}
+  #module-etf .cmp-foot{display:flex;align-items:center;gap:12px;margin-top:16px}
+  #module-etf .cmp-result{margin-top:22px}
+  #module-etf .cmp-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+  @media(max-width:520px){#module-etf .cmp-cards{grid-template-columns:1fr}}
+  #module-etf .cmp-rc{border-radius:12px;padding:16px 18px;border:1px solid var(--line)}
+  #module-etf .cmp-rc.etf{background:rgba(44,107,102,.06);border-color:rgba(44,107,102,.25)}
+  #module-etf .cmp-rc.fundo{background:rgba(178,90,65,.06);border-color:rgba(178,90,65,.25)}
+  #module-etf .cmp-rc-tag{font-family:var(--f-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 8px}
+  #module-etf .cmp-rc.etf .cmp-rc-tag{color:var(--teal)}
+  #module-etf .cmp-rc.fundo .cmp-rc-tag{color:var(--clay)}
+  #module-etf .cmp-rc-name{font-family:var(--f-display);font-weight:600;font-size:16px;margin:0 0 10px;color:var(--ink)}
+  #module-etf .cmp-row{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:13px}
+  #module-etf .cmp-row:last-child{border-bottom:none}
+  #module-etf .cmp-row .lbl{color:var(--muted)}
+  #module-etf .cmp-row .val{font-family:var(--f-mono);font-weight:600;color:var(--ink)}
+  #module-etf .cmp-row.total{padding-top:8px;margin-top:4px;border-top:1.5px solid var(--line-strong);border-bottom:none}
+  #module-etf .cmp-row.total .val{font-size:15px}
+  #module-etf .cmp-rc.etf .cmp-row.total .val{color:var(--teal)}
+  #module-etf .cmp-rc.fundo .cmp-row.total .val{color:var(--clay)}
+  #module-etf .cmp-vant{border-radius:12px;padding:16px 20px;background:var(--paper);border:1px solid var(--line);text-align:center;margin-bottom:16px}
+  #module-etf .cmp-vant-num{font-family:var(--f-display);font-weight:700;font-size:clamp(22px,3vw,30px);color:var(--teal);margin:4px 0}
+  #module-etf .cmp-vant-sub{font-size:13px;color:var(--muted);line-height:1.55}
+  #module-etf .cmp-vant-tag{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass)}
+  #module-etf .cmp-tbl-wrap{overflow-x:auto;margin:0 -4px}
+  #module-etf table.cmp-tbl{width:100%;border-collapse:collapse;font-size:12.5px;min-width:480px}
+  #module-etf .cmp-tbl th,#module-etf .cmp-tbl td{padding:7px 10px;text-align:right;border-bottom:1px solid var(--line)}
+  #module-etf .cmp-tbl th:first-child,#module-etf .cmp-tbl td:first-child{text-align:left}
+  #module-etf .cmp-tbl thead th{font-family:var(--f-mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid var(--line-strong);white-space:nowrap}
+  #module-etf .cmp-tbl tbody td{font-family:var(--f-mono)}
+  #module-etf .cmp-tbl tbody td.yr{font-family:var(--f-display);font-weight:600;color:var(--ink)}
+  #module-etf .cmp-tbl .etf-c{color:var(--teal)}
+  #module-etf .cmp-tbl .fundo-c{color:var(--clay)}
+  #module-etf .cmp-tbl .diff-c{color:var(--brass);font-weight:600}
   /* ===== MODULE:ETF:CSS:END ===== */
 
   /* ===== MODULE:EXTERIOR:CSS:START ===== */
@@ -2556,6 +2603,38 @@
               <span class="etf-form-status" id="etfF_status"></span>
             </div>
             <p class="etf-note" style="margin-top:12px">Para que um ETF apareça para <b>toda a equipe</b> (e não só neste navegador), peça ao gestor para incluí-lo na lista curada.</p>
+          </div>
+        </div>
+
+        <!-- 7. Comparador ETF vs Fundo Ativo -->
+        <div class="etf-sec">
+          <h2>Comparador: ETF vs Fundo Ativo</h2>
+          <p class="sub">Simule o impacto da <b>taxa de administra&ccedil;&atilde;o</b> e do <b>come-cotas</b> sobre o patrim&ocirc;nio no longo prazo. Mesma rentabilidade bruta &mdash; a diferen&ccedil;a &eacute; custo e imposto.</p>
+          <div class="cmp-card">
+            <div class="cmp-inputs">
+              <div class="cmp-col">
+                <h4 class="cmp-hd etf">ETF</h4>
+                <div class="field"><label>Nome do ETF</label><input class="ipt" id="cmpEtfNome" placeholder="Ex: BOVA11"></div>
+                <div class="field"><label>Taxa de adm (% a.a.)</label><input class="ipt" id="cmpEtfTaxa" placeholder="0,20" value="0,20"></div>
+              </div>
+              <div class="cmp-col">
+                <h4 class="cmp-hd fundo">Fundo Ativo</h4>
+                <div class="field"><label>Nome do Fundo</label><input class="ipt" id="cmpFundoNome" placeholder="Ex: Fundo Ibovespa Ativo"></div>
+                <div class="field"><label>Taxa de adm (% a.a.)</label><input class="ipt" id="cmpFundoTaxa" placeholder="2,00" value="2,00"></div>
+                <label class="cmp-check"><input type="checkbox" id="cmpComeCotas" checked> Fundo sujeito a come-cotas</label>
+              </div>
+              <div class="cmp-col">
+                <h4 class="cmp-hd shared">Par&acirc;metros</h4>
+                <div class="field"><label>Rentabilidade bruta CAGR (% a.a.)</label><input class="ipt" id="cmpCagr" placeholder="12,00" value="12,00"></div>
+                <div class="field"><label>Aporte inicial (R$)</label><input class="ipt" id="cmpInicial" placeholder="100.000" value="100000"></div>
+                <div class="field"><label>Aporte mensal (R$)</label><input class="ipt" id="cmpMensal" placeholder="0" value="0"></div>
+                <div class="field"><label>Prazo (anos)</label><input class="ipt" id="cmpAnos" placeholder="20" value="20"></div>
+              </div>
+            </div>
+            <div class="cmp-foot">
+              <button class="btn btn-primary" id="cmpCalc" type="button">Comparar</button>
+            </div>
+            <div class="cmp-result" id="cmpResult" style="display:none"></div>
           </div>
         </div>
 
@@ -6883,6 +6962,121 @@ initDolar();
     load();
   }
   window.initEtf = initEtf;
+})();
+/* ---------- Comparador ETF vs Fundo Ativo ---------- */
+(function(){
+  function cmpNum(id,def){const v=parseFloat(document.getElementById(id).value.replace(/\./g,'').replace(',','.')); return isFinite(v)?v:def;}
+
+  function cmpSimulate(){
+    const etfNome  = document.getElementById('cmpEtfNome').value.trim()||'ETF';
+    const fundoNome= document.getElementById('cmpFundoNome').value.trim()||'Fundo Ativo';
+    const cagr     = cmpNum('cmpCagr',12)/100;
+    const taxaEtf  = cmpNum('cmpEtfTaxa',0.20)/100;
+    const taxaFundo= cmpNum('cmpFundoTaxa',2)/100;
+    const inicial  = Math.max(0,cmpNum('cmpInicial',100000));
+    const mensal   = Math.max(0,cmpNum('cmpMensal',0));
+    const anos     = Math.max(1,Math.min(50,Math.round(cmpNum('cmpAnos',20))));
+    const comeCotas= document.getElementById('cmpComeCotas').checked;
+    const meses    = anos*12;
+
+    const rEtf  = Math.pow(1+Math.max(cagr-taxaEtf,0),1/12)-1;
+    const rFundo= Math.pow(1+Math.max(cagr-taxaFundo,0),1/12)-1;
+
+    let etfBal=0, etfBase=0;
+    let funBal=0, funBase=0, ccPago=0;
+    const snapshots=[];
+
+    for(let m=1;m<=meses;m++){
+      etfBal*=(1+rEtf);  funBal*=(1+rFundo);
+      const aporte = mensal + (m===1?inicial:0);
+      etfBal+=aporte; etfBase+=aporte;
+      funBal+=aporte; funBase+=aporte;
+      if(comeCotas && m%6===0){
+        const g=funBal-funBase;
+        if(g>0){const imp=g*0.15; funBal-=imp; ccPago+=imp; funBase=funBal;}
+      }
+      if(m%12===0){
+        const a=m/12;
+        const eGain=etfBal-etfBase; const eIR=eGain>0?eGain*0.15:0; const eLiq=etfBal-eIR;
+        const fGain=funBal-funBase; const fIR=fGain>0?fGain*0.15:0; const fLiq=funBal-fIR;
+        snapshots.push({ano:a, etfBruto:etfBal, etfLiq:eLiq, funBruto:funBal, funLiq:fLiq, diff:eLiq-fLiq});
+      }
+    }
+
+    const etfGain=etfBal-etfBase; const etfIR=etfGain>0?etfGain*0.15:0; const etfLiq=etfBal-etfIR;
+    const funGain=funBal-funBase; const funIR=funGain>0?funGain*0.15:0; const funLiq=funBal-funIR;
+    const funImpTotal=ccPago+funIR;
+    const diff=etfLiq-funLiq;
+    const totalAport=inicial+mensal*meses;
+
+    const row=(lbl,val)=>`<div class="cmp-row"><span class="lbl">${lbl}</span><span class="val">${val}</span></div>`;
+    const rowT=(lbl,val)=>`<div class="cmp-row total"><span class="lbl">${lbl}</span><span class="val">${val}</span></div>`;
+
+    let tableRows='';
+    const step = anos<=10?1 : anos<=25?5 : 10;
+    for(const s of snapshots){
+      if(s.ano%step===0 || s.ano===anos){
+        tableRows+=`<tr>
+          <td class="yr">Ano ${s.ano}</td>
+          <td class="etf-c">${BRL(s.etfLiq)}</td>
+          <td class="fundo-c">${BRL(s.funLiq)}</td>
+          <td class="diff-c">+${BRL(s.diff)}</td>
+          </tr>`;
+      }
+    }
+
+    const pctVant = funLiq>0 ? ((diff/funLiq)*100) : 0;
+
+    let ccNote='';
+    if(comeCotas){
+      ccNote=`<p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">Come-cotas: 15% semestral sobre o ganho acumulado. O fundo paga o imposto antecipadamente, perdendo o efeito de juros compostos sobre o valor recolhido. O ETF difere 100% do IR para o resgate.</p>`;
+    } else {
+      ccNote=`<p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">Come-cotas desativado. A diferença reflete apenas o impacto da taxa de administração no longo prazo.</p>`;
+    }
+
+    document.getElementById('cmpResult').style.display='';
+    document.getElementById('cmpResult').innerHTML = `
+      <div class="cmp-vant">
+        <p class="cmp-vant-tag">Vantagem do ETF em ${anos} anos</p>
+        <p class="cmp-vant-num">+ ${BRL(diff)}</p>
+        <p class="cmp-vant-sub">O investidor do <b>${esc(etfNome)}</b> termina com <b>${PCT(pctVant)} a mais</b> do que no <b>${esc(fundoNome)}</b>.<br>Aporte total: ${BRL(totalAport)}${comeCotas?' · Come-cotas custou <b>'+BRL(ccPago)+'</b> em imposto antecipado':''}</p>
+      </div>
+      <div class="cmp-cards">
+        <div class="cmp-rc etf">
+          <p class="cmp-rc-tag">ETF</p>
+          <p class="cmp-rc-name">${esc(etfNome)}</p>
+          ${row('Aporte total',BRL(totalAport))}
+          ${row('Taxa de adm',PCT(taxaEtf*100)+' a.a.')}
+          ${row('Valor bruto acumulado',BRL(etfBal))}
+          ${row('IR no resgate (15%)',BRL(etfIR))}
+          ${rowT('Valor líquido',BRL(etfLiq))}
+        </div>
+        <div class="cmp-rc fundo">
+          <p class="cmp-rc-tag">Fundo Ativo</p>
+          <p class="cmp-rc-name">${esc(fundoNome)}</p>
+          ${row('Aporte total',BRL(totalAport))}
+          ${row('Taxa de adm',PCT(taxaFundo*100)+' a.a.')}
+          ${row('Valor bruto acumulado',BRL(funBal))}
+          ${comeCotas?row('Come-cotas pago (semestral)','<span style="color:var(--clay)">'+BRL(ccPago)+'</span>'):''}
+          ${row('IR residual no resgate',BRL(funIR))}
+          ${row('Imposto total',BRL(funImpTotal))}
+          ${rowT('Valor líquido',BRL(funLiq))}
+        </div>
+      </div>
+      ${ccNote}
+      <div style="margin-top:18px">
+        <p class="etf-kicker">Evolução ano a ano</p>
+        <div class="cmp-tbl-wrap">
+          <table class="cmp-tbl">
+            <thead><tr><th>Período</th><th>${esc(etfNome)} (líq.)</th><th>${esc(fundoNome)} (líq.)</th><th>Vantagem ETF</th></tr></thead>
+            <tbody>${tableRows}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }
+
+  const btn=document.getElementById('cmpCalc');
+  if(btn) btn.addEventListener('click', cmpSimulate);
 })();
 /* ===== MODULE:ETF:JS:END ===== */
 
