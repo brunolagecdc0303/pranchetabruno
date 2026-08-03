@@ -7,7 +7,7 @@ Ferramenta single-file (`index.html`) usada pela equipe de assessores. Reúne ca
 ## Arquitetura (GitHub-native, sem Google Sheets)
 
 - **Fonte da verdade = arquivos `.json` versionados neste repositório**, lidos pela página do mesmo domínio do deploy (sem CORS, sem API).
-- **Sem backend, sem token, sem variável de ambiente.** Netlify serve os arquivos estáticos e republica a cada `push`.
+- **Publicação automática via Netlify Function.** A área do gestor chama `/.netlify/functions/github-json`; a função valida o PIN, atualiza o `.json` correto via API do GitHub e o Netlify republica após o commit.
 - **Exceção (híbrido):** o **upload de arquivos** (anexos de Recados e de ativos do Dolarizar) continua no **Google Apps Script** — ele grava o binário no Drive e devolve a URL pública, que é salva como `fileUrl` no JSON. Só o arquivo passa pelo Google; todo o texto vive no GitHub. Código em [`apps-script/upload.gs`](apps-script/upload.gs).
 
 ### Arquivos de conteúdo
@@ -21,16 +21,16 @@ Ferramenta single-file (`index.html`) usada pela equipe de assessores. Reúne ca
 | `dolar_ativos.json` | Ativos personalizados do módulo Dolarizar |
 | `etfs.json` | Prateleira de ETFs (curados + avulsos) |
 
-## Como editar conteúdo (não é ao vivo — é por commit)
+## Como editar conteúdo
 
-A publicação **não grava mais em tempo real**. O fluxo é:
+A publicação agora é automática. O fluxo é:
 
-1. No próprio site, o gestor preenche o formulário do módulo (publicar carta, novo recado, novo link, cadastrar ETF avulso etc.) e clica em **gerar** — abre um painel com o **bloco JSON pronto**.
-2. Copie o bloco e cole no arquivo `.json` correspondente (adicionando ao array ou substituindo o item de mesmo `id`).
-3. Faça **commit + push** (pela interface web do GitHub, localmente, ou pedindo ao **Claude Code**: *"adiciona o ETF X"*, *"publica a carta de julho"*).
+1. No próprio site, o gestor preenche o formulário do módulo (publicar carta, novo recado, novo link, cadastrar ativo personalizado etc.).
+2. Informa o PIN do gestor e clica em **Salvar**.
+3. A Netlify Function faz o commit no arquivo `.json` correspondente.
 4. O Netlify republica automaticamente.
 
-> Anexos: ao anexar um arquivo, ele sobe para o Google Drive e a URL já vem embutida no bloco JSON gerado — é só commitar.
+> Anexos: ao anexar um arquivo, ele sobe para o Google Drive e a URL é salva no JSON pelo mesmo fluxo automático.
 
 ## Deploy (passo a passo)
 
@@ -41,7 +41,14 @@ A publicação **não grava mais em tempo real**. O fluxo é:
    git push -u origin main
    ```
 3. No [Netlify](https://app.netlify.com): **Add new site → Import an existing project → GitHub** e escolha o repositório. O `netlify.toml` já configura tudo (`publish = "."`). Clique em **Deploy**.
-4. (Híbrido/anexos) Publique o `apps-script/upload.gs` como Web App e cole a URL `/exec` em `APS_UPLOAD`, no topo do bloco de script do `index.html`. Se você **não usa anexos**, pode ignorar este passo.
+4. No GitHub, crie um **fine-grained personal access token** para este repositório com permissão **Contents: Read and write**.
+5. No Netlify, em **Project configuration → Environment variables**, crie:
+   - `GITHUB_TOKEN` = token do GitHub
+   - `OPS_GESTOR_PIN` = PIN usado para publicar pelo site
+   - `GITHUB_OWNER` = dono do repositório (opcional; padrão `brunolagecdc0303`)
+   - `GITHUB_REPO` = nome do repositório (opcional; padrão `pranchetabruno`)
+   - `GITHUB_BRANCH` = branch de publicação (opcional; padrão `main`)
+6. (Híbrido/anexos) Publique o `apps-script/upload.gs` como Web App e cole a URL `/exec` em `APS_UPLOAD`, no topo do bloco de script do `index.html`. Se você **não usa anexos**, pode ignorar este passo.
 
 ## Refresh automático das rentabilidades (v2)
 
@@ -68,10 +75,11 @@ Sem os secrets configurados, a Action roda mas **pula tudo** (não quebra) — o
 
 - **v1:** repo + `.json` + leitura + edição por commit. ✅
 - **v2:** refresh automático das rentabilidades (acima). ✅
-- **Futuro:** Netlify Function para "Salvar" in-app (opcional); estender refresh para retorno longo/PL.
+- **v3:** Netlify Function para "Salvar" in-app. ✅
+- **Futuro:** estender refresh para retorno longo/PL.
 
 ## Notas
 
-- **PIN do gestor** (`2020`) é trava de conveniência local, não segurança; hoje só destrava a UI de edição (que gera JSON) — não há mais gravação remota de texto.
+- **PIN do gestor** fica em `OPS_GESTOR_PIN` no Netlify. Não salve esse valor no código.
 - Itens marcados **⚠️ confirmar** em `etfs.json` aguardam validação (fact sheet / compliance). Ficam visíveis com badge até serem confirmados.
 - Disclaimer no rodapé do módulo ETF: conteúdo de apoio ao assessor; não constitui recomendação; validar enquadramento tributário caso a caso.

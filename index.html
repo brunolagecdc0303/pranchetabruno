@@ -3318,7 +3318,8 @@ function apsCopy(txt,cb){
   if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(cb).catch(()=>fallbackCopy(txt,cb));
   else fallbackCopy(txt,cb);
 }
-const OPS_GESTOR_PIN='2020';
+const APS_ENDPOINT='/.netlify/functions/github-json';
+const OPS_GESTOR_PIN='';
 function opsValidatePin(inputId,statusFn){
   const pinEl=$(inputId);
   const pin=(pinEl&&pinEl.value||'').trim();
@@ -3394,29 +3395,36 @@ function apsBuildItem(payload){
   return obj;
 }
 
-// ---- ESCRITA: intercepta a antiga chamada de rede. Em vez de gravar ao vivo,
-// prepara o item (subindo o anexo pro Google, se houver) e abre o painel de commit.
-// Devolve {ok:true} para os handlers de sucesso já existentes continuarem valendo.
+// ---- ESCRITA: salva via Netlify Function, que commita o JSON no GitHub.
 async function apsPost(payload){
   payload = payload || {};
   const modulo = payload.modulo || '';
   const action = payload.action || 'save';
   try{
-    if(action==='delete'){ commitPanel(modulo, 'delete', {id: payload.id}); return {ok:true}; }
-    if(action==='toggle'){ commitPanel(modulo, 'toggle', {id: payload.id}); return {ok:true}; }
-    // save (novo ou edição)
-    const obj = apsBuildItem(payload);
-    if(payload.fileData){
-      const up = await apsUploadBase64(payload.fileData, payload.fileName, payload.fileMime);
-      obj.fileUrl = up.fileUrl; obj.fileName = up.fileName || payload.fileName || '';
-      if(up.fileId) obj.fileId = up.fileId;
-    } else if(payload.removeFile){
-      obj.fileUrl=''; obj.fileName=''; obj.fileId='';
+    const body = { modulo, action, pin: payload.pin || '', id: payload.id || '' };
+    if(action==='save'){
+      const obj = apsBuildItem(payload);
+      if(payload.fileData){
+        const up = await apsUploadBase64(payload.fileData, payload.fileName, payload.fileMime);
+        obj.fileUrl = up.fileUrl; obj.fileName = up.fileName || payload.fileName || '';
+        if(up.fileId) obj.fileId = up.fileId;
+      } else if(payload.removeFile){
+        obj.fileUrl=''; obj.fileName=''; obj.fileId='';
+      }
+      body.item = obj;
     }
-    commitPanel(modulo, 'save', obj);
-    return {ok:true, item:obj};
+    const resp = await fetch(APS_ENDPOINT, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(body)
+    });
+    let data=null; try{ data=await resp.json(); }catch(e){}
+    if(!resp.ok || !data || data.ok===false){
+      return {ok:false, error:(data&&data.error) || 'Não foi possível publicar no GitHub.'};
+    }
+    return data;
   }catch(err){
-    return {ok:false, error: (err && err.message) ? err.message : 'Não foi possível preparar o commit.'};
+    return {ok:false, error: (err && err.message) ? err.message : 'Não foi possível publicar no GitHub.'};
   }
 }
 
@@ -6327,7 +6335,14 @@ async function dlrCustomFetch(){
   }catch(e){ DLR_CUSTOM=[]; DLR_CUSTOM_ERR=true; }
   dlrRenderCustom(); dlrRenderResults();
 }
-async function dlrCustomSave(payload){ return apsPost(Object.assign({modulo:DLR_CUSTOM_MOD, pin:OPS_GESTOR_PIN}, payload)); }
+function dlrPromptPin(){
+  return (window.prompt('PIN do gestor:') || '').trim();
+}
+async function dlrCustomSave(payload){
+  const pin = dlrPromptPin();
+  if(!pin) return {ok:false, error:'Informe o PIN do gestor.'};
+  return apsPost(Object.assign({modulo:DLR_CUSTOM_MOD, pin}, payload));
+}
 function dlrBackendMsg(err){
   if(/modulo\s*invalido/i.test(err||'')) return 'Backend ainda não habilitado para “'+DLR_CUSTOM_MOD+'”. Peça ao gestor para liberar este módulo no Apps Script (mesma configuração do Recados). O cadastro não foi salvo.';
   return err||'Não foi possível salvar.';
@@ -6430,8 +6445,10 @@ async function dlrCustSubmit(){
 async function dlrCustDel(id){
   const c=DLR_CUSTOM.find(x=>x.id===id); if(!c) return;
   if(!window.confirm('Excluir “'+c.nome+'”? O documento anexo também sai da consulta dos assessores.')) return;
+  const pin = dlrPromptPin();
+  if(!pin) return;
   try{
-    const res=await apsPost({modulo:DLR_CUSTOM_MOD, action:'delete', pin:OPS_GESTOR_PIN, id});
+    const res=await apsPost({modulo:DLR_CUSTOM_MOD, action:'delete', pin, id});
     if(res&&res.ok===false){ alert(dlrBackendMsg(res.error)); return; }
     DLR.inc=DLR.inc.filter(x=>x!==id); dlrSave();
     await dlrCustomFetch();
