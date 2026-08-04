@@ -1,5 +1,19 @@
 [
   {
+    "title": "Produtos destaque do Mês",
+    "category": "Investimentos",
+    "priority": "baixa",
+    "due": "2026-08-31",
+    "text": "Produtos e missões de agosto",
+    "orientacao": "",
+    "fileName": "Produtos Destaque - Agosto.pdf",
+    "id": "rec_msev3eqi_uvsqb",
+    "createdAt": "2026-08-04T16:17:49.146Z",
+    "updatedAt": "2026-08-04T16:17:59.806Z",
+    "fileUrl": "https://drive.google.com/file/d/1MiLO_UI3Z4Tid6n6Z7AiP8VigXCATivc/view?usp=drivesdk",
+    "fileId": "1MiLO_UI3Z4Tid6n6Z7AiP8VigXCATivc"
+  },
+  {
     "id": "rec_5d0d0b79",
     "title": "Votação waiver COE Braskem",
     "category": "Pendencia",
