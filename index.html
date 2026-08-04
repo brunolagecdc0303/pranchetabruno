@@ -2622,10 +2622,14 @@
                 <div class="field"><label>Nome do Fundo</label><input class="ipt" id="cmpFundoNome" placeholder="Ex: Fundo Ibovespa Ativo"></div>
                 <div class="field"><label>Taxa de adm (% a.a.)</label><input class="ipt" id="cmpFundoTaxa" placeholder="2,00" value="2,00"></div>
                 <label class="cmp-check"><input type="checkbox" id="cmpComeCotas" checked> Fundo sujeito a come-cotas</label>
+                <label class="cmp-check"><input type="checkbox" id="cmpPerfOn"> Cobra taxa de performance</label>
+                <div class="field" id="cmpPerfWrap" style="display:none"><label>Taxa de performance (%)</label><input class="ipt" id="cmpPerfTaxa" placeholder="20" value="20"></div>
               </div>
               <div class="cmp-col">
                 <h4 class="cmp-hd shared">Par&acirc;metros</h4>
                 <div class="field"><label>Rentabilidade bruta CAGR (% a.a.)</label><input class="ipt" id="cmpCagr" placeholder="12,00" value="12,00"></div>
+                <label class="cmp-check"><input type="checkbox" id="cmpFundoCagrOn"> Fundo rende diferente do ETF</label>
+                <div class="field" id="cmpFundoCagrWrap" style="display:none"><label>CAGR bruto do Fundo (% a.a.)</label><input class="ipt" id="cmpFundoCagr" placeholder="14,00" value="14,00"></div>
                 <div class="field"><label>Aporte inicial (R$)</label><input class="ipt" id="cmpInicial" placeholder="100.000" value="100000"></div>
                 <div class="field"><label>Aporte mensal (R$)</label><input class="ipt" id="cmpMensal" placeholder="0" value="0"></div>
                 <div class="field"><label>Prazo (anos)</label><input class="ipt" id="cmpAnos" placeholder="20" value="20"></div>
@@ -6967,23 +6971,36 @@ initDolar();
 (function(){
   function cmpNum(id,def){const v=parseFloat(document.getElementById(id).value.replace(/\./g,'').replace(',','.')); return isFinite(v)?v:def;}
 
+  const perfChk=document.getElementById('cmpPerfOn');
+  const perfWrap=document.getElementById('cmpPerfWrap');
+  if(perfChk) perfChk.addEventListener('change',()=>{perfWrap.style.display=perfChk.checked?'':'none';});
+
+  const fundoCagrChk=document.getElementById('cmpFundoCagrOn');
+  const fundoCagrWrap=document.getElementById('cmpFundoCagrWrap');
+  if(fundoCagrChk) fundoCagrChk.addEventListener('change',()=>{fundoCagrWrap.style.display=fundoCagrChk.checked?'':'none';});
+
   function cmpSimulate(){
     const etfNome  = document.getElementById('cmpEtfNome').value.trim()||'ETF';
     const fundoNome= document.getElementById('cmpFundoNome').value.trim()||'Fundo Ativo';
-    const cagr     = cmpNum('cmpCagr',12)/100;
+    const cagrBase = cmpNum('cmpCagr',12)/100;
+    const cagrFundo= fundoCagrChk.checked ? cmpNum('cmpFundoCagr',14)/100 : cagrBase;
     const taxaEtf  = cmpNum('cmpEtfTaxa',0.20)/100;
     const taxaFundo= cmpNum('cmpFundoTaxa',2)/100;
     const inicial  = Math.max(0,cmpNum('cmpInicial',100000));
     const mensal   = Math.max(0,cmpNum('cmpMensal',0));
     const anos     = Math.max(1,Math.min(50,Math.round(cmpNum('cmpAnos',20))));
     const comeCotas= document.getElementById('cmpComeCotas').checked;
+    const temPerf  = perfChk.checked;
+    const perfRate = temPerf ? cmpNum('cmpPerfTaxa',20)/100 : 0;
     const meses    = anos*12;
 
-    const rEtf  = Math.pow(1+Math.max(cagr-taxaEtf,0),1/12)-1;
-    const rFundo= Math.pow(1+Math.max(cagr-taxaFundo,0),1/12)-1;
+    const rEtf  = Math.pow(1+Math.max(cagrBase-taxaEtf,0),1/12)-1;
+    const rFundo= Math.pow(1+Math.max(cagrFundo-taxaFundo,0),1/12)-1;
+    const rBench= Math.pow(1+Math.max(cagrBase,0),1/12)-1;
 
     let etfBal=0, etfBase=0;
-    let funBal=0, funBase=0, ccPago=0;
+    let funBal=0, funBase=0, ccPago=0, perfPago=0;
+    let funHWM=0;
     const snapshots=[];
 
     for(let m=1;m<=meses;m++){
@@ -6991,9 +7008,16 @@ initDolar();
       const aporte = mensal + (m===1?inicial:0);
       etfBal+=aporte; etfBase+=aporte;
       funBal+=aporte; funBase+=aporte;
-      if(comeCotas && m%6===0){
-        const g=funBal-funBase;
-        if(g>0){const imp=g*0.15; funBal-=imp; ccPago+=imp; funBase=funBal;}
+      if(m%6===0){
+        if(comeCotas){
+          const g=funBal-funBase;
+          if(g>0){const imp=g*0.15; funBal-=imp; ccPago+=imp; funBase=funBal;}
+        }
+        if(temPerf && funBal>funHWM){
+          const excess=funBal-Math.max(funHWM,funBase);
+          if(excess>0){const fee=excess*perfRate; funBal-=fee; perfPago+=fee;}
+          funHWM=funBal;
+        }
       }
       if(m%12===0){
         const a=m/12;
@@ -7006,6 +7030,7 @@ initDolar();
     const etfGain=etfBal-etfBase; const etfIR=etfGain>0?etfGain*0.15:0; const etfLiq=etfBal-etfIR;
     const funGain=funBal-funBase; const funIR=funGain>0?funGain*0.15:0; const funLiq=funBal-funIR;
     const funImpTotal=ccPago+funIR;
+    const funCustoTotal=funImpTotal+perfPago;
     const diff=etfLiq-funLiq;
     const totalAport=inicial+mensal*meses;
 
@@ -7020,26 +7045,35 @@ initDolar();
           <td class="yr">Ano ${s.ano}</td>
           <td class="etf-c">${BRL(s.etfLiq)}</td>
           <td class="fundo-c">${BRL(s.funLiq)}</td>
-          <td class="diff-c">+${BRL(s.diff)}</td>
+          <td class="diff-c">${s.diff>=0?'+':''}${BRL(s.diff)}</td>
           </tr>`;
       }
     }
 
     const pctVant = funLiq>0 ? ((diff/funLiq)*100) : 0;
 
-    let ccNote='';
-    if(comeCotas){
-      ccNote=`<p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">Come-cotas: 15% semestral sobre o ganho acumulado. O fundo paga o imposto antecipadamente, perdendo o efeito de juros compostos sobre o valor recolhido. O ETF difere 100% do IR para o resgate.</p>`;
-    } else {
-      ccNote=`<p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">Come-cotas desativado. A diferença reflete apenas o impacto da taxa de administração no longo prazo.</p>`;
-    }
+    let notaRod='';
+    const notas=[];
+    if(comeCotas) notas.push('Come-cotas: 15% semestral sobre o ganho acumulado — o fundo paga imposto antecipadamente, perdendo juros compostos sobre o valor recolhido. O ETF difere 100% do IR para o resgate.');
+    if(temPerf) notas.push('Taxa de performance: '+PCT(perfRate*100)+' cobrada semestralmente sobre ganho acima do high-water mark.');
+    if(fundoCagrChk.checked) notas.push('CAGR diferenciado: ETF usa '+PCT(cagrBase*100)+' a.a. e Fundo usa '+PCT(cagrFundo*100)+' a.a. como rentabilidade bruta.');
+    if(!comeCotas && !temPerf) notas.push('Sem come-cotas nem performance. A diferença reflete apenas o impacto da taxa de administração no longo prazo.');
+    notaRod=notas.map(n=>'<p style="font-size:12.5px;color:var(--muted);margin:4px 0 0">'+n+'</p>').join('');
+
+    const vantagemLabel = diff>=0 ? 'Vantagem do ETF' : 'Vantagem do Fundo';
+    const absDiff = Math.abs(diff);
+
+    const custosExtra = [];
+    if(comeCotas) custosExtra.push('Come-cotas: <b>'+BRL(ccPago)+'</b>');
+    if(temPerf) custosExtra.push('Tx. performance: <b>'+BRL(perfPago)+'</b>');
+    const custosStr = custosExtra.length ? ' · '+custosExtra.join(' · ') : '';
 
     document.getElementById('etfCmpResult').style.display='';
     document.getElementById('etfCmpResult').innerHTML = `
       <div class="cmp-vant">
-        <p class="cmp-vant-tag">Vantagem do ETF em ${anos} anos</p>
-        <p class="cmp-vant-num">+ ${BRL(diff)}</p>
-        <p class="cmp-vant-sub">O investidor do <b>${esc(etfNome)}</b> termina com <b>${PCT(pctVant)} a mais</b> do que no <b>${esc(fundoNome)}</b>.<br>Aporte total: ${BRL(totalAport)}${comeCotas?' · Come-cotas custou <b>'+BRL(ccPago)+'</b> em imposto antecipado':''}</p>
+        <p class="cmp-vant-tag">${vantagemLabel} em ${anos} anos</p>
+        <p class="cmp-vant-num">${diff>=0?'+':'-'} ${BRL(absDiff)}</p>
+        <p class="cmp-vant-sub">O investidor do <b>${esc(diff>=0?etfNome:fundoNome)}</b> termina com <b>${PCT(Math.abs(pctVant))} a mais</b> do que no <b>${esc(diff>=0?fundoNome:etfNome)}</b>.<br>Aporte total: ${BRL(totalAport)}${custosStr}</p>
       </div>
       <div class="cmp-cards">
         <div class="cmp-rc etf">
@@ -7047,6 +7081,7 @@ initDolar();
           <p class="cmp-rc-name">${esc(etfNome)}</p>
           ${row('Aporte total',BRL(totalAport))}
           ${row('Taxa de adm',PCT(taxaEtf*100)+' a.a.')}
+          ${row('CAGR bruto',PCT(cagrBase*100)+' a.a.')}
           ${row('Valor bruto acumulado',BRL(etfBal))}
           ${row('IR no resgate (15%)',BRL(etfIR))}
           ${rowT('Valor líquido',BRL(etfLiq))}
@@ -7056,19 +7091,21 @@ initDolar();
           <p class="cmp-rc-name">${esc(fundoNome)}</p>
           ${row('Aporte total',BRL(totalAport))}
           ${row('Taxa de adm',PCT(taxaFundo*100)+' a.a.')}
+          ${row('CAGR bruto',PCT(cagrFundo*100)+' a.a.')}
           ${row('Valor bruto acumulado',BRL(funBal))}
-          ${comeCotas?row('Come-cotas pago (semestral)','<span style="color:var(--clay)">'+BRL(ccPago)+'</span>'):''}
+          ${comeCotas?row('Come-cotas pago','<span style="color:var(--clay)">'+BRL(ccPago)+'</span>'):''}
+          ${temPerf?row('Tx. performance paga','<span style="color:var(--clay)">'+BRL(perfPago)+'</span>'):''}
           ${row('IR residual no resgate',BRL(funIR))}
-          ${row('Imposto total',BRL(funImpTotal))}
+          ${row('Custo total (impostos + perf.)',BRL(funCustoTotal))}
           ${rowT('Valor líquido',BRL(funLiq))}
         </div>
       </div>
-      ${ccNote}
+      ${notaRod}
       <div style="margin-top:18px">
         <p class="etf-kicker">Evolução ano a ano</p>
         <div class="cmp-tbl-wrap">
           <table class="cmp-tbl">
-            <thead><tr><th>Período</th><th>${esc(etfNome)} (líq.)</th><th>${esc(fundoNome)} (líq.)</th><th>Vantagem ETF</th></tr></thead>
+            <thead><tr><th>Período</th><th>${esc(etfNome)} (líq.)</th><th>${esc(fundoNome)} (líq.)</th><th>${vantagemLabel}</th></tr></thead>
             <tbody>${tableRows}</tbody>
           </table>
         </div>
