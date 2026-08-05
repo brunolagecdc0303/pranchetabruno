@@ -67,6 +67,10 @@
   .side-item.side-hl{background:var(--teal);color:#fff;font-weight:600;box-shadow:0 1px 8px rgba(44,107,102,.35)}
   .side-item.side-hl svg{opacity:1}
   .side-item.side-hl:hover{background:#22544f;color:#fff}
+  /* destaque amarelo do Operacional (fixo abaixo do Guia de atendimento) */
+  .side-item.side-hl-amber{background:var(--brass);color:#fff;font-weight:600;box-shadow:0 1px 8px rgba(181,137,63,.35)}
+  .side-item.side-hl-amber svg{opacity:1}
+  .side-item.side-hl-amber:hover{background:var(--brass-deep);color:#fff}
   .side-foot{padding:14px 20px 18px;border-top:1px solid rgba(255,255,255,.08);font-size:10.5px;color:rgba(234,240,238,.42);line-height:1.5}
   .app-main{flex:1;min-width:0;display:flex;flex-direction:column}
   .module[hidden]{display:none}
@@ -85,6 +89,7 @@
     .mt-item{appearance:none;border:0;background:rgba(255,255,255,.08);color:rgba(234,240,238,.8);cursor:pointer;font-family:var(--f-body);font-size:13px;padding:7px 14px;border-radius:20px;white-space:nowrap;transition:all .12s}
     .mt-item.active{background:var(--brass);color:#fff}
     .mt-item.mt-hl{background:var(--teal);color:#fff;font-weight:600}
+    .mt-item.mt-hl-amber{background:var(--brass);color:#fff;font-weight:600}
     .mt-item.soon{opacity:.4;cursor:default}
   }
 
@@ -1514,6 +1519,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
         Guia de atendimento
       </button>
+      <button class="side-item side-hl-amber" data-module="module-operacional" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Operacional
+      </button>
       <button class="side-item" data-module="module-prev" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
         Previdência
@@ -1554,10 +1563,6 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 12h18"/><path d="M12 3v18"/></svg>
         Consórcio vs Financ.
       </button>
-      <button class="side-item" data-module="module-operacional" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Operacional
-      </button>
       <!-- MODULE:REGISTRY:SIDEBAR:END -->
       <span class="side-sec">Em breve</span>
       <span class="side-item soon">Mais módulos a caminho</span>
@@ -1570,6 +1575,7 @@
       <span class="mt-brand">Prancheta</span>
       <!-- MODULE:REGISTRY:TOPBAR:START (mesma regra: novo <button class="mt-item" data-module="module-X"> entra aqui) -->
       <button class="mt-item active mt-hl" data-module="module-guia" type="button">Guia</button>
+      <button class="mt-item mt-hl-amber" data-module="module-operacional" type="button">Operacional</button>
       <button class="mt-item" data-module="module-prev" type="button">Previdência</button>
       <button class="mt-item" data-module="module-cartas" type="button">Cartas mensais</button>
       <button class="mt-item" data-module="module-recados" type="button">Recados</button>
@@ -1580,7 +1586,6 @@
       <button class="mt-item" data-module="module-exterior" type="button">Estruturas no exterior</button>
       <button class="mt-item" data-module="module-sucessao" type="button">Sucessão BR</button>
       <button class="mt-item" data-module="module-consorcio" type="button">Consórcio</button>
-      <button class="mt-item" data-module="module-operacional" type="button">Operacional</button>
       <!-- MODULE:REGISTRY:TOPBAR:END -->
       <span class="mt-item soon">Em breve</span>
     </div>
