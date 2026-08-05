@@ -593,6 +593,10 @@
   .pm-row-fields{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
   .pm-row input[type=text]{width:100%;border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-family:var(--f-body);font-size:13px;background:var(--paper);color:var(--ink)}
   .pm-row input[type=text]:focus{outline:none;border-color:var(--brass)}
+  .pm-row textarea{width:100%;border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-family:var(--f-body);font-size:12.5px;line-height:1.5;background:var(--paper);color:var(--ink);resize:vertical;min-height:44px}
+  .pm-row textarea:focus{outline:none;border-color:var(--brass)}
+  .pm-msg-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted-2);font-weight:600}
+  .pm-view-msg{margin-top:8px}
   .pm-file-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
   .pm-file-btn{appearance:none;border:1px dashed var(--line-strong);background:var(--paper);border-radius:7px;padding:5px 10px;font-size:12px;color:var(--muted);cursor:pointer;font-family:var(--f-body);transition:border-color .15s}
   .pm-file-btn:hover{border-color:var(--brass);color:var(--brass)}
@@ -4551,10 +4555,10 @@ const APS_UPLOAD = 'https://script.google.com/macros/s/AKfycbyi2FwFoOiZeyt8VOgfp
 // Mapa: string do módulo (usada em apsFetchList/apsPost) -> arquivo JSON no repo.
 const APS_FILES = {
   cartas:'cartas.json', recados:'recados.json', orientacao:'orientacao.json',
-  links:'links.json', dolar_ativos:'dolar_ativos.json'
+  links:'links.json', dolar_ativos:'dolar_ativos.json', produtos_mes:'produtos_mes.json'
 };
 // Prefixo de id por módulo (mantém o padrão dos ids já existentes).
-const APS_PREFIX = { cartas:'carta', recados:'rec', orientacao:'orient', links:'link', dolar_ativos:'dlrat' };
+const APS_PREFIX = { cartas:'carta', recados:'rec', orientacao:'orient', links:'link', dolar_ativos:'dlrat', produtos_mes:'pm' };
 
 // ---- LEITURA: puxa o array do arquivo JSON versionado ----
 async function apsFetchList(modulo){
@@ -6137,24 +6141,25 @@ function initOrient(){
 }
 
 /* ---------- Produtos do mês ---------- */
-let PRODMES_ITEMS=[];   /* [{text,fileName,fileType,fileData}] */
-let PRODMES_EDIT=[];    /* working copy while editing */
+/* Arquivos sobem para o Google Drive (mesmo endpoint do anexo de Recados —
+   ver apsUploadBase64) e só a fileUrl fica salva no produtos_mes.json do
+   GitHub. Nada de base64 é gravado no repositório. */
+let PRODMES_ITEMS=[];   /* [{text,fileUrl,fileName}] já publicado */
+let PRODMES_EDIT=[];    /* working copy: {text,fileUrl,fileName,fileData?,fileMime?} — fileData = upload pendente */
 let PRODMES_LOADED=false;
 const PRODMES_MAX=10;
-const PRODMES_FILE_MAX=10*1024*1024; /* 10 MB per file */
+const PRODMES_FILE_MAX=10*1024*1024; /* 10 MB por arquivo */
 
-/* --- legacy compat: old plain-text → array --- */
 function pmParse(raw){
   if(!raw) return [];
   try{
     const p=JSON.parse(raw);
-    if(Array.isArray(p)) return p.map(x=>({text:x.text||'',fileName:x.fileName||'',fileType:x.fileType||'',fileData:x.fileData||''}));
+    if(Array.isArray(p)) return p.map(x=>({text:x.text||'',fileUrl:x.fileUrl||'',fileName:x.fileName||'',msg:x.msg||''}));
   }catch(e){}
-  /* fallback: old plain text — split by line */
-  return raw.split('\n').filter(l=>l.trim()).map(l=>({text:l.replace(/^[•\-–—]\s*/,'').trim(),fileName:'',fileType:'',fileData:''}));
+  /* fallback: formato antigo, texto puro por linha */
+  return raw.split('\n').filter(l=>l.trim()).map(l=>({text:l.replace(/^[•\-–—]\s*/,'').trim(),fileUrl:'',fileName:'',msg:''}));
 }
-function pmSerialize(items){ return JSON.stringify(items.filter(x=>x.text.trim()||x.fileName)); }
-function pmPlainText(items){ return items.filter(x=>x.text.trim()).map((x,i)=>'• '+x.text+(x.fileName?' 📎 '+x.fileName:'')).join('\n'); }
+function pmPlainText(items){ return items.filter(x=>x.text.trim()).map(x=>'• '+x.text+(x.fileName?' 📎 '+x.fileName:'')).join('\n'); }
 
 /* --- view --- */
 function prodMesRenderView(){
@@ -6172,8 +6177,15 @@ function prodMesRenderView(){
     h+='<div class="pm-view-item">';
     h+='<span class="pm-view-num">'+(i+1)+'</span>';
     h+='<div class="pm-view-body"><div class="pm-view-text">'+esc(it.text)+'</div>';
-    if(it.fileName && it.fileData){
-      h+='<div class="pm-view-file"><a href="'+it.fileData+'" download="'+esc(it.fileName)+'" title="Baixar '+esc(it.fileName)+'">📎 '+esc(it.fileName)+'</a></div>';
+    if(it.fileName && it.fileUrl){
+      h+='<div class="pm-view-file"><a href="'+esc(it.fileUrl)+'" target="_blank" rel="noopener noreferrer" title="Abrir '+esc(it.fileName)+'">📎 '+esc(it.fileName)+'</a></div>';
+    }
+    if(it.msg){
+      h+='<div class="rec-orient pm-view-msg">'
+        + '<div class="rec-orient-label">Mensagem pronta</div>'
+        + '<div class="rec-orient-text">'+esc(it.msg)+'</div>'
+        + '<button class="ops-action" data-pm-copy-msg="'+i+'" type="button">Copiar mensagem</button>'
+        + '</div>';
     }
     h+='</div></div>';
   });
@@ -6190,16 +6202,23 @@ function pmBuildRow(i,item){
   h+='<div class="pm-file-row">';
   h+='<label class="pm-file-btn">📎 Anexar arquivo<input type="file" data-role="pm-file" accept=".pdf,.png,.jpg,.jpeg,.xlsx,.xls,.docx,.doc,.pptx,.csv" hidden></label>';
   if(item.fileName){
-    h+='<span class="pm-file-badge"><span>'+esc(item.fileName)+'</span><button type="button" data-role="pm-file-rm" title="Remover arquivo">✕</button></span>';
+    h+='<span class="pm-file-badge"><span>'+esc(item.fileName)+(item.fileData?' (novo)':'')+'</span><button type="button" data-role="pm-file-rm" title="Remover arquivo">✕</button></span>';
   }
-  h+='</div></div>';
+  h+='</div>';
+  h+='<span class="pm-msg-label">Mensagem pronta para o cliente (opcional — aparece com botão Copiar)</span>';
+  h+='<textarea rows="2" maxlength="1000" placeholder="Ex.: Olá! Separei uma oportunidade que pode fazer sentido pra você este mês..." data-role="pm-msg">'+esc(item.msg||'')+'</textarea>';
+  h+='</div>';
   h+='<button class="pm-row-rm" type="button" data-role="pm-rm" title="Remover produto">✕</button>';
   div.innerHTML=h;
   /* events */
   div.querySelector('[data-role="pm-text"]').addEventListener('input',e=>{ PRODMES_EDIT[i].text=e.target.value; });
+  div.querySelector('[data-role="pm-msg"]').addEventListener('input',e=>{ PRODMES_EDIT[i].msg=e.target.value; });
   div.querySelector('[data-role="pm-file"]').addEventListener('change',e=>{ pmHandleFile(i,e.target); });
   const rmFile=div.querySelector('[data-role="pm-file-rm"]');
-  if(rmFile) rmFile.addEventListener('click',()=>{ PRODMES_EDIT[i].fileName=''; PRODMES_EDIT[i].fileType=''; PRODMES_EDIT[i].fileData=''; pmRenderEditRows(); });
+  if(rmFile) rmFile.addEventListener('click',()=>{
+    PRODMES_EDIT[i].fileName=''; PRODMES_EDIT[i].fileUrl=''; delete PRODMES_EDIT[i].fileData; delete PRODMES_EDIT[i].fileMime;
+    pmRenderEditRows();
+  });
   div.querySelector('[data-role="pm-rm"]').addEventListener('click',()=>{ PRODMES_EDIT.splice(i,1); pmRenderEditRows(); });
   return div;
 }
@@ -6219,15 +6238,13 @@ function pmHandleFile(idx,input){
     input.value='';
     return;
   }
-  const reader=new FileReader();
-  reader.onload=()=>{
+  recFileToBase64_(file).then(b64=>{
     PRODMES_EDIT[idx].fileName=file.name;
-    PRODMES_EDIT[idx].fileType=file.type;
-    PRODMES_EDIT[idx].fileData=reader.result;
+    PRODMES_EDIT[idx].fileMime=file.type||'application/octet-stream';
+    PRODMES_EDIT[idx].fileData=b64;   /* upload pendente — só sobe ao Drive no Salvar */
     pmRenderEditRows();
     prodMesStatus('',false);
-  };
-  reader.readAsDataURL(file);
+  }).catch(()=>{ prodMesStatus('Não foi possível ler o arquivo "'+file.name+'".',true); });
 }
 
 /* --- fetch / save --- */
@@ -6254,7 +6271,7 @@ function prodMesStatus(msg,isErr){
 
 function prodMesOpenEdit(){
   PRODMES_EDIT=PRODMES_ITEMS.map(x=>({...x}));
-  if(!PRODMES_EDIT.length) PRODMES_EDIT.push({text:'',fileName:'',fileType:'',fileData:''});
+  if(!PRODMES_EDIT.length) PRODMES_EDIT.push({text:'',fileUrl:'',fileName:'',msg:''});
   pmRenderEditRows();
   $('prodMesPin').value='';
   prodMesStatus('',false);
@@ -6278,12 +6295,29 @@ async function prodMesSave(){
   const pin=($('prodMesPin').value||'').trim();
   if(!pin){ prodMesStatus('Informe o PIN do gestor.', true); $('prodMesPin').focus(); return; }
   $('prodMesSalvar').disabled=true;
-  prodMesStatus('Salvando…', false);
   try{
-    const text=pmSerialize(clean);
+    // 1) sobe pro Drive cada arquivo novo (pendente) antes de publicar o texto
+    const pending=clean.filter(x=>x.fileData);
+    for(let k=0;k<pending.length;k++){
+      const it=pending[k];
+      prodMesStatus('Enviando arquivo'+(pending.length>1?' '+(k+1)+' de '+pending.length:'')+' ("'+it.fileName+'")…', false);
+      try{
+        const up=await apsUploadBase64(it.fileData, it.fileName, it.fileMime);
+        it.fileUrl=up.fileUrl; it.fileName=up.fileName||it.fileName;
+      }catch(err){
+        prodMesStatus('Falha ao enviar "'+it.fileName+'": '+((err&&err.message)||'erro no upload').replace(/^Error:\s*/,''), true);
+        $('prodMesSalvar').disabled=false;
+        return;
+      }
+      delete it.fileData; delete it.fileMime;
+    }
+    // 2) publica o texto (só com fileUrl/fileName, nunca base64) no GitHub
+    prodMesStatus('Salvando…', false);
+    const final=clean.map(x=>({text:x.text, fileUrl:x.fileUrl||'', fileName:x.fileName||'', msg:(x.msg||'').trim()}));
+    const text=JSON.stringify(final);
     const res=await apsPost({modulo:'produtos_mes', action:'save', pin, text});
     if(res && res.ok){
-      PRODMES_ITEMS=clean;
+      PRODMES_ITEMS=final;
       prodMesRenderView();
       prodMesCloseEdit();
     }else{
@@ -6304,7 +6338,7 @@ function initProdMes(){
   $('prodMesSalvar').addEventListener('click', prodMesSave);
   $('prodMesAdd').addEventListener('click', ()=>{
     if(PRODMES_EDIT.length>=PRODMES_MAX) return;
-    PRODMES_EDIT.push({text:'',fileName:'',fileType:'',fileData:''});
+    PRODMES_EDIT.push({text:'',fileUrl:'',fileName:'',msg:''});
     pmRenderEditRows();
     const rows=$('prodMesEntries').querySelectorAll('[data-role="pm-text"]');
     if(rows.length) rows[rows.length-1].focus();
@@ -6314,6 +6348,18 @@ function initProdMes(){
     apsCopy(pmPlainText(PRODMES_ITEMS), ()=>{
       const btn=$('prodMesCopy'); const original=btn.textContent;
       btn.textContent='Copiado!';
+      setTimeout(()=>{ btn.textContent=original; }, 1600);
+    });
+  });
+  $('prodMesView').addEventListener('click', e=>{
+    const btn=e.target.closest('[data-pm-copy-msg]');
+    if(!btn) return;
+    const idx=Number(btn.dataset.pmCopyMsg);
+    const item=PRODMES_ITEMS[idx];
+    if(!item || !item.msg) return;
+    apsCopy(item.msg, ()=>{
+      const original=btn.textContent;
+      btn.textContent='Copiado ✓';
       setTimeout(()=>{ btn.textContent=original; }, 1600);
     });
   });

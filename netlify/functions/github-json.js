@@ -3,7 +3,8 @@ const FILES = {
   recados: 'recados.json',
   orientacao: 'orientacao.json',
   links: 'links.json',
-  dolar_ativos: 'dolar_ativos.json'
+  dolar_ativos: 'dolar_ativos.json',
+  produtos_mes: 'produtos_mes.json'
 };
 
 const PREFIX = {
@@ -11,7 +12,8 @@ const PREFIX = {
   recados: 'rec',
   orientacao: 'orient',
   links: 'link',
-  dolar_ativos: 'dlrat'
+  dolar_ativos: 'dlrat',
+  produtos_mes: 'pm'
 };
 
 const OWNER = process.env.GITHUB_OWNER || 'brunolagecdc0303';
@@ -163,7 +165,7 @@ function mutateItems(items, body) {
     throw new Error('Acao invalida.');
   }
 
-  if (modulo === 'orientacao') {
+  if (modulo === 'orientacao' || modulo === 'produtos_mes') {
     const item = buildItem(body, modulo, items[0]);
     return { items: [item], item, changedId: item.id };
   }
