@@ -1083,12 +1083,291 @@
   #module-sucessao .suc-num .u{font-size:12px;color:var(--muted)}
   /* ===== MODULE:SUCESSAO:CSS:END ===== */
 
+  /* ===== MODULE:CONSORCIO:CSS:START ===== */
+  /* -- Remap vars to Prancheta light palette -- */
+  #module-consorcio {
+    --bg:var(--paper);--panel:#f0ede7;--card:#fff;--card2:#f5f2ec;
+    --border:rgba(16,42,40,.12);--border2:rgba(16,42,40,.22);
+    --fin:var(--clay);--fin2:rgba(178,90,65,.10);
+    --con:var(--teal);--con2:rgba(44,107,102,.10);
+    --av:var(--brass);--av2:rgba(181,137,63,.10);
+    --acc:var(--teal);
+    --txt:var(--ink);--txt2:var(--muted);--txt3:var(--muted-2);
+    --mono:var(--f-mono);--sans:var(--f-body);
+    --rad:10px;--rad-sm:6px;
+  }
+  #module-consorcio .cf-main{display:grid;grid-template-columns:2fr 1fr;gap:0;width:100%;align-items:start}
+  #module-consorcio .inputs-area{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-right:1px solid var(--border);align-items:start}
+  #module-consorcio .col-fin{border-right:1px solid var(--border)}
+  #module-consorcio .col-fin,#module-consorcio .col-con{padding:24px 20px 32px;display:flex;flex-direction:column;gap:20px}
+  #module-consorcio .results-area{padding:24px 24px 40px;display:flex;flex-direction:column;gap:20px}
+  #module-consorcio .sec-hdr{display:flex;align-items:center;gap:8px;padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:4px}
+  #module-consorcio .sec-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  #module-consorcio .sec-title{font-size:13px;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+  #module-consorcio .sec-badge{margin-left:auto;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;font-family:var(--mono)}
+  #module-consorcio .fin-badge{background:var(--fin2);color:var(--fin)}
+  #module-consorcio .con-badge{background:var(--con2);color:var(--con)}
+  #module-consorcio .group{display:flex;flex-direction:column;gap:12px}
+  #module-consorcio .group-title{font-size:11px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;padding:0 2px}
+  #module-consorcio .field{display:flex;flex-direction:column;gap:5px}
+  #module-consorcio .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  #module-consorcio .field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  #module-consorcio label{font-size:11px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.05em}
+  #module-consorcio .inp-wrap{position:relative;display:flex;align-items:center}
+  #module-consorcio .inp-pre,#module-consorcio .inp-suf{position:absolute;font-family:var(--mono);font-size:13px;color:var(--txt3);font-weight:500;pointer-events:none;z-index:1}
+  #module-consorcio .inp-pre{left:11px}
+  #module-consorcio .inp-suf{right:11px}
+  #module-consorcio input[type="number"],#module-consorcio input[type="text"],#module-consorcio select{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:var(--rad-sm);color:var(--txt);font-family:var(--mono);font-size:13px;font-weight:500;padding:9px 12px;outline:none;transition:border-color .15s,background .15s;-webkit-appearance:none;appearance:none}
+  #module-consorcio input[type="number"]:hover,#module-consorcio select:hover{border-color:var(--border2)}
+  #module-consorcio input[type="number"]:focus,#module-consorcio select:focus{border-color:var(--acc);background:var(--panel)}
+  #module-consorcio input.pl{padding-left:30px}
+  #module-consorcio input.pr{padding-right:30px}
+  #module-consorcio input[type=number]::-webkit-inner-spin-button,#module-consorcio input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+  #module-consorcio input[type=number]{-moz-appearance:textfield}
+  #module-consorcio select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238A9690' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:30px;cursor:pointer}
+  #module-consorcio .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--card2);border:1px solid var(--border);border-radius:var(--rad-sm);cursor:pointer}
+  #module-consorcio .toggle-label{font-size:12px;font-weight:600;color:var(--txt2)}
+  #module-consorcio .toggle-label span{font-size:11px;color:var(--txt3);display:block;margin-top:1px}
+  #module-consorcio .sw{position:relative;width:38px;height:21px;flex-shrink:0}
+  #module-consorcio .sw input{opacity:0;width:0;height:0}
+  #module-consorcio .sw-t{position:absolute;inset:0;background:var(--panel);border:1px solid var(--border);border-radius:30px;cursor:pointer;transition:all .2s}
+  #module-consorcio .sw-t::after{content:'';position:absolute;left:2px;top:2px;width:15px;height:15px;background:var(--txt3);border-radius:50%;transition:all .2s}
+  #module-consorcio .sw input:checked+.sw-t{background:rgba(44,107,102,.2);border-color:var(--con)}
+  #module-consorcio .sw input:checked+.sw-t::after{transform:translateX(17px);background:var(--con)}
+  #module-consorcio .collapse{overflow:hidden;max-height:0;transition:max-height .3s ease,opacity .2s;opacity:0}
+  #module-consorcio .collapse.open{max-height:500px;opacity:1}
+  #module-consorcio .radio-group{display:flex;gap:6px;flex-wrap:wrap}
+  #module-consorcio .radio-btn{padding:6px 12px;border-radius:var(--rad-sm);border:1px solid var(--border);background:var(--card2);color:var(--txt3);font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+  #module-consorcio .radio-btn:hover{border-color:var(--border2);color:var(--txt2)}
+  #module-consorcio .radio-btn.ac-fin{border-color:var(--fin);background:var(--fin2);color:var(--fin)}
+  #module-consorcio .radio-btn.ac-con{border-color:var(--con);background:var(--con2);color:var(--con)}
+  #module-consorcio .dvd{height:1px;background:var(--border)}
+  #module-consorcio .verdict{border-radius:var(--rad);padding:18px 20px;display:flex;align-items:center;gap:16px;border:2px solid var(--border);transition:all .4s}
+  #module-consorcio .verdict.wc{border-color:rgba(44,107,102,.4);background:rgba(44,107,102,.06)}
+  #module-consorcio .verdict.wf{border-color:rgba(178,90,65,.4);background:rgba(178,90,65,.06)}
+  #module-consorcio .verdict.wa{border-color:rgba(181,137,63,.4);background:rgba(181,137,63,.06)}
+  #module-consorcio .verdict.wt{border-color:var(--border);background:var(--card)}
+  #module-consorcio .v-ic{font-size:32px;flex-shrink:0}
+  #module-consorcio .v-tx strong{font-size:16px;font-weight:700;display:block;margin-bottom:4px}
+  #module-consorcio .v-tx span{font-size:13px;color:var(--txt2)}
+  #module-consorcio .v-eco{margin-left:auto;text-align:right;flex-shrink:0}
+  #module-consorcio .v-eco .eco-val{font-family:var(--mono);font-size:22px;font-weight:700}
+  #module-consorcio .v-eco .eco-lbl{font-size:11px;color:var(--txt3);margin-top:2px}
+  #module-consorcio .chart-box{background:var(--card);border:1px solid var(--border);border-radius:var(--rad);padding:18px 18px 14px}
+  #module-consorcio .chart-ttl{font-size:12px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  #module-consorcio .chart-ttl::after{content:'';flex:1;height:1px;background:var(--border)}
+  #module-consorcio .chart-c{position:relative;height:240px}
+  #module-consorcio .chart-leg{display:flex;gap:20px;justify-content:center;margin-top:12px}
+  #module-consorcio .cl{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--txt2);font-weight:500}
+  #module-consorcio .cl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  #module-consorcio .cmp-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--rad);overflow:hidden}
+  #module-consorcio .cmp-head{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;background:var(--card2);border-bottom:1px solid var(--border)}
+  #module-consorcio .cmp-head-cell{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+  #module-consorcio .cmp-head-cell.f{color:var(--fin);border-left:1px solid var(--border)}
+  #module-consorcio .cmp-head-cell.c{color:var(--con);border-left:1px solid var(--border)}
+  #module-consorcio .cmp-head-cell.a{color:var(--av);border-left:1px solid var(--border)}
+  #module-consorcio .cmp-row{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;border-bottom:1px solid rgba(16,42,40,.08);transition:background .1s}
+  #module-consorcio .cmp-row:last-child{border-bottom:none}
+  #module-consorcio .cmp-row:hover{background:rgba(16,42,40,.03)}
+  #module-consorcio .cmp-cell{padding:10px 14px;font-size:13px;font-family:var(--mono);font-weight:500;color:var(--txt)}
+  #module-consorcio .cmp-cell:not(:first-child){border-left:1px solid rgba(16,42,40,.08)}
+  #module-consorcio .cmp-cell:first-child{color:var(--txt2);font-family:var(--sans);font-size:12px;font-weight:500}
+  #module-consorcio .cmp-cell.bf{color:var(--fin);font-weight:700}
+  #module-consorcio .cmp-cell.bc{color:var(--con);font-weight:700}
+  #module-consorcio .cmp-cell.ba{color:var(--av);font-weight:700}
+  #module-consorcio .cmp-cell.bw{color:var(--txt3)}
+  #module-consorcio .cmp-section-hdr{grid-column:1/-1;padding:6px 14px;font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.1em;background:rgba(16,42,40,.03);border-bottom:1px solid rgba(16,42,40,.08)}
+  #module-consorcio .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  #module-consorcio .mini-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rad-sm);padding:12px 14px}
+  #module-consorcio .mini-card.hf{border-color:rgba(178,90,65,.35);background:rgba(178,90,65,.06)}
+  #module-consorcio .mini-card.hc{border-color:rgba(44,107,102,.35);background:rgba(44,107,102,.06)}
+  #module-consorcio .mini-lbl{font-size:10px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+  #module-consorcio .mini-val{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt)}
+  #module-consorcio .mini-val.fin{color:var(--fin)}
+  #module-consorcio .mini-val.con{color:var(--con)}
+  #module-consorcio .mini-val.big{font-size:20px}
+  #module-consorcio .mini-sub{font-size:10px;color:var(--txt3);margin-top:3px;font-family:var(--mono)}
+  #module-consorcio .amort-box{background:var(--card);border:1px solid var(--border);border-radius:var(--rad);overflow:hidden}
+  #module-consorcio .amort-table{width:100%;border-collapse:collapse;font-size:12px;font-family:var(--mono)}
+  #module-consorcio .amort-table th{background:var(--card2);color:var(--txt3);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:9px 12px;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap}
+  #module-consorcio .amort-table th:first-child{text-align:left}
+  #module-consorcio .amort-table td{padding:8px 12px;text-align:right;color:var(--txt);border-bottom:1px solid rgba(16,42,40,.06)}
+  #module-consorcio .amort-table td:first-child{text-align:left;color:var(--txt3)}
+  #module-consorcio .amort-table tr:last-child td{border-bottom:none}
+  #module-consorcio .amort-table tr:hover td{background:rgba(16,42,40,.03)}
+  #module-consorcio .hi{color:var(--con);font-weight:600}
+  #module-consorcio .hi-red{color:var(--fin)}
+  #module-consorcio .see-more{text-align:center;padding:9px;font-size:11px;color:var(--txt3);cursor:pointer;border-top:1px solid var(--border);font-weight:600;font-family:var(--sans);letter-spacing:.03em;transition:color .15s}
+  #module-consorcio .see-more:hover{color:var(--txt2)}
+  #module-consorcio .res-sec{font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.1em;display:flex;align-items:center;gap:10px}
+  #module-consorcio .res-sec::after{content:'';flex:1;height:1px;background:var(--border)}
+  #module-consorcio .fn{font-size:11px;color:var(--txt3);line-height:1.5;padding-top:4px}
+  #module-consorcio .toast{position:fixed;bottom:24px;right:24px;background:var(--card);border:1px solid var(--border);color:var(--txt);padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 8px 30px rgba(0,0,0,.12)}
+  #module-consorcio .toast.show{transform:translateY(0);opacity:1}
+  /* modal overlay */
+  #module-consorcio .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+  #module-consorcio .modal-overlay.open{opacity:1;pointer-events:all}
+  #module-consorcio .modal-box{background:var(--card);border:1px solid var(--border);border-radius:16px;width:100%;max-width:520px;padding:0;box-shadow:0 24px 80px rgba(0,0,0,.15);transform:translateY(16px) scale(.98);transition:transform .3s cubic-bezier(.32,1,.23,1);overflow:hidden}
+  #module-consorcio .modal-overlay.open .modal-box{transform:translateY(0) scale(1)}
+  #module-consorcio .modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px 16px;border-bottom:1px solid var(--border);background:var(--card2)}
+  #module-consorcio .modal-head-title{font-size:15px;font-weight:700;color:var(--txt);display:flex;align-items:center;gap:10px}
+  #module-consorcio .modal-head-ic{width:28px;height:28px;background:rgba(181,137,63,.15);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}
+  #module-consorcio .modal-close-btn{background:var(--card);border:1px solid var(--border);color:var(--txt2);border-radius:7px;width:28px;height:28px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+  #module-consorcio .modal-close-btn:hover{border-color:var(--border2);color:var(--txt)}
+  #module-consorcio .modal-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:14px}
+  #module-consorcio .modal-info{font-size:12px;color:var(--txt2);line-height:1.6;background:rgba(181,137,63,.06);border:1px solid rgba(181,137,63,.18);border-radius:8px;padding:12px 14px}
+  #module-consorcio .modal-info strong{color:var(--brass)}
+  #module-consorcio .modal-footer{display:flex;gap:10px;padding:0 22px 20px}
+  #module-consorcio .modal-btn-apply{flex:1;padding:11px;background:linear-gradient(135deg,var(--brass),var(--clay));color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:opacity .15s}
+  #module-consorcio .modal-btn-apply:hover{opacity:.9}
+  #module-consorcio .modal-btn-cancel{padding:11px 18px;background:var(--card2);border:1px solid var(--border);color:var(--txt2);border-radius:9px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all .15s}
+  #module-consorcio .modal-btn-cancel:hover{border-color:var(--border2);color:var(--txt)}
+  /* rent badge */
+  #module-consorcio .rent-badge{display:none;align-items:center;gap:6px;background:rgba(181,137,63,.08);border:1px solid rgba(181,137,63,.25);color:var(--brass);border-radius:8px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:all .15s}
+  #module-consorcio .rent-badge.active{display:flex}
+  #module-consorcio .rent-badge:hover{background:rgba(181,137,63,.15)}
+  /* rent section */
+  #module-consorcio .rent-section{background:var(--card);border:1px solid rgba(181,137,63,.25);border-left:3px solid var(--brass);border-radius:var(--rad);overflow:hidden}
+  #module-consorcio .rent-sec-hdr{background:rgba(181,137,63,.06);padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(181,137,63,.12);cursor:pointer}
+  #module-consorcio .rent-sec-title{font-size:12px;font-weight:700;color:var(--brass);text-transform:uppercase;letter-spacing:.07em}
+  #module-consorcio .rent-sec-edit{margin-left:auto;font-size:11px;color:rgba(181,137,63,.6);font-weight:500}
+  #module-consorcio .rent-sec-body{padding:16px}
+  #module-consorcio .rent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+  #module-consorcio .rent-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--rad-sm);padding:12px 14px}
+  #module-consorcio .rent-card.worse{border-color:rgba(178,90,65,.4);background:rgba(178,90,65,.06)}
+  #module-consorcio .rent-card.better{border-color:rgba(44,107,102,.35);background:rgba(44,107,102,.05)}
+  #module-consorcio .rent-card.warn{border-color:rgba(181,137,63,.35);background:rgba(181,137,63,.06)}
+  #module-consorcio .rent-lbl{font-size:10px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+  #module-consorcio .rent-val{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt)}
+  #module-consorcio .rent-val.y{color:var(--brass)}
+  #module-consorcio .rent-val.r{color:var(--fin)}
+  #module-consorcio .rent-val.g{color:var(--con)}
+  #module-consorcio .rent-val.big{font-size:19px}
+  #module-consorcio .rent-sub{font-size:10px;color:var(--txt3);margin-top:3px;font-family:var(--mono)}
+  #module-consorcio .rent-insight{font-size:12px;color:var(--txt2);line-height:1.7;background:rgba(181,137,63,.05);border:1px solid rgba(181,137,63,.12);border-radius:8px;padding:12px 14px}
+  #module-consorcio .rent-insight strong{color:var(--brass)}
+  #module-consorcio .rent-insight .ins-r{color:var(--fin);font-weight:600}
+  #module-consorcio .rent-insight .ins-g{color:var(--con);font-weight:600}
+  /* col-av */
+  #module-consorcio .col-av{padding:24px 20px 32px;display:flex;flex-direction:column;gap:20px;border-left:1px solid var(--border)}
+  #module-consorcio .sec-badge.av-badge{background:var(--av2);color:var(--av)}
+  #module-consorcio .btn-preset{padding:5px 10px;border-radius:var(--rad-sm);border:1px solid var(--border);background:var(--card2);color:var(--txt3);font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+  #module-consorcio .btn-preset:hover{border-color:var(--av);color:var(--av)}
+  #module-consorcio .btn-preset.ac{border-color:var(--av);background:var(--av2);color:var(--av)}
+  /* oport section */
+  #module-consorcio .oport-section{background:var(--card);border:1px solid rgba(181,137,63,.25);border-left:3px solid var(--av);border-radius:var(--rad);overflow:hidden}
+  #module-consorcio .oport-hdr{background:rgba(181,137,63,.06);padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(181,137,63,.12)}
+  #module-consorcio .oport-hdr-title{font-size:12px;font-weight:700;color:var(--av);text-transform:uppercase;letter-spacing:.07em}
+  #module-consorcio .oport-body{padding:16px;display:flex;flex-direction:column;gap:14px}
+  #module-consorcio .oport-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  #module-consorcio .oport-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--rad-sm);padding:12px 14px}
+  #module-consorcio .oport-card.hl{border-color:rgba(181,137,63,.4);background:rgba(181,137,63,.06)}
+  #module-consorcio .oport-card.bad{border-color:rgba(178,90,65,.4);background:rgba(178,90,65,.06)}
+  #module-consorcio .oport-card.good{border-color:rgba(44,107,102,.35);background:rgba(44,107,102,.05)}
+  #module-consorcio .oport-lbl{font-size:10px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+  #module-consorcio .oport-val{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt)}
+  #module-consorcio .oport-val.av{color:var(--av)}
+  #module-consorcio .oport-val.red{color:var(--fin)}
+  #module-consorcio .oport-val.grn{color:var(--con)}
+  #module-consorcio .oport-val.big{font-size:19px}
+  #module-consorcio .oport-sub{font-size:10px;color:var(--txt3);margin-top:3px;font-family:var(--mono)}
+  #module-consorcio .oport-insight{font-size:12px;color:var(--txt2);line-height:1.7;background:rgba(181,137,63,.05);border:1px solid rgba(181,137,63,.12);border-radius:8px;padding:12px 14px}
+  #module-consorcio .oport-insight strong{color:var(--av)}
+  #module-consorcio .oport-insight .ins-r{color:var(--fin);font-weight:600}
+  #module-consorcio .oport-insight .ins-g{color:var(--con);font-weight:600}
+  #module-consorcio .oport-insight .ins-a{color:var(--av);font-weight:600}
+  /* rend table */
+  #module-consorcio .rend-box{background:var(--card);border:1px solid rgba(181,137,63,.2);border-radius:var(--rad);overflow:hidden}
+  #module-consorcio .rend-hdr-bar{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:rgba(181,137,63,.06);border-bottom:1px solid rgba(181,137,63,.12);cursor:pointer;user-select:none;transition:background .15s}
+  #module-consorcio .rend-hdr-bar:hover{background:rgba(181,137,63,.12)}
+  #module-consorcio .rend-hdr-title{font-size:11px;font-weight:700;color:var(--av);text-transform:uppercase;letter-spacing:.07em}
+  #module-consorcio .rend-hdr-toggle{font-size:11px;color:rgba(181,137,63,.6);font-weight:500}
+  #module-consorcio .rend-table-wrap{overflow-x:auto;max-height:420px;overflow-y:auto}
+  #module-consorcio .rend-table{width:100%;border-collapse:collapse;font-size:12px;font-family:var(--mono)}
+  #module-consorcio .rend-table th{padding:8px 12px;background:var(--card2);color:var(--txt3);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap;position:sticky;top:0;z-index:1}
+  #module-consorcio .rend-table th:first-child{text-align:left}
+  #module-consorcio .rend-table td{padding:7px 12px;border-bottom:1px solid rgba(16,42,40,.06);color:var(--txt);text-align:right;white-space:nowrap}
+  #module-consorcio .rend-table td:first-child{text-align:left;color:var(--txt2)}
+  #module-consorcio .rend-table tr:last-child td{border-bottom:none}
+  #module-consorcio .rend-table tr:hover td{background:rgba(16,42,40,.03)}
+  #module-consorcio .rend-table .hi-av{color:var(--av);font-weight:600}
+  #module-consorcio .rend-table .hi-red{color:var(--fin);font-weight:500}
+  #module-consorcio .rend-table .hi-grn{color:var(--con);font-weight:500}
+  #module-consorcio .rend-table .row-anual td{background:rgba(181,137,63,.06);font-weight:700;border-bottom:1px solid rgba(181,137,63,.18)}
+  #module-consorcio .rend-see-more{text-align:center;padding:10px;font-size:12px;font-weight:600;color:var(--av);cursor:pointer;border-top:1px solid var(--border);background:var(--card);transition:background .15s}
+  #module-consorcio .rend-see-more:hover{background:rgba(181,137,63,.06)}
+  /* btn report */
+  #module-consorcio .btn-report{display:flex;align-items:center;gap:7px;background:var(--card2);border:1px solid var(--border);color:var(--txt2);border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:all .15s}
+  #module-consorcio .btn-report:hover{border-color:var(--av);color:var(--av)}
+  /* report modal */
+  #module-consorcio .report-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto}
+  #module-consorcio .report-overlay.open{display:flex}
+  #module-consorcio .report-box{background:#fff;color:#111;border-radius:12px;width:100%;max-width:780px;padding:48px 52px;font-family:var(--sans);box-shadow:0 24px 80px rgba(0,0,0,.15);position:relative}
+  #module-consorcio .report-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;color:#666;line-height:1}
+  #module-consorcio .report-close:hover{color:#111}
+  #module-consorcio .rep-logo{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+  #module-consorcio .rep-title{font-size:26px;font-weight:800;color:#111;margin-bottom:2px;line-height:1.2}
+  #module-consorcio .rep-sub{font-size:13px;color:#666;margin-bottom:28px}
+  #module-consorcio .rep-divider{height:1px;background:#e5e5e5;margin:20px 0}
+  #module-consorcio .rep-section-title{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+  #module-consorcio .rep-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+  #module-consorcio .rep-card{border:1.5px solid #e5e5e5;border-radius:10px;padding:14px 16px}
+  #module-consorcio .rep-card.best{border-color:#22c55e;background:#f0fdf4}
+  #module-consorcio .rep-card.warn{border-color:#f97316;background:#fff7ed}
+  #module-consorcio .rep-card-label{font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+  #module-consorcio .rep-card-val{font-size:20px;font-weight:800;color:#111}
+  #module-consorcio .rep-card-val.green{color:#16a34a}
+  #module-consorcio .rep-card-val.orange{color:#ea580c}
+  #module-consorcio .rep-card-val.purple{color:#7c3aed}
+  #module-consorcio .rep-card-sub{font-size:11px;color:#666;margin-top:3px}
+  #module-consorcio .rep-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}
+  #module-consorcio .rep-table th{text-align:left;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.07em;padding:8px 10px;border-bottom:2px solid #e5e5e5}
+  #module-consorcio .rep-table th:not(:first-child){text-align:right}
+  #module-consorcio .rep-table td{padding:8px 10px;border-bottom:1px solid #f0f0f0;color:#333;font-size:12px}
+  #module-consorcio .rep-table td:not(:first-child){text-align:right;font-weight:600}
+  #module-consorcio .rep-table tr.best-row td{background:#f0fdf4;font-weight:700}
+  #module-consorcio .rep-table tr.best-row td:first-child::before{content:"★ ";color:#16a34a}
+  #module-consorcio .rep-insight{background:#f8f9fa;border-left:4px solid #6366f1;border-radius:6px;padding:14px 16px;font-size:13px;color:#333;line-height:1.7;margin-bottom:20px}
+  #module-consorcio .rep-insight strong{color:#111}
+  #module-consorcio .rep-disclaimer{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px 16px;font-size:11px;color:#92400e;line-height:1.6}
+  #module-consorcio .rep-disclaimer strong{color:#78350f}
+  #module-consorcio .rep-footer{margin-top:24px;display:flex;justify-content:space-between;align-items:center}
+  #module-consorcio .rep-footer-date{font-size:11px;color:#aaa}
+  #module-consorcio .btn-rep-print{display:flex;align-items:center;gap:6px;background:#111;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:opacity .15s}
+  #module-consorcio .btn-rep-print:hover{opacity:.85}
+  /* toolbar / action bar */
+  #module-consorcio .cf-toolbar{display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--border);background:var(--card);flex-wrap:wrap}
+  #module-consorcio .btn-calc{display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--clay),var(--teal));color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans);letter-spacing:.01em;transition:opacity .15s,transform .1s;box-shadow:0 4px 20px rgba(44,107,102,.15)}
+  #module-consorcio .btn-calc:hover{opacity:.9}
+  #module-consorcio .btn-calc:active{transform:scale(.97)}
+  #module-consorcio .btn-sec{display:flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--border);color:var(--txt2);border-radius:8px;padding:8px 14px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:border-color .15s,color .15s}
+  #module-consorcio .btn-sec:hover{border-color:var(--border2);color:var(--txt)}
+  /* responsive */
+  @media (max-width:1100px){
+    #module-consorcio .cf-main{grid-template-columns:1fr}
+    #module-consorcio .inputs-area{grid-template-columns:1fr 1fr}
+    #module-consorcio .col-av{border-left:none;border-top:1px solid var(--border)}
+    #module-consorcio .oport-grid{grid-template-columns:1fr 1fr}
+    #module-consorcio .mini-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:700px){
+    #module-consorcio .inputs-area{grid-template-columns:1fr}
+    #module-consorcio .col-fin{border-right:none;border-bottom:1px solid var(--border)}
+    #module-consorcio .mini-grid{grid-template-columns:1fr 1fr}
+    #module-consorcio .cmp-head-cell,#module-consorcio .cmp-cell{padding:8px 10px;font-size:11px}
+    #module-consorcio .oport-grid{grid-template-columns:1fr}
+    #module-consorcio .cf-toolbar{padding:12px 16px}
+    #module-consorcio .rent-grid{grid-template-columns:1fr 1fr}
+    #module-consorcio .rep-cards{grid-template-columns:1fr}
+  }
+  /* ===== MODULE:CONSORCIO:CSS:END ===== */
+
   /* ===== SHARED:CSS:PRINT (ao adicionar módulo novo, inclua #module-X na lista abaixo para escondê-lo da impressão) ===== */
   @media print{
     @page{size:A4;margin:14mm 14mm 16mm}
     body{background:#fff;font-size:11pt}
     /* PRINT:HIDE-MODULES:LIST — adicione aqui o #id do <section class="module"> de cada módulo novo (exceto o que efetivamente imprime) */
-    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#module-sucessao,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions{display:none!important}
+    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#module-sucessao,#module-consorcio,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions{display:none!important}
     .app,.app-main,.module{display:block!important}
     #report{display:block!important;color:#111;max-width:none}
     .rep-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:18px}
@@ -1210,6 +1489,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         Sucessão no Brasil
       </button>
+      <button class="side-item" data-module="module-consorcio" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 12h18"/><path d="M12 3v18"/></svg>
+        Consórcio vs Financ.
+      </button>
       <!-- MODULE:REGISTRY:SIDEBAR:END -->
       <span class="side-sec">Em breve</span>
       <span class="side-item soon">Mais módulos a caminho</span>
@@ -1231,6 +1514,7 @@
       <button class="mt-item" data-module="module-etf" type="button">ETF</button>
       <button class="mt-item" data-module="module-exterior" type="button">Estruturas no exterior</button>
       <button class="mt-item" data-module="module-sucessao" type="button">Sucessão BR</button>
+      <button class="mt-item" data-module="module-consorcio" type="button">Consórcio</button>
       <!-- MODULE:REGISTRY:TOPBAR:END -->
       <span class="mt-item soon">Em breve</span>
     </div>
@@ -3206,6 +3490,636 @@ Abraço,
       </main>
     </section>
     <!-- MODULE:SUCESSAO:HTML:END -->
+    <!-- MODULE:CONSORCIO:HTML:START -->
+    <section class="module" id="module-consorcio" hidden>
+      <header class="masthead">
+        <div class="mast-left">
+          <img class="mast-logo" alt="InvestSmart" id="logo-consorcio">
+          <div>
+            <h1 class="mast-title">Consórcio vs Financiamento</h1>
+            <p class="mast-sub">Comparador de aquisição — Financiamento, Consórcio e À Vista</p>
+          </div>
+        </div>
+      </header>
+      <main class="wrap" style="max-width:100%;padding:0">
+
+      <!-- TOOLBAR -->
+      <div class="cf-toolbar">
+        <button class="btn-sec" onclick="cfLimpar()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          Limpar
+        </button>
+        <button class="rent-badge" id="rent-badge" onclick="cfAbrirAluguel()">
+          🏠 <span id="rent-badge-txt">Aluguel incluído</span>
+        </button>
+        <button class="btn-report" id="btn-report" onclick="cfAbrirRelatorio()" style="display:none">
+          📄 Gerar Relatório
+        </button>
+        <button class="btn-sec" onclick="cfAbrirAluguel()">
+          🏠 Custo Aluguel
+        </button>
+        <button class="btn-calc" onclick="cfCalcular()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Calcular Comparativo
+        </button>
+      </div>
+
+      <!-- RENT MODAL -->
+      <div class="modal-overlay" id="rent-modal" onclick="cfFecharAluguelFora(event)">
+        <div class="modal-box">
+          <div class="modal-head">
+            <div class="modal-head-title">
+              <div class="modal-head-ic">🏠</div>
+              Custo do Aluguel — Impacto na Comparação
+            </div>
+            <button class="modal-close-btn" onclick="cfFecharAluguel()">✕</button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-info">
+              <strong>Por que isso importa?</strong><br>
+              Quem mora de aluguel e busca um imóvel próprio carrega esse custo mensal durante <em>todo</em> o período de espera.
+              O financiamento libera o imóvel em <strong>~3 meses</strong>, enquanto o consórcio
+              pode levar <strong>anos</strong> até a contemplação (exceto com lance rápido).
+              Esse custo de oportunidade muda completamente a comparação.
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Aluguel mensal atual (R$)</label>
+                <div class="inp-wrap"><span class="inp-pre">R$</span>
+                  <input type="number" class="pl" id="rent-val" value="2000" min="0" step="100" oninput="cfPreviewAluguel()">
+                </div>
+              </div>
+              <div class="field">
+                <label>Reajuste anual do aluguel (%)</label>
+                <div class="inp-wrap">
+                  <input type="number" class="pr" id="rent-reaj" value="5" min="0" max="30" step="0.5" oninput="cfPreviewAluguel()">
+                  <span class="inp-suf">%</span>
+                </div>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Meses até o financiamento liberar o imóvel</label>
+                <div class="inp-wrap">
+                  <input type="number" class="pr" id="rent-mfin" value="3" min="1" max="24" step="1" oninput="cfPreviewAluguel()">
+                  <span class="inp-suf">m</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Mês estimado de contemplação (consórcio)</label>
+                <div class="inp-wrap">
+                  <input type="number" class="pr" id="rent-mcon" value="0" min="0" step="1" oninput="cfPreviewAluguel()">
+                  <span class="inp-suf">m</span>
+                </div>
+              </div>
+            </div>
+            <div style="font-size:11px;color:var(--txt3);margin-top:-4px;padding:0 2px">
+              ⚠️ Mês de contemplação = 0 significa "usar o valor calculado pelo simulador" (lance habilitado → contemplação no mês configurado; sem lance → prazo total).
+            </div>
+            <div style="background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px" id="rent-preview">
+              <div>
+                <div style="font-size:10px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Aluguel até Financ.</div>
+                <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--brass)" id="rp-fin">—</div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Aluguel até Consórcio</div>
+                <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--brass)" id="rp-con">—</div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Diferença de aluguel</div>
+                <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--fin)" id="rp-dif">—</div>
+              </div>
+              <div>
+                <div style="font-size:10px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Meses extras pagando aluguel</div>
+                <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--fin)" id="rp-mes">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="modal-btn-cancel" onclick="cfRemoverAluguel()">Remover da análise</button>
+            <button class="modal-btn-apply" onclick="cfAplicarAluguel()">✓ Incluir na análise</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN GRID -->
+      <div class="cf-main">
+        <!-- LEFT: INPUTS -->
+        <div class="inputs-area">
+          <!-- FINANCIAMENTO -->
+          <div class="col-fin">
+            <div class="sec-hdr">
+              <div class="sec-dot" style="background:var(--fin)"></div>
+              <div class="sec-title" style="color:var(--fin)">Financiamento</div>
+              <div class="sec-badge fin-badge">Banco / Crédito</div>
+            </div>
+            <div class="group">
+              <div class="group-title">Valores</div>
+              <div class="field">
+                <label>Valor do Bem</label>
+                <div class="inp-wrap"><span class="inp-pre">R$</span>
+                  <input type="number" class="pl" id="f-bem" value="150000" min="0" step="1000" oninput="cfSyncFin()">
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label>Entrada</label>
+                  <div class="inp-wrap"><span class="inp-pre">R$</span>
+                    <input type="number" class="pl" id="f-ent" value="0" min="0" step="1000" oninput="cfSyncFin()">
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Valor Financiado</label>
+                  <div class="inp-wrap"><span class="inp-pre">R$</span>
+                    <input type="number" class="pl" id="f-fin" value="150000" min="1000" step="1000" oninput="cfCalcular()">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dvd"></div>
+            <div class="group">
+              <div class="group-title">Condições</div>
+              <div class="field">
+                <label>Sistema de Amortização</label>
+                <div class="radio-group" id="rg-sis">
+                  <button class="radio-btn ac-fin" onclick="cfSetSis('SAC')">SAC</button>
+                  <button class="radio-btn" onclick="cfSetSis('PRICE')">PRICE / FRANCESA</button>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label>Taxa de Juros (a.m. %)</label>
+                  <div class="inp-wrap">
+                    <input type="number" class="pr" id="f-tam" value="1.20" min="0.01" max="20" step="0.01" oninput="cfSyncTaxa('am')">
+                    <span class="inp-suf">%</span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Taxa de Juros (a.a. %)</label>
+                  <div class="inp-wrap">
+                    <input type="number" class="pr" id="f-taa" value="15.39" min="0.01" max="200" step="0.01" oninput="cfSyncTaxa('aa')">
+                    <span class="inp-suf">%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label>Prazo (meses)</label>
+                <div class="inp-wrap">
+                  <input type="number" id="f-prazo" value="60" min="1" max="480" step="1" oninput="cfCalcular()">
+                  <span class="inp-suf">m</span>
+                </div>
+              </div>
+            </div>
+            <div class="dvd"></div>
+            <!-- AMORTIZAÇÃO EXTRA -->
+            <div class="group">
+              <div class="toggle-row" onclick="cfTogAm()">
+                <div class="toggle-label">
+                  ⚡ Amortização Extra
+                  <span>Pagamentos adicionais ao saldo</span>
+                </div>
+                <label class="sw" onclick.stop><input type="checkbox" id="sw-am" onchange="cfTogAm2()"><span class="sw-t"></span></label>
+              </div>
+              <div class="collapse" id="am-body">
+                <div style="display:flex;flex-direction:column;gap:12px;padding-top:12px">
+                  <div class="field-row">
+                    <div class="field">
+                      <label>Valor Extra</label>
+                      <div class="inp-wrap"><span class="inp-pre">R$</span>
+                        <input type="number" class="pl" id="am-val" value="2000" min="100" oninput="cfCalcular()">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>Periodicidade</label>
+                      <select id="am-per" onchange="cfCalcular()">
+                        <option value="mensal">Mensal</option>
+                        <option value="tri">Trimestral</option>
+                        <option value="sem">Semestral</option>
+                        <option value="pont">Pontual (mês único)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="field-row">
+                    <div class="field" id="am-mes-f" style="display:none">
+                      <label>Mês do pagamento</label>
+                      <div class="inp-wrap">
+                        <input type="number" id="am-mes" value="12" min="1" oninput="cfCalcular()">
+                        <span class="inp-suf">mês</span>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>Objetivo</label>
+                      <select id="am-red" onchange="cfCalcular()">
+                        <option value="parcela">Reduzir parcela</option>
+                        <option value="prazo">Reduzir prazo</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dvd"></div>
+            <!-- CET -->
+            <div class="group">
+              <div class="toggle-row" onclick="cfTogCET()">
+                <div class="toggle-label">
+                  🏦 Custos Efetivos (CET)
+                  <span>IOF, tarifas, seguros obrigatórios</span>
+                </div>
+                <label class="sw" onclick.stop><input type="checkbox" id="sw-cet" onchange="cfTogCET2()"><span class="sw-t"></span></label>
+              </div>
+              <div class="collapse" id="cet-body">
+                <div style="display:flex;flex-direction:column;gap:12px;padding-top:12px">
+                  <div style="font-size:11px;color:var(--txt3);background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;line-height:1.6">
+                    <strong style="color:var(--txt2);display:block;margin-bottom:4px">O que é o CET?</strong>
+                    O Custo Efetivo Total engloba todos os encargos cobrados pelo banco além da taxa de juros nominal: IOF, tarifa de abertura de crédito (TAC), tarifa de registro, seguro prestamista e outros.
+                    Por lei (Res. CMN 3.517), deve ser expresso em % a.a.
+                  </div>
+                  <div class="field-row">
+                    <div class="field">
+                      <label>IOF — Alíquota diária (%)</label>
+                      <div class="inp-wrap">
+                        <input type="number" class="pr" id="cet-iof-d" value="0.0082" min="0" step="0.001" oninput="cfCalcular()">
+                        <span class="inp-suf">%/d</span>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>IOF — Alíquota adicional (%)</label>
+                      <div class="inp-wrap">
+                        <input type="number" class="pr" id="cet-iof-a" value="0.38" min="0" step="0.01" oninput="cfCalcular()">
+                        <span class="inp-suf">%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field-row">
+                    <div class="field">
+                      <label>TAC / Tarifa de Crédito (R$)</label>
+                      <div class="inp-wrap"><span class="inp-pre">R$</span>
+                        <input type="number" class="pl" id="cet-tac" value="0" min="0" step="50" oninput="cfCalcular()">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>Tarifa de Registro (R$)</label>
+                      <div class="inp-wrap"><span class="inp-pre">R$</span>
+                        <input type="number" class="pl" id="cet-reg" value="0" min="0" step="50" oninput="cfCalcular()">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field-row">
+                    <div class="field">
+                      <label>Seguro Prestamista (% a.m.)</label>
+                      <div class="inp-wrap">
+                        <input type="number" class="pr" id="cet-seg" value="0" min="0" max="5" step="0.01" oninput="cfCalcular()">
+                        <span class="inp-suf">%</span>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>Outros Encargos (R$ / mês)</label>
+                      <div class="inp-wrap"><span class="inp-pre">R$</span>
+                        <input type="number" class="pl" id="cet-out" value="0" min="0" step="10" oninput="cfCalcular()">
+                      </div>
+                    </div>
+                  </div>
+                  <div style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:10px 12px">
+                    <div style="font-size:10px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">CET Calculado</div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+                      <div>
+                        <div style="font-size:10px;color:var(--txt3)">CET a.m.</div>
+                        <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--fin)" id="cet-am-disp">—</div>
+                      </div>
+                      <div>
+                        <div style="font-size:10px;color:var(--txt3)">CET a.a.</div>
+                        <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--fin)" id="cet-aa-disp">—</div>
+                      </div>
+                      <div>
+                        <div style="font-size:10px;color:var(--txt3)">Custo extra total</div>
+                        <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--fin)" id="cet-extra-disp">—</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fn">* Juros compostos mensais. Ative o CET para incluir IOF, tarifas e seguros.</div>
+          </div>
+
+          <!-- CONSÓRCIO -->
+          <div class="col-con">
+            <div class="sec-hdr">
+              <div class="sec-dot" style="background:var(--con)"></div>
+              <div class="sec-title" style="color:var(--con)">Consórcio</div>
+              <div class="sec-badge con-badge">Administradora</div>
+            </div>
+            <div class="group">
+              <div class="group-title">Crédito</div>
+              <div class="field">
+                <label>Valor do Crédito</label>
+                <div class="inp-wrap"><span class="inp-pre">R$</span>
+                  <input type="number" class="pl" id="c-cred" value="150000" min="10000" step="1000" oninput="cfCalcular()">
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label>Tipo de Produto</label>
+                  <select id="c-prod" onchange="cfChangeProd()">
+                    <option value="auto">Veículo</option>
+                    <option value="im">Imóvel</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Contratação</label>
+                  <select id="c-tipo" onchange="cfCalcular()">
+                    <option value="F">Pessoa Física</option>
+                    <option value="J">Pessoa Jurídica</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label>Prazo (meses) — editável livremente</label>
+                <div class="inp-wrap">
+                  <input type="number" id="c-prazo" value="60" min="12" max="480" step="1" oninput="cfCalcular()">
+                  <span class="inp-suf">m</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Redutor do Grupo (%)</label>
+                <div class="inp-wrap">
+                  <input type="number" class="pr" id="c-red" value="25" min="0" max="50" step="1" oninput="cfCalcular()">
+                  <span class="inp-suf">%</span>
+                </div>
+              </div>
+            </div>
+            <div class="dvd"></div>
+            <div class="group">
+              <div class="group-title">Taxas do Grupo</div>
+              <div class="field-row">
+                <div class="field">
+                  <label>Taxa Adm. Total (%)</label>
+                  <div class="inp-wrap">
+                    <input type="number" class="pr" id="c-adm" value="18" min="0" max="100" step="0.1" oninput="cfCalcular()">
+                    <span class="inp-suf">%</span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Fundo de Reserva (%)</label>
+                  <div class="inp-wrap">
+                    <input type="number" class="pr" id="c-fr" value="2" min="0" max="20" step="0.1" oninput="cfCalcular()">
+                    <span class="inp-suf">%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label>Taxa Antecipada (%)</label>
+                  <div class="inp-wrap">
+                    <input type="number" class="pr" id="c-ant" value="2" min="0" max="10" step="0.1" oninput="cfCalcular()">
+                    <span class="inp-suf">%</span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Seguro de Vida (%)</label>
+                  <div class="inp-wrap">
+                    <input type="number" class="pr" id="c-seg" value="0" min="0" max="5" step="0.01" oninput="cfCalcular()">
+                    <span class="inp-suf">%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dvd"></div>
+            <!-- LANCE -->
+            <div class="group">
+              <div class="toggle-row" onclick="cfTogLc()">
+                <div class="toggle-label">
+                  🎯 Lance / Contemplação
+                  <span>Recurso próprio para antecipar o crédito</span>
+                </div>
+                <label class="sw" onclick.stop><input type="checkbox" id="sw-lc" onchange="cfTogLc2()"><span class="sw-t"></span></label>
+              </div>
+              <div class="collapse" id="lc-body">
+                <div style="display:flex;flex-direction:column;gap:12px;padding-top:12px">
+                  <div class="field-row">
+                    <div class="field">
+                      <label>Recurso Próprio</label>
+                      <div class="inp-wrap"><span class="inp-pre">R$</span>
+                        <input type="number" class="pl" id="l-rec" value="30000" min="0" oninput="cfCalcular()">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>Lance Embutido (%)</label>
+                      <div class="inp-wrap">
+                        <input type="number" class="pr" id="l-emb" value="25" min="0" max="35" step="1" oninput="cfCalcular()">
+                        <span class="inp-suf">%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label>Contemplação na parcela</label>
+                    <div class="inp-wrap">
+                      <input type="number" id="l-cont" value="12" min="1" oninput="cfCalcular()">
+                      <span class="inp-suf">ª parc.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fn">* Consórcio não tem juros. Custo = taxa adm. + fundo de reserva.</div>
+          </div>
+
+          <!-- À VISTA -->
+          <div class="col-av">
+            <div class="sec-hdr">
+              <div class="sec-dot" style="background:var(--av)"></div>
+              <div class="sec-title" style="color:var(--av)">À Vista</div>
+              <div class="sec-badge av-badge">Compra Direta</div>
+            </div>
+            <div class="group">
+              <div class="group-title">Valor do Imóvel</div>
+              <div class="field">
+                <label>Valor do Bem (R$)</label>
+                <div class="inp-wrap"><span class="inp-pre">R$</span>
+                  <input type="number" class="pl" id="av-bem" value="150000" min="0" step="1000" oninput="cfCalcular()">
+                </div>
+              </div>
+            </div>
+            <div class="dvd"></div>
+            <div class="group">
+              <div class="group-title">Custos de Cartório e Impostos</div>
+              <div class="field">
+                <label>ITBI — Imposto de Transmissão (%)</label>
+                <div class="inp-wrap">
+                  <input type="number" class="pr" id="av-itbi" value="2.0" min="0" max="10" step="0.1" oninput="cfCalcular()">
+                  <span class="inp-suf">%</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Registro em Cartório (R$)</label>
+                <div class="inp-wrap"><span class="inp-pre">R$</span>
+                  <input type="number" class="pl" id="av-cartorio" value="3000" min="0" step="100" oninput="cfCalcular()">
+                </div>
+              </div>
+              <div class="field">
+                <label>Outros custos / Escritura (R$)</label>
+                <div class="inp-wrap"><span class="inp-pre">R$</span>
+                  <input type="number" class="pl" id="av-outros" value="0" min="0" step="100" oninput="cfCalcular()">
+                </div>
+              </div>
+            </div>
+            <div class="dvd"></div>
+            <div class="group">
+              <div class="group-title">Custo de Oportunidade</div>
+              <div class="field">
+                <label>Rendimento do investimento (% a.m.)</label>
+                <div class="inp-wrap">
+                  <input type="number" class="pr" id="av-taxa-m" value="1.00" min="0.01" max="20" step="0.01" oninput="cfSyncAvTaxa('m')">
+                  <span class="inp-suf">%</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Equivalente anual (% a.a.)</label>
+                <div class="inp-wrap">
+                  <input type="number" class="pr" id="av-taxa-a" value="12.68" min="0.01" max="500" step="0.01" oninput="cfSyncAvTaxa('a')">
+                  <span class="inp-suf">%</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Período do cálculo (meses)</label>
+                <div class="inp-wrap">
+                  <input type="number" id="av-meses" value="60" min="1" max="480" step="1" oninput="cfCalcular()">
+                  <span class="inp-suf">m</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Preset de rendimento</label>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:2px">
+                  <button class="btn-preset" onclick="cfSetAvTaxa(0.80,'Poupanca')">Poupança 0,8%</button>
+                  <button class="btn-preset ac" onclick="cfSetAvTaxa(1.00,'CDB')">CDB 1,0%</button>
+                  <button class="btn-preset" onclick="cfSetAvTaxa(1.15,'Tesouro')">Tesouro 1,15%</button>
+                  <button class="btn-preset" onclick="cfSetAvTaxa(1.30,'FII')">FII 1,3%</button>
+                </div>
+              </div>
+            </div>
+            <div class="fn">* Rendimento = ganho deixado de ter ao imobilizar o capital.</div>
+          </div>
+        </div>
+
+        <!-- RIGHT: RESULTS -->
+        <div class="results-area">
+          <div class="verdict wt" id="verd">
+            <div class="v-ic" id="v-ic">⚖️</div>
+            <div class="v-tx">
+              <strong id="v-ttl">Preencha os dados e clique em "Calcular Comparativo"</strong>
+              <span id="v-sub">Os campos já estão preenchidos com valores de exemplo. Ajuste e compare.</span>
+            </div>
+            <div class="v-eco" id="v-eco" style="display:none">
+              <div class="eco-val" id="v-eco-val"></div>
+              <div class="eco-lbl">de economia</div>
+            </div>
+          </div>
+          <!-- CHART -->
+          <div class="chart-box">
+            <div class="chart-ttl">Evolução do Saldo Devedor</div>
+            <div class="chart-c"><canvas id="cfChart"></canvas></div>
+            <div class="chart-leg">
+              <div class="cl"><div class="cl-dot" style="background:var(--fin)"></div>Financiamento</div>
+              <div class="cl"><div class="cl-dot" style="background:var(--con)"></div>Consórcio</div>
+            </div>
+          </div>
+          <!-- MINI TOTALS -->
+          <div id="mini-totals" style="display:none">
+            <div class="res-sec" style="margin-bottom:12px">Resumo Comparativo</div>
+            <div class="mini-grid" id="mini-grid"></div>
+          </div>
+          <!-- COMPARISON TABLE -->
+          <div id="cmp-section" style="display:none">
+            <div class="res-sec" style="margin-bottom:12px">Detalhamento</div>
+            <div class="cmp-wrap">
+              <div class="cmp-head">
+                <div class="cmp-head-cell">Indicador</div>
+                <div class="cmp-head-cell f">💳 Financiamento</div>
+                <div class="cmp-head-cell c">🏦 Consórcio</div>
+                <div class="cmp-head-cell a">💰 À Vista</div>
+              </div>
+              <div id="cmp-body"></div>
+            </div>
+          </div>
+          <!-- AMORT TABLE -->
+          <div id="amort-section" style="display:none">
+            <div class="res-sec" style="margin-bottom:12px">Tabela de Amortização — Financiamento</div>
+            <div class="amort-box">
+              <table class="amort-table"><thead><tr>
+                <th>Mês</th><th>Parcela</th><th>Juros</th><th>Amort.</th><th>Extra</th><th>Saldo</th>
+              </tr></thead><tbody id="am-tb"></tbody></table>
+              <div class="see-more" id="sm-btn" onclick="cfTogTbl()">Mostrar todas as parcelas ▼</div>
+            </div>
+          </div>
+          <!-- CONSORCIO TABLE -->
+          <div id="con-table-section" style="display:none">
+            <div class="res-sec" style="margin-bottom:12px">Tabela de Parcelas — Consórcio</div>
+            <div class="amort-box">
+              <table class="amort-table"><thead><tr>
+                <th>Mês</th><th>Parcela</th><th>Fase</th><th>Saldo</th>
+              </tr></thead><tbody id="con-tb"></tbody></table>
+              <div class="see-more" id="con-sm-btn" onclick="cfTogConTbl()">Mostrar todas as parcelas ▼</div>
+            </div>
+          </div>
+          <!-- RENT SECTION -->
+          <div class="rent-section" id="rent-section" style="display:none">
+            <div class="rent-sec-hdr" onclick="cfAbrirAluguel()">
+              <div style="font-size:18px">🏠</div>
+              <div class="rent-sec-title">Impacto do Aluguel na Comparação</div>
+              <div class="rent-sec-edit">Editar dados ✏️</div>
+            </div>
+            <div class="rent-sec-body">
+              <div class="rent-grid" id="rent-result-grid"></div>
+              <div class="rent-insight" id="rent-insight"></div>
+            </div>
+          </div>
+          <!-- CUSTO DE OPORTUNIDADE -->
+          <div class="oport-section" id="oport-section" style="display:none">
+            <div class="oport-hdr">
+              <div style="font-size:18px">📈</div>
+              <div class="oport-hdr-title">Custo de Oportunidade — Compra À Vista</div>
+            </div>
+            <div class="oport-body">
+              <div class="oport-grid" id="oport-grid"></div>
+              <div class="oport-insight" id="oport-insight"></div>
+              <div class="rend-box">
+                <div class="rend-hdr-bar" onclick="cfTogRendTable()">
+                  <div class="rend-hdr-title">📊 Rendimento Mês a Mês — Capital Deixado de Ganhar</div>
+                  <div class="rend-hdr-toggle" id="rend-toggle-lbl">Mostrar tabela ▼</div>
+                </div>
+                <div id="rend-table-body" style="display:none">
+                  <div class="rend-table-wrap">
+                    <table class="rend-table"><thead><tr>
+                      <th>Mês</th><th>Saldo se Investido</th><th>Rendimento do Mês</th><th>Rendimento Acumulado</th><th>Custo Real À Vista</th><th>vs Financiamento</th><th>vs Consórcio</th>
+                    </tr></thead><tbody id="rend-tb"></tbody></table>
+                  </div>
+                  <div class="rend-see-more" id="rend-sm-btn" onclick="cfTogRendRows()"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fn">* Simulação de referência. Não considera CET, seguros obrigatórios ou variações de grupo. Consulte um especialista.</div>
+        </div>
+      </div>
+
+      <!-- REPORT MODAL -->
+      <div class="report-overlay" id="report-modal" onclick="cfFecharRelatoriofora(event)">
+        <div class="report-box" id="report-content">
+          <button class="report-close" onclick="cfFecharRelatorio()">✕</button>
+          <div id="rep-body"></div>
+          <div class="rep-footer">
+            <div class="rep-footer-date" id="rep-date"></div>
+            <button class="btn-rep-print" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"></div>
+
+      </main>
+    </section>
+    <!-- MODULE:CONSORCIO:HTML:END -->
 
   </div>
 </div>
@@ -3401,6 +4315,8 @@ Abraço,
   </div>
 </section>
 <!-- MODULE:DOLAR:HTML:PDF-EXPORT:END -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <script>
 "use strict";
@@ -7274,6 +8190,607 @@ initDolar();
   window.initSucessao = initSucessao;
 })();
 /* ===== MODULE:SUCESSAO:JS:END ===== */
+/* ===== MODULE:CONSORCIO:JS:START ===== */
+(function(){
+// ── helpers ──
+const g  = id => document.getElementById(id);
+const st = (id, v) => { const e = g(id); if (e) e.textContent = v; };
+const n  = id => parseFloat(g(id).value) || 0;
+const ni = id => parseInt(g(id).value)   || 0;
+const fmt = (v, d=2) => (!isFinite(v)||isNaN(v)) ? '—' :
+  'R$ ' + Number(v).toLocaleString('pt-BR', {minimumFractionDigits:d, maximumFractionDigits:d});
+const fp  = (v, d=1) => isNaN(v) ? '—' : (v*100).toFixed(d).replace('.',',') + ' %';
+const fn2 = (v, d=1) => (!isFinite(v)||isNaN(v)) ? '—' :
+  Number(v).toLocaleString('pt-BR', {minimumFractionDigits:d, maximumFractionDigits:d});
+
+// ── state ──
+let sis='SAC', last=null, fullTbl=false, chartInst=null;
+let rentAtivo=false, rentData=null, fullConTbl=false;
+let rendTableOpen=false, rendFullRows=false;
+
+// ── sync ──
+function syncFin(){
+  const bem=n('f-bem'),ent=n('f-ent');
+  g('f-fin').value=Math.max(0,bem-ent).toFixed(0);
+  calcular();
+}
+function syncTaxa(src){
+  if(src==='am'){const am=n('f-tam');g('f-taa').value=((Math.pow(1+am/100,12)-1)*100).toFixed(4);}
+  else{const aa=n('f-taa');g('f-tam').value=((Math.pow(1+aa/100,1/12)-1)*100).toFixed(4);}
+  calcular();
+}
+
+// ── UI controls ──
+function setSis(s){
+  sis=s;
+  g('rg-sis').querySelectorAll('.radio-btn').forEach(b=>b.className='radio-btn');
+  g('rg-sis').querySelector(':first-child').className='radio-btn'+(s==='SAC'?' ac-fin':'');
+  g('rg-sis').querySelector(':last-child').className='radio-btn'+(s==='PRICE'?' ac-fin':'');
+  calcular();
+}
+function togAm(){const cb=g('sw-am');cb.checked=!cb.checked;togAm2();}
+function togAm2(){g('am-body').classList.toggle('open',g('sw-am').checked);calcular();}
+function togLc(){const cb=g('sw-lc');cb.checked=!cb.checked;togLc2();}
+function togLc2(){g('lc-body').classList.toggle('open',g('sw-lc').checked);calcular();}
+function togCET(){const cb=g('sw-cet');cb.checked=!cb.checked;togCET2();}
+function togCET2(){g('cet-body').classList.toggle('open',g('sw-cet').checked);calcular();}
+function changeProd(){calcular();}
+
+// ── CET CALC ──
+function calcCET(PV,npr,totalPagoSemCET,parcelas){
+  const hasCET=g('sw-cet').checked;
+  if(!hasCET) return {cetAM:0,cetAA:0,totalCusto:0,custoExtra:0};
+  const iofD=n('cet-iof-d')/100, iofA=n('cet-iof-a')/100;
+  const tac=n('cet-tac'), reg=n('cet-reg');
+  const segPM=n('cet-seg')/100, outMes=n('cet-out');
+  const diasPorMes=30, diasTotais=Math.min(npr*diasPorMes,365);
+  const iofDiarioTotal=Math.min(PV*iofD*diasTotais,PV*0.03);
+  const iofAdicTotal=PV*iofA, iofTotal=iofDiarioTotal+iofAdicTotal;
+  const custosInicio=iofTotal+tac+reg;
+  let segTotal=0;
+  parcelas.forEach(p=>{segTotal+=p.saldo*segPM;});
+  const totalCusto=custosInicio+segTotal+outMes*parcelas.length;
+  const custoExtra=totalCusto;
+  const cfs=parcelas.map((p,idx)=>({t:p.m,cf:p.parcela+p.saldo*segPM+outMes+(idx===0?custosInicio:0)}));
+  let r=n('f-tam')/100*1.2;
+  for(let iter=0;iter<200;iter++){
+    let f=-PV,df=0;
+    cfs.forEach(({t,cf})=>{const d=Math.pow(1+r,t);f+=cf/d;df-=t*cf/(d*(1+r));});
+    const rNew=r-f/df;
+    if(Math.abs(rNew-r)<1e-10){r=rNew;break;}
+    r=rNew;if(r<=0)r=0.0001;
+  }
+  const cetAM=r, cetAA=(Math.pow(1+cetAM,12)-1);
+  return {cetAM,cetAA,totalCusto:custoExtra,custoExtra,iofTotal,tac,reg,segTotal,outTotal:outMes*parcelas.length};
+}
+
+// ── FINANCING CALC ──
+function calcFin(){
+  const PV=n('f-fin'),i=n('f-tam')/100,npr=ni('f-prazo')||60;
+  const hasAm=g('sw-am').checked,aVal=hasAm?n('am-val'):0,aMes=ni('am-mes')||12,per=g('am-per').value;
+  let saldo=PV,totalPago=0,totalJuros=0,prazoReal=npr,parc=[];
+  const amBase=sis==='SAC'?PV/npr:0;
+  const pmt=sis==='PRICE'?PV*(i*Math.pow(1+i,npr))/(Math.pow(1+i,npr)-1):0;
+  for(let m=1;m<=npr*3&&saldo>0.01;m++){
+    const juros=saldo*i;
+    let amort,parcela;
+    if(sis==='SAC'){amort=amBase;parcela=amort+juros;}
+    else{parcela=pmt;amort=parcela-juros;}
+    if(amort>saldo)amort=saldo;
+    let extra=0;
+    if(hasAm&&aVal>0){
+      const ok=per==='mensal'?true:per==='tri'?m%3===0:per==='sem'?m%6===0:per==='pont'?m===aMes:false;
+      if(ok)extra=Math.min(aVal,Math.max(0,saldo-amort));
+    }
+    totalPago+=parcela+extra;totalJuros+=juros;
+    saldo=Math.max(0,saldo-amort-extra);
+    parc.push({m,parcela,juros,amort,extra,saldo});
+    if(saldo<=0.01){prazoReal=m;break;}
+  }
+  const cet=calcCET(PV,prazoReal,totalPago,parc);
+  const totalComCET=totalPago+cet.custoExtra;
+  if(g('sw-cet')&&g('sw-cet').checked){
+    g('cet-am-disp').textContent=(cet.cetAM*100).toFixed(4).replace('.',',')+' %';
+    g('cet-aa-disp').textContent=(cet.cetAA*100).toFixed(2).replace('.',',')+' %';
+    g('cet-extra-disp').textContent='R$ '+cet.custoExtra.toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});
+  }else{
+    if(g('cet-am-disp'))g('cet-am-disp').textContent='—';
+    if(g('cet-aa-disp'))g('cet-aa-disp').textContent='—';
+    if(g('cet-extra-disp'))g('cet-extra-disp').textContent='—';
+  }
+  return {totalPago,totalComCET,totalJuros,prazoReal,parc,PV,i,n:npr,cet};
+}
+
+// ── CONSÓRCIO CALC ──
+function calcCon(){
+  const F66=n('c-cred'),F68=ni('c-prazo')||60,F69=n('c-red')/100;
+  const F92=n('c-adm')/100,F93=n('c-fr')/100,Fant=n('c-ant')/100,F94=n('c-seg')/100;
+  const tipo=g('c-tipo').value,prod=g('c-prod').value;
+  const hasLc=g('sw-lc').checked;
+  const lRec=hasLc?n('l-rec'):0,lEmb=hasLc?n('l-emb')/100:0,cParc=hasLc?(ni('l-cont')||12):0;
+  const categoria=F66*(1+F92+F93),seguroMes=F66*F94;
+  const parcBase=categoria/F68,parcRedLiq=parcBase*(1-F69);
+  const parAntesPF=parcRedLiq+seguroMes,parAntesPJ=parcRedLiq;
+  const parAntes=tipo==='J'?parAntesPJ:parAntesPF;
+  const parBasePF=parcBase+seguroMes,parBasePJ=parcBase;
+  const parBase=tipo==='J'?parBasePJ:parBasePF;
+  const adesao=prod==='im'?F66*Fant:0;
+  const lEmbVal=F66*lEmb,lTot=lRec+lEmbVal;
+  const taxasTotais=F66*F92+F66*F93,seguroTotal=seguroMes*F68;
+  let totalPago=adesao,saldo=categoria,cursos=[],contemplado=false,parPosContemp=0;
+  for(let m=1;m<=F68;m++){
+    let parcMes;
+    if(!hasLc||cParc===0){
+      parcMes=parAntes;saldo=(m===F68)?0:Math.max(0,saldo-parcBase);
+    }else if(!contemplado&&m<cParc){
+      parcMes=(m<=12&&adesao>0)?parAntes+(adesao/12):parAntes;
+      saldo=Math.max(0,saldo-parcBase);
+    }else if(!contemplado&&m===cParc){
+      parcMes=parAntes;saldo=Math.max(0,saldo-parcBase);saldo=Math.max(0,saldo-lTot);
+      totalPago+=lRec;
+      const mRest=F68-m;
+      if(mRest>0&&saldo>0.01){const novaBase=saldo/mRest;parPosContemp=tipo==='J'?novaBase:novaBase+seguroMes;}
+      else{parPosContemp=0;}
+      contemplado=true;
+    }else{
+      parcMes=parPosContemp;
+      const amortLiq=tipo==='J'?parPosContemp:parPosContemp-seguroMes;
+      saldo=Math.max(0,saldo-amortLiq);if(m===F68)saldo=0;
+    }
+    totalPago+=parcMes;
+    cursos.push({m,parcMes,saldo,contemplado:contemplado&&m>=cParc});
+  }
+  const totalMinimo=categoria+adesao+seguroTotal;
+  if(totalPago<totalMinimo)totalPago=totalMinimo;
+  return {totalPago,parAntes,parBase,parDepois:parPosContemp||parBase,adesao,lRec,lEmbVal,lTot,prazo:F68,F66,categoria,F92,F93,taxasTotais,seguroTotal,cursos,hasLc,cParc,contemplado,parPosContemp};
+}
+
+// ── MAIN CALC ──
+function calcular(){
+  try{
+    const fin=calcFin(),con=calcCon();
+    last={fin,con};render(last);
+    g('oport-section').style.display='';renderOport();
+    g('btn-report').style.display='';
+    if(g('rent-modal').classList.contains('open'))previewAluguel();
+  }catch(e){console.error(e);}
+}
+
+// ── RENDER ──
+function render({fin,con}){
+  var hasCET=g('sw-cet')&&g('sw-cet').checked;
+  var finTotal=hasCET?fin.totalComCET:fin.totalPago;
+  var bemAV=n('av-bem')||n('f-bem')||con.F66;
+  var itbiPct=n('av-itbi')/100,cartVal=n('av-cartorio'),outVal=n('av-outros');
+  var txItbi=bemAV*itbiPct,totalAV=bemAV+txItbi+cartVal+outVal;
+  var taxaM=parseFloat((g('av-taxa-m')||{value:'1'}).value)||1;
+  var meses=parseInt((g('av-meses')||{value:'60'}).value)||60;
+  var rend=totalAV*(Math.pow(1+taxaM/100,meses)-1);
+  var custoRealAV=totalAV+rend;
+  var melhorA=(totalAV<=finTotal&&totalAV<=con.totalPago)?'av':(finTotal<=con.totalPago)?'fin':'con';
+  var melhorB=(custoRealAV<=finTotal&&custoRealAV<=con.totalPago)?'av':(finTotal<=con.totalPago)?'fin':'con';
+  var avW=melhorB==='av',fW=melhorB==='fin',cW=melhorB==='con';
+  var diff=Math.abs(finTotal-con.totalPago);
+  var v=g('verd');
+  v.className='verdict '+(avW?'wa':fW?'wf':cW?'wc':'wt');
+  g('v-ic').textContent=avW?'💰':fW?'💳':cW?'🏦':'⚖️';
+  var cetNote=hasCET?' (c/ CET)':'';
+  if(avW){
+    var ecoAV=Math.min(finTotal,con.totalPago)-custoRealAV;
+    g('v-ttl').textContent='À Vista é mais vantajosa (custo real)';
+    g('v-sub').textContent='Mesmo com o rendimento perdido, à vista economiza '+fmt(ecoAV)+' vs a alternativa mais barata'+cetNote;
+    g('v-eco').style.display='';g('v-eco-val').textContent=fmt(ecoAV,0);g('v-eco-val').style.color='var(--av)';
+  }else if(fW){
+    var ecoFin=custoRealAV-finTotal;
+    g('v-ttl').textContent='Financiamento é mais vantajoso';
+    g('v-sub').textContent='Considerando rendimento perdido na compra à vista, financiar economiza '+fmt(ecoFin)+cetNote;
+    g('v-eco').style.display='';g('v-eco-val').textContent=fmt(ecoFin,0);g('v-eco-val').style.color='var(--fin)';
+  }else{
+    var ecoCon=custoRealAV-con.totalPago;
+    g('v-ttl').textContent='Consórcio é mais vantajoso';
+    g('v-sub').textContent='Considerando rendimento perdido na compra à vista, consórcio economiza '+fmt(ecoCon)+cetNote;
+    g('v-eco').style.display='';g('v-eco-val').textContent=fmt(ecoCon,0);g('v-eco-val').style.color='var(--con)';
+  }
+  mkChart(fin,con);
+  // Mini cards
+  g('mini-totals').style.display='';
+  var p0=fin.parc[0],pL=fin.parc[fin.parc.length-1];
+  var mH='';
+  mH+='<div class="mini-card '+(fW&&!avW?'hf':'')+'"><div class="mini-lbl">Total Financiamento</div><div class="mini-val '+(fW&&!avW?'fin':'')+' big">'+fmt(finTotal,0)+'</div><div class="mini-sub">'+sis+' &middot; '+fin.prazoReal+'m'+(hasCET?' (c/ CET)':'')+'</div></div>';
+  mH+='<div class="mini-card '+(cW&&!avW?'hc':'')+'"><div class="mini-lbl">Total Consórcio</div><div class="mini-val '+(cW&&!avW?'con':'')+' big">'+fmt(con.totalPago,0)+'</div><div class="mini-sub">'+con.prazo+'m &middot; '+(con.hasLc?'lance '+con.cParc+'ª':'sem lance')+'</div></div>';
+  mH+='<div class="mini-card" style="'+(avW?'border-color:rgba(181,137,63,.4);background:rgba(181,137,63,.06)':'')+'"><div class="mini-lbl">À Vista — desembolso</div><div class="mini-val big" style="color:var(--av)">'+fmt(totalAV,0)+'</div><div class="mini-sub">ITBI '+fmt(txItbi,0)+' + Cart. '+fmt(cartVal,0)+(outVal>0?' + Out. '+fmt(outVal,0):'')+'</div></div>';
+  mH+='<div class="mini-card" style="'+(avW?'border-color:rgba(181,137,63,.4);background:rgba(181,137,63,.06)':'')+'"><div class="mini-lbl">À Vista — custo real (c/ oport.)</div><div class="mini-val big" style="color:'+(avW?'var(--av)':'var(--fin)')+'">'+fmt(custoRealAV,0)+'</div><div class="mini-sub">Desembolso + rendimento perdido ('+taxaM.toFixed(2)+'% a.m. / '+meses+'m)</div></div>';
+  mH+='<div class="mini-card '+(hasCET?'hf':'')+'"><div class="mini-lbl">Juros + CET (Fin.)</div><div class="mini-val fin">'+fmt(fin.totalJuros+(hasCET?fin.cet.custoExtra:0),0)+'</div><div class="mini-sub">'+fp(fin.i)+' a.m.'+(hasCET?' + IOF/TAC/Seg.':'')+'</div></div>';
+  mH+='<div class="mini-card"><div class="mini-lbl">Taxas Consórcio (Adm+FR+Adesão)</div><div class="mini-val con">'+fmt(con.taxasTotais+con.adesao,0)+'</div><div class="mini-sub">Adm '+fmt(con.F66*con.F92,0)+' + FR '+fmt(con.F66*con.F93,0)+' + Adesão '+fmt(con.adesao,0)+'</div></div>';
+  g('mini-grid').innerHTML=mH;
+
+  // Comparison table
+  g('cmp-section').style.display='';
+  var iofL=hasCET?fmt(fin.cet.iofTotal,0):'&mdash;';
+  var tacL=hasCET?fmt(fin.cet.tac,0):'&mdash;';
+  var regL=hasCET?fmt(fin.cet.reg,0):'&mdash;';
+  var segL=hasCET?fmt(fin.cet.segTotal,0):'&mdash;';
+  var cetAML=hasCET?(fin.cet.cetAM*100).toFixed(4).replace('.',',')+' %':'&mdash;';
+  var cetAAL=hasCET?(fin.cet.cetAA*100).toFixed(2).replace('.',',')+' %':'&mdash;';
+  var rows=[
+    {lbl:'Valor do bem / crédito',f:fmt(fin.PV),c:fmt(con.F66),av:fmt(bemAV)},
+    {lbl:'Prazo',f:fin.prazoReal+'m',c:con.prazo+'m',av:'— (à vista)'},
+    {lbl:'Parcela c/ redutor',f:'&mdash;',c:fmt(con.parAntes),av:'&mdash;'},
+    {lbl:'Parcela pós contemplação',f:'&mdash;',c:con.hasLc?fmt(con.parPosContemp):fmt(con.parAntes),av:'&mdash;'},
+    {lbl:'Lance abatido',f:'&mdash;',c:con.hasLc?fmt(con.lTot,0):'Sem lance',av:'&mdash;'},
+    {lbl:'Parcela inicial',f:fmt(p0?p0.parcela:0),c:'&mdash;',av:'&mdash;'},
+    {lbl:'Parcela final',f:fmt(pL?pL.parcela:0),c:'&mdash;',av:'&mdash;'},
+    {lbl:'Juros nominais',f:fmt(fin.totalJuros,0),c:'&mdash;',av:'&mdash;'},
+    {lbl:'IOF',f:iofL,c:'&mdash;',av:'&mdash;'},
+    {lbl:'TAC / Tarifa Crédito',f:tacL,c:'&mdash;',av:'&mdash;'},
+    {lbl:'Tarifa Registro (banco)',f:regL,c:'&mdash;',av:'&mdash;'},
+    {lbl:'Seguro Prestamista',f:segL,c:'&mdash;',av:'&mdash;'},
+    {lbl:'CET a.m. / a.a.',f:hasCET?cetAML+' / '+cetAAL:'&mdash;',c:'&mdash;',av:'&mdash;'},
+    {lbl:'Taxa de Administração ('+n('c-adm').toFixed(1)+'%)',f:'&mdash;',c:fmt(con.F66*con.F92,0),av:'&mdash;'},
+    {lbl:'Fundo de Reserva ('+n('c-fr').toFixed(1)+'%)',f:'&mdash;',c:fmt(con.F66*con.F93,0),av:'&mdash;'},
+    {lbl:'Taxa de Adesão',f:'&mdash;',c:fmt(con.adesao,0),av:'&mdash;'},
+    {lbl:'ITBI ('+n('av-itbi').toFixed(1)+'%)',f:'&mdash;',c:'&mdash;',av:fmt(txItbi,0)},
+    {lbl:'Cartório / Registro',f:'&mdash;',c:'&mdash;',av:fmt(cartVal,0)},
+    {lbl:'Outros custos',f:'&mdash;',c:'&mdash;',av:outVal>0?fmt(outVal,0):'&mdash;'},
+    {lbl:'Rendimento perdido ('+meses+'m @ '+taxaM.toFixed(2)+'%a.m.)',f:'&mdash;',c:'&mdash;',av:'<span style="color:var(--fin)">+'+fmt(rend,0)+'</span>'}
+  ];
+  var cmpH='<div class="cmp-section-hdr">DESEMBOLSO DIRETO</div>';
+  rows.slice(0,rows.length-1).forEach(function(r){
+    cmpH+='<div class="cmp-row"><div class="cmp-cell">'+r.lbl+'</div><div class="cmp-cell">'+r.f+'</div><div class="cmp-cell">'+r.c+'</div><div class="cmp-cell">'+r.av+'</div></div>';
+  });
+  var mA=melhorA;
+  cmpH+='<div class="cmp-section-hdr">SUBTOTAL — SÓ DESEMBOLSO</div>'
+    +'<div class="cmp-row"><div class="cmp-cell" style="font-weight:700;color:var(--txt)">Total desembolsado</div>'
+    +'<div class="cmp-cell '+(mA==='fin'?'bf':'bw')+'">'+fmt(finTotal,0)+(hasCET?' <span style="font-size:10px;color:var(--fin)">(c/CET)</span>':'')+'</div>'
+    +'<div class="cmp-cell '+(mA==='con'?'bc':'bw')+'">'+fmt(con.totalPago,0)+'</div>'
+    +'<div class="cmp-cell '+(mA==='av'?'ba':'bw')+'">'+fmt(totalAV,0)+' <span style="font-size:10px;color:var(--av)">(c/ taxas)</span></div></div>';
+  cmpH+='<div class="cmp-section-hdr">CUSTO DE OPORTUNIDADE</div>';
+  cmpH+='<div class="cmp-row"><div class="cmp-cell">'+rows[rows.length-1].lbl+'</div><div class="cmp-cell">'+rows[rows.length-1].f+'</div><div class="cmp-cell">'+rows[rows.length-1].c+'</div><div class="cmp-cell">'+rows[rows.length-1].av+'</div></div>';
+  cmpH+='<div class="cmp-section-hdr">RESULTADO FINAL (COM CUSTO DE OPORTUNIDADE)</div>'
+    +'<div class="cmp-row"><div class="cmp-cell" style="font-weight:700;color:var(--txt)">Custo real total</div>'
+    +'<div class="cmp-cell '+(fW?'bf':'bw')+'">'+fmt(finTotal,0)+'<br><span style="font-size:10px;color:var(--txt3)">não imobiliza capital</span></div>'
+    +'<div class="cmp-cell '+(cW?'bc':'bw')+'">'+fmt(con.totalPago,0)+'<br><span style="font-size:10px;color:var(--txt3)">não imobiliza capital</span></div>'
+    +'<div class="cmp-cell '+(avW?'ba':'bw')+'">'+fmt(custoRealAV,0)+'<br><span style="font-size:10px;color:var(--av)">desembolso + rend. perdido</span></div></div>';
+  g('cmp-body').innerHTML=cmpH;
+
+  g('amort-section').style.display='';
+  renderAmort(fin);
+  renderConTable(con);
+  renderRent({fin,con});
+}
+
+function renderAmort(fin){
+  const rows=fullTbl?fin.parc:fin.parc.slice(0,24);
+  g('am-tb').innerHTML=rows.map(r=>'<tr><td>'+r.m+'</td><td>'+fmt(r.parcela,0)+'</td><td class="hi-red">'+fmt(r.juros,0)+'</td><td>'+fmt(r.amort,0)+'</td><td class="'+(r.extra>0?'hi':'')+'">'+(r.extra>0?fmt(r.extra,0):'—')+'</td><td>'+fmt(r.saldo,0)+'</td></tr>').join('');
+  g('sm-btn').textContent=fullTbl?'Mostrar menos ▲':'Mostrar todas as '+fin.parc.length+' parcelas ▼';
+}
+function togTbl(){fullTbl=!fullTbl;if(last)renderAmort(last.fin);}
+
+function renderConTable(con){
+  const sec=g('con-table-section');if(!sec)return;sec.style.display='';
+  const rows=fullConTbl?con.cursos:con.cursos.slice(0,24);
+  g('con-tb').innerHTML=rows.map(r=>{
+    const isC=con.hasLc&&r.m===con.cParc;
+    const rs=isC?' style="background:rgba(44,107,102,.07)"':'';
+    return '<tr'+rs+'><td>'+r.m+(isC?' 🎯':'')+'</td><td class="'+(isC?'hi':r.contemplado?'hi':'')+'">'+fmt(r.parcMes,0)+'</td><td style="color:'+(isC?'var(--con)':r.contemplado?'var(--txt2)':'var(--txt3)')+';">'+(isC?'CONTEMPLAÇÃO':r.contemplado?'Pós-contempl. (sem redutor)':'Com redutor')+'</td><td'+(isC?' style="color:var(--con);font-weight:700"':'')+'>'+fmt(r.saldo,0)+'</td></tr>';
+  }).join('');
+  g('con-sm-btn').textContent=fullConTbl?'Mostrar menos ▲':'Mostrar todas as '+con.cursos.length+' parcelas ▼';
+}
+function togConTbl(){fullConTbl=!fullConTbl;if(last)renderConTable(last.con);}
+
+// ── CHART ──
+function mkChart(fin,con){
+  if(typeof Chart==='undefined')return;
+  const mx=Math.max(fin.parc.length,con.cursos.length);
+  const step=Math.max(1,Math.floor(mx/60));
+  const lb=[],fd=[],cd=[];
+  for(let i=0;i<mx;i+=step){
+    lb.push('M'+(i+1));
+    fd.push(fin.parc[i]?+fin.parc[i].saldo.toFixed(0):0);
+    cd.push(con.cursos[i]?+con.cursos[i].saldo.toFixed(0):0);
+  }
+  lb.push('M'+mx);fd.push(0);cd.push(0);
+  const ctx=g('cfChart').getContext('2d');
+  if(chartInst)chartInst.destroy();
+  chartInst=new Chart(ctx,{
+    type:'line',
+    data:{labels:lb,datasets:[
+      {label:'Financiamento',data:fd,borderColor:'#B25A41',backgroundColor:'rgba(178,90,65,.07)',borderWidth:2,fill:true,tension:.4,pointRadius:0},
+      {label:'Consórcio',data:cd,borderColor:'#2C6B66',backgroundColor:'rgba(44,107,102,.07)',borderWidth:2,fill:true,tension:.4,pointRadius:0}
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      animation:{duration:400},
+      interaction:{intersect:false,mode:'index'},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'#fff',borderColor:'rgba(16,42,40,.14)',borderWidth:1,
+          titleColor:'#102A28',bodyColor:'#5A6B66',
+          titleFont:{family:'IBM Plex Sans',weight:'700',size:12},
+          bodyFont:{family:'IBM Plex Mono',size:11},
+          callbacks:{label:c=>' '+c.dataset.label+': R$ '+Number(c.raw).toLocaleString('pt-BR',{maximumFractionDigits:0})}
+        }
+      },
+      scales:{
+        x:{ticks:{color:'#8A9690',font:{family:'IBM Plex Mono',size:10},maxTicksLimit:12},
+          grid:{color:'rgba(16,42,40,.08)'},border:{color:'rgba(16,42,40,.08)'}},
+        y:{ticks:{color:'#8A9690',font:{family:'IBM Plex Mono',size:10},
+            callback:v=>v>=1e6?'R$'+(v/1e6).toFixed(1)+'M':'R$'+(v/1000).toFixed(0)+'k'},
+          grid:{color:'rgba(16,42,40,.08)'},border:{color:'rgba(16,42,40,.08)'}}
+      }
+    }
+  });
+}
+
+// ── ALUGUEL / RENT ──
+function abrirAluguel(){g('rent-modal').classList.add('open');previewAluguel();}
+function fecharAluguel(){g('rent-modal').classList.remove('open');}
+function fecharAluguelFora(e){if(e.target===g('rent-modal'))fecharAluguel();}
+function calcAluguelTotal(aluguelMes,reajAnual,meses){
+  if(meses<=0)return 0;let total=0,alugAtual=aluguelMes;
+  for(let m=1;m<=meses;m++){if(m>1&&(m-1)%12===0)alugAtual*=(1+reajAnual/100);total+=alugAtual;}
+  return total;
+}
+function getConMes(){
+  const mManual=parseInt(g('rent-mcon').value)||0;
+  if(mManual>0)return mManual;
+  if(last&&last.con){if(last.con.hasLc&&last.con.cParc>0)return last.con.cParc;return last.con.prazo;}
+  return ni('c-prazo')||60;
+}
+function previewAluguel(){
+  const aluguel=n('rent-val'),reaj=n('rent-reaj'),mFin=ni('rent-mfin')||3,mCon=getConMes();
+  const totFin=calcAluguelTotal(aluguel,reaj,mFin),totCon=calcAluguelTotal(aluguel,reaj,mCon);
+  const dif=totCon-totFin,mExtra=mCon-mFin;
+  const fmtR=v=>'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});
+  g('rp-fin').textContent=fmtR(totFin)+' ('+mFin+'m)';
+  g('rp-con').textContent=fmtR(totCon)+' ('+mCon+'m)';
+  g('rp-dif').textContent=dif>0?'+'+fmtR(dif)+' a mais':fmtR(0);
+  g('rp-mes').textContent=mExtra>0?mExtra+' meses a mais':'—';
+}
+function aplicarAluguel(){
+  rentAtivo=true;
+  rentData={aluguel:n('rent-val'),reaj:n('rent-reaj'),mFin:ni('rent-mfin')||3,mCon:getConMes()};
+  g('rent-badge').classList.add('active');
+  g('rent-badge-txt').textContent='Aluguel: R$ '+Number(rentData.aluguel).toLocaleString('pt-BR',{maximumFractionDigits:0})+'/mês';
+  fecharAluguel();if(last)renderRent(last);showToast('✅ Custo de aluguel incluído na análise');
+}
+function removerAluguel(){
+  rentAtivo=false;rentData=null;g('rent-badge').classList.remove('active');
+  g('rent-section').style.display='none';fecharAluguel();showToast('Aluguel removido da análise');
+}
+function renderRent({fin,con}){
+  if(!rentAtivo||!rentData){g('rent-section').style.display='none';return;}
+  const {aluguel,reaj,mFin,mCon}=rentData;
+  const hasCET=g('sw-cet')&&g('sw-cet').checked;
+  const finBase=hasCET?fin.totalComCET:fin.totalPago,conBase=con.totalPago;
+  const totAlugFin=calcAluguelTotal(aluguel,reaj,mFin),totAlugCon=calcAluguelTotal(aluguel,reaj,mCon);
+  const mExtra=mCon-mFin,difAlug=totAlugCon-totAlugFin;
+  const finComAlug=finBase+totAlugFin,conComAlug=conBase+totAlugCon;
+  const fW=finComAlug<conComAlug,cW=conComAlug<finComAlug;
+  const difTotal=Math.abs(finComAlug-conComAlug),difPct=(difTotal/Math.max(finComAlug,conComAlug)*100).toFixed(1);
+  const fmt2=v=>'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});
+  g('rent-result-grid').innerHTML=
+    '<div class="rent-card"><div class="rent-lbl">Aluguel até Financ. ('+mFin+'m)</div><div class="rent-val y">'+fmt2(totAlugFin)+'</div><div class="rent-sub">R$'+Number(aluguel).toLocaleString('pt-BR',{maximumFractionDigits:0})+'/mês c/ reaj. '+reaj+'%/a</div></div>'
+   +'<div class="rent-card warn"><div class="rent-lbl">Aluguel até Consórcio ('+mCon+'m)</div><div class="rent-val r">'+fmt2(totAlugCon)+'</div><div class="rent-sub">'+(mExtra>0?mExtra+' meses a mais':'Contemplação imediata')+'</div></div>'
+   +'<div class="rent-card worse"><div class="rent-lbl">Custo extra de aluguel</div><div class="rent-val r big">'+fmt2(difAlug)+'</div><div class="rent-sub">Consórcio × Financiamento</div></div>'
+   +'<div class="rent-card '+(fW?'better':'')+'"><div class="rent-lbl">Total c/ Aluguel — Financ.</div><div class="rent-val '+(fW?'g':'r')+'">'+fmt2(finComAlug)+'</div><div class="rent-sub">'+fmt2(finBase)+' + '+fmt2(totAlugFin)+' aluguel</div></div>'
+   +'<div class="rent-card '+(cW?'better':'')+'"><div class="rent-lbl">Total c/ Aluguel — Consórcio</div><div class="rent-val '+(cW?'g':'r')+'">'+fmt2(conComAlug)+'</div><div class="rent-sub">'+fmt2(conBase)+' + '+fmt2(totAlugCon)+' aluguel</div></div>'
+   +'<div class="rent-card '+(fW||cW?'better':'')+'"><div class="rent-lbl">Melhor opção (c/ aluguel)</div><div class="rent-val '+(fW?'g':'y')+' big">'+(fW?'Financiamento':cW?'Consórcio':'Empate')+'</div><div class="rent-sub">'+(fW||cW?'Economia de '+fmt2(difTotal)+' ('+difPct+'%)':'Custo equivalente')+'</div></div>';
+  var insight='';
+  if(mExtra>0){insight+='🏠 <strong>Custo extra do aluguel:</strong> como o consórcio demora mais <span class="ins-r">'+mExtra+' meses</span> para liberar o imóvel, o consorciado paga <span class="ins-r">'+fmt2(difAlug)+'</span> a mais de aluguel durante esse período.<br><br>';}
+  if(fW){insight+='✅ <strong>Com o aluguel incluído, o <span class="ins-g">Financiamento</span> é mais vantajoso:</strong> o total (prestações + aluguel) é <span class="ins-g">'+fmt2(difTotal)+'</span> menor que o consórcio. Mesmo pagando mais juros, o acesso rápido ao imóvel em ~'+mFin+' meses elimina o custo prolongado de aluguel.';}
+  else if(cW){insight+='✅ <strong>Com o aluguel incluído, o <span class="ins-g">Consórcio</span> ainda é mais vantajoso:</strong> mesmo com o custo extra de aluguel de <span class="ins-r">'+fmt2(difAlug)+'</span>, o total é <span class="ins-g">'+fmt2(difTotal)+'</span> menor. '+(rentData.mCon<=24?'A contemplação rápida via lance reduz significativamente esse impacto.':'Contemplação mais tardia torna o cenário arriscado.');}
+  else{insight+='⚖️ <strong>Empate técnico:</strong> o custo total é equivalente quando o aluguel é considerado.';}
+  if(mCon>=24&&!con.hasLc){insight+='<br><br>⚠️ <strong>Atenção:</strong> sem lance, a contemplação pelo sorteio pode ultrapassar <span class="ins-r">'+mCon+' meses</span>. Cada mês extra de aluguel adiciona <span class="ins-r">'+fmt2(aluguel)+'</span> ao custo total do consórcio.';}
+  g('rent-insight').innerHTML=insight;
+  g('rent-section').style.display='';
+}
+
+// ── À VISTA TAXA SYNC ──
+function syncAvTaxa(src){
+  var em=g('av-taxa-m'),ea=g('av-taxa-a');if(!em||!ea)return;
+  if(src==='m'){var m=parseFloat(em.value)||1;ea.value=((Math.pow(1+m/100,12)-1)*100).toFixed(4);}
+  else{var a=parseFloat(ea.value)||12;em.value=((Math.pow(1+a/100,1/12)-1)*100).toFixed(4);}
+  calcular();
+}
+function setAvTaxa(taxaM,label){
+  var em=g('av-taxa-m'),ea=g('av-taxa-a');if(!em||!ea)return;
+  em.value=taxaM.toFixed(2);ea.value=((Math.pow(1+taxaM/100,12)-1)*100).toFixed(4);
+  document.querySelectorAll('#module-consorcio .btn-preset').forEach(function(b){b.classList.toggle('ac',b.textContent.indexOf(label)!==-1);});
+  calcular();
+}
+
+// ── CUSTO DE OPORTUNIDADE ──
+function renderOport(){
+  if(!last)return;
+  var fin=last.fin,con=last.con;
+  var taxaM=parseFloat((g('av-taxa-m')||{value:'1'}).value)||1;
+  var meses=parseInt((g('av-meses')||{value:'60'}).value)||60;
+  var bemAV=n('av-bem')||n('f-bem')||con.F66;
+  var txItbi=bemAV*(n('av-itbi')/100),cartV=n('av-cartorio'),outV=n('av-outros');
+  var totAV=bemAV+txItbi+cartV+outV;
+  var hasCET=g('sw-cet')&&g('sw-cet').checked;
+  var finTot=hasCET?fin.totalComCET:fin.totalPago,conTot=con.totalPago;
+  var rend=totAV*(Math.pow(1+taxaM/100,meses)-1),custoRealAV=totAV+rend;
+  var melhorSem=(totAV<=finTot&&totAV<=conTot)?'av':(finTot<=conTot)?'fin':'con';
+  var melhorCom=(custoRealAV<=finTot&&custoRealAV<=conTot)?'av':(finTot<=conTot)?'fin':'con';
+  var fR=function(v){return 'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});};
+  var gh='';
+  gh+='<div class="oport-card hl"><div class="oport-lbl">Desembolso à vista</div><div class="oport-val av big">'+fR(totAV)+'</div><div class="oport-sub">Bem + ITBI + Cartório + Outros</div></div>';
+  gh+='<div class="oport-card bad"><div class="oport-lbl">Rendimento perdido em '+meses+'m</div><div class="oport-val red big">'+fR(rend)+'</div><div class="oport-sub">Taxa '+taxaM.toFixed(2)+'% a.m. — juros compostos</div></div>';
+  var avMelhorCom=melhorCom==='av';
+  gh+='<div class="oport-card '+(avMelhorCom?'good':'bad')+'"><div class="oport-lbl">Custo real à vista (c/ oport.)</div><div class="oport-val '+(avMelhorCom?'grn':'red')+' big">'+fR(custoRealAV)+'</div><div class="oport-sub">Desembolso + rendimento perdido</div></div>';
+  var labelSem=melhorSem==='av'?'💰 À vista é mais barata':melhorSem==='fin'?'💳 Financiamento mais barato':'🏦 Consórcio mais barato';
+  gh+='<div class="oport-card"><div class="oport-lbl">Melhor opção — só desembolso</div><div class="oport-val av" style="font-size:13px">'+labelSem+'</div><div class="oport-sub">Sem considerar rendimento do capital</div></div>';
+  var difFin=finTot-custoRealAV;
+  gh+='<div class="oport-card '+(difFin<0?'good':'bad')+'"><div class="oport-lbl">Financiamento vs À Vista real</div><div class="oport-val '+(difFin<0?'grn':'red')+' big">'+fR(Math.abs(difFin))+'</div><div class="oport-sub">'+(difFin<0?'✅ Financiar é '+fR(Math.abs(difFin))+' mais barato':'❌ À vista ainda é '+fR(Math.abs(difFin))+' mais barata')+'</div></div>';
+  var difCon=conTot-custoRealAV;
+  gh+='<div class="oport-card '+(difCon<0?'good':'bad')+'"><div class="oport-lbl">Consórcio vs À Vista real</div><div class="oport-val '+(difCon<0?'grn':'red')+' big">'+fR(Math.abs(difCon))+'</div><div class="oport-sub">'+(difCon<0?'✅ Consórcio é '+fR(Math.abs(difCon))+' mais barato':'❌ À vista ainda é '+fR(Math.abs(difCon))+' mais barata')+'</div></div>';
+  g('oport-grid').innerHTML=gh;
+  var ins='';
+  ins+='📈 <strong>Como ler esta análise:</strong> ao pagar <span class="ins-a">'+fR(totAV)+'</span> à vista, você deixa de ganhar <span class="ins-r">'+fR(rend)+'</span> nos próximos '+meses+' meses (taxa '+taxaM.toFixed(2)+'% a.m.). O custo real da compra à vista sobe para <span class="ins-r">'+fR(custoRealAV)+'</span>.<br><br>';
+  if(melhorSem==='av'){ins+='💰 <strong>Sem considerar rendimento:</strong> à vista ('+fR(totAV)+') é mais barata que financiamento ('+fR(finTot)+') e consórcio ('+fR(conTot)+').<br><br>';}
+  else if(melhorSem==='fin'){ins+='💰 <strong>Sem considerar rendimento:</strong> financiamento ('+fR(finTot)+') já é mais barato que à vista ('+fR(totAV)+').<br><br>';}
+  else{ins+='💰 <strong>Sem considerar rendimento:</strong> consórcio ('+fR(conTot)+') já é mais barato que à vista ('+fR(totAV)+').<br><br>';}
+  if(melhorCom==='av'){var ecoAV=Math.min(finTot,conTot)-custoRealAV;ins+='✅ <strong>Conclusão (com custo de oportunidade):</strong> <span class="ins-a">À vista ainda é a melhor opção</span>. Mesmo com o rendimento perdido de '+fR(rend)+', o custo real de '+fR(custoRealAV)+' ainda é <span class="ins-a">'+fR(ecoAV)+'</span> mais barato que a alternativa mais barata.';}
+  else if(melhorCom==='fin'){var ecoFin=custoRealAV-finTot;ins+='✅ <strong>Conclusão (com custo de oportunidade):</strong> <span class="ins-g">Financiamento é a melhor opção</span>. O custo real da compra à vista ('+fR(custoRealAV)+') supera o total do financiamento ('+fR(finTot)+') em <span class="ins-r">'+fR(ecoFin)+'</span>. Vale financiar e manter o capital investido rendendo '+taxaM.toFixed(2)+'% a.m.';}
+  else{var ecoCon=custoRealAV-conTot;ins+='✅ <strong>Conclusão (com custo de oportunidade):</strong> <span class="ins-g">Consórcio é a melhor opção</span>. O custo real da compra à vista ('+fR(custoRealAV)+') supera o total do consórcio ('+fR(conTot)+') em <span class="ins-r">'+fR(ecoCon)+'</span>.';}
+  g('oport-insight').innerHTML=ins;
+  if(rendTableOpen)renderRendTable();
+}
+
+// ── RENDIMENTO TABLE ──
+function togRendTable(){
+  rendTableOpen=!rendTableOpen;
+  g('rend-table-body').style.display=rendTableOpen?'':'none';
+  g('rend-toggle-lbl').textContent=rendTableOpen?'Ocultar tabela ▲':'Mostrar tabela ▼';
+  if(rendTableOpen)renderRendTable();
+}
+function togRendRows(){rendFullRows=!rendFullRows;renderRendTable();}
+function renderRendTable(){
+  if(!last)return;
+  var fin=last.fin,con=last.con;
+  var taxaM=parseFloat((g('av-taxa-m')||{value:'1'}).value)||1;
+  var meses=parseInt((g('av-meses')||{value:'60'}).value)||60;
+  var bemAV=n('av-bem')||n('f-bem')||con.F66;
+  var totAV=bemAV+bemAV*(n('av-itbi')/100)+n('av-cartorio')+n('av-outros');
+  var hasCET=g('sw-cet')&&g('sw-cet').checked;
+  var finTot=hasCET?fin.totalComCET:fin.totalPago,conTot=con.totalPago;
+  var r=taxaM/100,rows=[],rendAcum=0;
+  for(var m=1;m<=meses;m++){
+    var rendMes=totAV*Math.pow(1+r,m-1)*r;rendAcum=totAV*(Math.pow(1+r,m)-1);
+    rows.push({m:m,saldo:totAV+rendAcum,rendMes:rendMes,rendAcum:rendAcum,custoReal:totAV+rendAcum,vsFin:(totAV+rendAcum)-finTot,vsCon:(totAV+rendAcum)-conTot});
+  }
+  var maxR=rendFullRows?rows.length:24;
+  var fR=function(v){return 'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});};
+  var fD=function(v){return (v>=0?'+':'-')+'R$ '+Number(Math.abs(v)).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});};
+  var tb='';
+  rows.slice(0,maxR).forEach(function(row){
+    var anual=row.m%12===0;var rc=anual?' class="row-anual"':'';
+    var fcls=row.vsFin>0?'hi-red':'hi-grn';var ccls=row.vsCon>0?'hi-red':'hi-grn';
+    var mesLbl=anual?'<strong>'+row.m+' ('+(row.m/12)+'º ano)</strong>':String(row.m);
+    tb+='<tr'+rc+'><td>'+mesLbl+'</td><td class="hi-av">'+fR(row.saldo)+'</td><td class="hi-grn">'+fR(row.rendMes)+'</td><td class="hi-av">'+fR(row.rendAcum)+'</td><td class="hi-red">'+fR(row.custoReal)+'</td><td class="'+fcls+'">'+fD(row.vsFin)+'</td><td class="'+ccls+'">'+fD(row.vsCon)+'</td></tr>';
+  });
+  g('rend-tb').innerHTML=tb;
+  var btn=g('rend-sm-btn');
+  if(rows.length<=24){btn.style.display='none';}
+  else{btn.style.display='';btn.textContent=rendFullRows?'Mostrar menos ▲':'Mostrar todas as '+rows.length+' linhas ▼';}
+}
+
+// ── RELATÓRIO ──
+function abrirRelatorio(){
+  if(!last){showToast('Calcule primeiro para gerar o relatório');return;}
+  gerarRelatorio(last.fin,last.con);
+  g('report-modal').classList.add('open');
+}
+function fecharRelatorio(){g('report-modal').classList.remove('open');}
+function fecharRelatoriofora(e){if(e.target===g('report-modal'))fecharRelatorio();}
+function gerarRelatorio(fin,con){
+  const hasCET=g('sw-cet')&&g('sw-cet').checked;
+  const finTotal=hasCET?fin.totalComCET:fin.totalPago,conTotal=con.totalPago;
+  const bemAV=n('av-bem')||n('f-bem')||con.F66;
+  const txItbi=bemAV*(n('av-itbi')/100),cartV=n('av-cartorio'),outV=n('av-outros');
+  const totalAV=bemAV+txItbi+cartV+outV;
+  const taxaM=parseFloat((g('av-taxa-m')||{value:'1'}).value)||1;
+  const meses=parseInt((g('av-meses')||{value:'60'}).value)||60;
+  const rend=totalAV*(Math.pow(1+taxaM/100,meses)-1),custoRealAV=totalAV+rend;
+  const melhorCom=(custoRealAV<=finTotal&&custoRealAV<=conTotal)?'av':(finTotal<=conTotal)?'fin':'con';
+  const melhorSem=(totalAV<=finTotal&&totalAV<=conTotal)?'av':(finTotal<=conTotal)?'fin':'con';
+  const fR=v=>'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});
+  const fP=v=>Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'%';
+  const nomes={av:'À Vista',fin:'Financiamento',con:'Consórcio'};
+  let insight='';
+  if(melhorCom==='av'){const eco=Math.min(finTotal,conTotal)-custoRealAV;insight='Considerando o custo de oportunidade do capital investido, a <strong>compra à vista</strong> representa a melhor opção, com economia de <strong>'+fR(eco)+'</strong> em comparação à alternativa mais barata.';}
+  else if(melhorCom==='fin'){const eco=custoRealAV-finTotal;insight='Quando se considera o custo de oportunidade do capital imobilizado na compra à vista (rendimento de '+fP(taxaM)+' a.m. por '+meses+' meses), o <strong>financiamento bancário</strong> se torna a opção mais vantajosa, com economia real de <strong>'+fR(eco)+'</strong>.';}
+  else{const eco=custoRealAV-conTotal;insight='Com o custo de oportunidade considerado, o <strong>consórcio</strong> é a opção mais econômica, com vantagem de <strong>'+fR(eco)+'</strong> frente ao custo real da compra à vista.';}
+  let insightSem='';
+  if(melhorSem==='av')insightSem='Analisando apenas o desembolso financeiro direto, a <strong>compra à vista</strong> é a mais econômica.';
+  else if(melhorSem==='fin')insightSem='Comparando somente os valores desembolsados, o <strong>financiamento</strong> já supera o custo da compra à vista.';
+  else insightSem='O <strong>consórcio</strong> apresenta o menor custo de desembolso direto entre as três modalidades.';
+  const now=new Date();
+  g('rep-date').textContent='Gerado em '+now.toLocaleDateString('pt-BR')+' às '+now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const bestClass=m=>m===melhorCom?' best':'';
+  g('rep-body').innerHTML=
+    '<div class="rep-logo">Comparador Financeiro Imobiliário</div>'
+   +'<div class="rep-title">Análise Comparativa de Aquisição</div>'
+   +'<div class="rep-sub">Simulação para imóvel avaliado em '+fR(bemAV)+' — '+con.prazo+' meses de referência</div>'
+   +'<div class="rep-divider"></div>'
+   +'<div class="rep-section-title">💰 Resultado — Melhor Opção com Custo de Oportunidade</div>'
+   +'<div class="rep-cards">'
+   +'<div class="rep-card'+bestClass('fin')+'"><div class="rep-card-label">💳 Financiamento Bancário</div><div class="rep-card-val'+(melhorCom==='fin'?' green':' orange')+'">'+fR(finTotal)+'</div><div class="rep-card-sub">'+sis+' · '+fin.prazoReal+' meses'+(hasCET?' (c/ CET)':'')+'</div></div>'
+   +'<div class="rep-card'+bestClass('con')+'"><div class="rep-card-label">🏦 Consórcio</div><div class="rep-card-val'+(melhorCom==='con'?' green':' orange')+'">'+fR(conTotal)+'</div><div class="rep-card-sub">'+con.prazo+' meses · '+(con.hasLc?'lance na '+con.cParc+'ª parc.':'sem lance')+'</div></div>'
+   +'<div class="rep-card'+bestClass('av')+'"><div class="rep-card-label">💰 À Vista (custo real)</div><div class="rep-card-val'+(melhorCom==='av'?' green':' orange')+'">'+fR(custoRealAV)+'</div><div class="rep-card-sub">Desembolso '+fR(totalAV)+' + rend. perdido '+fR(rend)+'</div></div>'
+   +'</div>'
+   +'<div class="rep-insight">'+insight+'</div>'
+   +'<div class="rep-divider"></div>'
+   +'<div class="rep-section-title">📊 Detalhamento dos Custos</div>'
+   +'<table class="rep-table"><thead><tr><th>Item</th><th>Financiamento</th><th>Consórcio</th><th>À Vista</th></tr></thead><tbody>'
+   +'<tr><td>Valor do bem / crédito</td><td>'+fR(fin.PV)+'</td><td>'+fR(con.F66)+'</td><td>'+fR(bemAV)+'</td></tr>'
+   +'<tr><td>Prazo</td><td>'+fin.prazoReal+' meses</td><td>'+con.prazo+' meses</td><td>—</td></tr>'
+   +'<tr><td>Juros / Taxas sobre crédito</td><td>'+fR(fin.totalJuros)+'</td><td>—</td><td>—</td></tr>'
+   +'<tr><td>Taxa de Administração ('+fP(con.F92)+')</td><td>—</td><td>'+fR(con.F66*con.F92)+'</td><td>—</td></tr>'
+   +'<tr><td>Fundo de Reserva ('+fP(con.F93)+')</td><td>—</td><td>'+fR(con.F66*con.F93)+'</td><td>—</td></tr>'
+   +(con.adesao>0?'<tr><td>Taxa de Adesão</td><td>—</td><td>'+fR(con.adesao)+'</td><td>—</td></tr>':'')
+   +(txItbi>0?'<tr><td>ITBI</td><td>—</td><td>—</td><td>'+fR(txItbi)+'</td></tr>':'')
+   +(cartV>0?'<tr><td>Cartório / Registro</td><td>—</td><td>—</td><td>'+fR(cartV)+'</td></tr>':'')
+   +(outV>0?'<tr><td>Outros custos</td><td>—</td><td>—</td><td>'+fR(outV)+'</td></tr>':'')
+   +'<tr class="'+(melhorSem==='fin'?'best-row':'')+'"><td><strong>Subtotal (só desembolso)</strong></td><td><strong>'+fR(finTotal)+'</strong></td><td><strong>'+fR(conTotal)+'</strong></td><td><strong>'+fR(totalAV)+'</strong></td></tr>'
+   +'<tr><td>Custo de oportunidade ('+fP(taxaM)+' a.m. / '+meses+'m)</td><td>—</td><td>—</td><td>+'+fR(rend)+'</td></tr>'
+   +'<tr><td><strong>Custo real total</strong></td><td><strong>'+fR(finTotal)+'</strong></td><td><strong>'+fR(conTotal)+'</strong></td><td><strong>'+fR(custoRealAV)+'</strong></td></tr>'
+   +'</tbody></table>'
+   +'<div class="rep-section-title">📋 Análise sem Custo de Oportunidade</div>'
+   +'<div class="rep-insight" style="border-left-color:#f59e0b;background:#fffbeb;">'+insightSem+'</div>'
+   +'<div class="rep-divider"></div>'
+   +'<div class="rep-disclaimer"><strong>⚠️ Aviso importante — valores meramente ilustrativos</strong><br>Esta simulação foi gerada com base nos dados inseridos e tem caráter <strong>exclusivamente informativo e educacional</strong>. Os valores apresentados são estimativas para fins de comparação e <strong>não constituem oferta, proposta ou contrato</strong> de qualquer modalidade de crédito ou aquisição. Taxas, prazos, condições de aprovação, índices de reajuste e demais parâmetros reais podem variar. <strong>Consulte sempre um especialista financeiro qualificado antes de tomar qualquer decisão.</strong></div>';
+}
+
+// ── LIMPAR ──
+function limpar(){
+  ['f-bem','f-ent','f-fin','f-tam','f-taa','f-prazo','am-val','am-mes','c-cred','c-prazo','c-red','c-adm','c-fr','c-ant','c-seg','l-rec','l-emb','l-cont','av-bem','av-itbi','av-cartorio','av-outros','av-taxa-m','av-taxa-a','av-meses'].forEach(id=>{const e=g(id);if(e)e.value='';});
+  g('sw-am').checked=false;g('sw-lc').checked=false;
+  g('am-body').classList.remove('open');g('lc-body').classList.remove('open');
+  showToast('Campos limpos');
+}
+
+function showToast(msg){
+  const t=g('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ── INIT ──
+function initConsorcio(){
+  // logo
+  const logoEl=g('logo-consorcio');
+  if(logoEl) logoEl.src=LOGO_IS_INK;
+  // sync periodicidade
+  const amPer=g('am-per');
+  if(amPer){amPer.addEventListener('change',()=>{g('am-mes-f').style.display=g('am-per').value==='pont'?'':'none';calcular();});}
+  // init taxa sync
+  const am=n('f-tam');
+  if(g('f-taa'))g('f-taa').value=((Math.pow(1+am/100,12)-1)*100).toFixed(4);
+  calcular();
+}
+
+// ── EXPOSE TO WINDOW ──
+window.cfSyncFin=syncFin; window.cfSyncTaxa=syncTaxa;
+window.cfSetSis=setSis; window.cfTogAm=togAm; window.cfTogAm2=togAm2;
+window.cfTogLc=togLc; window.cfTogLc2=togLc2;
+window.cfTogCET=togCET; window.cfTogCET2=togCET2;
+window.cfChangeProd=changeProd; window.cfCalcular=calcular;
+window.cfTogTbl=togTbl; window.cfTogConTbl=togConTbl;
+window.cfAbrirAluguel=abrirAluguel; window.cfFecharAluguel=fecharAluguel;
+window.cfFecharAluguelFora=fecharAluguelFora;
+window.cfPreviewAluguel=previewAluguel;
+window.cfAplicarAluguel=aplicarAluguel; window.cfRemoverAluguel=removerAluguel;
+window.cfSyncAvTaxa=syncAvTaxa; window.cfSetAvTaxa=setAvTaxa;
+window.cfTogRendTable=togRendTable; window.cfTogRendRows=togRendRows;
+window.cfAbrirRelatorio=abrirRelatorio; window.cfFecharRelatorio=fecharRelatorio;
+window.cfFecharRelatoriofora=fecharRelatoriofora;
+window.cfLimpar=limpar;
+window.initConsorcio=initConsorcio;
+})();
+/* ===== MODULE:CONSORCIO:JS:END ===== */
 
 initRecados();
 initOrient();
@@ -7282,6 +8799,7 @@ initLinks();
 initEtf();
 initExterior();
 initSucessao();
+initConsorcio();
 
 
 /* ===== SHARED:JS:START (restaura o último módulo aberto — genérico, não mexer) ===== */
