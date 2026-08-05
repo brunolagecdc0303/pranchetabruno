@@ -570,6 +570,8 @@
   .rec-orient-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--brass-deep);font-weight:700;margin-bottom:5px}
   .rec-orient-text{font-size:13px;line-height:1.55;color:var(--ink);white-space:pre-wrap;margin-bottom:8px}
   .orient-block{margin-bottom:22px}
+  .prod-mes-block{border-left:4px solid var(--brass);background:linear-gradient(90deg,rgba(181,137,63,.06),transparent 40%)}
+  .prod-mes-block h3{display:flex;align-items:center;gap:6px}
   .orient-view{font-size:14px;line-height:1.65;color:var(--ink);white-space:pre-wrap;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-height:48px}
   .orient-view.is-empty{color:var(--muted);font-style:italic}
   @media (max-width:960px){
@@ -1965,6 +1967,33 @@
             <div class="ops-status" id="orientStatus" aria-live="polite"></div>
           </div>
         </div>
+        <div class="block orient-block prod-mes-block" id="prodMesBlock">
+          <div class="block-head" style="flex-wrap:wrap;gap:10px">
+            <h3>🏷️ Produtos do mês</h3>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-ghost" id="prodMesCopy" type="button" style="padding:7px 13px;font-size:13px">Copiar</button>
+              <button class="btn btn-ghost" id="prodMesEditToggle" type="button" style="padding:7px 13px;font-size:13px">Editar</button>
+            </div>
+          </div>
+          <p class="note">Produtos em destaque neste mês — visível para toda a equipe.</p>
+          <div class="orient-view" id="prodMesView">Carregando…</div>
+          <div id="prodMesEditWrap" hidden>
+            <div class="field">
+              <textarea class="ipt" id="prodMesTexto" maxlength="3000" rows="8" placeholder="Liste os produtos em destaque, um por linha. Ex.:&#10;• CDB Banco X — 120% CDI (venc. 2 anos)&#10;• Fundo Y Multimercado — captação até 15/08&#10;• COE Proteção S&amp;P — janela até 20/08"></textarea>
+              <div class="hint"><span id="prodMesCount">0</span>/3000 caracteres</div>
+            </div>
+            <div class="field">
+              <label for="prodMesPin"><span class="lbl">PIN do gestor</span></label>
+              <input class="ipt" id="prodMesPin" type="password" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="PIN">
+            </div>
+            <div class="ops-form-actions">
+              <button class="btn btn-primary" id="prodMesSalvar" type="button">Salvar produtos</button>
+              <button class="btn btn-ghost" id="prodMesCancelar" type="button">Cancelar</button>
+            </div>
+            <div class="ops-status" id="prodMesStatus" aria-live="polite"></div>
+          </div>
+        </div>
+
         <div class="ops-layout">
           <form class="block ops-panel" id="recForm">
             <div class="block-head">
@@ -5022,6 +5051,103 @@ function initOrient(){
   orientFetch();
 }
 
+/* ---------- Produtos do mês ---------- */
+let PRODMES_TEXT='';
+let PRODMES_LOADED=false;
+
+function prodMesRenderView(){
+  const el=$('prodMesView');
+  if(!el) return;
+  if(!PRODMES_LOADED){ el.textContent='Carregando…'; el.classList.remove('is-empty'); return; }
+  if(!PRODMES_TEXT){
+    el.textContent='Nenhum produto cadastrado para este mês.';
+    el.classList.add('is-empty');
+  }else{
+    el.textContent=PRODMES_TEXT;
+    el.classList.remove('is-empty');
+  }
+}
+
+async function prodMesFetch(){
+  if(!$('prodMesBlock')) return;
+  if(!APS_WEBHOOK){ PRODMES_LOADED=true; prodMesRenderView(); return; }
+  try{
+    const items = await apsFetchList('produtos_mes');
+    PRODMES_TEXT = (items && items[0] && items[0].text) || '';
+    PRODMES_LOADED = true;
+    prodMesRenderView();
+  }catch(e){
+    PRODMES_LOADED = true;
+    prodMesRenderView();
+  }
+}
+
+function prodMesStatus(msg,isErr){
+  const el=$('prodMesStatus');
+  if(!el) return;
+  el.textContent=msg||'';
+  el.style.color=isErr?'var(--clay)':'var(--good)';
+}
+
+function prodMesOpenEdit(){
+  $('prodMesTexto').value=PRODMES_TEXT;
+  $('prodMesCount').textContent=String(PRODMES_TEXT.length);
+  $('prodMesPin').value='';
+  prodMesStatus('',false);
+  $('prodMesView').hidden=true;
+  $('prodMesEditWrap').hidden=false;
+  $('prodMesEditToggle').hidden=true;
+  $('prodMesTexto').focus();
+}
+
+function prodMesCloseEdit(){
+  $('prodMesView').hidden=false;
+  $('prodMesEditWrap').hidden=true;
+  $('prodMesEditToggle').hidden=false;
+}
+
+async function prodMesSave(){
+  if(!APS_WEBHOOK){ prodMesStatus('Backend ainda não configurado.', true); return; }
+  const text=$('prodMesTexto').value.trim();
+  const pin=($('prodMesPin').value||'').trim();
+  if(!text){ prodMesStatus('Liste ao menos um produto.', true); return; }
+  if(!pin){ prodMesStatus('Informe o PIN do gestor.', true); $('prodMesPin').focus(); return; }
+  $('prodMesSalvar').disabled=true;
+  prodMesStatus('Salvando…', false);
+  try{
+    const res=await apsPost({modulo:'produtos_mes', action:'save', pin, text});
+    if(res && res.ok){
+      PRODMES_TEXT=text;
+      prodMesRenderView();
+      prodMesCloseEdit();
+    }else{
+      prodMesStatus((res&&res.error)?res.error:'Não foi possível salvar. Confira o PIN.', true);
+    }
+  }catch(e){
+    prodMesStatus('Erro de conexão ao salvar.', true);
+  }finally{
+    $('prodMesSalvar').disabled=false;
+  }
+}
+
+function initProdMes(){
+  if(!$('prodMesBlock')) return;
+  prodMesRenderView();
+  $('prodMesEditToggle').addEventListener('click', prodMesOpenEdit);
+  $('prodMesCancelar').addEventListener('click', prodMesCloseEdit);
+  $('prodMesSalvar').addEventListener('click', prodMesSave);
+  $('prodMesTexto').addEventListener('input', ()=>{ $('prodMesCount').textContent=String($('prodMesTexto').value.length); });
+  $('prodMesCopy').addEventListener('click', ()=>{
+    if(!PRODMES_TEXT){ prodMesStatus('Nada para copiar ainda.', true); return; }
+    apsCopy(PRODMES_TEXT, ()=>{
+      const btn=$('prodMesCopy'); const original=btn.textContent;
+      btn.textContent='Copiado!';
+      setTimeout(()=>{ btn.textContent=original; }, 1600);
+    });
+  });
+  prodMesFetch();
+}
+
 function initRecados(){
   if(!$('recForm')) return;
   $('recForm').addEventListener('submit',recSaveFromForm);
@@ -7151,6 +7277,7 @@ initDolar();
 
 initRecados();
 initOrient();
+initProdMes();
 initLinks();
 initEtf();
 initExterior();
