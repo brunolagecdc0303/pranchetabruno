@@ -574,6 +574,31 @@
   .prod-mes-block h3{display:flex;align-items:center;gap:6px}
   .orient-view{font-size:14px;line-height:1.65;color:var(--ink);white-space:pre-wrap;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-height:48px}
   .orient-view.is-empty{color:var(--muted);font-style:italic}
+  /* Produtos do mês — entries */
+  .pm-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+  .pm-view-item{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;background:var(--paper);border:1px solid var(--line);border-radius:10px;font-size:13.5px;line-height:1.5}
+  .pm-view-num{flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--brass);color:#fff;font-size:11px;font-weight:700;margin-top:1px}
+  .pm-view-body{flex:1;min-width:0}
+  .pm-view-text{color:var(--ink)}
+  .pm-view-file{margin-top:4px}
+  .pm-view-file a{font-size:12.5px;color:var(--brass);text-decoration:none;border-bottom:1px dashed var(--brass);display:inline-flex;align-items:center;gap:4px}
+  .pm-view-file a:hover{opacity:.7}
+  .pm-row{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;background:#fff;border:1px solid var(--line);border-radius:10px}
+  .pm-row-num{flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--muted-2);color:#fff;font-size:11px;font-weight:700;margin-top:6px}
+  .pm-row-fields{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+  .pm-row input[type=text]{width:100%;border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-family:var(--f-body);font-size:13px;background:var(--paper);color:var(--ink)}
+  .pm-row input[type=text]:focus{outline:none;border-color:var(--brass)}
+  .pm-file-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .pm-file-btn{appearance:none;border:1px dashed var(--line-strong);background:var(--paper);border-radius:7px;padding:5px 10px;font-size:12px;color:var(--muted);cursor:pointer;font-family:var(--f-body);transition:border-color .15s}
+  .pm-file-btn:hover{border-color:var(--brass);color:var(--brass)}
+  .pm-file-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:rgba(181,137,63,.10);border-radius:6px;font-size:12px;color:var(--brass-deep);max-width:200px}
+  .pm-file-badge span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pm-file-badge button{appearance:none;border:none;background:none;color:var(--clay);cursor:pointer;font-size:14px;line-height:1;padding:0 2px;font-weight:700}
+  .pm-row-rm{appearance:none;border:none;background:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:4px;margin-top:4px;transition:color .15s}
+  .pm-row-rm:hover{color:var(--clay)}
+  .pm-add-btn{appearance:none;border:1px dashed var(--line-strong);background:var(--paper);border-radius:10px;padding:8px;width:100%;font-size:13px;color:var(--muted);cursor:pointer;font-family:var(--f-body);transition:border-color .15s,color .15s}
+  .pm-add-btn:hover{border-color:var(--brass);color:var(--brass)}
+  @media(max-width:620px){.pm-row{flex-wrap:wrap}.pm-file-badge{max-width:150px}}
   @media (max-width:960px){
     .ops-layout{grid-template-columns:minmax(0,1fr)}
     .ops-panel{position:static}
@@ -2260,13 +2285,11 @@
             </div>
           </div>
           <p class="note">Produtos em destaque neste mês — visível para toda a equipe.</p>
-          <div class="orient-view" id="prodMesView">Carregando…</div>
+          <div id="prodMesView">Carregando…</div>
           <div id="prodMesEditWrap" hidden>
-            <div class="field">
-              <textarea class="ipt" id="prodMesTexto" maxlength="3000" rows="8" placeholder="Liste os produtos em destaque, um por linha. Ex.:&#10;• CDB Banco X — 120% CDI (venc. 2 anos)&#10;• Fundo Y Multimercado — captação até 15/08&#10;• COE Proteção S&amp;P — janela até 20/08"></textarea>
-              <div class="hint"><span id="prodMesCount">0</span>/3000 caracteres</div>
-            </div>
-            <div class="field">
+            <div class="pm-list" id="prodMesEntries"></div>
+            <button class="pm-add-btn" id="prodMesAdd" type="button">+ Adicionar produto</button>
+            <div class="field" style="margin-top:12px">
               <label for="prodMesPin"><span class="lbl">PIN do gestor</span></label>
               <input class="ipt" id="prodMesPin" type="password" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="PIN">
             </div>
@@ -5968,28 +5991,107 @@ function initOrient(){
 }
 
 /* ---------- Produtos do mês ---------- */
-let PRODMES_TEXT='';
+let PRODMES_ITEMS=[];   /* [{text,fileName,fileType,fileData}] */
+let PRODMES_EDIT=[];    /* working copy while editing */
 let PRODMES_LOADED=false;
+const PRODMES_MAX=10;
+const PRODMES_FILE_MAX=2*1024*1024; /* 2 MB per file */
 
+/* --- legacy compat: old plain-text → array --- */
+function pmParse(raw){
+  if(!raw) return [];
+  try{
+    const p=JSON.parse(raw);
+    if(Array.isArray(p)) return p.map(x=>({text:x.text||'',fileName:x.fileName||'',fileType:x.fileType||'',fileData:x.fileData||''}));
+  }catch(e){}
+  /* fallback: old plain text — split by line */
+  return raw.split('\n').filter(l=>l.trim()).map(l=>({text:l.replace(/^[•\-–—]\s*/,'').trim(),fileName:'',fileType:'',fileData:''}));
+}
+function pmSerialize(items){ return JSON.stringify(items.filter(x=>x.text.trim()||x.fileName)); }
+function pmPlainText(items){ return items.filter(x=>x.text.trim()).map((x,i)=>'• '+x.text+(x.fileName?' 📎 '+x.fileName:'')).join('\n'); }
+
+/* --- view --- */
 function prodMesRenderView(){
   const el=$('prodMesView');
   if(!el) return;
-  if(!PRODMES_LOADED){ el.textContent='Carregando…'; el.classList.remove('is-empty'); return; }
-  if(!PRODMES_TEXT){
-    el.textContent='Nenhum produto cadastrado para este mês.';
-    el.classList.add('is-empty');
-  }else{
-    el.textContent=PRODMES_TEXT;
-    el.classList.remove('is-empty');
+  if(!PRODMES_LOADED){ el.innerHTML='Carregando…'; el.className='orient-view'; return; }
+  if(!PRODMES_ITEMS.length){
+    el.innerHTML='Nenhum produto cadastrado para este mês.';
+    el.className='orient-view is-empty';
+    return;
   }
+  el.className='pm-list';
+  let h='';
+  PRODMES_ITEMS.forEach((it,i)=>{
+    h+='<div class="pm-view-item">';
+    h+='<span class="pm-view-num">'+(i+1)+'</span>';
+    h+='<div class="pm-view-body"><div class="pm-view-text">'+esc(it.text)+'</div>';
+    if(it.fileName && it.fileData){
+      h+='<div class="pm-view-file"><a href="'+it.fileData+'" download="'+esc(it.fileName)+'" title="Baixar '+esc(it.fileName)+'">📎 '+esc(it.fileName)+'</a></div>';
+    }
+    h+='</div></div>';
+  });
+  el.innerHTML=h;
 }
 
+/* --- edit rows --- */
+function pmBuildRow(i,item){
+  const div=document.createElement('div');
+  div.className='pm-row';
+  div.dataset.idx=i;
+  let h='<span class="pm-row-num">'+(i+1)+'</span><div class="pm-row-fields">';
+  h+='<input type="text" value="'+esc(item.text)+'" placeholder="Descrição do produto" maxlength="200" data-role="pm-text">';
+  h+='<div class="pm-file-row">';
+  h+='<label class="pm-file-btn">📎 Anexar arquivo<input type="file" data-role="pm-file" accept=".pdf,.png,.jpg,.jpeg,.xlsx,.xls,.docx,.doc,.pptx,.csv" hidden></label>';
+  if(item.fileName){
+    h+='<span class="pm-file-badge"><span>'+esc(item.fileName)+'</span><button type="button" data-role="pm-file-rm" title="Remover arquivo">✕</button></span>';
+  }
+  h+='</div></div>';
+  h+='<button class="pm-row-rm" type="button" data-role="pm-rm" title="Remover produto">✕</button>';
+  div.innerHTML=h;
+  /* events */
+  div.querySelector('[data-role="pm-text"]').addEventListener('input',e=>{ PRODMES_EDIT[i].text=e.target.value; });
+  div.querySelector('[data-role="pm-file"]').addEventListener('change',e=>{ pmHandleFile(i,e.target); });
+  const rmFile=div.querySelector('[data-role="pm-file-rm"]');
+  if(rmFile) rmFile.addEventListener('click',()=>{ PRODMES_EDIT[i].fileName=''; PRODMES_EDIT[i].fileType=''; PRODMES_EDIT[i].fileData=''; pmRenderEditRows(); });
+  div.querySelector('[data-role="pm-rm"]').addEventListener('click',()=>{ PRODMES_EDIT.splice(i,1); pmRenderEditRows(); });
+  return div;
+}
+
+function pmRenderEditRows(){
+  const wrap=$('prodMesEntries');
+  wrap.innerHTML='';
+  PRODMES_EDIT.forEach((it,i)=>wrap.appendChild(pmBuildRow(i,it)));
+  $('prodMesAdd').style.display=PRODMES_EDIT.length>=PRODMES_MAX?'none':'';
+}
+
+function pmHandleFile(idx,input){
+  const file=input.files&&input.files[0];
+  if(!file) return;
+  if(file.size>PRODMES_FILE_MAX){
+    prodMesStatus('Arquivo "'+file.name+'" excede 2 MB. Escolha um arquivo menor.',true);
+    input.value='';
+    return;
+  }
+  const reader=new FileReader();
+  reader.onload=()=>{
+    PRODMES_EDIT[idx].fileName=file.name;
+    PRODMES_EDIT[idx].fileType=file.type;
+    PRODMES_EDIT[idx].fileData=reader.result;
+    pmRenderEditRows();
+    prodMesStatus('',false);
+  };
+  reader.readAsDataURL(file);
+}
+
+/* --- fetch / save --- */
 async function prodMesFetch(){
   if(!$('prodMesBlock')) return;
   if(!APS_WEBHOOK){ PRODMES_LOADED=true; prodMesRenderView(); return; }
   try{
     const items = await apsFetchList('produtos_mes');
-    PRODMES_TEXT = (items && items[0] && items[0].text) || '';
+    const raw = (items && items[0] && items[0].text) || '';
+    PRODMES_ITEMS = pmParse(raw);
     PRODMES_LOADED = true;
     prodMesRenderView();
   }catch(e){
@@ -5999,21 +6101,22 @@ async function prodMesFetch(){
 }
 
 function prodMesStatus(msg,isErr){
-  const el=$('prodMesStatus');
-  if(!el) return;
+  const el=$('prodMesStatus'); if(!el) return;
   el.textContent=msg||'';
   el.style.color=isErr?'var(--clay)':'var(--good)';
 }
 
 function prodMesOpenEdit(){
-  $('prodMesTexto').value=PRODMES_TEXT;
-  $('prodMesCount').textContent=String(PRODMES_TEXT.length);
+  PRODMES_EDIT=PRODMES_ITEMS.map(x=>({...x}));
+  if(!PRODMES_EDIT.length) PRODMES_EDIT.push({text:'',fileName:'',fileType:'',fileData:''});
+  pmRenderEditRows();
   $('prodMesPin').value='';
   prodMesStatus('',false);
   $('prodMesView').hidden=true;
   $('prodMesEditWrap').hidden=false;
   $('prodMesEditToggle').hidden=true;
-  $('prodMesTexto').focus();
+  const first=$('prodMesEntries').querySelector('[data-role="pm-text"]');
+  if(first) first.focus();
 }
 
 function prodMesCloseEdit(){
@@ -6024,16 +6127,17 @@ function prodMesCloseEdit(){
 
 async function prodMesSave(){
   if(!APS_WEBHOOK){ prodMesStatus('Backend ainda não configurado.', true); return; }
-  const text=$('prodMesTexto').value.trim();
+  const clean=PRODMES_EDIT.filter(x=>x.text.trim()||x.fileName);
+  if(!clean.length){ prodMesStatus('Adicione ao menos um produto.', true); return; }
   const pin=($('prodMesPin').value||'').trim();
-  if(!text){ prodMesStatus('Liste ao menos um produto.', true); return; }
   if(!pin){ prodMesStatus('Informe o PIN do gestor.', true); $('prodMesPin').focus(); return; }
   $('prodMesSalvar').disabled=true;
   prodMesStatus('Salvando…', false);
   try{
+    const text=pmSerialize(clean);
     const res=await apsPost({modulo:'produtos_mes', action:'save', pin, text});
     if(res && res.ok){
-      PRODMES_TEXT=text;
+      PRODMES_ITEMS=clean;
       prodMesRenderView();
       prodMesCloseEdit();
     }else{
@@ -6052,10 +6156,16 @@ function initProdMes(){
   $('prodMesEditToggle').addEventListener('click', prodMesOpenEdit);
   $('prodMesCancelar').addEventListener('click', prodMesCloseEdit);
   $('prodMesSalvar').addEventListener('click', prodMesSave);
-  $('prodMesTexto').addEventListener('input', ()=>{ $('prodMesCount').textContent=String($('prodMesTexto').value.length); });
+  $('prodMesAdd').addEventListener('click', ()=>{
+    if(PRODMES_EDIT.length>=PRODMES_MAX) return;
+    PRODMES_EDIT.push({text:'',fileName:'',fileType:'',fileData:''});
+    pmRenderEditRows();
+    const rows=$('prodMesEntries').querySelectorAll('[data-role="pm-text"]');
+    if(rows.length) rows[rows.length-1].focus();
+  });
   $('prodMesCopy').addEventListener('click', ()=>{
-    if(!PRODMES_TEXT){ prodMesStatus('Nada para copiar ainda.', true); return; }
-    apsCopy(PRODMES_TEXT, ()=>{
+    if(!PRODMES_ITEMS.length){ prodMesStatus('Nada para copiar ainda.', true); return; }
+    apsCopy(pmPlainText(PRODMES_ITEMS), ()=>{
       const btn=$('prodMesCopy'); const original=btn.textContent;
       btn.textContent='Copiado!';
       setTimeout(()=>{ btn.textContent=original; }, 1600);
