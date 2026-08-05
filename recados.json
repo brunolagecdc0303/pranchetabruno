@@ -1,5 +1,19 @@
 [
   {
+    "title": "COE - DOBRO ou ALTA",
+    "category": "Investimentos",
+    "priority": "media",
+    "due": "2026-08-18",
+    "text": "COE bastante interessante. O PIOR cenário é o cliente ter o capital dobrado.",
+    "orientacao": "Material em anexo.",
+    "fileName": "coe dobro o alta.pdf",
+    "id": "rec_msgdbzpq_pbvtd",
+    "createdAt": "2026-08-05T17:36:08.846Z",
+    "updatedAt": "2026-08-05T17:36:20.294Z",
+    "fileUrl": "https://drive.google.com/file/d/1sIsNks17Yau6dzrWI13ec8i1yA_XIOB6/view?usp=drivesdk",
+    "fileId": "1sIsNks17Yau6dzrWI13ec8i1yA_XIOB6"
+  },
+  {
     "title": "ARZ Bridge",
     "category": "Investimentos",
     "priority": "alta",
