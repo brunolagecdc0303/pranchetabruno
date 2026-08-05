@@ -597,6 +597,14 @@
   .pm-row textarea:focus{outline:none;border-color:var(--brass)}
   .pm-msg-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted-2);font-weight:600}
   .pm-view-msg{margin-top:8px}
+  .pm-row-head{display:flex;align-items:center;gap:7px;cursor:pointer;user-select:none;padding:3px 2px;border-radius:6px;transition:background .12s}
+  .pm-row-head:hover{background:rgba(181,137,63,.08)}
+  .pm-toggle-icon{flex:0 0 auto;width:12px;text-align:center;font-size:11px;color:var(--muted);transition:transform .15s}
+  .pm-row-title{flex:1;min-width:0;font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pm-row-title.is-empty{color:var(--muted);font-weight:400;font-style:italic}
+  .pm-row-flags{flex:0 0 auto;font-size:11px;letter-spacing:2px}
+  .pm-row-body{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+  .pm-row-body[hidden]{display:none}
   .pm-file-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
   .pm-file-btn{appearance:none;border:1px dashed var(--line-strong);background:var(--paper);border-radius:7px;padding:5px 10px;font-size:12px;color:var(--muted);cursor:pointer;font-family:var(--f-body);transition:border-color .15s}
   .pm-file-btn:hover{border-color:var(--brass);color:var(--brass)}
@@ -6197,7 +6205,17 @@ function pmBuildRow(i,item){
   const div=document.createElement('div');
   div.className='pm-row';
   div.dataset.idx=i;
+  const open=item.open!==false;
+  const hasText=!!(item.text&&item.text.trim());
+  const titleText=hasText?item.text.trim():'Produto sem descrição';
+  const flags=(item.fileName?'📎':'')+(item.msg?'💬':'');
   let h='<span class="pm-row-num">'+(i+1)+'</span><div class="pm-row-fields">';
+  h+='<div class="pm-row-head" data-role="pm-toggle">';
+  h+='<span class="pm-toggle-icon">'+(open?'▾':'▸')+'</span>';
+  h+='<span class="pm-row-title'+(hasText?'':' is-empty')+'">'+esc(titleText)+'</span>';
+  if(flags) h+='<span class="pm-row-flags">'+flags+'</span>';
+  h+='</div>';
+  h+='<div class="pm-row-body"'+(open?'':' hidden')+'>';
   h+='<input type="text" value="'+esc(item.text)+'" placeholder="Descrição do produto" maxlength="200" data-role="pm-text">';
   h+='<div class="pm-file-row">';
   h+='<label class="pm-file-btn">📎 Anexar arquivo<input type="file" data-role="pm-file" accept=".pdf,.png,.jpg,.jpeg,.xlsx,.xls,.docx,.doc,.pptx,.csv" hidden></label>';
@@ -6207,19 +6225,29 @@ function pmBuildRow(i,item){
   h+='</div>';
   h+='<span class="pm-msg-label">Mensagem pronta para o cliente (opcional — aparece com botão Copiar)</span>';
   h+='<textarea rows="2" maxlength="1000" placeholder="Ex.: Olá! Separei uma oportunidade que pode fazer sentido pra você este mês..." data-role="pm-msg">'+esc(item.msg||'')+'</textarea>';
-  h+='</div>';
+  h+='</div>'; // fim pm-row-body
+  h+='</div>'; // fim pm-row-fields
   h+='<button class="pm-row-rm" type="button" data-role="pm-rm" title="Remover produto">✕</button>';
   div.innerHTML=h;
   /* events */
+  div.querySelector('[data-role="pm-toggle"]').addEventListener('click',()=>{
+    PRODMES_EDIT[i].open = !open;
+    pmRenderEditRows();
+    if(PRODMES_EDIT[i].open){
+      const inputs=$('prodMesEntries').querySelectorAll('[data-role="pm-text"]');
+      if(inputs[i]) inputs[i].focus();
+    }
+  });
   div.querySelector('[data-role="pm-text"]').addEventListener('input',e=>{ PRODMES_EDIT[i].text=e.target.value; });
   div.querySelector('[data-role="pm-msg"]').addEventListener('input',e=>{ PRODMES_EDIT[i].msg=e.target.value; });
   div.querySelector('[data-role="pm-file"]').addEventListener('change',e=>{ pmHandleFile(i,e.target); });
   const rmFile=div.querySelector('[data-role="pm-file-rm"]');
-  if(rmFile) rmFile.addEventListener('click',()=>{
+  if(rmFile) rmFile.addEventListener('click',(e)=>{
+    e.stopPropagation();
     PRODMES_EDIT[i].fileName=''; PRODMES_EDIT[i].fileUrl=''; delete PRODMES_EDIT[i].fileData; delete PRODMES_EDIT[i].fileMime;
     pmRenderEditRows();
   });
-  div.querySelector('[data-role="pm-rm"]').addEventListener('click',()=>{ PRODMES_EDIT.splice(i,1); pmRenderEditRows(); });
+  div.querySelector('[data-role="pm-rm"]').addEventListener('click',(e)=>{ e.stopPropagation(); PRODMES_EDIT.splice(i,1); pmRenderEditRows(); });
   return div;
 }
 
@@ -6270,8 +6298,8 @@ function prodMesStatus(msg,isErr){
 }
 
 function prodMesOpenEdit(){
-  PRODMES_EDIT=PRODMES_ITEMS.map(x=>({...x}));
-  if(!PRODMES_EDIT.length) PRODMES_EDIT.push({text:'',fileUrl:'',fileName:'',msg:''});
+  PRODMES_EDIT=PRODMES_ITEMS.map(x=>({...x, open:true}));
+  if(!PRODMES_EDIT.length) PRODMES_EDIT.push({text:'',fileUrl:'',fileName:'',msg:'',open:true});
   pmRenderEditRows();
   $('prodMesPin').value='';
   prodMesStatus('',false);
@@ -6338,7 +6366,7 @@ function initProdMes(){
   $('prodMesSalvar').addEventListener('click', prodMesSave);
   $('prodMesAdd').addEventListener('click', ()=>{
     if(PRODMES_EDIT.length>=PRODMES_MAX) return;
-    PRODMES_EDIT.push({text:'',fileUrl:'',fileName:'',msg:''});
+    PRODMES_EDIT.push({text:'',fileUrl:'',fileName:'',msg:'',open:true});
     pmRenderEditRows();
     const rows=$('prodMesEntries').querySelectorAll('[data-role="pm-text"]');
     if(rows.length) rows[rows.length-1].focus();
