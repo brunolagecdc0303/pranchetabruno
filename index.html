@@ -1387,12 +1387,48 @@
   }
   /* ===== MODULE:CONSORCIO:CSS:END ===== */
 
+  /* ===== MODULE:OPERACIONAL:CSS:START ===== */
+  .op-lede{font-size:15px;color:var(--muted);margin-bottom:18px}
+  .op-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+  .op-tab{padding:8px 14px;border-radius:999px;border:1px solid var(--line-strong);background:#fff;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:.15s ease}
+  .op-tab:hover{border-color:var(--brass);color:var(--ink)}
+  .op-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+  .op-panel{display:none}
+  .op-panel.active{display:block}
+  .op-panel h2{font-family:var(--f-display);font-weight:600;font-size:22px;margin:0 0 10px;color:var(--ink)}
+  .op-panel h3{font-family:var(--f-display);font-weight:600;font-size:16.5px;margin:30px 0 12px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink);scroll-margin-top:90px}
+  .op-panel h3:first-of-type{border-top:none;padding-top:0;margin-top:22px}
+  .op-panel p{font-size:14.5px;line-height:1.68;color:var(--ink);margin:0 0 12px}
+  .op-rules{border:1px solid var(--line-strong);border-left:4px solid var(--brass);background:var(--paper);border-radius:0 12px 12px 0;padding:16px 20px;margin-bottom:22px}
+  .op-rules h4{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--brass-deep);font-weight:700}
+  .op-rules ul{margin:0;padding-left:20px;font-size:13.5px;line-height:1.6;color:var(--ink-soft)}
+  .op-rules li{margin-bottom:7px}
+  .op-jump{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
+  .op-jump a{font-family:var(--f-mono);font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:20px;background:rgba(44,107,102,.08);color:var(--teal);border:1px solid rgba(44,107,102,.22);text-decoration:none;transition:.15s ease}
+  .op-jump a:hover{background:rgba(44,107,102,.16)}
+  .op-note{border-left:3px solid var(--brass);background:rgba(0,0,0,.025);padding:12px 15px;border-radius:0 10px 10px 0;font-size:13px;line-height:1.58;color:var(--muted);margin:6px 0 16px}
+  .op-note b{color:var(--ink)}
+  .op-script{border:1px solid var(--line-strong);border-radius:12px;padding:16px 18px;background:#fff;margin:12px 0}
+  .op-script-label{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:10px;letter-spacing:.005em}
+  .op-script blockquote{margin:0 0 12px;font-size:13.5px;line-height:1.62;color:var(--ink-soft);font-style:italic;border-left:2px solid var(--line-strong);padding-left:12px}
+  .op-copy{padding:6px 13px;font-size:12.5px}
+  .op-copy.copied{background:var(--good)!important;border-color:var(--good)!important;color:#fff!important}
+  .op-flag{margin-top:12px;display:flex;align-items:flex-start;gap:7px;font-size:12px;line-height:1.5;color:var(--clay);background:rgba(178,90,65,.08);border:1px solid rgba(178,90,65,.22);border-radius:8px;padding:9px 12px}
+  .op-flag b{color:var(--clay)}
+  .op-end-note{border:1px dashed var(--line-strong);border-radius:12px;padding:16px 18px;font-size:13.5px;line-height:1.62;color:var(--ink-soft);background:var(--paper);margin-top:16px}
+  .op-end-note a{color:var(--brass-deep);font-weight:600;text-decoration:none;border-bottom:1px dashed var(--brass-deep)}
+  @media (max-width:620px){
+    .op-panel h2{font-size:19px}
+    .op-script blockquote{font-size:13px}
+  }
+  /* ===== MODULE:OPERACIONAL:CSS:END ===== */
+
   /* ===== SHARED:CSS:PRINT (ao adicionar módulo novo, inclua #module-X na lista abaixo para escondê-lo da impressão) ===== */
   @media print{
     @page{size:A4;margin:14mm 14mm 16mm}
     body{background:#fff;font-size:11pt}
     /* PRINT:HIDE-MODULES:LIST — adicione aqui o #id do <section class="module"> de cada módulo novo (exceto o que efetivamente imprime) */
-    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#module-sucessao,#module-consorcio,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions{display:none!important}
+    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#module-sucessao,#module-consorcio,#module-operacional,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions{display:none!important}
     .app,.app-main,.module{display:block!important}
     #report{display:block!important;color:#111;max-width:none}
     .rep-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:18px}
@@ -1518,6 +1554,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 12h18"/><path d="M12 3v18"/></svg>
         Consórcio vs Financ.
       </button>
+      <button class="side-item" data-module="module-operacional" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Operacional
+      </button>
       <!-- MODULE:REGISTRY:SIDEBAR:END -->
       <span class="side-sec">Em breve</span>
       <span class="side-item soon">Mais módulos a caminho</span>
@@ -1540,6 +1580,7 @@
       <button class="mt-item" data-module="module-exterior" type="button">Estruturas no exterior</button>
       <button class="mt-item" data-module="module-sucessao" type="button">Sucessão BR</button>
       <button class="mt-item" data-module="module-consorcio" type="button">Consórcio</button>
+      <button class="mt-item" data-module="module-operacional" type="button">Operacional</button>
       <!-- MODULE:REGISTRY:TOPBAR:END -->
       <span class="mt-item soon">Em breve</span>
     </div>
@@ -4143,6 +4184,23 @@ Abraço,
       </main>
     </section>
     <!-- MODULE:CONSORCIO:HTML:END -->
+
+    <!-- MODULE:OPERACIONAL:HTML:START -->
+    <section class="module" id="module-operacional" hidden>
+      <header class="masthead">
+        <div class="wrap">
+          <p class="eyebrow">Operacional &middot; Instruções internas</p>
+          <h1>Operacional</h1>
+          <p class="lede">Instruções operacionais para os assessores &mdash; processos internos, auditoria e boas práticas do dia a dia.</p>
+        </div>
+      </header>
+      <main class="wrap" style="padding-top:26px;padding-bottom:60px">
+        <p class="op-lede">Central de referência para procedimentos internos. Cada aba reúne um processo específico &mdash; comece pela auditoria de ordem, a mais consultada no dia a dia com o cliente.</p>
+        <nav class="op-tabs" id="opTabs" role="tablist" aria-label="Secoes do operacional"></nav>
+        <div class="op-content" id="opContent"></div>
+      </main>
+    </section>
+    <!-- MODULE:OPERACIONAL:HTML:END -->
 
   </div>
 </div>
@@ -8902,6 +8960,613 @@ window.initConsorcio=initConsorcio;
 })();
 /* ===== MODULE:CONSORCIO:JS:END ===== */
 
+/* ===== MODULE:OPERACIONAL:JS:START ===== */
+const OP_SCRIPTS = [];
+function opScript(text){ OP_SCRIPTS.push(text); return OP_SCRIPTS.length-1; }
+function opCard(title,text,opts){
+  opts = opts||{};
+  const idx = opScript(text);
+  return '<div class="op-script">'
+    + '<div class="op-script-label">'+esc(title)+'</div>'
+    + '<blockquote>'+esc(text).replace(/\n/g,'<br>')+'</blockquote>'
+    + '<button class="btn btn-ghost op-copy" type="button" data-op-idx="'+idx+'">Copiar</button>'
+    + (opts.assessorNote ? '<div class="op-flag"><span>&#9888;&#65039;</span><span><b>Atenção assessor:</b> '+esc(opts.assessorNote)+'</span></div>' : '')
+    + '</div>';
+}
+
+/* ---------- Textos dos modelos (Auditoria de Ordem) ---------- */
+const OP_TXT_RF_APLIC = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a aplicação abaixo na conta XP [Código do cliente]:
+
+Ativo: [Nome do ativo];
+Emissor: [Nome do emissor];
+Taxa de Negociação: [taxa de compra cotada no mercado, taxa mínima que o cliente aceita comprar o título];
+Carência: [Data de carência ou número de dias a partir da aplicação ou no vencimento];
+Vencimento: [Data de vencimento ou número de dias a partir da aplicação];
+Valor limite a ser aplicado: [Valor financeiro limite ou Valor financeiro cotado].
+
+Observações importantes: A taxa de negociação se trata da cotação realizada no mercado, sendo que para ativos de Renda Fixa, com exceção de títulos públicos, toda solicitação lançada no sistema antes das 15:00h sofrerá tentativa de processamento no mesmo dia e toda solicitação lançada após às 15:00h sofrerá tentativa de processamento no próximo dia útil — nesse caso, as datas de carência e de vencimento de CDBs, LCs, LCIs e LCAs estarão sujeitas a postergação de um dia útil. Já para Títulos Públicos, toda solicitação lançada no sistema antes das 17:00h sofrerá tentativa de processamento no mesmo dia e toda solicitação lançada após às 17:00h sofrerá tentativa de processamento no próximo dia útil.
+
+O valor financeiro total da aplicação e o PU de compra dependem da cotação feita no mercado secundário pela Mesa de Renda Fixa da XP e serão confirmados via nota de negociação que será enviada ao e-mail de cadastro do cliente.
+
+Caso se trate de aplicação cotada, para ativos de Renda Fixa, com exceção de títulos públicos, o valor da aplicação citado acima é resultado da cotação feita no mercado secundário pela Mesa de Renda Fixa da XP e só é válido para tentativa de processamento caso a solicitação seja lançada até às 15:00h. Após será necessário fazer uma nova cotação no próximo dia útil, que resultará em um novo valor a ser confirmado pelo cliente e inserido para processamento até às 15:00h do dia referido para ser válido. Já para Títulos Públicos, toda solicitação lançada no sistema antes das 17:00h sofrerá tentativa de processamento no mesmo dia. Após isso, terá de ser feita uma nova cotação no próximo dia útil, que resultará em um novo valor a ser confirmado pelo cliente e inserido para processamento até às 17:00h do dia referido para ser válido.
+
+Aguardo confirmação para realizar a aplicação.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_RF_RESGATE = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para o resgate abaixo na conta XP [Código do cliente]:
+
+Ativo: [Nome do ativo];
+Emissor: [Nome do emissor];
+Vencimento: [MÊS/ANO];
+Preço Unitário do Título ("PU"): [valor do título negociado no mercado na data cotada — Preço Unitário da venda];
+Valor a ser resgatado: [Valor financeiro ou Quantidade a ser resgatada ou Resgate Total];
+Valor financeiro cotado: [Valor financeiro cotado, caso se trate de resgate cotado].
+
+Observações importantes: toda solicitação lançada no sistema antes das 15:00h sofrerá tentativa de processamento no mesmo dia e toda solicitação lançada após às 15:00h sofrerá tentativa de processamento no próximo dia útil. Já para Títulos Públicos, CDBs, LCs, LCIs e LCAs, toda solicitação lançada no sistema antes das 17:00h sofrerá tentativa de processamento no mesmo dia e toda solicitação lançada após às 17:00h sofrerá tentativa de processamento no próximo dia útil.
+
+O valor financeiro total do resgate e o PU de saída dependem da cotação feita no mercado secundário pela Mesa de Renda Fixa da XP e serão confirmados via nota de negociação que será enviada ao e-mail de cadastro do cliente.
+
+Caso se trate de resgate cotado, para ativos de Renda Fixa, com exceção de títulos públicos, CDBs, LCs, LCIs e LCAs, o valor do resgate citado acima é resultado da cotação feita no mercado secundário pela Mesa de Renda Fixa da XP e só é válido para tentativa de processamento caso a solicitação seja lançada até às 15:00h. Após isso, terá de ser feita uma nova cotação no próximo dia útil, que resultará em um novo valor a ser confirmado pelo cliente e inserido para processamento até às 15:00h do dia referido para ser válido. Já para títulos públicos, CDBs, LCs, LCIs e LCAs, o valor só é válido caso a solicitação seja lançada até às 17:00h. Após isso, terá de ser feita uma nova cotação no próximo dia útil, que resultará em um novo valor a ser confirmado pelo cliente e inserido para processamento até às 17:00h do dia referido para ser válido.
+
+Aguardo confirmação para realizar o resgate.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_TD_APLIC = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a aplicação no Tesouro Direto abaixo na conta XP [Código do cliente]:
+
+Título: [Nome do título];
+Rentabilidade ao ano: [Taxa ou indexador];
+Vencimento: [Data de vencimento do título];
+Pagamento de juros: [Vencimento ou Cupons semestrais];
+Valor a ser aplicado: [Valor financeiro limite] ou Quantidade: [xxx].
+
+Observação importante: O valor financeiro total da aplicação e o PU de compra dependem da cotação atual do mercado.
+
+Aguardo confirmação para realizar a aplicação.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_TD_RESGATE = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para o resgate no Tesouro Direto abaixo na conta XP [Código do cliente]:
+
+Título: [Nome do título];
+Vencimento: [Data de vencimento do título];
+Valor a ser resgatado: [Valor financeiro] ou Quantidade a ser resgatada: [xxx] ou Resgate Total.
+
+Observação importante: O valor financeiro total do resgate e o PU de venda dependem da cotação atual do mercado.
+
+Aguardo confirmação para realizar o resgate.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_FUNDO_APLIC = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a aplicação no Fundo de Investimentos abaixo na conta XP [Código do cliente]:
+
+Fundo: [Nome do fundo];
+Valor a ser aplicado: [Valor financeiro].
+
+Observações importantes: Toda solicitação lançada antes das 14h30 sofrerá tentativa de processamento no mesmo dia. Toda solicitação lançada após às 14h30 sofrerá tentativa de processamento no próximo dia útil.
+
+Aguardo confirmação para realizar a aplicação.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_FUNDO_RESGATE = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para o resgate do Fundo de Investimentos abaixo na conta XP [Código do cliente]:
+
+Fundo: [Nome do fundo];
+Valor a ser resgatado: [Valor financeiro ou Resgate Total].
+
+Observações importantes: Toda solicitação lançada antes das 14h30 sofrerá tentativa de processamento no mesmo dia. Toda solicitação lançada após às 14h30 sofrerá tentativa de processamento no próximo dia útil.
+
+Aguardo confirmação para realizar o resgate.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_COE_RESERVA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a reserva de compra do COE abaixo na conta XP [Código do cliente]:
+
+COE: [Nome do COE];
+Emissor: [Emissor do COE];
+Tipo: [Valor Nominal Protegido ou Em Risco];
+Quantidade: [Quantidade a ser reservada];
+Valor: [Valor financeiro da reserva];
+Vencimento: [xx/xx/xxxx].
+
+DISCLAIMER: Este produto é adequado para cliente com perfil de investimentos Moderado e Agressivo. Investimentos no mercado de capitais envolvem riscos, portanto, todos os riscos envolvidos no Certificado de Operações Estruturadas encontram-se detalhados no DIE (Documento de Informações Essenciais) previamente assinado pelo investidor antes de efetivar sua reserva, conforme previsto no artigo 3º da Instrução CVM 569/2015. No DIE do respectivo COE também constam todas as informações referentes à metodologia da estratégia do produto, bem como os prazos para resgate/vencimento do título. Para consultar sua posição em COE, basta acessar a área de clientes do site da XP em www.xpi.com.br na opção Investimentos > Posição Consolidada. Para saber quaisquer informações a respeito dos custos e tarifas XP, basta acessar www.xpi.com.br > Investimentos > Custos Operacionais. Em caso de dúvidas, entre em contato com seu assessor de investimentos. Para reclamações, contate nossa Ouvidoria no telefone 0800-7223710.
+
+Aguardo confirmação para realizar a reserva.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_COE_VENDA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a venda do COE abaixo na conta XP [Código do cliente]:
+
+COE: [Nome do COE];
+Emissor: [Emissor do COE];
+Tipo: [Valor Nominal Protegido ou Em Risco];
+Quantidade: [Quantidade a ser resgatada];
+Valor: [Valor financeiro bruto do resgate];
+Vencimento: [xx/xx/xxxx].
+
+DISCLAIMER: O valor de venda citado acima é resultado de uma cotação no mercado secundário e é válido de acordo com as condições de mercado vigentes no momento da aprovação da venda no sistema. COEs com valor nominal protegido podem sofrer perda do principal investido em caso de negociação no mercado secundário, ou seja, negociação antes do vencimento. Além disso, o valor é bruto e está sujeito às tributações aplicáveis de acordo com a legislação vigente.
+
+Para consultar sua posição em COE, basta acessar a área de clientes do site da XP em www.xpi.com.br na opção Investimentos > Posição Consolidada. Os custos das operações e a política de cobrança estão definidos nas tabelas de custos operacionais disponibilizadas no site da Corretora: www.xpi.com.br. Para reclamações, utilize o SAC 0800 77 20202 e, se não ficar satisfeito com a solução, contate nossa Ouvidoria no telefone 0800 722 3710.
+
+Aguardo confirmação para realizar a venda.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_CLUBE_APLIC = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a aplicação no clube de investimentos abaixo na conta XP [Código do cliente]:
+
+Nome do Clube: [Nome];
+Código: [Código do Clube];
+Valor a ser aplicado: [Valor financeiro].
+
+Observações importantes: Toda solicitação lançada antes das 15:00h sofrerá tentativa de processamento no mesmo dia. Após este horário, as mesmas serão processadas no dia útil seguinte.
+
+Aguardo confirmação para realizar a aplicação.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_CLUBE_RESGATE = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para o resgate no clube de investimentos abaixo na conta XP [Código do cliente]:
+
+Nome do Clube: [Nome];
+Código: [Código do Clube];
+Valor do resgate: [Valor financeiro].
+
+Observações importantes: Toda solicitação lançada antes das 15:00h sofrerá tentativa de processamento no mesmo dia. Após este horário, as mesmas serão processadas no dia útil seguinte.
+
+Aguardo confirmação para realizar o resgate.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_ACOES_COMPRA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a compra abaixo na conta XP [Código do cliente]:
+
+Ativo: [Código do ativo];
+Quantidade: [xxxx];
+Preço: [Preço] ou Ordem a mercado;
+Validade da ordem: [xx/xx/xxxx] ou Até Cancelar (validade só deve ser inclusa caso a ordem não seja a mercado).
+
+Observações importantes: Toda solicitação lançada no sistema antes do leilão de encerramento sofrerá tentativa de processamento no mesmo dia. Toda solicitação lançada após o leilão de encerramento sofrerá tentativa de processamento no próximo dia útil.
+
+Aguardo confirmação para realizar a compra.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_ACOES_VENDA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a venda abaixo na conta XP [Código do cliente]:
+
+Ativo: [Código do ativo];
+Quantidade: [xxxx];
+Preço: [Preço] ou Ordem a mercado;
+Validade da ordem: [xx/xx/xxxx] ou Até Cancelar (validade só deve ser inclusa caso a ordem não seja a mercado).
+
+Observações importantes: Toda solicitação lançada no sistema antes do leilão de encerramento sofrerá tentativa de processamento no mesmo dia. Toda solicitação lançada após o leilão de encerramento sofrerá tentativa de processamento no próximo dia útil.
+
+Aguardo confirmação para realizar a venda.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_OPCAO_COMPRA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a compra de opção abaixo na conta XP [Código do cliente]:
+
+Ativo Referência: [Código do ativo];
+Opção: [Código da opção];
+Tipo: [Put ou Call];
+Preço de Exercício: [Preço de strike];
+Vencimento: [xx/xx/xxxx];
+Quantidade: [xxxx];
+Preço: [Preço] ou Ordem a mercado;
+Validade da ordem: [xx/xx/xxxx] ou Até Cancelar (validade só deve ser inclusa caso a ordem não seja a mercado).
+
+Observações importantes: Toda solicitação lançada no sistema antes do leilão de encerramento sofrerá tentativa de processamento no mesmo dia. Toda solicitação lançada após o leilão de encerramento sofrerá tentativa de processamento no próximo dia útil.
+
+Aguardo confirmação para realizar a compra.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_OPCAO_VENDA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a venda de opção abaixo na conta XP [Código do cliente]:
+
+Ativo Referência: [Código do ativo];
+Opção: [Código da opção];
+Tipo: [Put ou Call];
+Preço de Exercício: [Preço de strike];
+Vencimento: [xx/xx/xxxx];
+Quantidade: [xxxx];
+Preço: [Preço] ou Ordem a mercado;
+Validade da ordem: [xx/xx/xxxx] ou Até Cancelar (validade só deve ser inclusa caso a ordem não seja a mercado).
+
+Observações importantes: Toda solicitação lançada no sistema antes do leilão de encerramento sofrerá tentativa de processamento no mesmo dia. Toda solicitação lançada após o leilão de encerramento sofrerá tentativa de processamento no próximo dia útil.
+
+Aguardo confirmação para realizar a venda.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_TERMO_COMPRA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a compra a Termo abaixo na conta XP [Código do cliente]:
+
+Ativo: [Código do ativo];
+Quantidade: [xxxx];
+Preço: [Preço];
+Vencimento: [xx/xx/xxxx ou número de dias].
+
+Observações importantes: Toda solicitação lançada no sistema antes do leilão de encerramento sofrerá tentativa de processamento no mesmo dia. Toda solicitação lançada após o leilão de encerramento sofrerá tentativa de processamento no próximo dia útil.
+
+Aguardo confirmação para realizar a compra.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_TERMO_VENDA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a venda a Termo abaixo na conta XP [Código do cliente]:
+
+Ativo: [Código do ativo];
+Quantidade: [xxxx];
+Preço: [Preço];
+Vencimento: [xx/xx/xxxx ou número de dias].
+
+Observações importantes: Toda solicitação lançada no sistema antes do leilão de encerramento sofrerá tentativa de processamento no mesmo dia. Toda solicitação lançada após o leilão de encerramento sofrerá tentativa de processamento no próximo dia útil.
+
+Aguardo confirmação para realizar a venda.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_RETIRADA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de confirmar a solicitação de retirada de recursos de sua conta XP [Código do cliente], com destino à conta abaixo, de acordo com seu cadastro:
+
+Banco: [Nome ou número do banco];
+Agência: [Número da agência];
+Conta: [Número da conta];
+Valor a ser transferido: [Valor financeiro];
+Tipo de transferência: TED.
+
+Atenção:
+- Caso não haja saldo suficiente em conta, a solicitação será automaticamente cancelada.
+- Solicitações de retirada lançadas no sistema em dia útil até às 16:30h serão liberadas no mesmo dia. Já solicitações inseridas no sistema após às 16:30h ou em dias não úteis serão liberadas no dia útil seguinte.
+
+Aguardo confirmação para realizar a transferência.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_OFERTA_RF = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a reserva na Oferta Pública abaixo na conta XP [Código do cliente]:
+
+Ativo: [Nome do ativo];
+Emissor: [Nome do emissor];
+Taxa: [Taxa mínima];
+Quantidade: [Quantidade a ser reservada, se aplicável];
+Valor: [Valor financeiro da reserva];
+Carência: [xx/xx/xxxx ou No vencimento];
+Vencimento: [xx/xx/xxxx];
+Cliente pessoa vinculada: [Sim ou Não].
+
+Observações importantes: Para adesão à reserva é expressamente recomendada a leitura do Prospecto da Oferta Pública, onde constam todas as demais informações sobre a Oferta, incluindo os riscos envolvidos na operação.
+
+Aguardo confirmação para realizar a reserva.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_IPO = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a reserva na Oferta Pública abaixo na conta XP [Código do cliente]:
+
+Oferta: [Nome da oferta];
+Valor: [Valor financeiro da reserva];
+Preço: [Preço limite do ativo, se desejado];
+Cliente pessoa vinculada: [Sim ou Não].
+
+Observações importantes: Para adesão à reserva é expressamente recomendada a leitura integral do Prospecto da Oferta Pública, onde constam todas as demais informações sobre a Oferta, incluindo os riscos envolvidos na operação.
+
+Aguardo confirmação para realizar a reserva.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_OFERTA_RESTRITA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a reserva na Oferta Restrita abaixo na conta XP [Código do cliente]:
+
+Oferta: [Nome da oferta];
+Quantidade: [Quantidade a ser reservada];
+Preço: [Preço limite do ativo, se desejado];
+Cliente pessoa vinculada: [Sim ou Não].
+
+Observações importantes: Para adesão à reserva é expressamente recomendada a leitura integral do "Fato Relevante" da Oferta, onde constam todas as demais informações sobre a Oferta, incluindo os riscos envolvidos na operação.
+
+Aguardo confirmação para realizar a reserva.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_OPA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a venda na OPA abaixo na conta XP [Código do cliente]:
+
+Nome: [Nome da OPA];
+Ativo: [Código ou Nome do papel];
+Quantidade: [Quantidade a ser vendida];
+Preço: [Preço mínimo do ativo];
+Cliente pessoa vinculada: [Sim ou Não].
+
+Observações importantes: Para adesão ao leilão de Oferta Pública de Aquisição (OPA) é expressamente recomendada a leitura integral do Edital da OPA, onde constam todas as demais informações sobre a Oferta. As ordens serão inseridas no Leilão da OPA exclusivamente pela mesa de operações da XP Investimentos. A participação no Leilão contempla custos de corretagem de acordo com a Tabela Bovespa, ou seja, será cobrada corretagem do tipo "Assessor" (via Mesa de Operações).
+
+Aguardo confirmação para realizar a operação.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_SUBS_EXERCICIO = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para o exercício do direito de subscrição abaixo na conta XP [Código do cliente]:
+
+Ação: [Código da ação a ser subscrita];
+Código do direito de subscrição: [Código do direito];
+Ao Preço unitário de: [Preço por ação];
+Quantidade: [Quantidade a ser subscrita].
+
+Observação importante: Segue em anexo o documento de Aviso aos Acionistas, onde constam todas as demais informações sobre o evento de subscrição.
+
+Aguardo confirmação para realizar a operação.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_SUBS_DIREITOS = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a negociação de direitos de subscrição abaixo na conta XP [Código do cliente]:
+
+Código: [Código do direito de subscrição];
+Natureza: [Compra/Venda];
+Preço: [Preço limite];
+Quantidade: [Quantidade a ser negociada].
+
+Aguardo confirmação para realizar a operação.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_CONVERSAO = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a conversão abaixo na conta XP [Código do cliente]:
+
+Papel a ser convertido: [Código do ativo];
+Quantidade a ser convertida: [Quantidade];
+Papel após conversão: [Código do ativo];
+Quantidade após conversão: [Quantidade].
+
+Aguardo confirmação para prosseguir com a conversão.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_DISSIDENCIA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a dissidência abaixo na conta XP [Código do cliente]:
+
+Ação a ser entregue: [Código do ativo];
+Quantidade: [Quantidade];
+Ao valor de reembolso unitário de: [Preço por ação].
+
+Aguardo confirmação para prosseguir com a operação.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_COMPROMISSADA = `Prezado(a) [Nome do cliente],
+
+Conforme conversado, gostaria de realizar a ordem para a aplicação abaixo na conta XP [Código do cliente]:
+
+Operação: Compromissada XP Investimentos;
+Tipo: Compra com compromisso de revenda;
+Ativo objeto (Lastro da operação): [Descrição (Debênture, CRI, CRA etc.) e Código (Código do lastro da operação)];
+Taxa mínima de recompra: [Taxa de rentabilidade mínima];
+Carência: [Data de carência, número de dias a partir da aplicação ou No vencimento];
+Vencimento da compromissada: [Data de vencimento e/ou número de dias a partir da aplicação];
+Valor limite a ser aplicado: [Valor financeiro limite].
+
+Importante:
+(i) Não existe a possibilidade de livre movimentação do lastro da operação.
+(ii) Nenhuma das partes (XP Investimentos ou Cliente) poderá requerer antecipação unilateral antes do vencimento da compromissada.
+(iii) Esse produto não conta com a garantia do Fundo Garantidor de Créditos ("FGC").
+
+Observações importantes: O valor financeiro total da aplicação e o PU de compra dependem da cotação feita pela Mesa de Renda Fixa da XP e serão confirmados via nota de negociação que será enviada ao e-mail de cadastro do cliente. Essa operação está sujeita a disponibilidade de lastro; qualquer alteração nas condições de aplicação será previamente reportada pela equipe da XP Investimentos. Essa ordem será válida apenas durante o dia em que foi emitida.
+
+Aguardo confirmação para realizar a aplicação.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_CARTEIRA_NOVA = `Prezado(a) [Nome do cliente],
+
+Conforme solicitado previamente, segue e-mail para sua aprovação de entrada na Carteira Recomendada da [informar a empresa, homologada na XP, que recomendou a carteira] na conta XP [Código do cliente]:
+
+Data da execução: [xx/xx/xxxx] — a autorização recebida após o fechamento do mercado será processada no próximo dia útil, e somente se possível atender nas condições autorizadas;
+Preço: "à mercado" — as execuções ocorrerão ao longo do dia (preço final será encaminhado em novo e-mail ao final do pregão);
+Quantidades: execuções ao longo do dia (quantidades serão conhecidas a partir dos preços, e encaminhadas ao final do dia).
+
+Abaixo a Carteira de ações com o indicativo dos percentuais recomendados pela casa de análise:
+[Inserir tabela — Peso | Ticker/Ativo]
+
+Importante!
+1. Quantidades e preços serão encaminhados ao fim do dia das execuções por meio das notas de corretagem, quando os papéis passarem a integrar a Carteira.
+2. A rentabilidade da Carteira Sugerida não será necessariamente igual ao rendimento da carteira efetiva do cliente, uma vez que na análise os custos operacionais, como corretagem, emolumentos e impostos, não são levados em conta.
+3. Orientamos a leitura na íntegra do relatório de Carteira Recomendada, anexo.
+4. Informações relevantes constam no relatório de Carteira Recomendada, anexo.
+
+Aguardo confirmação para fazer as compras indicadas acima.
+
+[Assinatura com disclaimer]`;
+
+const OP_TXT_CARTEIRA_TROCA = `Prezado(a) [Nome do cliente],
+
+Conforme solicitado previamente, segue e-mail para sua aprovação de entrada na Carteira Recomendada da [informar a empresa, homologada na XP, que recomendou a carteira] na conta XP [Código do cliente]:
+
+Data da execução: [xx/xx/xxxx] — a autorização recebida após o fechamento do mercado será processada no próximo dia útil, e somente se possível atender nas condições autorizadas;
+Preço: "à mercado" — as execuções ocorrerão ao longo do dia (preço final será encaminhado em novo e-mail ao final do pregão);
+Quantidades: execuções ao longo do dia (quantidades serão conhecidas a partir dos preços, e encaminhadas ao final do dia).
+
+Abaixo a Carteira atual versus a carteira sugerida:
+[Inserir tabela — Carteira Atual: Peso | Ticker/Ativo | Quantidade da carteira atual]
+[Inserir tabela — Nova Carteira: Peso | Ticker/Ativo]
+
+Importante!
+1. Quantidades e preços serão encaminhados ao fim do dia das execuções por meio das notas de corretagem, quando os papéis passarem a integrar a Carteira.
+2. A rentabilidade da Carteira Sugerida não será necessariamente igual ao rendimento da carteira efetiva do cliente, uma vez que na análise os custos operacionais, como corretagem, emolumentos e impostos, não são levados em conta.
+3. Orientamos a leitura na íntegra do relatório de Carteira Recomendada, anexo.
+4. Informações relevantes constam no relatório de Carteira Recomendada, anexo.
+
+Aguardo confirmação para fazer as compras indicadas acima.
+
+[Assinatura com disclaimer]`;
+
+/* ---------- Montagem da aba "Auditoria de Ordem" ---------- */
+function opBuildAuditoria(){
+  let h = '';
+  h += '<h2>Auditoria de ordem — modelos de e-mail</h2>';
+  h += '<p class="op-lede">Modelos de e-mail para realização de <b>ordem prévia</b> junto ao cliente, referentes a todos os produtos. Os textos entre aspas nos cards abaixo são os scripts prontos — use o botão "Copiar" e personalize os campos entre colchetes antes de enviar.</p>';
+
+  h += '<div class="op-rules"><h4>Instruções gerais</h4><ul>'
+    + '<li>Esta seção reúne modelos de e-mail para realização de <b>ordem prévia</b> junto ao cliente.</li>'
+    + '<li>Os modelos não são a única maneira possível de se realizar um registro de ordem, podendo haver outras configurações de texto com as mesmas informações. São modelos elaborados pela equipe de auditoria que garantem um registro prévio adequado às exigências internas e regulatórias.</li>'
+    + '<li>Além de servir como base para ordens por e-mail, o material também pode ser usado como referência para quais informações devem ser citadas, no mínimo, em uma ordem realizada via <b>ligação telefônica gravada</b>.</li>'
+    + '<li>É muito importante ressaltar que ordens realizadas por e-mail devem partir da conversa entre <b>e-mail padronizado do assessor</b> e <b>e-mail cadastrado do cliente</b>.</li>'
+    + '<li><b>Todo e qualquer registro de ordem deve, necessariamente, ser prévio</b> à data e horário de lançamento da operação (isto é, inserção no sistema) para ser considerado válido.</li>'
+    + '<li>Os modelos foram elaborados tendo como referência as políticas internas da XP Investimentos e as Instruções Regulatórias da CVM (Resolução 16/21 e 505/11, principalmente).</li>'
+    + '</ul></div>';
+
+  h += '<nav class="op-jump">'
+    + '<a href="#op-rf">Renda Fixa</a>'
+    + '<a href="#op-td">Tesouro Direto</a>'
+    + '<a href="#op-fundos">Fundos</a>'
+    + '<a href="#op-coe">COE</a>'
+    + '<a href="#op-clubes">Clubes</a>'
+    + '<a href="#op-acoes">Ações / Futuros / FII</a>'
+    + '<a href="#op-opcoes">Opções</a>'
+    + '<a href="#op-termo">Termo</a>'
+    + '<a href="#op-retirada">Retirada de recursos</a>'
+    + '<a href="#op-ofertas">Ofertas e eventos</a>'
+    + '<a href="#op-compromissada">Compromissadas</a>'
+    + '<a href="#op-carteira">Carteira recomendada</a>'
+    + '<a href="#op-estruturadas">Operações estruturadas</a>'
+    + '</nav>';
+
+  h += '<h3 id="op-rf">Renda Fixa</h3>';
+  h += '<div class="op-note"><b>Observação:</b> Para CRI, CRA, Debênture e FIDC não é necessário especificar o campo "Emissor", bastando o ativo com seu código Cetip e/ou nickname. Observação válida para os dois modelos abaixo.</div>';
+  h += opCard('Aplicação (Aplicação RF | Aplicação Cotado)', OP_TXT_RF_APLIC);
+  h += opCard('Resgate (Resgate RF | Resgate Cotado)', OP_TXT_RF_RESGATE);
+
+  h += '<h3 id="op-td">Tesouro Direto</h3>';
+  h += opCard('Aplicação', OP_TXT_TD_APLIC);
+  h += opCard('Resgate', OP_TXT_TD_RESGATE);
+
+  h += '<h3 id="op-fundos">Fundos de Investimento</h3>';
+  h += opCard('Aplicação', OP_TXT_FUNDO_APLIC);
+  h += opCard('Resgate', OP_TXT_FUNDO_RESGATE);
+
+  h += '<h3 id="op-coe">COE</h3>';
+  h += opCard('Reserva de Compra', OP_TXT_COE_RESERVA);
+  h += opCard('Venda', OP_TXT_COE_VENDA);
+
+  h += '<h3 id="op-clubes">Clubes de Investimento</h3>';
+  h += opCard('Aplicação', OP_TXT_CLUBE_APLIC);
+  h += opCard('Resgate', OP_TXT_CLUBE_RESGATE);
+
+  h += '<h3 id="op-acoes">Ações, Contratos Futuros e Fundos Imobiliários</h3>';
+  h += opCard('Compra', OP_TXT_ACOES_COMPRA);
+  h += opCard('Venda', OP_TXT_ACOES_VENDA);
+
+  h += '<h3 id="op-opcoes">Opções</h3>';
+  h += opCard('Compra', OP_TXT_OPCAO_COMPRA);
+  h += opCard('Venda', OP_TXT_OPCAO_VENDA);
+
+  h += '<h3 id="op-termo">Operações a Termo</h3>';
+  h += opCard('Compra a Termo', OP_TXT_TERMO_COMPRA);
+  h += opCard('Venda a Termo', OP_TXT_TERMO_VENDA);
+
+  h += '<h3 id="op-retirada">Retirada de Recursos</h3>';
+  h += opCard('Retirada de Recursos (TED)', OP_TXT_RETIRADA);
+
+  h += '<h3 id="op-ofertas">Ofertas Públicas e Eventos Corporativos</h3>';
+  h += opCard('Oferta Pública RF — Reserva', OP_TXT_OFERTA_RF, {assessorNote:'Enviar em anexo ao e-mail o Prospecto oficial em PDF da Oferta Pública.'});
+  h += opCard('IPO — Reserva', OP_TXT_IPO, {assessorNote:'Enviar em anexo ao e-mail o Prospecto oficial em PDF da Oferta Pública.'});
+  h += opCard('Oferta Restrita — Reserva', OP_TXT_OFERTA_RESTRITA, {assessorNote:'Enviar em anexo ao e-mail o documento oficial de "Fato Relevante" em PDF da Oferta.'});
+  h += opCard('OPA — Venda', OP_TXT_OPA, {assessorNote:'Enviar em anexo ao e-mail o Edital oficial da OPA em PDF.'});
+  h += opCard('Subscrição — Exercício', OP_TXT_SUBS_EXERCICIO, {assessorNote:'Enviar em anexo ao e-mail o documento oficial em PDF de Aviso aos Acionistas.'});
+  h += opCard('Subscrição — Negociação de Direitos', OP_TXT_SUBS_DIREITOS);
+  h += opCard('Conversão Voluntária', OP_TXT_CONVERSAO);
+  h += opCard('Dissidência', OP_TXT_DISSIDENCIA);
+
+  h += '<h3 id="op-compromissada">Operações Compromissadas</h3>';
+  h += opCard('Aplicação', OP_TXT_COMPROMISSADA);
+
+  h += '<h3 id="op-carteira">Carteira Recomendada</h3>';
+  h += opCard('Nova Carteira', OP_TXT_CARTEIRA_NOVA, {assessorNote:'Obrigatório o envio do PDF da Carteira Recomendada em anexo, tanto na entrada quanto no rebalanceamento.'});
+  h += opCard('Troca e Balanceamento', OP_TXT_CARTEIRA_TROCA, {assessorNote:'Obrigatório o envio do PDF da Carteira Recomendada em anexo, tanto na entrada quanto no rebalanceamento.'});
+
+  h += '<h3 id="op-estruturadas">Operações Estruturadas</h3>';
+  h += '<div class="op-end-note">Modelos de ordem para Operações Estruturadas foram elaborados separadamente, devido à complexidade das operações, os riscos envolvidos e suas especificidades. O documento pode ser solicitado através do e-mail <a href="mailto:controle.produtosestruturados@xpi.com.br">controle.produtosestruturados@xpi.com.br</a>. Cautela dobrada com o registro de ordem e a realização desse tipo de operação — informe sempre o cliente, de forma clara, toda a estrutura da operação e os riscos envolvidos.</div>';
+
+  return h;
+}
+
+const OP_TABS = [
+  { id:'auditoria', label:'Auditoria de Ordem', html: opBuildAuditoria() }
+];
+
+function renderOpTabs(){
+  const nav=$('opTabs'); const content=$('opContent');
+  if(!nav||!content) return;
+  nav.innerHTML = OP_TABS.map((t,i)=>'<button class="op-tab'+(i===0?' active':'')+'" data-op-tab="'+t.id+'" type="button">'+esc(t.label)+'</button>').join('');
+  content.innerHTML = OP_TABS.map((t,i)=>'<div class="op-panel'+(i===0?' active':'')+'" data-op-panel="'+t.id+'">'+t.html+'</div>').join('');
+}
+
+function opSelectTab(id){
+  document.querySelectorAll('.op-tab').forEach(b=>b.classList.toggle('active', b.dataset.opTab===id));
+  document.querySelectorAll('.op-panel').forEach(p=>p.classList.toggle('active', p.dataset.opPanel===id));
+}
+
+function initOperacional(){
+  if(!$('opTabs')) return;
+  renderOpTabs();
+  $('opTabs').addEventListener('click', function(e){
+    const btn=e.target.closest('[data-op-tab]');
+    if(!btn) return;
+    opSelectTab(btn.dataset.opTab);
+  });
+  $('opContent').addEventListener('click', function(e){
+    const btn=e.target.closest('.op-copy');
+    if(!btn) return;
+    const idx=Number(btn.dataset.opIdx);
+    const text=OP_SCRIPTS[idx];
+    if(text===undefined) return;
+    apsCopy(text, function(){
+      const original=btn.textContent;
+      btn.textContent='Copiado!';
+      btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent=original; btn.classList.remove('copied'); }, 1600);
+    });
+  });
+}
+/* ===== MODULE:OPERACIONAL:JS:END ===== */
+
 initRecados();
 initOrient();
 initProdMes();
@@ -8910,6 +9575,7 @@ initEtf();
 initExterior();
 initSucessao();
 initConsorcio();
+initOperacional();
 
 
 /* ===== SHARED:JS:START (restaura o último módulo aberto — genérico, não mexer) ===== */
