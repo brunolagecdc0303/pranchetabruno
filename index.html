@@ -1428,12 +1428,48 @@
   }
   /* ===== MODULE:OPERACIONAL:CSS:END ===== */
 
+  /* ===== SHARED:CSS:WHATSNEW:START (botão + painel "Atualizações", fixo no topo direito — global, fora do fluxo dos módulos) ===== */
+  .wn-fab{
+    position:fixed;top:16px;right:20px;z-index:850;
+    display:flex;align-items:center;gap:6px;
+    background:var(--ink);color:#fff;border:1px solid rgba(255,255,255,.14);
+    border-radius:999px;padding:8px 14px 8px 12px;font-family:var(--f-body);font-size:12.5px;font-weight:600;
+    cursor:pointer;box-shadow:0 4px 16px rgba(16,42,40,.22);transition:background .15s,transform .15s;
+  }
+  .wn-fab:hover{background:#0a2321;transform:translateY(-1px)}
+  .wn-fab svg{width:15px;height:15px;flex:0 0 15px}
+  .wn-fab .wn-dot{width:8px;height:8px;border-radius:50%;background:var(--brass);box-shadow:0 0 0 2px var(--ink);margin-left:1px}
+  .wn-fab .wn-dot[hidden]{display:none}
+  .wn-panel{
+    position:fixed;top:60px;right:20px;z-index:851;width:min(380px,calc(100vw - 32px));
+    max-height:min(72vh,640px);overflow-y:auto;
+    background:#fff;border:1px solid var(--line-strong);border-radius:14px;box-shadow:0 16px 48px rgba(16,42,40,.24);
+    opacity:0;transform:translateY(-6px) scale(.98);pointer-events:none;transition:opacity .16s,transform .16s;
+  }
+  .wn-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+  .wn-panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:16px 18px 12px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0}
+  .wn-panel-head h4{margin:0 0 3px;font-family:var(--f-display);font-size:15px;font-weight:600;color:var(--ink)}
+  .wn-panel-head p{margin:0;font-size:11.5px;color:var(--muted)}
+  .wn-panel-close{appearance:none;border:none;background:none;color:var(--muted);cursor:pointer;font-size:19px;line-height:1;padding:2px 4px;flex:0 0 auto}
+  .wn-panel-close:hover{color:var(--ink)}
+  .wn-panel-body{padding:6px 18px 18px}
+  .wn-date{font-family:var(--f-mono);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--brass-deep);margin:16px 0 8px}
+  .wn-date:first-child{margin-top:10px}
+  .wn-list{margin:0 0 4px;padding-left:18px;font-size:13px;line-height:1.55;color:var(--ink-soft)}
+  .wn-list li{margin-bottom:8px}
+  .wn-list b{color:var(--ink)}
+  @media (max-width:900px){
+    .wn-fab{top:64px;right:12px;padding:7px 12px 7px 10px;font-size:12px}
+    .wn-panel{top:106px;right:12px}
+  }
+  /* ===== SHARED:CSS:WHATSNEW:END ===== */
+
   /* ===== SHARED:CSS:PRINT (ao adicionar módulo novo, inclua #module-X na lista abaixo para escondê-lo da impressão) ===== */
   @media print{
     @page{size:A4;margin:14mm 14mm 16mm}
     body{background:#fff;font-size:11pt}
     /* PRINT:HIDE-MODULES:LIST — adicione aqui o #id do <section class="module"> de cada módulo novo (exceto o que efetivamente imprime) */
-    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#module-sucessao,#module-consorcio,#module-operacional,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions{display:none!important}
+    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#module-sucessao,#module-consorcio,#module-operacional,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions,.wn-fab,.wn-panel{display:none!important}
     .app,.app-main,.module{display:block!important}
     #report{display:block!important;color:#111;max-width:none}
     .rep-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:18px}
@@ -4209,6 +4245,53 @@ Abraço,
 
   </div>
 </div>
+
+<!-- ===== SHARED:HTML:WHATSNEW:START (botão + painel "Atualizações" — fixo no topo direito, global, fora do fluxo dos módulos; para adicionar uma nova entrada, insira um novo bloco .wn-date + .wn-list no TOPO de .wn-panel-body) ===== -->
+<button class="wn-fab" id="wnFab" type="button" aria-haspopup="true" aria-expanded="false">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+  Atualizações
+  <span class="wn-dot" id="wnDot" hidden></span>
+</button>
+<div class="wn-panel" id="wnPanel" role="dialog" aria-label="Atualizações da Prancheta">
+  <div class="wn-panel-head">
+    <div>
+      <h4>Atualizações da Prancheta</h4>
+      <p>Novidades mais recentes primeiro</p>
+    </div>
+    <button class="wn-panel-close" id="wnClose" type="button" aria-label="Fechar">&times;</button>
+  </div>
+  <div class="wn-panel-body" id="wnBody">
+    <div class="wn-date">05 de agosto de 2026</div>
+    <ul class="wn-list">
+      <li>Novo módulo <b>Operacional</b>, com a aba <b>Auditoria de Ordem</b> &mdash; 28 modelos de e-mail prontos para registro de ordem, por produto (Renda Fixa, COE, Fundos, Ações, Ofertas Públicas, Carteira Recomendada e outros).</li>
+      <li><b>Operacional</b> fixado no topo do menu, logo abaixo do Guia de atendimento, com destaque amarelo.</li>
+      <li>Novo módulo <b>Consórcio vs Financiamento</b> &mdash; compara consórcio, financiamento e compra à vista, com gráfico, tabelas de amortização e veredito automático.</li>
+      <li>Em <b>Recados importantes &rarr; Produtos do mês</b>, agora é possível anexar um arquivo a cada produto (até 10 MB, até 10 produtos).</li>
+    </ul>
+    <div class="wn-date">04 de agosto de 2026</div>
+    <ul class="wn-list">
+      <li>Comparador <b>ETF vs Fundo Ativo</b>: adicionada taxa de performance do fundo e opção de rendimento diferente entre fundo e ETF.</li>
+    </ul>
+    <div class="wn-date">03 de agosto de 2026</div>
+    <ul class="wn-list">
+      <li>Novo comparador <b>ETF vs Fundo Ativo</b> dentro do módulo ETF.</li>
+      <li>Novo módulo <b>Sucessão no Brasil</b>.</li>
+      <li>Dados de rentabilidade agora são publicados automaticamente ao salvar.</li>
+    </ul>
+    <div class="wn-date">28 de julho de 2026</div>
+    <ul class="wn-list">
+      <li>Novo módulo <b>Estruturas no exterior</b> (Offshore e Trust).</li>
+      <li><b>Guia de atendimento</b> passou a ser o módulo inicial, em destaque no menu.</li>
+      <li>Módulo ETF: formulário mais simples, rentabilidade por índice, ajustes fiscais e atualização automática das rentabilidades.</li>
+    </ul>
+    <div class="wn-date">27 de julho de 2026</div>
+    <ul class="wn-list">
+      <li>Novo módulo <b>ETF</b>.</li>
+      <li>Backend migrado do Google Sheets para o GitHub, deixando o salvamento de dados mais rápido e confiável.</li>
+    </ul>
+  </div>
+</div>
+<!-- ===== SHARED:HTML:WHATSNEW:END ===== -->
 
 <!-- MODULE:PREVIDENCIA:HTML:PDF-EXPORT:START (diálogo + relatório de impressão — específicos da Previdência) -->
 <!-- ===================== DIÁLOGO: DADOS DO RELATÓRIO ===================== -->
@@ -9587,6 +9670,37 @@ initOperacional();
 // restaura módulo ativo
 (function(){ try{ const m=localStorage.getItem('aps_active_module'); if(m&&document.getElementById(m)) selectModule(m); }catch(e){} })();
 /* ===== SHARED:JS:END ===== */
+
+/* ===== SHARED:JS:WHATSNEW:START (botão + painel "Atualizações" fixo no topo direito — ao adicionar uma
+   nova entrada no HTML, atualize também WN_LATEST_DATE abaixo para a data do bloco mais novo) ===== */
+const WN_LATEST_DATE = '2026-08-05';
+(function(){
+  const fab=$('wnFab'), panel=$('wnPanel'), closeBtn=$('wnClose'), dot=$('wnDot');
+  if(!fab||!panel) return;
+  const SEEN_KEY='aps_whatsnew_seen';
+  function seenDate(){ try{ return localStorage.getItem(SEEN_KEY)||''; }catch(e){ return ''; } }
+  function markSeen(){ try{ localStorage.setItem(SEEN_KEY, WN_LATEST_DATE); }catch(e){} dot.hidden=true; }
+  if(seenDate() < WN_LATEST_DATE) dot.hidden=false; else dot.hidden=true;
+
+  function openPanel(){
+    panel.classList.add('open');
+    fab.setAttribute('aria-expanded','true');
+    markSeen();
+  }
+  function closePanel(){
+    panel.classList.remove('open');
+    fab.setAttribute('aria-expanded','false');
+  }
+  fab.addEventListener('click', ()=>{ panel.classList.contains('open') ? closePanel() : openPanel(); });
+  closeBtn.addEventListener('click', closePanel);
+  document.addEventListener('click', (e)=>{
+    if(!panel.classList.contains('open')) return;
+    if(panel.contains(e.target) || fab.contains(e.target)) return;
+    closePanel();
+  });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closePanel(); });
+})();
+/* ===== SHARED:JS:WHATSNEW:END ===== */
 
 /* ===== MODULE:PREVIDENCIA:JS:BOOTSTRAP =====
    Chamadas de inicialização do simulador. Um módulo novo faz o próprio
