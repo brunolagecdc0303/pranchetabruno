@@ -581,11 +581,18 @@
   .orient-view.is-empty{color:var(--muted);font-style:italic}
   /* Produtos do mês — entries */
   .pm-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-  .pm-view-item{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;background:var(--paper);border:1px solid var(--line);border-radius:10px;font-size:13.5px;line-height:1.5}
-  .pm-view-num{flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--brass);color:#fff;font-size:11px;font-weight:700;margin-top:1px}
-  .pm-view-body{flex:1;min-width:0}
+  .pm-view-item{background:var(--paper);border:1px solid var(--line);border-radius:10px;font-size:13.5px;line-height:1.5;overflow:hidden}
+  .pm-view-item.is-open{border-color:var(--line-strong)}
+  .pm-view-head{display:flex;align-items:center;gap:8px;padding:10px 13px;cursor:pointer;user-select:none;transition:background .12s}
+  .pm-view-head:hover{background:rgba(181,137,63,.08)}
+  .pm-view-num{flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--brass);color:#fff;font-size:11px;font-weight:700}
+  .pm-view-toggle-icon{flex:0 0 auto;width:12px;text-align:center;font-size:11px;color:var(--muted)}
+  .pm-view-title{flex:1;min-width:0;font-size:13.5px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pm-view-flags{flex:0 0 auto;font-size:12px;letter-spacing:2px}
+  .pm-view-body{padding:0 13px 13px 44px}
+  .pm-view-body[hidden]{display:none}
   .pm-view-text{color:var(--ink)}
-  .pm-view-file{margin-top:4px}
+  .pm-view-file{margin-top:2px}
   .pm-view-file a{font-size:12.5px;color:var(--brass);text-decoration:none;border-bottom:1px dashed var(--brass);display:inline-flex;align-items:center;gap:4px}
   .pm-view-file a:hover{opacity:.7}
   .pm-row{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;background:#fff;border:1px solid var(--line);border-radius:10px}
@@ -6182,20 +6189,32 @@ function prodMesRenderView(){
   el.className='pm-list';
   let h='';
   PRODMES_ITEMS.forEach((it,i)=>{
+    const hasText=!!(it.text&&it.text.trim());
+    const title=hasText?it.text.trim():'Produto sem descrição';
+    const flags=(it.fileName?'📎':'')+(it.msg?'💬':'');
+    const hasBody=!!((it.fileName&&it.fileUrl)||it.msg);
     h+='<div class="pm-view-item">';
+    h+='<div class="pm-view-head"'+(hasBody?' data-role="pm-view-toggle"':' style="cursor:default"')+'>';
     h+='<span class="pm-view-num">'+(i+1)+'</span>';
-    h+='<div class="pm-view-body"><div class="pm-view-text">'+esc(it.text)+'</div>';
-    if(it.fileName && it.fileUrl){
-      h+='<div class="pm-view-file"><a href="'+esc(it.fileUrl)+'" target="_blank" rel="noopener noreferrer" title="Abrir '+esc(it.fileName)+'">📎 '+esc(it.fileName)+'</a></div>';
+    if(hasBody) h+='<span class="pm-view-toggle-icon">▸</span>';
+    h+='<span class="pm-view-title">'+esc(title)+'</span>';
+    if(flags) h+='<span class="pm-view-flags">'+flags+'</span>';
+    h+='</div>';
+    if(hasBody){
+      h+='<div class="pm-view-body" hidden>';
+      if(it.fileName && it.fileUrl){
+        h+='<div class="pm-view-file"><a href="'+esc(it.fileUrl)+'" target="_blank" rel="noopener noreferrer" title="Abrir '+esc(it.fileName)+'">📎 '+esc(it.fileName)+'</a></div>';
+      }
+      if(it.msg){
+        h+='<div class="rec-orient pm-view-msg">'
+          + '<div class="rec-orient-label">Mensagem pronta</div>'
+          + '<div class="rec-orient-text">'+esc(it.msg)+'</div>'
+          + '<button class="ops-action" data-pm-copy-msg="'+i+'" type="button">Copiar mensagem</button>'
+          + '</div>';
+      }
+      h+='</div>';
     }
-    if(it.msg){
-      h+='<div class="rec-orient pm-view-msg">'
-        + '<div class="rec-orient-label">Mensagem pronta</div>'
-        + '<div class="rec-orient-text">'+esc(it.msg)+'</div>'
-        + '<button class="ops-action" data-pm-copy-msg="'+i+'" type="button">Copiar mensagem</button>'
-        + '</div>';
-    }
-    h+='</div></div>';
+    h+='</div>';
   });
   el.innerHTML=h;
 }
@@ -6380,6 +6399,18 @@ function initProdMes(){
     });
   });
   $('prodMesView').addEventListener('click', e=>{
+    const toggle=e.target.closest('[data-role="pm-view-toggle"]');
+    if(toggle){
+      const item=toggle.closest('.pm-view-item');
+      const body=item&&item.querySelector('.pm-view-body');
+      const icon=toggle.querySelector('.pm-view-toggle-icon');
+      if(!body) return;
+      const willOpen=body.hidden;
+      body.hidden=!willOpen;
+      if(icon) icon.textContent=willOpen?'▾':'▸';
+      item.classList.toggle('is-open', willOpen);
+      return;
+    }
     const btn=e.target.closest('[data-pm-copy-msg]');
     if(!btn) return;
     const idx=Number(btn.dataset.pmCopyMsg);
