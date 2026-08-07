@@ -517,10 +517,19 @@
   .carta-arq-item .ai-main{min-width:0}
   .carta-arq-item .ai-mes{font-weight:600;font-size:13.5px;color:var(--ink)}
   .carta-arq-item .ai-date{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);margin-top:2px}
+  .carta-arq-item .ai-flags{font-size:10.5px;color:var(--muted-2);margin-top:3px;letter-spacing:.01em}
   .carta-arq-item .ai-del{appearance:none;border:0;background:transparent;cursor:pointer;color:var(--muted);font-size:16px;padding:3px 6px;border-radius:6px;flex:0 0 auto}
   .carta-arq-item .ai-del:hover{color:var(--clay)}
   .carta-arq-empty{color:var(--muted);font-size:13px;font-style:italic;padding:8px 0}
-
+  /* arquivo agrupado por ano — reaproveita .pm-view-* (mesmo padrão de lista fechada/aberta) */
+  /* abas de versão na leitura (Completa / Resumida / WhatsApp) — reaproveita .op-tab */
+  .carta-ver-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+  .carta-ver-empty{color:var(--muted);font-style:italic;text-align:center;padding:30px 0;font-size:13.5px}
+  /* formulário de publicação com 3 versões */
+  .carta-ver-field{margin-bottom:14px}
+  .carta-ver-field .lbl-sub{display:block;font-size:11px;color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;margin-top:2px}
+  .carta-edit-banner{background:rgba(181,137,63,.1);border:1px solid rgba(181,137,63,.3);border-radius:8px;padding:9px 13px;font-size:12.5px;color:var(--brass-deep);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .carta-edit-banner button{appearance:none;border:none;background:none;color:var(--brass-deep);font-weight:700;cursor:pointer;text-decoration:underline;font-size:12.5px;padding:0}
   /* ===== MODULE:CARTAS:CSS:END ===== */
 
   /* ===== MODULE:RECADOS:CSS:START ===== */
@@ -2353,23 +2362,35 @@
                 <h3>Arquivo de cartas</h3>
                 <button class="btn btn-ghost" id="cartasRefresh" type="button" style="padding:7px 13px;font-size:13px">Atualizar</button>
               </div>
-              <p class="note">Todas as cartas publicadas. Clique em um mês para ler.</p>
+              <p class="note">Todas as cartas publicadas, agrupadas por ano. Clique num ano para abrir, e num mês para ler.</p>
               <div id="cartasList" style="margin-top:12px"></div>
             </div>
 
             <details class="adv" id="cartasAdmin" style="margin-top:4px">
               <summary>Publicar carta (gestor)</summary>
               <div style="padding-top:8px">
-                <p class="note" style="margin-bottom:14px">Área do gestor. Cole a carta pronta e publique com seu PIN. A carta fica disponível para toda a equipe.</p>
+                <p class="note" style="margin-bottom:14px">Área do gestor. Cole a carta pronta e publique com seu PIN. Cada mês pode ter até 3 versões — a completa é obrigatória, as outras duas ficam disponíveis assim que você preencher (dá pra voltar aqui e completar depois, inclusive em meses antigos).</p>
+                <div id="cartaEditBanner" class="carta-edit-banner" hidden>
+                  <span id="cartaEditBannerText"></span>
+                  <button type="button" id="cartaEditCancelar">cancelar edição</button>
+                </div>
                 <div class="field">
                   <label><span class="lbl">Mês de referência</span></label>
                   <input class="ipt" type="text" id="pubMes" placeholder="Ex.: Abril de 2026" autocomplete="off">
                 </div>
-                <div class="field">
-                  <label><span class="lbl">Texto da carta</span></label>
-                  <textarea class="ipt" id="pubTexto" rows="10" placeholder="Cole aqui a carta pronta. Pode usar *texto* para negrito — vira destaque na leitura." style="resize:vertical;font-family:var(--f-body);line-height:1.55"></textarea>
-                  <p class="hint">Quebras de linha e parágrafos são preservados. Envolva um trecho em *asteriscos* para deixá-lo em negrito.</p>
+                <div class="carta-ver-field">
+                  <label><span class="lbl">Versão completa</span><span class="lbl-sub">A carta na íntegra, para quem quer se aprofundar. Obrigatória.</span></label>
+                  <textarea class="ipt" id="pubCompleta" rows="9" placeholder="Cole aqui a carta completa. Pode usar *texto* para negrito — vira destaque na leitura." style="resize:vertical;font-family:var(--f-body);line-height:1.55"></textarea>
                 </div>
+                <div class="carta-ver-field">
+                  <label><span class="lbl">Versão resumida</span><span class="lbl-sub">Alguns parágrafos — pra e-mail rápido ou legenda. Opcional.</span></label>
+                  <textarea class="ipt" id="pubResumida" rows="5" placeholder="Resumo direto da carta do mês (opcional)." style="resize:vertical;font-family:var(--f-body);line-height:1.55"></textarea>
+                </div>
+                <div class="carta-ver-field">
+                  <label><span class="lbl">Versão ultra resumida (WhatsApp)</span><span class="lbl-sub">Poucas linhas, pronta pra colar no WhatsApp. Opcional.</span></label>
+                  <textarea class="ipt" id="pubWhats" rows="4" placeholder="Versão bem curta, pronta pra WhatsApp (opcional)." style="resize:vertical;font-family:var(--f-mono);line-height:1.5;font-size:13px"></textarea>
+                </div>
+                <p class="hint" style="margin-top:-6px;margin-bottom:14px">Quebras de linha e parágrafos são preservados em todas as versões. Envolva um trecho em *asteriscos* para deixá-lo em negrito.</p>
                 <div class="field">
                   <label><span class="lbl">PIN do gestor</span></label>
                   <input class="ipt" type="password" id="pubPin" placeholder="Seu PIN" autocomplete="off" style="max-width:180px">
@@ -2387,9 +2408,11 @@
               <div id="cartaReaderMeta" class="reader-meta"></div>
               <div class="prev-actions">
                 <button class="btn btn-ghost" id="cartaCopy" type="button" style="padding:8px 14px;font-size:13px" hidden>Copiar</button>
+                <button class="btn btn-ghost cartaAdminOnly" id="cartaEdit" type="button" style="padding:8px 14px;font-size:13px" hidden>Editar</button>
                 <button class="btn btn-ghost cartaAdminOnly" id="cartaDel" type="button" style="padding:8px 14px;font-size:13px" hidden>Excluir</button>
               </div>
             </div>
+            <nav class="carta-ver-tabs" id="cartaVerTabs" hidden></nav>
             <div class="carta-render" id="cartaRender"></div>
           </div>
         </div>
@@ -5730,11 +5753,17 @@ document.querySelectorAll('[data-module]').forEach(btn=>{
 /* ===== SHARED:JS:MODULE-NAV:END ===== */
 
 /* ===== MODULE:CARTAS:JS:START (não abrir/ler para adicionar módulo novo) ===== */
-/* =================== MÓDULO CARTAS MENSAIS (Google Sheets) =================== */
+/* =================== MÓDULO CARTAS MENSAIS =================== */
 // A URL do Web App fica em APS_WEBHOOK (bloco SHARED:JS) — compartilhada com Recados e Links.
-let CARTAS_CACHE = [];      // lista de cartas carregada da planilha
+let CARTAS_CACHE = [];      // lista de cartas carregada do arquivo
 let CARTA_ATUAL = null;     // carta sendo lida
 let CARTAS_LOADED = false;
+let CARTA_VER_ATIVA = 'completa';  // versão em leitura: completa | resumida | whats
+let CARTA_EDIT_ID = null;          // != null quando o form de publicar está editando uma carta existente
+let CARTAS_YEARS_OPEN = null;      // Set de anos expandidos no arquivo (inicializado no 1º render)
+
+const CARTA_VER_LABELS = { completa:'Completa', resumida:'Resumida', whats:'WhatsApp' };
+const CARTA_VER_ORDER = ['completa','resumida','whats'];
 
 // converte *negrito* e **negrito** em <strong>, escapando o resto e preservando quebras
 function cartaFormat(txt){
@@ -5744,22 +5773,85 @@ function cartaFormat(txt){
     .replace(/\*([^*\n]+)\*/g, '<strong>$1</strong>');
 }
 
+// normaliza as 3 versões — cartas antigas só tinham "conteudo" (vira a versão completa)
+function cartaVersions(c){
+  return {
+    completa: (c.completa!==undefined && c.completa!==null ? c.completa : (c.conteudo||'')),
+    resumida: c.resumida||'',
+    whats: c.whats||''
+  };
+}
+function cartaVersionFlags(c){
+  const v=cartaVersions(c);
+  return CARTA_VER_ORDER.filter(k=>v[k].trim()).map(k=>CARTA_VER_LABELS[k]).join(' · ');
+}
+// ano pra agrupar o arquivo — pega os 4 dígitos de savedAt (dd/mm/aaaa) ou do texto do mês
+function cartaYear(c){
+  const m1=String(c.savedAt||'').match(/(\d{4})/);
+  if(m1) return m1[1];
+  const m2=String(c.mes||'').match(/(\d{4})/);
+  if(m2) return m2[1];
+  return 'Sem data';
+}
+function cartasGroupByYear(){
+  const map=new Map();
+  CARTAS_CACHE.forEach(c=>{
+    const y=cartaYear(c);
+    if(!map.has(y)) map.set(y,[]);
+    map.get(y).push(c);
+  });
+  const years=Array.from(map.keys());
+  years.sort((a,b)=>{
+    const na=parseInt(a,10), nb=parseInt(b,10);
+    if(isNaN(na)&&isNaN(nb)) return 0;
+    if(isNaN(na)) return 1;
+    if(isNaN(nb)) return -1;
+    return nb-na;
+  });
+  return years.map(y=>({year:y, items:map.get(y)}));
+}
+
 function cartasSetList(html){ $('cartasList').innerHTML = html; }
 
 function renderCartasList(){
   if(!APS_WEBHOOK){
-    cartasSetList('<p class="carta-arq-empty">Arquivo ainda não conectado. O gestor precisa configurar o Google Sheets (veja as instruções de implantação).</p>');
+    cartasSetList('<p class="carta-arq-empty">Arquivo ainda não conectado. O gestor precisa configurar o backend (veja as instruções de implantação).</p>');
     return;
   }
   if(!CARTAS_LOADED){ cartasSetList('<p class="carta-arq-empty">Carregando cartas…</p>'); return; }
   if(!CARTAS_CACHE.length){ cartasSetList('<p class="carta-arq-empty">Nenhuma carta publicada ainda.</p>'); return; }
-  cartasSetList(CARTAS_CACHE.map((c,i)=>`
-    <div class="carta-arq-item${CARTA_ATUAL&&CARTA_ATUAL.id===c.id?' ativa':''}" data-id="${esc(String(c.id))}">
-      <div class="ai-main">
-        <div class="ai-mes">${esc(c.mes||'(sem mês)')}</div>
-        <div class="ai-date">publicada em ${esc(c.savedAt||'')}</div>
-      </div>
-    </div>`).join(''));
+  const groups=cartasGroupByYear();
+  if(!CARTAS_YEARS_OPEN){ CARTAS_YEARS_OPEN=new Set(groups.length?[groups[0].year]:[]); }
+  let h='<div class="pm-list">';
+  groups.forEach(g=>{
+    const isOpen=CARTAS_YEARS_OPEN.has(g.year);
+    h+='<div class="pm-view-item'+(isOpen?' is-open':'')+'">';
+    h+='<div class="pm-view-head" data-role="carta-year-toggle" data-year="'+esc(g.year)+'">';
+    h+='<span class="pm-view-toggle-icon">'+(isOpen?'▾':'▸')+'</span>';
+    h+='<span class="pm-view-title">'+esc(g.year)+'</span>';
+    h+='<span class="pm-view-flags">('+g.items.length+')</span>';
+    h+='</div>';
+    h+='<div class="pm-view-body"'+(isOpen?'':' hidden')+'>';
+    g.items.forEach(c=>{
+      const flags=cartaVersionFlags(c);
+      h+='<div class="carta-arq-item'+(CARTA_ATUAL&&CARTA_ATUAL.id===c.id?' ativa':'')+'" data-id="'+esc(String(c.id))+'">'
+        + '<div class="ai-main">'
+        + '<div class="ai-mes">'+esc(c.mes||'(sem mês)')+'</div>'
+        + '<div class="ai-date">publicada em '+esc(c.savedAt||'')+'</div>'
+        + (flags?'<div class="ai-flags">'+esc(flags)+'</div>':'')
+        + '</div></div>';
+    });
+    h+='</div></div>';
+  });
+  h+='</div>';
+  cartasSetList(h);
+  $('cartasList').querySelectorAll('[data-role="carta-year-toggle"]').forEach(head=>{
+    head.addEventListener('click',()=>{
+      const y=head.dataset.year;
+      if(CARTAS_YEARS_OPEN.has(y)) CARTAS_YEARS_OPEN.delete(y); else CARTAS_YEARS_OPEN.add(y);
+      renderCartasList();
+    });
+  });
   $('cartasList').querySelectorAll('.carta-arq-item').forEach(item=>{
     item.addEventListener('click',()=>{
       const c=CARTAS_CACHE.find(x=>String(x.id)===item.dataset.id);
@@ -5768,21 +5860,54 @@ function renderCartasList(){
   });
 }
 
-function cartaMostrar(c){
+function renderCartaVerTabs(available){
+  const nav=$('cartaVerTabs');
+  if(available.length<=1){ nav.hidden=true; nav.innerHTML=''; return; }
+  nav.hidden=false;
+  nav.innerHTML = available.map(k=>'<button class="op-tab'+(k===CARTA_VER_ATIVA?' active':'')+'" data-ver="'+k+'" type="button">'+CARTA_VER_LABELS[k]+'</button>').join('');
+  nav.querySelectorAll('[data-ver]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      CARTA_VER_ATIVA=btn.dataset.ver;
+      renderCartaVerTabs(available);
+      renderCartaBody();
+    });
+  });
+}
+
+function renderCartaBody(){
+  if(!CARTA_ATUAL) return;
+  const v=cartaVersions(CARTA_ATUAL);
+  const txt=v[CARTA_VER_ATIVA]||'';
+  const box=$('cartaRender');
+  box.classList.toggle('wpp', CARTA_VER_ATIVA==='whats');
+  if(!txt.trim()){
+    box.innerHTML='<p class="carta-ver-empty">Essa versão ainda não foi cadastrada para este mês.'+(ADMIN_UNLOCKED?' Clique em "Editar" acima para adicionar.':'')+'</p>';
+    return;
+  }
+  box.innerHTML = CARTA_VER_ATIVA==='whats' ? cartaFormat(txt) : ('<div class="cr-letter">'+cartaFormat(txt)+'</div>');
+}
+
+function cartaMostrar(c, verPreferida){
   CARTA_ATUAL=c;
-  $('cartaReaderMeta').innerHTML = `<span class="rm-mes">${esc(c.mes||'')}</span>`;
-  $('cartaRender').innerHTML = `<div class="cr-letter">${cartaFormat(c.conteudo||'')}</div>`;
+  const v=cartaVersions(c);
+  const available=CARTA_VER_ORDER.filter(k=>v[k].trim());
+  CARTA_VER_ATIVA = (verPreferida && available.includes(verPreferida)) ? verPreferida
+    : (available.includes(CARTA_VER_ATIVA) ? CARTA_VER_ATIVA : (available[0]||'completa'));
+  $('cartaReaderMeta').innerHTML = '<span class="rm-mes">'+esc(c.mes||'')+'</span>';
+  renderCartaVerTabs(available);
+  renderCartaBody();
   $('cartaCopy').hidden=false;
-  // botão excluir só aparece se o modo gestor estiver destravado
-  $('cartaDel').hidden = !ADMIN_UNLOCKED;
+  applyAdminMode();
   renderCartasList(); // reflete o item ativo
   window.scrollTo(0,0);
 }
 
 function cartaLeitorVazio(){
+  $('cartaRender').classList.remove('wpp');
   $('cartaRender').innerHTML = '<p class="cr-empty">Selecione um mês no arquivo ao lado para ler a carta.</p>';
   $('cartaReaderMeta').innerHTML='';
-  $('cartaCopy').hidden=true; $('cartaDel').hidden=true;
+  $('cartaVerTabs').hidden=true; $('cartaVerTabs').innerHTML='';
+  $('cartaCopy').hidden=true; $('cartaDel').hidden=true; $('cartaEdit').hidden=true;
 }
 
 // ---- rede: GET lista ----
@@ -5793,7 +5918,7 @@ async function cartasFetchList(){
     CARTAS_LOADED = true;
     renderCartasList();
     // se havia carta aberta, revalida
-    if(CARTA_ATUAL){ const still=CARTAS_CACHE.find(x=>String(x.id)===String(CARTA_ATUAL.id)); if(still) cartaMostrar(still); else cartaLeitorVazio(); }
+    if(CARTA_ATUAL){ const still=CARTAS_CACHE.find(x=>String(x.id)===String(CARTA_ATUAL.id)); if(still) cartaMostrar(still, CARTA_VER_ATIVA); else cartaLeitorVazio(); }
   }catch(e){
     CARTAS_LOADED = true;
     cartasSetList('<p class="carta-arq-empty">Não foi possível carregar o arquivo. Verifique a conexão e tente Atualizar.</p>');
@@ -5806,21 +5931,26 @@ async function cartasPost(payload){
 }
 
 async function cartaPublicar(){
-  if(!APS_WEBHOOK){ pubStatus('Configure o Google Sheets primeiro.', true); return; }
+  if(!APS_WEBHOOK){ pubStatus('Configure o backend primeiro.', true); return; }
   const mes=$('pubMes').value.trim();
-  const texto=$('pubTexto').value.trim();
+  const completa=$('pubCompleta').value.trim();
+  const resumida=$('pubResumida').value.trim();
+  const whats=$('pubWhats').value.trim();
   const pin=$('pubPin').value.trim();
   if(!mes){ pubStatus('Informe o mês de referência.', true); return; }
-  if(!texto){ pubStatus('Cole o texto da carta.', true); return; }
+  if(!completa){ pubStatus('Cole ao menos a versão completa da carta.', true); return; }
   if(!pin){ pubStatus('Informe seu PIN.', true); return; }
-  pubStatus('Publicando…', false);
+  pubStatus(CARTA_EDIT_ID?'Salvando alterações…':'Publicando…', false);
   $('pubSalvar').disabled=true;
   try{
-    const res=await cartasPost({action:'save', pin, mes, conteudo:texto});
+    const payload={action:'save', pin, mes, completa, resumida, whats};
+    if(CARTA_EDIT_ID) payload.id=CARTA_EDIT_ID;
+    const res=await cartasPost(payload);
     if(res && res.ok){
       ADMIN_UNLOCKED=true; applyAdminMode();
-      pubStatus('Carta publicada ✓', false);
-      $('pubMes').value=''; $('pubTexto').value='';
+      const wasEdit=!!CARTA_EDIT_ID;
+      pubStatus(wasEdit?'Alterações salvas ✓':'Carta publicada ✓', false);
+      cartaEditCancelar();
       await cartasFetchList();
     }else{
       pubStatus((res&&res.error)? res.error : 'Não foi possível publicar. Confira o PIN.', true);
@@ -5832,6 +5962,30 @@ async function cartaPublicar(){
   }
 }
 
+function cartaEditIniciar(){
+  if(!CARTA_ATUAL) return;
+  CARTA_EDIT_ID = CARTA_ATUAL.id;
+  const v=cartaVersions(CARTA_ATUAL);
+  $('pubMes').value = CARTA_ATUAL.mes||'';
+  $('pubCompleta').value = v.completa;
+  $('pubResumida').value = v.resumida;
+  $('pubWhats').value = v.whats;
+  $('cartaEditBanner').hidden=false;
+  $('cartaEditBannerText').textContent = 'Editando a carta de '+(CARTA_ATUAL.mes||'')+'.';
+  $('pubSalvar').textContent='Salvar alterações';
+  $('cartasAdmin').open=true;
+  pubStatus('',false);
+  $('cartasAdmin').scrollIntoView({behavior:'smooth', block:'start'});
+  $('pubCompleta').focus();
+}
+
+function cartaEditCancelar(){
+  CARTA_EDIT_ID=null;
+  $('pubMes').value=''; $('pubCompleta').value=''; $('pubResumida').value=''; $('pubWhats').value='';
+  $('cartaEditBanner').hidden=true;
+  $('pubSalvar').textContent='Publicar carta';
+}
+
 async function cartaExcluir(){
   if(!CARTA_ATUAL) return;
   const pin=$('pubPin').value.trim();
@@ -5839,7 +5993,7 @@ async function cartaExcluir(){
   if(!window.confirm('Excluir a carta de '+(CARTA_ATUAL.mes||'')+'? Isso remove para toda a equipe.')) return;
   try{
     const res=await cartasPost({action:'delete', pin, id:CARTA_ATUAL.id});
-    if(res && res.ok){ CARTA_ATUAL=null; cartaLeitorVazio(); await cartasFetchList(); }
+    if(res && res.ok){ if(CARTA_EDIT_ID===CARTA_ATUAL.id) cartaEditCancelar(); CARTA_ATUAL=null; cartaLeitorVazio(); await cartasFetchList(); }
     else{ pubStatus((res&&res.error)?res.error:'Não foi possível excluir (confira o PIN).', true); }
   }catch(e){ pubStatus('Erro de conexão ao excluir.', true); }
 }
@@ -5849,15 +6003,19 @@ function pubStatus(msg, isErr){
   el.style.color = isErr ? 'var(--clay)' : 'var(--good)';
 }
 
-// modo gestor (destrava excluir na leitura após publicar/abrir a seção)
+// modo gestor (destrava editar/excluir na leitura após publicar/abrir a seção)
 let ADMIN_UNLOCKED=false;
 function applyAdminMode(){
-  document.querySelectorAll('.cartaAdminOnly').forEach(el=>{ if(el.id==='cartaDel'){ el.hidden = !(ADMIN_UNLOCKED && CARTA_ATUAL); } });
+  document.querySelectorAll('.cartaAdminOnly').forEach(el=>{
+    if(el.id==='cartaDel' || el.id==='cartaEdit'){ el.hidden = !(ADMIN_UNLOCKED && CARTA_ATUAL); }
+  });
 }
 
 function cartaCopiar(){
   if(!CARTA_ATUAL) return;
-  const txt=CARTA_ATUAL.conteudo||'';
+  const v=cartaVersions(CARTA_ATUAL);
+  const txt=v[CARTA_VER_ATIVA]||'';
+  if(!txt.trim()) return;
   const btn=$('cartaCopy'); const done=()=>{const o=btn.textContent;btn.textContent='Copiado ✓';setTimeout(()=>btn.textContent=o,1500);};
   if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done).catch(()=>fallbackCopy(txt,done));
   else fallbackCopy(txt,done);
@@ -5868,6 +6026,8 @@ $('cartasRefresh').addEventListener('click',cartasFetchList);
 $('pubSalvar').addEventListener('click',cartaPublicar);
 $('cartaCopy').addEventListener('click',cartaCopiar);
 $('cartaDel').addEventListener('click',cartaExcluir);
+$('cartaEdit').addEventListener('click',cartaEditIniciar);
+$('cartaEditCancelar').addEventListener('click',cartaEditCancelar);
 $('cartasAdmin').addEventListener('toggle',()=>{ if($('cartasAdmin').open){ ADMIN_UNLOCKED=true; applyAdminMode(); } });
 
 // init cartas
