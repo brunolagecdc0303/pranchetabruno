@@ -1419,6 +1419,9 @@
   .op-tab{padding:8px 14px;border-radius:999px;border:1px solid var(--line-strong);background:#fff;font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:.15s ease}
   .op-tab:hover{border-color:var(--brass);color:var(--ink)}
   .op-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+  .op-tab-ghost{padding:8px 10px;border:1px solid transparent;background:transparent;font-size:11px;font-weight:400;color:rgba(90,107,102,.35);opacity:.55}
+  .op-tab-ghost:hover{border-color:transparent;color:var(--muted);opacity:1}
+  .op-tab-ghost.active{background:var(--paper);border-color:var(--line);color:var(--ink);opacity:1}
   .op-panel{display:none}
   .op-panel.active{display:block}
   .op-panel h2{font-family:var(--f-display);font-weight:600;font-size:22px;margin:0 0 10px;color:var(--ink)}
@@ -9807,16 +9810,61 @@ function opBuildAuditoria(){
 
 function opBuildAcessos(){
   return '<h2>Registro de acessos</h2>'
-    + '<p class="op-lede">Quem abriu a Prancheta e quantas vezes — registrado automaticamente pelo nome que a pessoa digita na entrada (sem senha, sem cadastro).</p>'
-    + '<div id="opAcessosBody"><div class="orient-view">Carregando…</div></div>';
+    + '<p class="op-lede">Quem abriu a Prancheta e quantas vezes — área restrita, só o Bruno vê.</p>'
+    + '<div class="op-rules" id="opAcessosGate">'
+    + '<h4>Área restrita</h4>'
+    + '<div class="field" style="max-width:220px">'
+    + '<label for="opAcessosPin"><span class="lbl">PIN</span></label>'
+    + '<input class="ipt" id="opAcessosPin" type="password" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="PIN">'
+    + '</div>'
+    + '<div class="ops-form-actions" style="margin-top:10px"><button class="btn btn-primary" id="opAcessosUnlock" type="button">Ver relatório</button></div>'
+    + '<div class="ops-status" id="opAcessosPinStatus" aria-live="polite"></div>'
+    + '</div>'
+    + '<div id="opAcessosBody" hidden></div>';
 }
 
 const OP_TABS = [
   { id:'auditoria', label:'Auditoria de Ordem', html: opBuildAuditoria() },
-  { id:'acessos', label:'Acessos', html: opBuildAcessos() }
+  { id:'acessos', label:'Acessos', html: opBuildAcessos(), ghost:true }
 ];
 
 let OP_ACESSOS_LOADED=false;
+let OP_ACESSOS_UNLOCKED=false;
+function opAcessosPinStatus(msg,isErr){
+  const el=$('opAcessosPinStatus'); if(!el) return;
+  el.textContent=msg||'';
+  el.style.color=isErr?'var(--clay)':'var(--good)';
+}
+async function apsVerifyPin(scope,pin){
+  try{
+    const resp=await fetch(APS_ENDPOINT, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({action:'verify', scope, pin})
+    });
+    let data=null; try{ data=await resp.json(); }catch(e){}
+    return !!(data && data.ok);
+  }catch(e){ return false; }
+}
+async function opAcessosUnlock(){
+  const pinEl=$('opAcessosPin');
+  const pin=(pinEl.value||'').trim();
+  if(!pin){ opAcessosPinStatus('Informe o PIN.', true); pinEl.focus(); return; }
+  $('opAcessosUnlock').disabled=true;
+  opAcessosPinStatus('Verificando…', false);
+  const ok=await apsVerifyPin('acessos', pin);
+  $('opAcessosUnlock').disabled=false;
+  if(!ok){
+    opAcessosPinStatus('PIN incorreto.', true);
+    pinEl.value='';
+    pinEl.focus();
+    return;
+  }
+  OP_ACESSOS_UNLOCKED=true;
+  $('opAcessosGate').hidden=true;
+  $('opAcessosBody').hidden=false;
+  if(!OP_ACESSOS_LOADED){ OP_ACESSOS_LOADED=true; opAcessosLoad(); }
+}
 function opAcessosFmtDate(iso){
   try{
     const d=new Date(iso);
@@ -9858,7 +9906,7 @@ async function opAcessosLoad(){
 function renderOpTabs(){
   const nav=$('opTabs'); const content=$('opContent');
   if(!nav||!content) return;
-  nav.innerHTML = OP_TABS.map((t,i)=>'<button class="op-tab'+(i===0?' active':'')+'" data-op-tab="'+t.id+'" type="button">'+esc(t.label)+'</button>').join('');
+  nav.innerHTML = OP_TABS.map((t,i)=>'<button class="op-tab'+(t.ghost?' op-tab-ghost':'')+(i===0?' active':'')+'" data-op-tab="'+t.id+'" type="button">'+esc(t.label)+'</button>').join('');
   content.innerHTML = OP_TABS.map((t,i)=>'<div class="op-panel'+(i===0?' active':'')+'" data-op-panel="'+t.id+'">'+t.html+'</div>').join('');
 }
 
@@ -9874,11 +9922,9 @@ function initOperacional(){
     const btn=e.target.closest('[data-op-tab]');
     if(!btn) return;
     opSelectTab(btn.dataset.opTab);
-    if(btn.dataset.opTab==='acessos' && !OP_ACESSOS_LOADED){
-      OP_ACESSOS_LOADED=true;
-      opAcessosLoad();
-    }
   });
+  if($('opAcessosUnlock')) $('opAcessosUnlock').addEventListener('click', opAcessosUnlock);
+  if($('opAcessosPin')) $('opAcessosPin').addEventListener('keydown', function(e){ if(e.key==='Enter') opAcessosUnlock(); });
   $('opContent').addEventListener('click', function(e){
     const btn=e.target.closest('.op-copy');
     if(!btn) return;

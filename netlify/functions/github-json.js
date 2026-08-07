@@ -62,6 +62,12 @@ function getPin() {
   return process.env.OPS_GESTOR_PIN || process.env.PUBLISH_PIN || process.env.ADMIN_PIN || '';
 }
 
+// PIN separado, só do Bruno, só pra abrir o relatório de acessos —
+// nada a ver com o PIN do gestor usado nos outros formulários.
+function getAccessReportPin() {
+  return process.env.ACCESS_REPORT_PIN || '0303';
+}
+
 function githubHeaders() {
   return {
     Authorization: `Bearer ${getToken()}`,
@@ -219,6 +225,17 @@ exports.handler = async function handler(event) {
     body = JSON.parse(event.body || '{}');
   } catch (error) {
     return reply(400, { ok: false, error: 'JSON invalido.' });
+  }
+
+  // Verificacao pura de PIN (sem modulo, sem tocar em nenhum arquivo do
+  // GitHub) - usada para liberar telas restritas no client. "scope" separa
+  // qual PIN vale: 'acessos' usa o PIN proprio do relatorio de acessos,
+  // distinto do PIN geral do gestor usado pra salvar conteudo.
+  if (String(body.action || '') === 'verify') {
+    const scope = String(body.scope || '');
+    const expected = scope === 'acessos' ? getAccessReportPin() : null;
+    const ok = expected !== null && String(body.pin || '') === String(expected);
+    return reply(ok ? 200 : 401, { ok });
   }
 
   const modulo = String(body.modulo || '');
