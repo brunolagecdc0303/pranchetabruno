@@ -4,7 +4,9 @@ const FILES = {
   orientacao: 'orientacao.json',
   links: 'links.json',
   dolar_ativos: 'dolar_ativos.json',
-  produtos_mes: 'produtos_mes.json'
+  produtos_mes: 'produtos_mes.json',
+  sugestoes: 'sugestoes.json',
+  acessos: 'acessos.json'
 };
 
 const PREFIX = {
@@ -13,7 +15,20 @@ const PREFIX = {
   orientacao: 'orient',
   links: 'link',
   dolar_ativos: 'dlrat',
-  produtos_mes: 'pm'
+  produtos_mes: 'pm',
+  sugestoes: 'sug',
+  acessos: 'acs'
+};
+
+// Módulos que qualquer assessor pode escravar sem o PIN do gestor —
+// sugestão (identificada pelo nome que a pessoa digitou na entrada) e o
+// registro de acesso (nome + timestamp, gravado sozinho ao abrir o app).
+const OPEN_WRITE_MODULES = { sugestoes: true, acessos: true };
+
+// Limites simples pra evitar payload gigante nesses dois módulos abertos.
+const OPEN_WRITE_LIMITS = {
+  sugestoes: { name: 80, text: 2000 },
+  acessos: { name: 80 }
 };
 
 const OWNER = process.env.GITHUB_OWNER || 'brunolagecdc0303';
@@ -212,8 +227,34 @@ exports.handler = async function handler(event) {
     return reply(400, { ok: false, error: 'Modulo invalido.' });
   }
 
-  if (String(body.pin || '') !== String(getPin())) {
+  const isOpenWrite = !!OPEN_WRITE_MODULES[modulo];
+
+  if (!isOpenWrite && String(body.pin || '') !== String(getPin())) {
     return reply(401, { ok: false, error: 'PIN do gestor invalido.' });
+  }
+
+  if (isOpenWrite) {
+    if (String(body.action || 'save') !== 'save') {
+      return reply(403, { ok: false, error: 'Acao nao permitida para este modulo.' });
+    }
+    const limits = OPEN_WRITE_LIMITS[modulo] || {};
+    const source = (body.item && typeof body.item === 'object') ? body.item : body;
+    const name = String((source && source.name) || '').trim();
+    if (!name) {
+      return reply(400, { ok: false, error: 'Nome obrigatorio.' });
+    }
+    if (limits.name && name.length > limits.name) {
+      return reply(400, { ok: false, error: 'Nome muito longo.' });
+    }
+    if (limits.text) {
+      const text = String((source && source.text) || '');
+      if (text.length > limits.text) {
+        return reply(400, { ok: false, error: 'Texto muito longo.' });
+      }
+    }
+    // registro aberto: nunca atualiza item existente, sempre cria um novo
+    delete body.id;
+    if (body.item) delete body.item.id;
   }
 
   try {

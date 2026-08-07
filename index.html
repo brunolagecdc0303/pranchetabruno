@@ -72,6 +72,8 @@
   .side-item.side-hl-amber svg{opacity:1}
   .side-item.side-hl-amber:hover{background:var(--brass-deep);color:#fff}
   .side-foot{padding:14px 20px 18px;border-top:1px solid rgba(255,255,255,.08);font-size:10.5px;color:rgba(234,240,238,.42);line-height:1.5}
+  .side-foot button{appearance:none;border:none;background:none;color:rgba(234,240,238,.55);font-size:10.5px;cursor:pointer;padding:0;text-decoration:underline;margin-top:6px;display:block;font-family:var(--f-body)}
+  .side-foot button:hover{color:#fff}
   .app-main{flex:1;min-width:0;display:flex;flex-direction:column}
   .module[hidden]{display:none}
 
@@ -1447,13 +1449,27 @@
   }
   /* ===== MODULE:OPERACIONAL:CSS:END ===== */
 
-  /* ===== SHARED:CSS:WHATSNEW:START (botão + painel "Atualizações", fixo no topo direito — global, fora do fluxo dos módulos) ===== */
+  /* ===== SHARED:CSS:VISITORGATE:START (tela de nome antes de entrar) ===== */
+  .vg-overlay{position:fixed;inset:0;z-index:99999;background:radial-gradient(circle at 28% 18%, rgba(44,107,102,.30), transparent 55%), var(--ink);display:flex;align-items:center;justify-content:center;padding:20px}
+  .vg-card{background:#fff;border-radius:16px;padding:32px 30px;max-width:380px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,.35)}
+  .vg-brand{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);margin-bottom:10px}
+  .vg-card h2{font-family:var(--f-display);font-size:22px;font-weight:600;margin:0 0 8px;color:var(--ink)}
+  .vg-card p{font-size:13.5px;line-height:1.55;color:var(--muted);margin:0 0 20px}
+  .vg-card form{display:flex;flex-direction:column;gap:10px}
+  .vg-card input{border:1px solid var(--line-strong);border-radius:9px;padding:11px 13px;font-family:var(--f-body);font-size:14px;background:var(--paper);color:var(--ink)}
+  .vg-card input:focus{outline:2px solid var(--brass);outline-offset:1px;border-color:var(--brass)}
+  .vg-card button{appearance:none;border:none;border-radius:9px;padding:12px;background:var(--ink);color:#fff;font-family:var(--f-body);font-size:14px;font-weight:600;cursor:pointer;transition:background .15s}
+  .vg-card button:hover{background:#0a2321}
+  @media (max-width:480px){ .vg-card{padding:26px 22px} }
+  /* ===== SHARED:CSS:VISITORGATE:END ===== */
+
+  /* ===== SHARED:CSS:WHATSNEW:START (botões + painéis "Sugestões"/"Atualizações", fixos no topo direito — global, fora do fluxo dos módulos) ===== */
+  .topfabs{position:fixed;top:16px;right:20px;z-index:850;display:flex;gap:8px}
   .wn-fab{
-    position:fixed;top:16px;right:20px;z-index:850;
     display:flex;align-items:center;gap:6px;
     background:var(--ink);color:#fff;border:1px solid rgba(255,255,255,.14);
     border-radius:999px;padding:8px 14px 8px 12px;font-family:var(--f-body);font-size:12.5px;font-weight:600;
-    cursor:pointer;box-shadow:0 4px 16px rgba(16,42,40,.22);transition:background .15s,transform .15s;
+    cursor:pointer;box-shadow:0 4px 16px rgba(16,42,40,.22);transition:background .15s,transform .15s;white-space:nowrap;
   }
   .wn-fab:hover{background:#0a2321;transform:translateY(-1px)}
   .wn-fab svg{width:15px;height:15px;flex:0 0 15px}
@@ -1477,8 +1493,22 @@
   .wn-list{margin:0 0 4px;padding-left:18px;font-size:13px;line-height:1.55;color:var(--ink-soft)}
   .wn-list li{margin-bottom:8px}
   .wn-list b{color:var(--ink)}
+  /* Sugestões — form de envio + lista agrupada por assessor (mesmo padrão visual de pm-view-*) */
+  .sg-form{border:1px solid var(--line);border-radius:10px;padding:12px 13px;background:var(--paper);margin:10px 0 16px}
+  .sg-as{font-size:11.5px;color:var(--muted);margin-bottom:8px}
+  .sg-as b{color:var(--ink)}
+  .sg-as button{appearance:none;border:none;background:none;color:var(--brass-deep);font-size:11.5px;font-weight:600;cursor:pointer;padding:0;text-decoration:underline;margin-left:4px}
+  .sg-form textarea{width:100%;border:1px solid var(--line-strong);border-radius:8px;padding:9px 11px;font-family:var(--f-body);font-size:13px;line-height:1.5;background:#fff;color:var(--ink);resize:vertical;min-height:60px;margin-bottom:9px}
+  .sg-form textarea:focus{outline:none;border-color:var(--brass)}
+  .sg-form .btn{width:100%}
+  .sg-group{margin-bottom:6px}
+  .sg-item{padding:9px 0;border-top:1px solid var(--line)}
+  .sg-item:first-child{border-top:none;padding-top:0}
+  .sg-item-date{font-family:var(--f-mono);font-size:10.5px;color:var(--muted-2);margin-bottom:3px}
+  .sg-item-text{font-size:13px;line-height:1.52;color:var(--ink);white-space:pre-wrap}
   @media (max-width:900px){
-    .wn-fab{top:64px;right:12px;padding:7px 12px 7px 10px;font-size:12px}
+    .topfabs{top:64px;right:12px}
+    .wn-fab{padding:7px 12px 7px 10px;font-size:12px}
     .wn-panel{top:106px;right:12px}
   }
   /* ===== SHARED:CSS:WHATSNEW:END ===== */
@@ -1560,6 +1590,30 @@
 </head>
 <body>
 
+<!-- ===== SHARED:HTML:VISITORGATE:START (pede o nome antes de liberar o app — sem senha, sem cadastro; controla acesso pro relatório em Operacional > Acessos) ===== -->
+<div class="vg-overlay" id="vgOverlay">
+  <div class="vg-card">
+    <div class="vg-brand">Prancheta</div>
+    <h2>Antes de entrar…</h2>
+    <p>Digite seu nome pra gente saber quem está usando o painel. Sem senha, sem cadastro — só isso.</p>
+    <form id="vgForm">
+      <input id="vgInput" type="text" placeholder="Seu nome" maxlength="60" autocomplete="name" required>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+</div>
+<script>
+  // roda antes do resto da página pintar: some com o portão na hora se o
+  // nome já estiver salvo, pra quem já entrou antes não ver flash nenhum.
+  (function(){
+    try{
+      var n = localStorage.getItem('aps_visitor_name');
+      if(n && n.trim()) document.getElementById('vgOverlay').style.display='none';
+    }catch(e){}
+  })();
+</script>
+<!-- ===== SHARED:HTML:VISITORGATE:END ===== -->
+
 <div class="app">
   <aside class="sidebar">
     <div class="side-brand">
@@ -1622,7 +1676,7 @@
       <span class="side-sec">Em breve</span>
       <span class="side-item soon">Mais módulos a caminho</span>
     </nav>
-    <div class="side-foot">Central de trabalho da assessoria. Novos módulos entram aqui conforme a operação cresce.</div>
+    <div class="side-foot">Central de trabalho da assessoria. Novos módulos entram aqui conforme a operação cresce.<button type="button" id="vgChangeName"></button></div>
   </aside>
 
   <div class="app-main">
@@ -4265,12 +4319,36 @@ Abraço,
   </div>
 </div>
 
-<!-- ===== SHARED:HTML:WHATSNEW:START (botão + painel "Atualizações" — fixo no topo direito, global, fora do fluxo dos módulos; para adicionar uma nova entrada, insira um novo bloco .wn-date + .wn-list no TOPO de .wn-panel-body) ===== -->
-<button class="wn-fab" id="wnFab" type="button" aria-haspopup="true" aria-expanded="false">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-  Atualizações
-  <span class="wn-dot" id="wnDot" hidden></span>
-</button>
+<!-- ===== SHARED:HTML:WHATSNEW:START (botões + painéis "Sugestões"/"Atualizações" — fixos no topo direito, global, fora do fluxo dos módulos; para adicionar uma nova entrada de atualização, insira um novo bloco .wn-date + .wn-list no TOPO de .wn-panel-body) ===== -->
+<div class="topfabs">
+  <button class="wn-fab" id="sugFab" type="button" aria-haspopup="true" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+    Sugestões
+  </button>
+  <button class="wn-fab" id="wnFab" type="button" aria-haspopup="true" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    Atualizações
+    <span class="wn-dot" id="wnDot" hidden></span>
+  </button>
+</div>
+<div class="wn-panel" id="sugPanel" role="dialog" aria-label="Sugestões dos assessores">
+  <div class="wn-panel-head">
+    <div>
+      <h4>Sugestões dos assessores</h4>
+      <p>Separado por assessor — clique num nome para abrir</p>
+    </div>
+    <button class="wn-panel-close" id="sugClose" type="button" aria-label="Fechar">&times;</button>
+  </div>
+  <div class="wn-panel-body" id="sugBody">
+    <div class="sg-form">
+      <div class="sg-as" id="sgAsLabel"></div>
+      <textarea id="sgText" rows="3" maxlength="2000" placeholder="Sugestão, ideia ou feedback para melhorar a Prancheta..."></textarea>
+      <button class="btn btn-primary" id="sgSend" type="button">Enviar sugestão</button>
+      <div class="ops-status" id="sgStatus" aria-live="polite" style="margin-top:8px"></div>
+    </div>
+    <div id="sgList"><div class="orient-view">Carregando…</div></div>
+  </div>
+</div>
 <div class="wn-panel" id="wnPanel" role="dialog" aria-label="Atualizações da Prancheta">
   <div class="wn-panel-head">
     <div>
@@ -4280,6 +4358,13 @@ Abraço,
     <button class="wn-panel-close" id="wnClose" type="button" aria-label="Fechar">&times;</button>
   </div>
   <div class="wn-panel-body" id="wnBody">
+    <div class="wn-date">07 de agosto de 2026</div>
+    <ul class="wn-list">
+      <li>Agora é preciso digitar o nome antes de entrar na Prancheta — sem senha, sem cadastro, só pra gente saber quem está usando (fica salvo no navegador, não pede de novo).</li>
+      <li>Novo botão <b>Sugestões</b>, ao lado de Atualizações — qualquer assessor pode mandar ideias e feedback, organizados por quem enviou.</li>
+      <li>Novo relatório de acessos em <b>Operacional &rarr; Acessos</b> — mostra quem entrou e quantas vezes.</li>
+      <li>Em <b>Recados importantes &rarr; Produtos do mês</b>, a lista ficou mais limpa: cada produto aparece fechado, mostrando só o nome — clique para ver mensagem e anexo.</li>
+    </ul>
     <div class="wn-date">05 de agosto de 2026</div>
     <ul class="wn-list">
       <li>Novo módulo <b>Operacional</b>, com a aba <b>Auditoria de Ordem</b> &mdash; 28 modelos de e-mail prontos para registro de ordem, por produto (Renda Fixa, COE, Fundos, Ações, Ofertas Públicas, Carteira Recomendada e outros).</li>
@@ -4570,10 +4655,11 @@ const APS_UPLOAD = 'https://script.google.com/macros/s/AKfycbyi2FwFoOiZeyt8VOgfp
 // Mapa: string do módulo (usada em apsFetchList/apsPost) -> arquivo JSON no repo.
 const APS_FILES = {
   cartas:'cartas.json', recados:'recados.json', orientacao:'orientacao.json',
-  links:'links.json', dolar_ativos:'dolar_ativos.json', produtos_mes:'produtos_mes.json'
+  links:'links.json', dolar_ativos:'dolar_ativos.json', produtos_mes:'produtos_mes.json',
+  sugestoes:'sugestoes.json', acessos:'acessos.json'
 };
 // Prefixo de id por módulo (mantém o padrão dos ids já existentes).
-const APS_PREFIX = { cartas:'carta', recados:'rec', orientacao:'orient', links:'link', dolar_ativos:'dlrat', produtos_mes:'pm' };
+const APS_PREFIX = { cartas:'carta', recados:'rec', orientacao:'orient', links:'link', dolar_ativos:'dlrat', produtos_mes:'pm', sugestoes:'sug', acessos:'acs' };
 
 // ---- LEITURA: puxa o array do arquivo JSON versionado ----
 async function apsFetchList(modulo){
@@ -9720,9 +9806,55 @@ function opBuildAuditoria(){
   return h;
 }
 
+function opBuildAcessos(){
+  return '<h2>Registro de acessos</h2>'
+    + '<p class="op-lede">Quem abriu a Prancheta e quantas vezes — registrado automaticamente pelo nome que a pessoa digita na entrada (sem senha, sem cadastro).</p>'
+    + '<div id="opAcessosBody"><div class="orient-view">Carregando…</div></div>';
+}
+
 const OP_TABS = [
-  { id:'auditoria', label:'Auditoria de Ordem', html: opBuildAuditoria() }
+  { id:'auditoria', label:'Auditoria de Ordem', html: opBuildAuditoria() },
+  { id:'acessos', label:'Acessos', html: opBuildAcessos() }
 ];
+
+let OP_ACESSOS_LOADED=false;
+function opAcessosFmtDate(iso){
+  try{
+    const d=new Date(iso);
+    return d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  }catch(e){ return '—'; }
+}
+function opAcessosAggregate(items){
+  const map=new Map();
+  items.forEach(it=>{
+    const key=(it.name||'Sem nome').trim()||'Sem nome';
+    if(!map.has(key)) map.set(key,{name:key,count:0,first:it.createdAt,last:it.createdAt});
+    const g=map.get(key);
+    g.count++;
+    if(String(it.createdAt||'') < String(g.first||'')) g.first=it.createdAt;
+    if(String(it.createdAt||'') > String(g.last||'')) g.last=it.createdAt;
+  });
+  return Array.from(map.values()).sort((a,b)=>b.count-a.count);
+}
+async function opAcessosLoad(){
+  const el=$('opAcessosBody');
+  if(!el) return;
+  el.innerHTML='<div class="orient-view">Carregando…</div>';
+  try{
+    const items=await apsFetchList('acessos');
+    if(!items.length){ el.innerHTML='<div class="orient-view is-empty">Nenhum acesso registrado ainda.</div>'; return; }
+    const rows=opAcessosAggregate(items);
+    let h='<div class="op-note"><b>'+items.length+'</b> acesso(s) registrado(s) de <b>'+rows.length+'</b> assessor(es) diferente(s).</div>';
+    h+='<div class="guia-table-wrap"><table class="guia-table"><thead><tr><th>Assessor</th><th>Acessos</th><th>Primeiro acesso</th><th>Último acesso</th></tr></thead><tbody>';
+    rows.forEach(r=>{
+      h+='<tr><td>'+esc(r.name)+'</td><td>'+r.count+'</td><td>'+esc(opAcessosFmtDate(r.first))+'</td><td>'+esc(opAcessosFmtDate(r.last))+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+    el.innerHTML=h;
+  }catch(e){
+    el.innerHTML='<div class="orient-view is-empty">Não foi possível carregar o relatório.</div>';
+  }
+}
 
 function renderOpTabs(){
   const nav=$('opTabs'); const content=$('opContent');
@@ -9743,6 +9875,10 @@ function initOperacional(){
     const btn=e.target.closest('[data-op-tab]');
     if(!btn) return;
     opSelectTab(btn.dataset.opTab);
+    if(btn.dataset.opTab==='acessos' && !OP_ACESSOS_LOADED){
+      OP_ACESSOS_LOADED=true;
+      opAcessosLoad();
+    }
   });
   $('opContent').addEventListener('click', function(e){
     const btn=e.target.closest('.op-copy');
@@ -9776,18 +9912,29 @@ initOperacional();
 (function(){ try{ const m=localStorage.getItem('aps_active_module'); if(m&&document.getElementById(m)) selectModule(m); }catch(e){} })();
 /* ===== SHARED:JS:END ===== */
 
+/* ===== SHARED:JS:TOPFABS:START (registro genérico dos botões flutuantes do topo direito —
+   garante que só um painel — Sugestões ou Atualizações — fique aberto por vez) ===== */
+const APS_FAB_PANELS=[];
+function apsRegisterFabPanel(panel){ APS_FAB_PANELS.push(panel); }
+function apsCloseOtherFabPanels(except){
+  APS_FAB_PANELS.forEach(p=>{ if(p!==except) p.classList.remove('open'); });
+}
+/* ===== SHARED:JS:TOPFABS:END ===== */
+
 /* ===== SHARED:JS:WHATSNEW:START (botão + painel "Atualizações" fixo no topo direito — ao adicionar uma
    nova entrada no HTML, atualize também WN_LATEST_DATE abaixo para a data do bloco mais novo) ===== */
-const WN_LATEST_DATE = '2026-08-05';
+const WN_LATEST_DATE = '2026-08-07';
 (function(){
   const fab=$('wnFab'), panel=$('wnPanel'), closeBtn=$('wnClose'), dot=$('wnDot');
   if(!fab||!panel) return;
+  apsRegisterFabPanel(panel);
   const SEEN_KEY='aps_whatsnew_seen';
   function seenDate(){ try{ return localStorage.getItem(SEEN_KEY)||''; }catch(e){ return ''; } }
   function markSeen(){ try{ localStorage.setItem(SEEN_KEY, WN_LATEST_DATE); }catch(e){} dot.hidden=true; }
   if(seenDate() < WN_LATEST_DATE) dot.hidden=false; else dot.hidden=true;
 
   function openPanel(){
+    apsCloseOtherFabPanels(panel);
     panel.classList.add('open');
     fab.setAttribute('aria-expanded','true');
     markSeen();
@@ -9806,6 +9953,181 @@ const WN_LATEST_DATE = '2026-08-05';
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closePanel(); });
 })();
 /* ===== SHARED:JS:WHATSNEW:END ===== */
+
+/* ===== SHARED:JS:VISITORGATE:START (nome do assessor antes de entrar — sem senha, sem cadastro;
+   loga 1 acesso por carregamento de página no módulo Operacional > Acessos) ===== */
+const VISITOR_NAME_KEY='aps_visitor_name';
+function apsVisitorName(){ try{ return (localStorage.getItem(VISITOR_NAME_KEY)||'').trim(); }catch(e){ return ''; } }
+function apsLogAccess(name){
+  if(!APS_WEBHOOK || !name) return;
+  try{ apsPost({modulo:'acessos', action:'save', name:name}); }catch(e){}
+}
+function apsChangeVisitorName(){
+  try{ localStorage.removeItem(VISITOR_NAME_KEY); }catch(e){}
+  location.reload();
+}
+(function(){
+  const overlay=$('vgOverlay'), form=$('vgForm'), input=$('vgInput');
+  const existing=apsVisitorName();
+  if(existing){
+    if(overlay) overlay.style.display='none';
+    apsLogAccess(existing);
+  }
+  if(form){
+    form.addEventListener('submit', e=>{
+      e.preventDefault();
+      const name=(input.value||'').trim();
+      if(!name) return;
+      try{ localStorage.setItem(VISITOR_NAME_KEY, name); }catch(e){}
+      if(overlay) overlay.style.display='none';
+      apsLogAccess(name);
+      const nb=$('vgChangeName');
+      if(nb) nb.textContent='Você é '+name+' · trocar nome';
+      if(typeof sgOnIdentityReady==='function') sgOnIdentityReady();
+    });
+  }
+  const nameBtn=$('vgChangeName');
+  if(nameBtn){
+    nameBtn.textContent = existing ? ('Você é '+existing+' · trocar nome') : 'Trocar nome';
+    nameBtn.addEventListener('click', apsChangeVisitorName);
+  }
+})();
+/* ===== SHARED:JS:VISITORGATE:END ===== */
+
+/* ===== SHARED:JS:SUGESTOES:START (botão + painel "Sugestões" fixo no topo direito — separado por
+   assessor; qualquer um envia, sem PIN — usa o nome do portão de entrada) ===== */
+let SUG_ITEMS=[];
+let SUG_LOADED=false;
+function sgFmtDate(iso){
+  try{
+    const d=new Date(iso);
+    return d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  }catch(e){ return ''; }
+}
+function sgOnIdentityReady(){
+  const label=$('sgAsLabel');
+  if(!label) return;
+  const name=apsVisitorName();
+  label.innerHTML = name
+    ? 'Enviando como <b>'+esc(name)+'</b><button type="button" id="sgTrocarNome">trocar</button>'
+    : '<button type="button" id="sgTrocarNome">Informe seu nome para enviar</button>';
+  const btn=$('sgTrocarNome');
+  if(btn) btn.addEventListener('click', apsChangeVisitorName);
+}
+function sgGroups(){
+  const map=new Map();
+  SUG_ITEMS.forEach(it=>{
+    const key=(it.name||'Sem nome').trim()||'Sem nome';
+    if(!map.has(key)) map.set(key,[]);
+    map.get(key).push(it);
+  });
+  const groups=Array.from(map.entries()).map(([name,items])=>{
+    items.sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+    return {name, items, latest:items[0]&&items[0].createdAt||''};
+  });
+  groups.sort((a,b)=>String(b.latest).localeCompare(String(a.latest)));
+  return groups;
+}
+function sgRenderList(){
+  const el=$('sgList');
+  if(!el) return;
+  if(!SUG_LOADED){ el.innerHTML='<div class="orient-view">Carregando…</div>'; return; }
+  if(!SUG_ITEMS.length){ el.innerHTML='<div class="orient-view is-empty">Nenhuma sugestão ainda. Seja o primeiro a escrever uma.</div>'; return; }
+  const groups=sgGroups();
+  let h='<div class="pm-list">';
+  groups.forEach((g,gi)=>{
+    h+='<div class="pm-view-item">';
+    h+='<div class="pm-view-head" data-role="sg-toggle" data-gi="'+gi+'">';
+    h+='<span class="pm-view-toggle-icon">▸</span>';
+    h+='<span class="pm-view-title">'+esc(g.name)+'</span>';
+    h+='<span class="pm-view-flags">('+g.items.length+')</span>';
+    h+='</div>';
+    h+='<div class="pm-view-body" hidden>';
+    g.items.forEach(it=>{
+      h+='<div class="sg-item"><div class="sg-item-date">'+esc(sgFmtDate(it.createdAt))+'</div><div class="sg-item-text">'+esc(it.text||'')+'</div></div>';
+    });
+    h+='</div></div>';
+  });
+  h+='</div>';
+  el.innerHTML=h;
+}
+async function sgFetch(){
+  if(!$('sgList')) return;
+  if(!APS_WEBHOOK){ SUG_LOADED=true; sgRenderList(); return; }
+  try{
+    SUG_ITEMS = await apsFetchList('sugestoes');
+    SUG_LOADED = true;
+    sgRenderList();
+  }catch(e){
+    SUG_LOADED = true;
+    sgRenderList();
+  }
+}
+function sgStatus(msg,isErr){
+  const el=$('sgStatus'); if(!el) return;
+  el.textContent=msg||'';
+  el.style.color=isErr?'var(--clay)':'var(--good)';
+}
+async function sgSend(){
+  const name=apsVisitorName();
+  if(!name){ sgStatus('Informe seu nome (link acima) antes de enviar.', true); return; }
+  const textEl=$('sgText');
+  const text=(textEl.value||'').trim();
+  if(!text){ sgStatus('Escreva a sugestão antes de enviar.', true); return; }
+  if(!APS_WEBHOOK){ sgStatus('Backend ainda não configurado.', true); return; }
+  $('sgSend').disabled=true;
+  sgStatus('Enviando…', false);
+  try{
+    const res=await apsPost({modulo:'sugestoes', action:'save', name, text});
+    if(res && res.ok){
+      textEl.value='';
+      sgStatus('Sugestão enviada. Obrigado!', false);
+      await sgFetch();
+    }else{
+      sgStatus((res&&res.error)?res.error:'Não foi possível enviar.', true);
+    }
+  }catch(e){
+    sgStatus('Erro de conexão ao enviar.', true);
+  }finally{
+    $('sgSend').disabled=false;
+  }
+}
+(function(){
+  const fab=$('sugFab'), panel=$('sugPanel'), closeBtn=$('sugClose');
+  if(!fab||!panel) return;
+  apsRegisterFabPanel(panel);
+  let loadedOnce=false;
+  function openPanel(){
+    apsCloseOtherFabPanels(panel);
+    panel.classList.add('open');
+    fab.setAttribute('aria-expanded','true');
+    if(!loadedOnce){ loadedOnce=true; sgFetch(); }
+  }
+  function closePanel(){
+    panel.classList.remove('open');
+    fab.setAttribute('aria-expanded','false');
+  }
+  fab.addEventListener('click', ()=>{ panel.classList.contains('open') ? closePanel() : openPanel(); });
+  closeBtn.addEventListener('click', closePanel);
+  document.addEventListener('click', (e)=>{
+    if(!panel.classList.contains('open')) return;
+    if(panel.contains(e.target) || fab.contains(e.target)) return;
+    closePanel();
+  });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closePanel(); });
+  $('sgSend').addEventListener('click', sgSend);
+  $('sgList').addEventListener('click', e=>{
+    const t=e.target.closest('[data-role="sg-toggle"]');
+    if(!t) return;
+    const body=t.closest('.pm-view-item').querySelector('.pm-view-body');
+    const icon=t.querySelector('.pm-view-toggle-icon');
+    const willOpen=body.hidden;
+    body.hidden=!willOpen;
+    if(icon) icon.textContent=willOpen?'▾':'▸';
+  });
+  sgOnIdentityReady();
+})();
+/* ===== SHARED:JS:SUGESTOES:END ===== */
 
 /* ===== MODULE:PREVIDENCIA:JS:BOOTSTRAP =====
    Chamadas de inicialização do simulador. Um módulo novo faz o próprio
