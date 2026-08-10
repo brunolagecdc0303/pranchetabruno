@@ -9814,6 +9814,7 @@ function calcFinanciamento(valor, valMM, prazoM, custoMes, reajAA){
   let totalDesembolso = entrada;
   let totalCustoMorar = 0;
   let totalParcelas = 0;
+  let custoExtra = 0; /* parcelas pagas do bolso quando saldo acaba */
   let saldoDev = financiado;
 
   /* Imóvel recebido no D+0 → custo de morar = 0 desde o início */
@@ -9828,8 +9829,8 @@ function calcFinanciamento(valor, valMM, prazoM, custoMes, reajAA){
   serie.push(valor + saldo); /* mês 0 = imóvel + saldo investido */
 
   for(let m=1; m<=prazoM; m++){
-    /* rendimento do saldo investido */
-    saldo *= (1+rentMM);
+    /* rendimento do saldo investido (só se positivo) */
+    if(saldo > 0) saldo *= (1+rentMM);
 
     /* parcela do financiamento (se ainda dentro do prazo) */
     let parcela = 0;
@@ -9849,8 +9850,14 @@ function calcFinanciamento(valor, valMM, prazoM, custoMes, reajAA){
       totalParcelas += parcela;
     }
 
-    /* desconta parcela do saldo investido */
-    saldo -= parcela;
+    /* desconta parcela do saldo investido; se não tem saldo, paga do bolso */
+    if(saldo >= parcela){
+      saldo -= parcela;
+    } else {
+      const doBolso = parcela - Math.max(saldo, 0);
+      saldo = 0;
+      custoExtra += doBolso;
+    }
 
     totalDesembolso += parcela;
 
@@ -9862,7 +9869,7 @@ function calcFinanciamento(valor, valMM, prazoM, custoMes, reajAA){
   const imovelFinal = valor * Math.pow(1+valMM, prazoM);
   const patrimonio = imovelFinal + saldo;
 
-  return { totalDesembolso, totalCustoMorar, imovelFinal, saldoInv:saldo, patrimonio, serie, totalParcelas, entrada, financiado };
+  return { totalDesembolso, totalCustoMorar, imovelFinal, saldoInv:saldo, patrimonio, serie, totalParcelas, entrada, financiado, custoExtra };
 }
 
 /* ── Consórcio ── */
@@ -9893,6 +9900,7 @@ function calcConsorcio(valor, valMM, prazoM, custoMes, reajAA){
   let totalDesembolso = 0;
   let totalCustoMorar = 0;
   let totalParcCon = 0;
+  let custoExtra = 0; /* despesas pagas do bolso quando investimento acaba */
   let temImovel = false;
   let custoMorarAtual = custoMes;
 
@@ -9900,29 +9908,45 @@ function calcConsorcio(valor, valMM, prazoM, custoMes, reajAA){
   serie.push(saldo); /* mês 0: só dinheiro investido, sem imóvel */
 
   for(let m=1; m<=prazoM; m++){
-    /* rendimento */
-    saldo *= (1+rentMM);
+    /* rendimento (só se saldo positivo) */
+    if(saldo > 0) saldo *= (1+rentMM);
+
+    /* despesas do mês */
+    let despesaMes = 0;
 
     /* custo de morar (enquanto não tem imóvel) */
     if(!temImovel){
-      /* reajuste anual */
       if(m > 1 && (m-1)%12 === 0) custoMorarAtual *= (1+reajAA);
-      saldo -= custoMorarAtual;
+      despesaMes += custoMorarAtual;
       totalCustoMorar += custoMorarAtual;
-      totalDesembolso += custoMorarAtual;
     }
 
     /* parcela do consórcio (durante o prazo do grupo) */
     if(m <= prazoConM){
-      saldo -= parcelaCon;
+      despesaMes += parcelaCon;
       totalParcCon += parcelaCon;
-      totalDesembolso += parcelaCon;
     }
+
+    /* paga despesas: do saldo investido ou do bolso */
+    if(saldo >= despesaMes){
+      saldo -= despesaMes;
+    } else {
+      const doBolso = despesaMes - Math.max(saldo, 0);
+      saldo = 0;
+      custoExtra += doBolso;
+    }
+    totalDesembolso += despesaMes;
 
     /* contemplação */
     if(m === mesContemp && !temImovel){
       /* lance livre sai do saldo */
-      saldo -= lanceLivreR;
+      if(saldo >= lanceLivreR){
+        saldo -= lanceLivreR;
+      } else {
+        const doBolso = lanceLivreR - Math.max(saldo, 0);
+        saldo = 0;
+        custoExtra += doBolso;
+      }
       totalDesembolso += lanceLivreR;
       temImovel = true;
     }
@@ -9942,7 +9966,7 @@ function calcConsorcio(valor, valMM, prazoM, custoMes, reajAA){
   }
   const patrimonio = imovelFinal + saldo;
 
-  return { totalDesembolso, totalCustoMorar, imovelFinal, saldoInv:saldo, patrimonio, serie, totalParcCon, parcelaCon, lanceFixoR, lanceLivreR, mesContemp:temImovel?mesContemp:0 };
+  return { totalDesembolso, totalCustoMorar, imovelFinal, saldoInv:saldo, patrimonio, serie, totalParcCon, parcelaCon, lanceFixoR, lanceLivreR, mesContemp:temImovel?mesContemp:0, custoExtra };
 }
 
 /* ──────────────────────── RENDERIZAR ──────────────────────── */
@@ -9983,6 +10007,8 @@ function renderResults(av, fin, con, prazoM, valor){
   tblH += cmpSec('Desembolso');
   tblH += cmpRow('Total desembolsado', av.totalDesembolso, fin.totalDesembolso, con.totalDesembolso, 'min');
   tblH += cmpRow('Custo de morar pago', av.totalCustoMorar, fin.totalCustoMorar, con.totalCustoMorar, 'min');
+  const temExtra = (fin.custoExtra||0) > 0 || (con.custoExtra||0) > 0;
+  if(temExtra) tblH += cmpRow('Pago do bolso (invest. acabou)', 0, fin.custoExtra||0, con.custoExtra||0, 'min');
 
   tblH += cmpSec('Patrimônio ao final');
   tblH += cmpRow('Imóvel valorizado', av.imovelFinal, fin.imovelFinal, con.imovelFinal, 'max');
