@@ -2920,12 +2920,11 @@
         <div class="wrap">
           <p class="eyebrow">Imóveis &middot; Comparador de compra</p>
           <h1>Comparador de <b>compra de imóvel</b></h1>
-          <p class="lede">Compara patrimônio líquido final em 3 cenários: à vista, financiamento e consórcio.</p>
+          <p class="lede">Dia 1 com o mesmo dinheiro: à vista, financiamento ou consórcio — qual gera mais patrimônio?</p>
         </div>
       </header>
       <main class="wrap" style="max-width:100%;padding:0">
 
-      <!-- TOOLBAR -->
       <div class="im-toolbar">
         <button class="im-btn-sec" onclick="imLimpar()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
@@ -2938,13 +2937,12 @@
       </div>
 
       <div class="im-main">
-        <!-- INPUTS -->
         <div class="im-inputs">
 
-          <!-- Imóvel -->
+          <!-- Imóvel + Premissas comuns -->
           <div class="im-sec">
             <div class="im-dot" style="background:var(--txt2)"></div>
-            <span class="im-sec-title" style="color:var(--txt2)">Imóvel</span>
+            <span class="im-sec-title" style="color:var(--txt2)">Imóvel &amp; premissas</span>
           </div>
           <div class="im-group">
             <div>
@@ -2953,11 +2951,18 @@
                 <input type="number" class="pl" id="im-valor" value="500000" min="0" step="10000" oninput="imCalcular()">
               </div>
             </div>
-            <div class="im-row2">
+            <div class="im-row3">
               <div>
                 <label class="im-lbl">Valorização (% a.a.)</label>
                 <div class="im-inp-wrap">
                   <input type="number" class="pr" id="im-valorizacao" value="3" min="0" max="30" step="0.5" oninput="imCalcular()">
+                  <span class="im-suf">%</span>
+                </div>
+              </div>
+              <div>
+                <label class="im-lbl">Yield aluguel (% a.a.)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-yield" value="6" min="0" max="20" step="0.5" oninput="imCalcular()">
                   <span class="im-suf">%</span>
                 </div>
               </div>
@@ -2969,19 +2974,11 @@
                 </div>
               </div>
             </div>
-            <div class="im-row2">
-              <div>
-                <label class="im-lbl">Custo de morar (R$/mês)</label>
-                <div class="im-inp-wrap"><span class="im-pre">R$</span>
-                  <input type="number" class="pl" id="im-custo-morar" value="2500" min="0" step="100" oninput="imCalcular()">
-                </div>
-              </div>
-              <div>
-                <label class="im-lbl">Reajuste morar (% a.a.)</label>
-                <div class="im-inp-wrap">
-                  <input type="number" class="pr" id="im-reaj-morar" value="5" min="0" max="30" step="0.5" oninput="imCalcular()">
-                  <span class="im-suf">%</span>
-                </div>
+            <div>
+              <label class="im-lbl">Rentabilidade investimentos (% a.a.)</label>
+              <div class="im-inp-wrap">
+                <input type="number" class="pr" id="im-rent" value="10" min="0" max="40" step="0.5" oninput="imCalcular()">
+                <span class="im-suf">%</span>
               </div>
             </div>
           </div>
@@ -3024,13 +3021,6 @@
                   <option value="SAC">SAC</option>
                   <option value="PRICE">Price</option>
                 </select>
-              </div>
-            </div>
-            <div>
-              <label class="im-lbl">Rentabilidade investimentos (% a.a.)</label>
-              <div class="im-inp-wrap">
-                <input type="number" class="pr" id="im-fin-rent" value="10" min="0" max="40" step="0.5" oninput="imCalcular()">
-                <span class="im-suf">%</span>
               </div>
             </div>
           </div>
@@ -3089,18 +3079,10 @@
                 </div>
               </div>
             </div>
-            <div>
-              <label class="im-lbl">Rentabilidade investimentos (% a.a.)</label>
-              <div class="im-inp-wrap">
-                <input type="number" class="pr" id="im-con-rent" value="10" min="0" max="40" step="0.5" oninput="imCalcular()">
-                <span class="im-suf">%</span>
-              </div>
-            </div>
           </div>
 
         </div>
 
-        <!-- RESULTS -->
         <div class="im-results" id="imResults">
           <p style="font-size:14px;color:var(--txt3);text-align:center;padding:40px 0">Clique em <b>Calcular</b> para ver o comparativo.</p>
         </div>
@@ -9729,11 +9711,10 @@ let imChartInst = null;
 
 /* ── defaults ── */
 const DEFAULTS = {
-  'im-valor':500000,'im-valorizacao':3,'im-prazo':20,
-  'im-custo-morar':2500,'im-reaj-morar':5,
-  'im-fin-entrada':20,'im-fin-prazo':30,'im-fin-juros':10.5,'im-fin-rent':10,
+  'im-valor':500000,'im-valorizacao':3,'im-yield':6,'im-prazo':20,'im-rent':10,
+  'im-fin-entrada':20,'im-fin-prazo':30,'im-fin-juros':10.5,
   'im-con-adm':18,'im-con-fundo':1,'im-con-prazo':15,
-  'im-con-lance-fixo':40,'im-con-lance-livre':60,'im-con-contemp':36,'im-con-rent':10
+  'im-con-lance-fixo':40,'im-con-lance-livre':60,'im-con-contemp':36
 };
 
 function limpar(){
@@ -9749,90 +9730,100 @@ function toast(msg){
 }
 
 /* ──────────────────────── CÁLCULOS ──────────────────────── */
+/*
+ * Modelo: dia 1 o investidor tem R$ X (= valor do imóvel).
+ *   À vista   → compra imóvel D+0, saldo=0, aluguel reinvestido desde D+0
+ *   Financ.   → paga entrada, investe resto, imóvel D+0, aluguel + parcelas
+ *   Consórcio → investe tudo, paga parcelas, SEM imóvel/aluguel até contemplação
+ *
+ * Premissas comuns: valorização, yield aluguel, rentabilidade investimentos.
+ * Aluguel mensal = yield_mensal × valor_do_imóvel_naquele_mês (valorizado).
+ */
 function calcular(){
-  const valor    = n('im-valor');
-  const valAA    = n('im-valorizacao')/100;
-  const prazoA   = ni('im-prazo');
-  const prazoM   = prazoA * 12;
-  const custoMes = n('im-custo-morar');
-  const reajAA   = n('im-reaj-morar')/100;
+  const valor   = n('im-valor');
+  const valAA   = n('im-valorizacao')/100;
+  const yieldAA = n('im-yield')/100;
+  const rentAA  = n('im-rent')/100;
+  const prazoA  = ni('im-prazo');
+  const prazoM  = prazoA * 12;
 
-  if(valor<=0 || prazoM<=0){ return; }
+  if(valor<=0 || prazoM<=0) return;
 
-  /* taxa mensal de valorização do imóvel */
-  const valMM = Math.pow(1+valAA,1/12)-1;
+  const valMM   = Math.pow(1+valAA,1/12)-1;
+  const yieldMM = Math.pow(1+yieldAA,1/12)-1;
+  const rentMM  = Math.pow(1+rentAA,1/12)-1;
 
-  /* ──── CENÁRIO 1: À VISTA ──── */
-  const av = calcAVista(valor, valMM, prazoM);
+  const av  = calcAVista(valor, valMM, yieldMM, rentMM, prazoM);
+  const fin = calcFinanciamento(valor, valMM, yieldMM, rentMM, prazoM);
+  const con = calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM);
 
-  /* ──── CENÁRIO 2: FINANCIAMENTO ──── */
-  const fin = calcFinanciamento(valor, valMM, prazoM, custoMes, reajAA);
-
-  /* ──── CENÁRIO 3: CONSÓRCIO ──── */
-  const con = calcConsorcio(valor, valMM, prazoM, custoMes, reajAA);
-
-  /* ──── RENDERIZAR ──── */
   renderResults(av, fin, con, prazoM, valor);
 }
 
-/* ── À Vista ── */
-function calcAVista(valor, valMM, prazoM){
-  /* Desembolsa 100% no D+0. Imóvel valoriza desde D+0. Sem custo de morar. */
-  let totalDesembolso = valor;
-  let totalCustoMorar = 0;
-  /* Patrimônio = imóvel valorizado */
-  const imovelFinal = valor * Math.pow(1+valMM, prazoM);
-  /* Saldo investido = 0 (gastou tudo) */
-  const saldoInv = 0;
-  const patrimonio = imovelFinal + saldoInv;
+/* ── À Vista ──
+ * Compra 100% D+0. Saldo começa em 0.
+ * Cada mês: recebe aluguel (yield × imóvel valorizado) → reinveste.
+ */
+function calcAVista(valor, valMM, yieldMM, rentMM, prazoM){
+  let saldo = 0;
+  let totalAluguel = 0;
+  const serie = [valor]; /* mês 0: patrimônio = imóvel */
 
-  /* série mensal para gráfico */
-  const serie = [];
-  for(let m=0; m<=prazoM; m++){
-    serie.push(valor * Math.pow(1+valMM, m));
+  for(let m=1; m<=prazoM; m++){
+    if(saldo > 0) saldo *= (1+rentMM);
+
+    const imovelAgora = valor * Math.pow(1+valMM, m);
+    const aluguel = imovelAgora * yieldMM;
+    saldo += aluguel;
+    totalAluguel += aluguel;
+
+    serie.push(imovelAgora + saldo);
   }
 
-  return { totalDesembolso, totalCustoMorar, imovelFinal, saldoInv, patrimonio, serie };
+  const imovelFinal = valor * Math.pow(1+valMM, prazoM);
+  const patrimonio  = imovelFinal + saldo;
+
+  return { desembolsoInicial:valor, totalParcelas:0, totalAluguel,
+           imovelFinal, saldoInv:saldo, patrimonio, serie, custoExtra:0, lanceLivreR:0 };
 }
 
-/* ── Financiamento ── */
-function calcFinanciamento(valor, valMM, prazoM, custoMes, reajAA){
+/* ── Financiamento ──
+ * Paga entrada, investe (valor−entrada). Imóvel D+0 → aluguel desde D+0.
+ * Parcelas SAC ou Price descontadas do saldo.
+ */
+function calcFinanciamento(valor, valMM, yieldMM, rentMM, prazoM){
   const entradaPct = n('im-fin-entrada')/100;
   const prazoFinM  = ni('im-fin-prazo') * 12;
   const jurosAA    = n('im-fin-juros')/100;
-  const rentAA     = n('im-fin-rent')/100;
   const sistema    = g('im-fin-sistema').value;
 
-  const entrada   = valor * entradaPct;
-  const financiado= valor - entrada;
-  const jurosMM   = Math.pow(1+jurosAA,1/12)-1;
-  const rentMM    = Math.pow(1+rentAA,1/12)-1;
-  const reajMM    = Math.pow(1+reajAA,1/12)-1;
+  const entrada    = valor * entradaPct;
+  const financiado = valor - entrada;
+  const jurosMM    = Math.pow(1+jurosAA,1/12)-1;
 
-  /* Saldo investido = valor total - entrada (investe o que não gastou) */
   let saldo = valor - entrada;
-  let totalDesembolso = entrada;
-  let totalCustoMorar = 0;
   let totalParcelas = 0;
-  let custoExtra = 0; /* parcelas pagas do bolso quando saldo acaba */
-  let saldoDev = financiado;
+  let totalAluguel  = 0;
+  let custoExtra    = 0;
+  let saldoDev      = financiado;
 
-  /* Imóvel recebido no D+0 → custo de morar = 0 desde o início */
-
-  /* parcelas do financiamento */
   let pmtPrice = 0;
   if(sistema==='PRICE' && jurosMM>0){
     pmtPrice = financiado * jurosMM / (1 - Math.pow(1+jurosMM, -prazoFinM));
   }
 
-  const serie = [];
-  serie.push(valor + saldo); /* mês 0 = imóvel + saldo investido */
+  const serie = [valor + saldo];
 
   for(let m=1; m<=prazoM; m++){
-    /* rendimento do saldo investido (só se positivo) */
     if(saldo > 0) saldo *= (1+rentMM);
 
-    /* parcela do financiamento (se ainda dentro do prazo) */
+    /* aluguel (tem imóvel desde D+0) */
+    const imovelAgora = valor * Math.pow(1+valMM, m);
+    const aluguel = imovelAgora * yieldMM;
+    saldo += aluguel;
+    totalAluguel += aluguel;
+
+    /* parcela do financiamento */
     let parcela = 0;
     if(m <= prazoFinM && saldoDev > 0.01){
       if(sistema==='SAC'){
@@ -9843,37 +9834,45 @@ function calcFinanciamento(valor, valMM, prazoM, custoMes, reajAA){
       } else {
         parcela = pmtPrice;
         const juros = saldoDev * jurosMM;
-        const amort = parcela - juros;
-        saldoDev -= amort;
+        saldoDev -= (parcela - juros);
       }
       if(saldoDev < 0) saldoDev = 0;
       totalParcelas += parcela;
     }
 
-    /* desconta parcela do saldo investido; se não tem saldo, paga do bolso */
     if(saldo >= parcela){
       saldo -= parcela;
     } else {
-      const doBolso = parcela - Math.max(saldo, 0);
+      custoExtra += parcela - Math.max(saldo,0);
       saldo = 0;
-      custoExtra += doBolso;
     }
 
-    totalDesembolso += parcela;
-
-    /* patrimônio = imóvel valorizado + saldo investido */
-    const imovelAgora = valor * Math.pow(1+valMM, m);
-    serie.push(imovelAgora + saldo);
+    serie.push(imovelAgora + Math.max(saldo,0));
   }
 
   const imovelFinal = valor * Math.pow(1+valMM, prazoM);
-  const patrimonio = imovelFinal + saldo;
+  const saldoFinal  = Math.max(saldo,0);
+  const patrimonio  = imovelFinal + saldoFinal;
 
-  return { totalDesembolso, totalCustoMorar, imovelFinal, saldoInv:saldo, patrimonio, serie, totalParcelas, entrada, financiado, custoExtra };
+  return { desembolsoInicial:entrada, totalParcelas, totalAluguel,
+           imovelFinal, saldoInv:saldoFinal, patrimonio, serie,
+           custoExtra, entrada, financiado, lanceLivreR:0 };
 }
 
-/* ── Consórcio ── */
-function calcConsorcio(valor, valMM, prazoM, custoMes, reajAA){
+/* ── Consórcio ──
+ * Investe 100% D+0. Paga parcelas do consórcio. SEM imóvel até contemplação.
+ *
+ * Carta = valor / (1 − lanceFixo%)  →  após lance embutido, sobra = valor
+ * Total obrigação = carta × (1 + adm + fundo)
+ *
+ * Antes da contemplação: parcela = totalObrig / prazoGrupo
+ * Na contemplação:
+ *   - lance fixo (embutido, da carta) reduz saldo devedor
+ *   - lance livre sai do saldo investido
+ *   - parcela recalculada = restante / meses restantes
+ *   - recebe imóvel → começa aluguel
+ */
+function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
   const admTotal   = n('im-con-adm')/100;
   const fundoRes   = n('im-con-fundo')/100;
   const prazoConA  = ni('im-con-prazo');
@@ -9881,92 +9880,80 @@ function calcConsorcio(valor, valMM, prazoM, custoMes, reajAA){
   const lanceFixo  = n('im-con-lance-fixo')/100;
   const lanceLivre = n('im-con-lance-livre')/100;
   const mesContemp = ni('im-con-contemp');
-  const rentAA     = n('im-con-rent')/100;
 
-  const rentMM  = Math.pow(1+rentAA,1/12)-1;
-  const reajMM  = Math.pow(1+reajAA,1/12)-1;
+  /* Carta dimensionada: (carta − lanceFixo) = valor do imóvel */
+  const carta = lanceFixo < 1 ? valor / (1 - lanceFixo) : valor;
+  const lanceFixoR  = carta * lanceFixo;   /* embutido, não sai do bolso */
+  const lanceLivreR = carta * lanceLivre;   /* pago do saldo investido   */
 
-  /* Parcela do consórcio = (valor * (1 + adm + fundo)) / prazoConM */
-  const totalCarta = valor * (1 + admTotal + fundoRes);
-  const parcelaCon = totalCarta / prazoConM;
+  const totalObrig    = carta * (1 + admTotal + fundoRes);
+  const parcelaInic   = totalObrig / prazoConM;
+  let   parcelaAtual  = parcelaInic;
 
-  /* Lance fixo = abate da carta (reduz saldo devedor do consórcio, não sai do bolso) */
-  /* Lance livre = sai do saldo investido no mês da contemplação */
-  const lanceFixoR  = valor * lanceFixo;
-  const lanceLivreR = valor * lanceLivre;
-
-  /* Investe 100% do valor no D+0 */
   let saldo = valor;
-  let totalDesembolso = 0;
-  let totalCustoMorar = 0;
-  let totalParcCon = 0;
-  let custoExtra = 0; /* despesas pagas do bolso quando investimento acaba */
-  let temImovel = false;
-  let custoMorarAtual = custoMes;
+  let totalParcelas = 0;
+  let totalAluguel  = 0;
+  let custoExtra    = 0;
+  let temImovel     = false;
 
-  const serie = [];
-  serie.push(saldo); /* mês 0: só dinheiro investido, sem imóvel */
+  const serie = [saldo];
 
   for(let m=1; m<=prazoM; m++){
-    /* rendimento (só se saldo positivo) */
-    if(saldo > 0) saldo *= (1+rentMM);
-
-    /* despesas do mês */
-    let despesaMes = 0;
-
-    /* custo de morar (enquanto não tem imóvel) */
-    if(!temImovel){
-      if(m > 1 && (m-1)%12 === 0) custoMorarAtual *= (1+reajAA);
-      despesaMes += custoMorarAtual;
-      totalCustoMorar += custoMorarAtual;
-    }
-
-    /* parcela do consórcio (durante o prazo do grupo) */
-    if(m <= prazoConM){
-      despesaMes += parcelaCon;
-      totalParcCon += parcelaCon;
-    }
-
-    /* paga despesas: do saldo investido ou do bolso */
-    if(saldo >= despesaMes){
-      saldo -= despesaMes;
-    } else {
-      const doBolso = despesaMes - Math.max(saldo, 0);
-      saldo = 0;
-      custoExtra += doBolso;
-    }
-    totalDesembolso += despesaMes;
-
-    /* contemplação */
+    /* ── contemplação no início do mês ── */
     if(m === mesContemp && !temImovel){
       /* lance livre sai do saldo */
       if(saldo >= lanceLivreR){
         saldo -= lanceLivreR;
       } else {
-        const doBolso = lanceLivreR - Math.max(saldo, 0);
+        custoExtra += lanceLivreR - Math.max(saldo,0);
         saldo = 0;
-        custoExtra += doBolso;
       }
-      totalDesembolso += lanceLivreR;
+      /* recalcular parcela: restante após parcelas já pagas + lances */
+      const jaPago    = (mesContemp - 1) * parcelaInic;
+      const restante  = Math.max(totalObrig - jaPago - lanceFixoR - lanceLivreR, 0);
+      const mRestante = prazoConM - mesContemp + 1;
+      parcelaAtual = mRestante > 0 ? restante / mRestante : 0;
       temImovel = true;
     }
 
-    /* patrimônio: saldo + (imóvel se tiver, valorizado desde contemplação) */
-    let imovelAgora = 0;
+    /* rendimento */
+    if(saldo > 0) saldo *= (1+rentMM);
+
+    /* aluguel (só após contemplação) */
     if(temImovel){
-      const mesesDesdeContemp = m - mesContemp;
-      imovelAgora = valor * Math.pow(1+valMM, mesesDesdeContemp);
+      const mDesde = m - mesContemp;
+      const propVal = valor * Math.pow(1+valMM, mDesde);
+      const aluguel = propVal * yieldMM;
+      saldo += aluguel;
+      totalAluguel += aluguel;
     }
-    serie.push(imovelAgora + saldo);
+
+    /* parcela do consórcio */
+    if(m <= prazoConM){
+      if(saldo >= parcelaAtual){
+        saldo -= parcelaAtual;
+      } else {
+        custoExtra += parcelaAtual - Math.max(saldo,0);
+        saldo = 0;
+      }
+      totalParcelas += parcelaAtual;
+    }
+
+    let imovelAgora = 0;
+    if(temImovel) imovelAgora = valor * Math.pow(1+valMM, m - mesContemp);
+    serie.push(imovelAgora + Math.max(saldo,0));
   }
 
   let imovelFinal = 0;
-  if(temImovel){
-    imovelFinal = valor * Math.pow(1+valMM, prazoM - mesContemp);
-  }
-  const patrimonio = imovelFinal + saldo;
+  if(temImovel) imovelFinal = valor * Math.pow(1+valMM, prazoM - mesContemp);
+  const saldoFinal = Math.max(saldo,0);
+  const patrimonio = imovelFinal + saldoFinal;
 
-  return { totalDesembolso, totalCustoMorar, imovelFinal, saldoInv:saldo, patrimonio, serie, totalParcCon, parcelaCon, lanceFixoR, lanceLivreR, mesContemp:temImovel?mesContemp:0, custoExtra };
+  return { desembolsoInicial:0, totalParcelas, totalAluguel,
+           imovelFinal, saldoInv:saldoFinal, patrimonio, serie,
+           custoExtra, carta, lanceFixoR, lanceLivreR,
+           parcelaInic, parcelaReduz:parcelaAtual,
+           mesContemp:temImovel?mesContemp:0 };
 }
 
 /* ──────────────────────── RENDERIZAR ──────────────────────── */
@@ -9981,15 +9968,11 @@ function renderResults(av, fin, con, prazoM, valor){
   const winner = pats[0];
   const diff = winner.val - pats[pats.length-1].val;
 
-  /* ── Verdict ── */
   let vClass = 'w-'+winner.key;
-  let vIcon = winner.icon;
-  let vTxt = winner.label+' gera mais patrimônio';
-  let vSub = 'Diferença de '+fmt(diff,0)+' em relação ao pior cenário';
 
   /* ── Mini cards ── */
   let miniH = '<div class="im-mini-grid">';
-  miniH += miniCard('À vista','Patrimônio final', fmt(av.patrimonio,0), 'v-av', av===pats[0].key?'h-av':'');
+  miniH += miniCard('À vista','Patrimônio final', fmt(av.patrimonio,0), 'v-av', '');
   miniH += miniCard('Financiamento','Patrimônio final', fmt(fin.patrimonio,0), 'v-fin', '');
   miniH += miniCard('Consórcio','Patrimônio final', fmt(con.patrimonio,0), 'v-con', '');
   miniH += '</div>';
@@ -10003,12 +9986,15 @@ function renderResults(av, fin, con, prazoM, valor){
   tblH += '<div class="im-cmp-hcell h-con">Consórcio</div>';
   tblH += '</div>';
 
-  /* rows */
   tblH += cmpSec('Desembolso');
-  tblH += cmpRow('Total desembolsado', av.totalDesembolso, fin.totalDesembolso, con.totalDesembolso, 'min');
-  tblH += cmpRow('Custo de morar pago', av.totalCustoMorar, fin.totalCustoMorar, con.totalCustoMorar, 'min');
-  const temExtra = (fin.custoExtra||0) > 0 || (con.custoExtra||0) > 0;
-  if(temExtra) tblH += cmpRow('Pago do bolso (invest. acabou)', 0, fin.custoExtra||0, con.custoExtra||0, 'min');
+  tblH += cmpRow('Gasto na compra (D+0)', av.desembolsoInicial, fin.desembolsoInicial, con.desembolsoInicial, 'min');
+  tblH += cmpRow('Total parcelas pagas', av.totalParcelas, fin.totalParcelas, con.totalParcelas, 'min');
+  if(con.lanceLivreR > 0) tblH += cmpRow('Lance livre pago', 0, 0, con.lanceLivreR, 'min');
+  const temExtra = (fin.custoExtra||0) > 0.01 || (con.custoExtra||0) > 0.01;
+  if(temExtra) tblH += cmpRow('Pago do bolso (invest. acabou)', av.custoExtra||0, fin.custoExtra||0, con.custoExtra||0, 'min');
+
+  tblH += cmpSec('Receitas');
+  tblH += cmpRow('Total aluguel recebido', av.totalAluguel, fin.totalAluguel, con.totalAluguel, 'max');
 
   tblH += cmpSec('Patrimônio ao final');
   tblH += cmpRow('Imóvel valorizado', av.imovelFinal, fin.imovelFinal, con.imovelFinal, 'max');
@@ -10017,7 +10003,7 @@ function renderResults(av, fin, con, prazoM, valor){
 
   tblH += '</div>';
 
-  /* ── Chart placeholder ── */
+  /* ── Chart ── */
   let chartH = '<div class="im-chart-box">';
   chartH += '<div class="im-chart-ttl">Evolução patrimonial ('+Math.round(prazoM/12)+' anos)</div>';
   chartH += '<div class="im-chart-c"><canvas id="imChart"></canvas></div>';
@@ -10030,34 +10016,33 @@ function renderResults(av, fin, con, prazoM, valor){
   /* ── Detail cards ── */
   let detH = '<div class="im-res-sec">Detalhamento por cenário</div>';
 
-  /* À Vista detail */
   detH += '<div class="im-mini-grid">';
   detH += miniCard('À vista','Desembolso D+0', fmt(valor,0), 'v-av', 'h-av');
-  detH += miniCard('À vista','Imóvel valorizado', fmt(av.imovelFinal,0), 'v-av', '');
-  detH += miniCard('À vista','Custo de morar', fmt(0,0), '', '');
+  detH += miniCard('À vista','Aluguel total', fmt(av.totalAluguel,0), 'v-av', '');
+  detH += miniCard('À vista','Imóvel final', fmt(av.imovelFinal,0), 'v-av', '');
   detH += '</div>';
 
-  /* Financiamento detail */
   detH += '<div class="im-mini-grid" style="margin-top:10px">';
   detH += miniCard('Financiamento','Entrada', fmt(fin.entrada,0), 'v-fin', 'h-fin');
   detH += miniCard('Financiamento','Total parcelas', fmt(fin.totalParcelas,0), 'v-fin', '');
-  detH += miniCard('Financiamento','Saldo investido', fmt(fin.saldoInv,0), fin.saldoInv>=0?'v-fin':'', fin.saldoInv<0?'h-fin':'');
+  detH += miniCard('Financiamento','Saldo investido', fmt(fin.saldoInv,0), 'v-fin', '');
   detH += '</div>';
 
-  /* Consórcio detail */
+  const conParc = con.mesContemp > 0
+    ? fmt(con.parcelaInic,0)+' → '+fmt(con.parcelaReduz,0)
+    : fmt(con.parcelaInic,0);
   detH += '<div class="im-mini-grid" style="margin-top:10px">';
-  detH += miniCard('Consórcio','Parcela mensal', fmt(con.parcelaCon,0), 'v-con', 'h-con');
+  detH += miniCard('Consórcio','Carta de crédito', fmt(con.carta,0), 'v-con', 'h-con');
+  detH += miniCard('Consórcio','Parcela (ini→red)', conParc, 'v-con', '');
   detH += miniCard('Consórcio','Lance livre', fmt(con.lanceLivreR,0), 'v-con', '');
-  detH += miniCard('Consórcio','Custo de morar', fmt(con.totalCustoMorar,0), '', con.totalCustoMorar>0?'h-con':'');
   detH += '</div>';
 
-  /* ── Footnote ── */
   let fnH = '<p class="im-fn">Simulação meramente ilustrativa. Não constitui recomendação de investimento. Valores futuros são estimativas e não representam garantia de retorno. Consulte seu assessor.</p>';
 
   out.innerHTML = `
     <div class="im-verdict ${vClass}">
-      <span class="im-v-ic">${vIcon}</span>
-      <div class="im-v-tx"><strong>${vTxt}</strong><span>${vSub}</span></div>
+      <span class="im-v-ic">${winner.icon}</span>
+      <div class="im-v-tx"><strong>${winner.label} gera mais patrimônio</strong><span>Diferença de ${fmt(diff,0)} em relação ao pior cenário</span></div>
       <div class="im-v-eco"><span class="eco-val" style="color:${winner.color}">${fmt(winner.val,0)}</span><span class="eco-lbl">patrimônio final</span></div>
     </div>
     ${miniH}
@@ -10103,22 +10088,15 @@ function mkChart(serieAv, serieFin, serieCon){
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  /* labels anuais */
   const totalM = serieAv.length-1;
-  const labels = [];
-  const dAv=[], dFin=[], dCon=[];
+  const labels=[], dAv=[], dFin=[], dCon=[];
   for(let m=0; m<=totalM; m+=12){
     labels.push('Ano '+(m/12));
-    dAv.push(serieAv[m]);
-    dFin.push(serieFin[m]);
-    dCon.push(serieCon[m]);
+    dAv.push(serieAv[m]);  dFin.push(serieFin[m]);  dCon.push(serieCon[m]);
   }
-  /* último ponto se não cai no ano exato */
   if(totalM%12!==0){
     labels.push('Ano '+(totalM/12).toFixed(1));
-    dAv.push(serieAv[totalM]);
-    dFin.push(serieFin[totalM]);
-    dCon.push(serieCon[totalM]);
+    dAv.push(serieAv[totalM]); dFin.push(serieFin[totalM]); dCon.push(serieCon[totalM]);
   }
 
   const cs = getComputedStyle(document.getElementById('module-imovel'));
