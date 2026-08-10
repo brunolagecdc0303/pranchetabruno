@@ -1422,6 +1422,119 @@
   }
   /* ===== MODULE:CONSORCIO:CSS:END ===== */
 
+  /* ===== MODULE:IMOVEL:CSS:START ===== */
+  #module-imovel {
+    --bg:var(--paper);--panel:#f0ede7;--card:#fff;--card2:#f5f2ec;
+    --border:rgba(16,42,40,.12);--border2:rgba(16,42,40,.22);
+    --c-av:var(--teal);--c-av2:rgba(44,107,102,.10);
+    --c-fin:var(--clay);--c-fin2:rgba(178,90,65,.10);
+    --c-con:var(--brass);--c-con2:rgba(181,137,63,.10);
+    --txt:var(--ink);--txt2:var(--muted);--txt3:var(--muted-2);
+    --mono:var(--f-mono);--sans:var(--f-body);
+    --rad:10px;--rad-sm:6px;
+  }
+  #module-imovel .im-main{display:grid;grid-template-columns:340px minmax(0,1fr);gap:0;width:100%;align-items:start}
+  #module-imovel .im-inputs{padding:24px 22px 36px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:16px}
+  #module-imovel .im-results{padding:24px 24px 40px;display:flex;flex-direction:column;gap:20px}
+  #module-imovel .im-sec{display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:4px}
+  #module-imovel .im-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  #module-imovel .im-sec-title{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  #module-imovel .im-group{display:flex;flex-direction:column;gap:12px}
+  #module-imovel .im-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  #module-imovel .im-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  #module-imovel label.im-lbl{font-size:11px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:5px}
+  #module-imovel .im-inp-wrap{position:relative;display:flex;align-items:center}
+  #module-imovel .im-pre,#module-imovel .im-suf{position:absolute;font-family:var(--mono);font-size:13px;color:var(--txt3);font-weight:500;pointer-events:none;z-index:1}
+  #module-imovel .im-pre{left:11px}
+  #module-imovel .im-suf{right:11px}
+  #module-imovel input[type="number"],#module-imovel select{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:var(--rad-sm);color:var(--txt);font-family:var(--mono);font-size:13px;font-weight:500;padding:9px 12px;outline:none;transition:border-color .15s,background .15s;-webkit-appearance:none;appearance:none}
+  #module-imovel input[type="number"]:hover,#module-imovel select:hover{border-color:var(--border2)}
+  #module-imovel input[type="number"]:focus,#module-imovel select:focus{border-color:var(--c-av);background:var(--panel)}
+  #module-imovel input.pl{padding-left:30px}
+  #module-imovel input.pr{padding-right:30px}
+  #module-imovel input[type=number]::-webkit-inner-spin-button,#module-imovel input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+  #module-imovel input[type=number]{-moz-appearance:textfield}
+  #module-imovel select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238A9690' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:30px;cursor:pointer}
+  #module-imovel .im-divider{height:1px;background:var(--border);margin:4px 0}
+  #module-imovel .im-toolbar{display:flex;align-items:center;gap:10px;padding:16px 22px;border-bottom:1px solid var(--border);background:var(--card);flex-wrap:wrap}
+  #module-imovel .im-btn-calc{display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--c-fin),var(--c-av));color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans);letter-spacing:.01em;transition:opacity .15s,transform .1s;box-shadow:0 4px 20px rgba(44,107,102,.15)}
+  #module-imovel .im-btn-calc:hover{opacity:.9}
+  #module-imovel .im-btn-calc:active{transform:scale(.97)}
+  #module-imovel .im-btn-sec{display:flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--border);color:var(--txt2);border-radius:8px;padding:8px 14px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:border-color .15s,color .15s}
+  #module-imovel .im-btn-sec:hover{border-color:var(--border2);color:var(--txt)}
+  /* verdict */
+  #module-imovel .im-verdict{border-radius:var(--rad);padding:18px 20px;display:flex;align-items:center;gap:16px;border:2px solid var(--border);transition:all .4s}
+  #module-imovel .im-verdict.w-av{border-color:rgba(44,107,102,.4);background:rgba(44,107,102,.06)}
+  #module-imovel .im-verdict.w-fin{border-color:rgba(178,90,65,.4);background:rgba(178,90,65,.06)}
+  #module-imovel .im-verdict.w-con{border-color:rgba(181,137,63,.4);background:rgba(181,137,63,.06)}
+  #module-imovel .im-v-ic{font-size:32px;flex-shrink:0}
+  #module-imovel .im-v-tx strong{font-size:16px;font-weight:700;display:block;margin-bottom:4px}
+  #module-imovel .im-v-tx span{font-size:13px;color:var(--txt2)}
+  #module-imovel .im-v-eco{margin-left:auto;text-align:right;flex-shrink:0}
+  #module-imovel .im-v-eco .eco-val{font-family:var(--mono);font-size:22px;font-weight:700}
+  #module-imovel .im-v-eco .eco-lbl{font-size:11px;color:var(--txt3);margin-top:2px}
+  /* comparison table */
+  #module-imovel .im-cmp-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--rad);overflow:hidden}
+  #module-imovel .im-cmp-head{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;background:var(--card2);border-bottom:1px solid var(--border)}
+  #module-imovel .im-cmp-hcell{padding:10px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+  #module-imovel .im-cmp-hcell.h-av{color:var(--c-av);border-left:1px solid var(--border)}
+  #module-imovel .im-cmp-hcell.h-fin{color:var(--c-fin);border-left:1px solid var(--border)}
+  #module-imovel .im-cmp-hcell.h-con{color:var(--c-con);border-left:1px solid var(--border)}
+  #module-imovel .im-cmp-row{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;border-bottom:1px solid rgba(16,42,40,.08);transition:background .1s}
+  #module-imovel .im-cmp-row:last-child{border-bottom:none}
+  #module-imovel .im-cmp-row:hover{background:rgba(16,42,40,.03)}
+  #module-imovel .im-cmp-cell{padding:10px 14px;font-size:13px;font-family:var(--mono);font-weight:500;color:var(--txt)}
+  #module-imovel .im-cmp-cell:not(:first-child){border-left:1px solid rgba(16,42,40,.08)}
+  #module-imovel .im-cmp-cell:first-child{color:var(--txt2);font-family:var(--sans);font-size:12px;font-weight:500}
+  #module-imovel .im-cmp-cell.best{font-weight:700}
+  #module-imovel .im-cmp-cell.best-av{color:var(--c-av);font-weight:700}
+  #module-imovel .im-cmp-cell.best-fin{color:var(--c-fin);font-weight:700}
+  #module-imovel .im-cmp-cell.best-con{color:var(--c-con);font-weight:700}
+  #module-imovel .im-cmp-cell.bw{color:var(--txt3)}
+  #module-imovel .im-cmp-shdr{grid-column:1/-1;padding:6px 14px;font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.1em;background:rgba(16,42,40,.03);border-bottom:1px solid rgba(16,42,40,.08)}
+  /* mini cards */
+  #module-imovel .im-mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  #module-imovel .im-mini{background:var(--card);border:1px solid var(--border);border-radius:var(--rad-sm);padding:12px 14px}
+  #module-imovel .im-mini.h-av{border-color:rgba(44,107,102,.35);background:rgba(44,107,102,.06)}
+  #module-imovel .im-mini.h-fin{border-color:rgba(178,90,65,.35);background:rgba(178,90,65,.06)}
+  #module-imovel .im-mini.h-con{border-color:rgba(181,137,63,.35);background:rgba(181,137,63,.06)}
+  #module-imovel .im-mini-lbl{font-size:10px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+  #module-imovel .im-mini-val{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt)}
+  #module-imovel .im-mini-val.v-av{color:var(--c-av)}
+  #module-imovel .im-mini-val.v-fin{color:var(--c-fin)}
+  #module-imovel .im-mini-val.v-con{color:var(--c-con)}
+  #module-imovel .im-mini-val.big{font-size:20px}
+  #module-imovel .im-mini-sub{font-size:10px;color:var(--txt3);margin-top:3px;font-family:var(--mono)}
+  /* chart */
+  #module-imovel .im-chart-box{background:var(--card);border:1px solid var(--border);border-radius:var(--rad);padding:18px 18px 14px}
+  #module-imovel .im-chart-ttl{font-size:12px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  #module-imovel .im-chart-ttl::after{content:'';flex:1;height:1px;background:var(--border)}
+  #module-imovel .im-chart-c{position:relative;height:280px}
+  #module-imovel .im-chart-leg{display:flex;gap:20px;justify-content:center;margin-top:12px}
+  #module-imovel .im-cl{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--txt2);font-weight:500}
+  #module-imovel .im-cl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  /* res section */
+  #module-imovel .im-res-sec{font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.1em;display:flex;align-items:center;gap:10px}
+  #module-imovel .im-res-sec::after{content:'';flex:1;height:1px;background:var(--border)}
+  #module-imovel .im-fn{font-size:11px;color:var(--txt3);line-height:1.5;padding-top:4px}
+  /* toast */
+  #module-imovel .im-toast{position:fixed;bottom:24px;right:24px;background:var(--card);border:1px solid var(--border);color:var(--txt);padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 8px 30px rgba(0,0,0,.12)}
+  #module-imovel .im-toast.show{transform:translateY(0);opacity:1}
+  @media (max-width:960px){
+    #module-imovel .im-main{grid-template-columns:1fr}
+    #module-imovel .im-inputs{border-right:none;border-bottom:1px solid var(--border)}
+    #module-imovel .im-mini-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:620px){
+    #module-imovel .im-row2{grid-template-columns:1fr}
+    #module-imovel .im-row3{grid-template-columns:1fr}
+    #module-imovel .im-mini-grid{grid-template-columns:1fr}
+    #module-imovel .im-cmp-head,#module-imovel .im-cmp-row{grid-template-columns:1.3fr 1fr 1fr 1fr;font-size:11px}
+    #module-imovel .im-cmp-hcell,#module-imovel .im-cmp-cell{padding:8px 8px;font-size:11px}
+    #module-imovel .im-toolbar{padding:12px 16px}
+  }
+  /* ===== MODULE:IMOVEL:CSS:END ===== */
+
   /* ===== MODULE:OPERACIONAL:CSS:START ===== */
   .op-lede{font-size:15px;color:var(--muted);margin-bottom:18px}
   .op-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
@@ -1683,6 +1796,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 12h18"/><path d="M12 3v18"/></svg>
         Consórcio vs Financ.
       </button>
+      <button class="side-item" data-module="module-imovel" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Compra de imóvel
+      </button>
       <!-- MODULE:REGISTRY:SIDEBAR:END -->
       <span class="side-sec">Em breve</span>
       <span class="side-item soon">Mais módulos a caminho</span>
@@ -1706,6 +1823,7 @@
       <button class="mt-item" data-module="module-exterior" type="button">Estruturas no exterior</button>
       <button class="mt-item" data-module="module-sucessao" type="button">Sucessão BR</button>
       <button class="mt-item" data-module="module-consorcio" type="button">Consórcio</button>
+      <button class="mt-item" data-module="module-imovel" type="button">Compra imóvel</button>
       <!-- MODULE:REGISTRY:TOPBAR:END -->
       <span class="mt-item soon">Em breve</span>
     </div>
@@ -2795,6 +2913,203 @@
       </main>
     </section>
     <!-- MODULE:COMPARADOR:HTML:END -->
+
+    <!-- MODULE:IMOVEL:HTML:START -->
+    <section class="module" id="module-imovel" hidden>
+      <header class="masthead">
+        <div class="wrap">
+          <p class="eyebrow">Imóveis &middot; Comparador de compra</p>
+          <h1>Comparador de <b>compra de imóvel</b></h1>
+          <p class="lede">Compara patrimônio líquido final em 3 cenários: à vista, financiamento e consórcio.</p>
+        </div>
+      </header>
+      <main class="wrap" style="max-width:100%;padding:0">
+
+      <!-- TOOLBAR -->
+      <div class="im-toolbar">
+        <button class="im-btn-sec" onclick="imLimpar()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          Limpar
+        </button>
+        <button class="im-btn-calc" onclick="imCalcular()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Calcular
+        </button>
+      </div>
+
+      <div class="im-main">
+        <!-- INPUTS -->
+        <div class="im-inputs">
+
+          <!-- Imóvel -->
+          <div class="im-sec">
+            <div class="im-dot" style="background:var(--txt2)"></div>
+            <span class="im-sec-title" style="color:var(--txt2)">Imóvel</span>
+          </div>
+          <div class="im-group">
+            <div>
+              <label class="im-lbl">Valor do imóvel</label>
+              <div class="im-inp-wrap"><span class="im-pre">R$</span>
+                <input type="number" class="pl" id="im-valor" value="500000" min="0" step="10000" oninput="imCalcular()">
+              </div>
+            </div>
+            <div class="im-row2">
+              <div>
+                <label class="im-lbl">Valorização (% a.a.)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-valorizacao" value="3" min="0" max="30" step="0.5" oninput="imCalcular()">
+                  <span class="im-suf">%</span>
+                </div>
+              </div>
+              <div>
+                <label class="im-lbl">Prazo (anos)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-prazo" value="20" min="1" max="35" step="1" oninput="imCalcular()">
+                  <span class="im-suf">a</span>
+                </div>
+              </div>
+            </div>
+            <div class="im-row2">
+              <div>
+                <label class="im-lbl">Custo de morar (R$/mês)</label>
+                <div class="im-inp-wrap"><span class="im-pre">R$</span>
+                  <input type="number" class="pl" id="im-custo-morar" value="2500" min="0" step="100" oninput="imCalcular()">
+                </div>
+              </div>
+              <div>
+                <label class="im-lbl">Reajuste morar (% a.a.)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-reaj-morar" value="5" min="0" max="30" step="0.5" oninput="imCalcular()">
+                  <span class="im-suf">%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="im-divider"></div>
+
+          <!-- Financiamento -->
+          <div class="im-sec">
+            <div class="im-dot" style="background:var(--c-fin)"></div>
+            <span class="im-sec-title" style="color:var(--c-fin)">Financiamento</span>
+          </div>
+          <div class="im-group">
+            <div class="im-row2">
+              <div>
+                <label class="im-lbl">Entrada (%)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-fin-entrada" value="20" min="0" max="100" step="5" oninput="imCalcular()">
+                  <span class="im-suf">%</span>
+                </div>
+              </div>
+              <div>
+                <label class="im-lbl">Prazo financ. (anos)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-fin-prazo" value="30" min="1" max="35" step="1" oninput="imCalcular()">
+                  <span class="im-suf">a</span>
+                </div>
+              </div>
+            </div>
+            <div class="im-row2">
+              <div>
+                <label class="im-lbl">Juros financ. (% a.a.)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-fin-juros" value="10.5" min="0" max="30" step="0.1" oninput="imCalcular()">
+                  <span class="im-suf">%</span>
+                </div>
+              </div>
+              <div>
+                <label class="im-lbl">Sistema</label>
+                <select id="im-fin-sistema" onchange="imCalcular()">
+                  <option value="SAC">SAC</option>
+                  <option value="PRICE">Price</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="im-lbl">Rentabilidade investimentos (% a.a.)</label>
+              <div class="im-inp-wrap">
+                <input type="number" class="pr" id="im-fin-rent" value="10" min="0" max="40" step="0.5" oninput="imCalcular()">
+                <span class="im-suf">%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="im-divider"></div>
+
+          <!-- Consórcio -->
+          <div class="im-sec">
+            <div class="im-dot" style="background:var(--c-con)"></div>
+            <span class="im-sec-title" style="color:var(--c-con)">Consórcio</span>
+          </div>
+          <div class="im-group">
+            <div class="im-row3">
+              <div>
+                <label class="im-lbl">Tx adm total (%)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-con-adm" value="18" min="0" max="30" step="0.5" oninput="imCalcular()">
+                  <span class="im-suf">%</span>
+                </div>
+              </div>
+              <div>
+                <label class="im-lbl">Fdo reserva (%)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-con-fundo" value="1" min="0" max="10" step="0.5" oninput="imCalcular()">
+                  <span class="im-suf">%</span>
+                </div>
+              </div>
+              <div>
+                <label class="im-lbl">Prazo grupo (a)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-con-prazo" value="15" min="1" max="25" step="1" oninput="imCalcular()">
+                  <span class="im-suf">a</span>
+                </div>
+              </div>
+            </div>
+            <div class="im-row3">
+              <div>
+                <label class="im-lbl">Lance fixo (%)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-con-lance-fixo" value="40" min="0" max="100" step="5" oninput="imCalcular()">
+                  <span class="im-suf">%</span>
+                </div>
+              </div>
+              <div>
+                <label class="im-lbl">Lance livre (%)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-con-lance-livre" value="60" min="0" max="100" step="5" oninput="imCalcular()">
+                  <span class="im-suf">%</span>
+                </div>
+              </div>
+              <div>
+                <label class="im-lbl">Contemplação (mês)</label>
+                <div class="im-inp-wrap">
+                  <input type="number" class="pr" id="im-con-contemp" value="36" min="1" max="300" step="1" oninput="imCalcular()">
+                  <span class="im-suf">m</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label class="im-lbl">Rentabilidade investimentos (% a.a.)</label>
+              <div class="im-inp-wrap">
+                <input type="number" class="pr" id="im-con-rent" value="10" min="0" max="40" step="0.5" oninput="imCalcular()">
+                <span class="im-suf">%</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RESULTS -->
+        <div class="im-results" id="imResults">
+          <p style="font-size:14px;color:var(--txt3);text-align:center;padding:40px 0">Clique em <b>Calcular</b> para ver o comparativo.</p>
+        </div>
+      </div>
+
+      </main>
+      <div class="im-toast" id="imToast"></div>
+    </section>
+    <!-- MODULE:IMOVEL:HTML:END -->
 
     <!-- MODULE:NOVO:INSIRA_AQUI_UMA_NOVA_SECTION_ANTES_DO_FECHAMENTO_DO_APP-MAIN -->
 
@@ -9400,6 +9715,433 @@ window.cfLimpar=limpar;
 window.initConsorcio=initConsorcio;
 })();
 /* ===== MODULE:CONSORCIO:JS:END ===== */
+
+/* ===== MODULE:IMOVEL:JS:START ===== */
+(function(){
+const g  = id => document.getElementById(id);
+const n  = id => parseFloat(g(id).value) || 0;
+const ni = id => parseInt(g(id).value)   || 0;
+const fmt = (v, d=2) => (!isFinite(v)||isNaN(v)) ? '—' :
+  'R$ ' + Number(v).toLocaleString('pt-BR', {minimumFractionDigits:d, maximumFractionDigits:d});
+const fp  = (v, d=1) => isNaN(v) ? '—' : (v*100).toFixed(d).replace('.',',') + '%';
+
+let imChartInst = null;
+
+/* ── defaults ── */
+const DEFAULTS = {
+  'im-valor':500000,'im-valorizacao':3,'im-prazo':20,
+  'im-custo-morar':2500,'im-reaj-morar':5,
+  'im-fin-entrada':20,'im-fin-prazo':30,'im-fin-juros':10.5,'im-fin-rent':10,
+  'im-con-adm':18,'im-con-fundo':1,'im-con-prazo':15,
+  'im-con-lance-fixo':40,'im-con-lance-livre':60,'im-con-contemp':36,'im-con-rent':10
+};
+
+function limpar(){
+  Object.entries(DEFAULTS).forEach(([id,v])=>{const e=g(id);if(e)e.value=v;});
+  g('im-fin-sistema').value='SAC';
+  calcular();
+  toast('Valores restaurados');
+}
+
+function toast(msg){
+  const t=g('imToast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+/* ──────────────────────── CÁLCULOS ──────────────────────── */
+function calcular(){
+  const valor    = n('im-valor');
+  const valAA    = n('im-valorizacao')/100;
+  const prazoA   = ni('im-prazo');
+  const prazoM   = prazoA * 12;
+  const custoMes = n('im-custo-morar');
+  const reajAA   = n('im-reaj-morar')/100;
+
+  if(valor<=0 || prazoM<=0){ return; }
+
+  /* taxa mensal de valorização do imóvel */
+  const valMM = Math.pow(1+valAA,1/12)-1;
+
+  /* ──── CENÁRIO 1: À VISTA ──── */
+  const av = calcAVista(valor, valMM, prazoM);
+
+  /* ──── CENÁRIO 2: FINANCIAMENTO ──── */
+  const fin = calcFinanciamento(valor, valMM, prazoM, custoMes, reajAA);
+
+  /* ──── CENÁRIO 3: CONSÓRCIO ──── */
+  const con = calcConsorcio(valor, valMM, prazoM, custoMes, reajAA);
+
+  /* ──── RENDERIZAR ──── */
+  renderResults(av, fin, con, prazoM, valor);
+}
+
+/* ── À Vista ── */
+function calcAVista(valor, valMM, prazoM){
+  /* Desembolsa 100% no D+0. Imóvel valoriza desde D+0. Sem custo de morar. */
+  let totalDesembolso = valor;
+  let totalCustoMorar = 0;
+  /* Patrimônio = imóvel valorizado */
+  const imovelFinal = valor * Math.pow(1+valMM, prazoM);
+  /* Saldo investido = 0 (gastou tudo) */
+  const saldoInv = 0;
+  const patrimonio = imovelFinal + saldoInv;
+
+  /* série mensal para gráfico */
+  const serie = [];
+  for(let m=0; m<=prazoM; m++){
+    serie.push(valor * Math.pow(1+valMM, m));
+  }
+
+  return { totalDesembolso, totalCustoMorar, imovelFinal, saldoInv, patrimonio, serie };
+}
+
+/* ── Financiamento ── */
+function calcFinanciamento(valor, valMM, prazoM, custoMes, reajAA){
+  const entradaPct = n('im-fin-entrada')/100;
+  const prazoFinM  = ni('im-fin-prazo') * 12;
+  const jurosAA    = n('im-fin-juros')/100;
+  const rentAA     = n('im-fin-rent')/100;
+  const sistema    = g('im-fin-sistema').value;
+
+  const entrada   = valor * entradaPct;
+  const financiado= valor - entrada;
+  const jurosMM   = Math.pow(1+jurosAA,1/12)-1;
+  const rentMM    = Math.pow(1+rentAA,1/12)-1;
+  const reajMM    = Math.pow(1+reajAA,1/12)-1;
+
+  /* Saldo investido = valor total - entrada (investe o que não gastou) */
+  let saldo = valor - entrada;
+  let totalDesembolso = entrada;
+  let totalCustoMorar = 0;
+  let totalParcelas = 0;
+  let saldoDev = financiado;
+
+  /* Imóvel recebido no D+0 → custo de morar = 0 desde o início */
+
+  /* parcelas do financiamento */
+  let pmtPrice = 0;
+  if(sistema==='PRICE' && jurosMM>0){
+    pmtPrice = financiado * jurosMM / (1 - Math.pow(1+jurosMM, -prazoFinM));
+  }
+
+  const serie = [];
+  serie.push(valor + saldo); /* mês 0 = imóvel + saldo investido */
+
+  for(let m=1; m<=prazoM; m++){
+    /* rendimento do saldo investido */
+    saldo *= (1+rentMM);
+
+    /* parcela do financiamento (se ainda dentro do prazo) */
+    let parcela = 0;
+    if(m <= prazoFinM && saldoDev > 0.01){
+      if(sistema==='SAC'){
+        const amort = financiado / prazoFinM;
+        const juros = saldoDev * jurosMM;
+        parcela = amort + juros;
+        saldoDev -= amort;
+      } else {
+        parcela = pmtPrice;
+        const juros = saldoDev * jurosMM;
+        const amort = parcela - juros;
+        saldoDev -= amort;
+      }
+      if(saldoDev < 0) saldoDev = 0;
+      totalParcelas += parcela;
+    }
+
+    /* desconta parcela do saldo investido */
+    saldo -= parcela;
+
+    totalDesembolso += parcela;
+
+    /* patrimônio = imóvel valorizado + saldo investido */
+    const imovelAgora = valor * Math.pow(1+valMM, m);
+    serie.push(imovelAgora + saldo);
+  }
+
+  const imovelFinal = valor * Math.pow(1+valMM, prazoM);
+  const patrimonio = imovelFinal + saldo;
+
+  return { totalDesembolso, totalCustoMorar, imovelFinal, saldoInv:saldo, patrimonio, serie, totalParcelas, entrada, financiado };
+}
+
+/* ── Consórcio ── */
+function calcConsorcio(valor, valMM, prazoM, custoMes, reajAA){
+  const admTotal   = n('im-con-adm')/100;
+  const fundoRes   = n('im-con-fundo')/100;
+  const prazoConA  = ni('im-con-prazo');
+  const prazoConM  = prazoConA * 12;
+  const lanceFixo  = n('im-con-lance-fixo')/100;
+  const lanceLivre = n('im-con-lance-livre')/100;
+  const mesContemp = ni('im-con-contemp');
+  const rentAA     = n('im-con-rent')/100;
+
+  const rentMM  = Math.pow(1+rentAA,1/12)-1;
+  const reajMM  = Math.pow(1+reajAA,1/12)-1;
+
+  /* Parcela do consórcio = (valor * (1 + adm + fundo)) / prazoConM */
+  const totalCarta = valor * (1 + admTotal + fundoRes);
+  const parcelaCon = totalCarta / prazoConM;
+
+  /* Lance fixo = abate da carta (reduz saldo devedor do consórcio, não sai do bolso) */
+  /* Lance livre = sai do saldo investido no mês da contemplação */
+  const lanceFixoR  = valor * lanceFixo;
+  const lanceLivreR = valor * lanceLivre;
+
+  /* Investe 100% do valor no D+0 */
+  let saldo = valor;
+  let totalDesembolso = 0;
+  let totalCustoMorar = 0;
+  let totalParcCon = 0;
+  let temImovel = false;
+  let custoMorarAtual = custoMes;
+
+  const serie = [];
+  serie.push(saldo); /* mês 0: só dinheiro investido, sem imóvel */
+
+  for(let m=1; m<=prazoM; m++){
+    /* rendimento */
+    saldo *= (1+rentMM);
+
+    /* custo de morar (enquanto não tem imóvel) */
+    if(!temImovel){
+      /* reajuste anual */
+      if(m > 1 && (m-1)%12 === 0) custoMorarAtual *= (1+reajAA);
+      saldo -= custoMorarAtual;
+      totalCustoMorar += custoMorarAtual;
+      totalDesembolso += custoMorarAtual;
+    }
+
+    /* parcela do consórcio (durante o prazo do grupo) */
+    if(m <= prazoConM){
+      saldo -= parcelaCon;
+      totalParcCon += parcelaCon;
+      totalDesembolso += parcelaCon;
+    }
+
+    /* contemplação */
+    if(m === mesContemp && !temImovel){
+      /* lance livre sai do saldo */
+      saldo -= lanceLivreR;
+      totalDesembolso += lanceLivreR;
+      temImovel = true;
+    }
+
+    /* patrimônio: saldo + (imóvel se tiver, valorizado desde contemplação) */
+    let imovelAgora = 0;
+    if(temImovel){
+      const mesesDesdeContemp = m - mesContemp;
+      imovelAgora = valor * Math.pow(1+valMM, mesesDesdeContemp);
+    }
+    serie.push(imovelAgora + saldo);
+  }
+
+  let imovelFinal = 0;
+  if(temImovel){
+    imovelFinal = valor * Math.pow(1+valMM, prazoM - mesContemp);
+  }
+  const patrimonio = imovelFinal + saldo;
+
+  return { totalDesembolso, totalCustoMorar, imovelFinal, saldoInv:saldo, patrimonio, serie, totalParcCon, parcelaCon, lanceFixoR, lanceLivreR, mesContemp:temImovel?mesContemp:0 };
+}
+
+/* ──────────────────────── RENDERIZAR ──────────────────────── */
+function renderResults(av, fin, con, prazoM, valor){
+  const out = g('imResults');
+  const pats = [
+    {key:'av',  label:'À vista',       val:av.patrimonio,  color:'var(--c-av)',  icon:'🏠'},
+    {key:'fin', label:'Financiamento',  val:fin.patrimonio, color:'var(--c-fin)', icon:'🏦'},
+    {key:'con', label:'Consórcio',      val:con.patrimonio, color:'var(--c-con)', icon:'📋'}
+  ];
+  pats.sort((a,b)=>b.val-a.val);
+  const winner = pats[0];
+  const diff = winner.val - pats[pats.length-1].val;
+
+  /* ── Verdict ── */
+  let vClass = 'w-'+winner.key;
+  let vIcon = winner.icon;
+  let vTxt = winner.label+' gera mais patrimônio';
+  let vSub = 'Diferença de '+fmt(diff,0)+' em relação ao pior cenário';
+
+  /* ── Mini cards ── */
+  let miniH = '<div class="im-mini-grid">';
+  miniH += miniCard('À vista','Patrimônio final', fmt(av.patrimonio,0), 'v-av', av===pats[0].key?'h-av':'');
+  miniH += miniCard('Financiamento','Patrimônio final', fmt(fin.patrimonio,0), 'v-fin', '');
+  miniH += miniCard('Consórcio','Patrimônio final', fmt(con.patrimonio,0), 'v-con', '');
+  miniH += '</div>';
+
+  /* ── Comparison table ── */
+  let tblH = '<div class="im-cmp-wrap">';
+  tblH += '<div class="im-cmp-head">';
+  tblH += '<div class="im-cmp-hcell"></div>';
+  tblH += '<div class="im-cmp-hcell h-av">À vista</div>';
+  tblH += '<div class="im-cmp-hcell h-fin">Financiam.</div>';
+  tblH += '<div class="im-cmp-hcell h-con">Consórcio</div>';
+  tblH += '</div>';
+
+  /* rows */
+  tblH += cmpSec('Desembolso');
+  tblH += cmpRow('Total desembolsado', av.totalDesembolso, fin.totalDesembolso, con.totalDesembolso, 'min');
+  tblH += cmpRow('Custo de morar pago', av.totalCustoMorar, fin.totalCustoMorar, con.totalCustoMorar, 'min');
+
+  tblH += cmpSec('Patrimônio ao final');
+  tblH += cmpRow('Imóvel valorizado', av.imovelFinal, fin.imovelFinal, con.imovelFinal, 'max');
+  tblH += cmpRow('Saldo investido', av.saldoInv, fin.saldoInv, con.saldoInv, 'max');
+  tblH += cmpRow('Patrimônio líquido', av.patrimonio, fin.patrimonio, con.patrimonio, 'max');
+
+  tblH += '</div>';
+
+  /* ── Chart placeholder ── */
+  let chartH = '<div class="im-chart-box">';
+  chartH += '<div class="im-chart-ttl">Evolução patrimonial ('+Math.round(prazoM/12)+' anos)</div>';
+  chartH += '<div class="im-chart-c"><canvas id="imChart"></canvas></div>';
+  chartH += '<div class="im-chart-leg">';
+  chartH += '<span class="im-cl"><span class="im-cl-dot" style="background:var(--c-av)"></span>À vista</span>';
+  chartH += '<span class="im-cl"><span class="im-cl-dot" style="background:var(--c-fin)"></span>Financiamento</span>';
+  chartH += '<span class="im-cl"><span class="im-cl-dot" style="background:var(--c-con)"></span>Consórcio</span>';
+  chartH += '</div></div>';
+
+  /* ── Detail cards ── */
+  let detH = '<div class="im-res-sec">Detalhamento por cenário</div>';
+
+  /* À Vista detail */
+  detH += '<div class="im-mini-grid">';
+  detH += miniCard('À vista','Desembolso D+0', fmt(valor,0), 'v-av', 'h-av');
+  detH += miniCard('À vista','Imóvel valorizado', fmt(av.imovelFinal,0), 'v-av', '');
+  detH += miniCard('À vista','Custo de morar', fmt(0,0), '', '');
+  detH += '</div>';
+
+  /* Financiamento detail */
+  detH += '<div class="im-mini-grid" style="margin-top:10px">';
+  detH += miniCard('Financiamento','Entrada', fmt(fin.entrada,0), 'v-fin', 'h-fin');
+  detH += miniCard('Financiamento','Total parcelas', fmt(fin.totalParcelas,0), 'v-fin', '');
+  detH += miniCard('Financiamento','Saldo investido', fmt(fin.saldoInv,0), fin.saldoInv>=0?'v-fin':'', fin.saldoInv<0?'h-fin':'');
+  detH += '</div>';
+
+  /* Consórcio detail */
+  detH += '<div class="im-mini-grid" style="margin-top:10px">';
+  detH += miniCard('Consórcio','Parcela mensal', fmt(con.parcelaCon,0), 'v-con', 'h-con');
+  detH += miniCard('Consórcio','Lance livre', fmt(con.lanceLivreR,0), 'v-con', '');
+  detH += miniCard('Consórcio','Custo de morar', fmt(con.totalCustoMorar,0), '', con.totalCustoMorar>0?'h-con':'');
+  detH += '</div>';
+
+  /* ── Footnote ── */
+  let fnH = '<p class="im-fn">Simulação meramente ilustrativa. Não constitui recomendação de investimento. Valores futuros são estimativas e não representam garantia de retorno. Consulte seu assessor.</p>';
+
+  out.innerHTML = `
+    <div class="im-verdict ${vClass}">
+      <span class="im-v-ic">${vIcon}</span>
+      <div class="im-v-tx"><strong>${vTxt}</strong><span>${vSub}</span></div>
+      <div class="im-v-eco"><span class="eco-val" style="color:${winner.color}">${fmt(winner.val,0)}</span><span class="eco-lbl">patrimônio final</span></div>
+    </div>
+    ${miniH}
+    ${tblH}
+    ${chartH}
+    ${detH}
+    ${fnH}
+  `;
+
+  mkChart(av.serie, fin.serie, con.serie);
+}
+
+function miniCard(cat, label, val, valClass, cardClass){
+  return `<div class="im-mini ${cardClass}">
+    <div class="im-mini-lbl">${label}</div>
+    <div class="im-mini-val ${valClass}">${val}</div>
+    <div class="im-mini-sub">${cat}</div>
+  </div>`;
+}
+
+function cmpSec(title){
+  return '<div class="im-cmp-shdr">'+title+'</div>';
+}
+
+function cmpRow(label, vAv, vFin, vCon, mode){
+  const vals = [vAv, vFin, vCon];
+  const best = mode==='max' ? Math.max(...vals) : Math.min(...vals.filter(v=>v>=0));
+  const cls = (v,tag) => Math.abs(v-best)<0.01 ? 'im-cmp-cell best-'+tag : 'im-cmp-cell';
+  return `<div class="im-cmp-row">
+    <div class="im-cmp-cell">${label}</div>
+    <div class="${cls(vAv,'av')}">${fmt(vAv,0)}</div>
+    <div class="${cls(vFin,'fin')}">${fmt(vFin,0)}</div>
+    <div class="${cls(vCon,'con')}">${fmt(vCon,0)}</div>
+  </div>`;
+}
+
+/* ──────────────────────── GRÁFICO ──────────────────────── */
+function mkChart(serieAv, serieFin, serieCon){
+  if(typeof Chart==='undefined') return;
+  if(imChartInst){ imChartInst.destroy(); imChartInst=null; }
+
+  const canvas = g('imChart');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  /* labels anuais */
+  const totalM = serieAv.length-1;
+  const labels = [];
+  const dAv=[], dFin=[], dCon=[];
+  for(let m=0; m<=totalM; m+=12){
+    labels.push('Ano '+(m/12));
+    dAv.push(serieAv[m]);
+    dFin.push(serieFin[m]);
+    dCon.push(serieCon[m]);
+  }
+  /* último ponto se não cai no ano exato */
+  if(totalM%12!==0){
+    labels.push('Ano '+(totalM/12).toFixed(1));
+    dAv.push(serieAv[totalM]);
+    dFin.push(serieFin[totalM]);
+    dCon.push(serieCon[totalM]);
+  }
+
+  const cs = getComputedStyle(document.getElementById('module-imovel'));
+  const cAv  = cs.getPropertyValue('--c-av').trim()  || '#2C6B66';
+  const cFin = cs.getPropertyValue('--c-fin').trim() || '#B25A41';
+  const cCon = cs.getPropertyValue('--c-con').trim() || '#B5893F';
+
+  imChartInst = new Chart(ctx, {
+    type:'line',
+    data:{
+      labels,
+      datasets:[
+        {label:'À vista',      data:dAv,  borderColor:cAv,  backgroundColor:cAv+'22',  fill:false, tension:.3, pointRadius:2, borderWidth:2.5},
+        {label:'Financiamento', data:dFin, borderColor:cFin, backgroundColor:cFin+'22', fill:false, tension:.3, pointRadius:2, borderWidth:2.5},
+        {label:'Consórcio',     data:dCon, borderColor:cCon, backgroundColor:cCon+'22', fill:false, tension:.3, pointRadius:2, borderWidth:2.5}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          callbacks:{
+            label:function(ctx2){return ctx2.dataset.label+': R$ '+Number(ctx2.raw).toLocaleString('pt-BR',{maximumFractionDigits:0});}
+          }
+        }
+      },
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:11}}},
+        y:{ticks:{callback:v=>'R$ '+(v>=1e6?(v/1e6).toFixed(1)+'M':(v/1e3).toFixed(0)+'k'),font:{size:11}},grid:{color:'rgba(0,0,0,.06)'}}
+      }
+    }
+  });
+}
+
+/* ── expose ── */
+window.imCalcular = calcular;
+window.imLimpar   = limpar;
+
+/* auto-calc ao abrir */
+document.addEventListener('DOMContentLoaded', ()=>{
+  const obs = new MutationObserver(()=>{
+    if(!g('module-imovel').hidden && !g('imChart')) calcular();
+  });
+  obs.observe(g('module-imovel'),{attributes:true,attributeFilter:['hidden']});
+});
+})();
+/* ===== MODULE:IMOVEL:JS:END ===== */
 
 /* ===== MODULE:OPERACIONAL:JS:START ===== */
 const OP_SCRIPTS = [];
