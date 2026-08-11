@@ -9862,14 +9862,13 @@ function calcFinanciamento(valor, valMM, yieldMM, rentMM, prazoM){
 /* ── Consórcio ──
  * Investe 100% D+0. Paga parcelas do consórcio. SEM imóvel até contemplação.
  *
- * Carta = valor / (1 − lanceFixo%)  →  após lance embutido, sobra = valor
+ * Carta = valor do imóvel (sem lance embutido)
  * Total obrigação = carta × (1 + adm + fundo)
  *
  * Antes da contemplação: parcela = totalObrig / prazoGrupo
  * Na contemplação:
- *   - lance fixo (embutido, da carta) reduz saldo devedor
- *   - lance livre sai do saldo investido
- *   - parcela recalculada = restante / meses restantes
+ *   - lance fixo + lance livre saem do saldo investido
+ *   - ambos reduzem saldo devedor → parcela recalculada
  *   - recebe imóvel → começa aluguel
  */
 function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
@@ -9881,10 +9880,11 @@ function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
   const lanceLivre = n('im-con-lance-livre')/100;
   const mesContemp = ni('im-con-contemp');
 
-  /* Carta dimensionada: (carta − lanceFixo) = valor do imóvel */
-  const carta = lanceFixo < 1 ? valor / (1 - lanceFixo) : valor;
-  const lanceFixoR  = carta * lanceFixo;   /* embutido, não sai do bolso */
-  const lanceLivreR = carta * lanceLivre;   /* pago do saldo investido   */
+  /* Carta = valor do imóvel (sem inflação por lance embutido) */
+  const carta = valor;
+  const lanceFixoR  = carta * lanceFixo;   /* pago do saldo investido */
+  const lanceLivreR = carta * lanceLivre;   /* pago do saldo investido */
+  const lanceTotal  = lanceFixoR + lanceLivreR;
 
   const totalObrig    = carta * (1 + admTotal + fundoRes);
   const parcelaInic   = totalObrig / prazoConM;
@@ -9901,16 +9901,16 @@ function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
   for(let m=1; m<=prazoM; m++){
     /* ── contemplação no início do mês ── */
     if(m === mesContemp && !temImovel){
-      /* lance livre sai do saldo */
-      if(saldo >= lanceLivreR){
-        saldo -= lanceLivreR;
+      /* lance fixo + livre saem do saldo investido */
+      if(saldo >= lanceTotal){
+        saldo -= lanceTotal;
       } else {
-        custoExtra += lanceLivreR - Math.max(saldo,0);
+        custoExtra += lanceTotal - Math.max(saldo,0);
         saldo = 0;
       }
       /* recalcular parcela: restante após parcelas já pagas + lances */
       const jaPago    = (mesContemp - 1) * parcelaInic;
-      const restante  = Math.max(totalObrig - jaPago - lanceFixoR - lanceLivreR, 0);
+      const restante  = Math.max(totalObrig - jaPago - lanceTotal, 0);
       const mRestante = prazoConM - mesContemp + 1;
       parcelaAtual = mRestante > 0 ? restante / mRestante : 0;
       temImovel = true;
@@ -9989,7 +9989,8 @@ function renderResults(av, fin, con, prazoM, valor){
   tblH += cmpSec('Desembolso');
   tblH += cmpRow('Gasto na compra (D+0)', av.desembolsoInicial, fin.desembolsoInicial, con.desembolsoInicial, 'min');
   tblH += cmpRow('Total parcelas pagas', av.totalParcelas, fin.totalParcelas, con.totalParcelas, 'min');
-  if(con.lanceLivreR > 0) tblH += cmpRow('Lance livre pago', 0, 0, con.lanceLivreR, 'min');
+  const lancesPagos = (con.lanceFixoR||0) + (con.lanceLivreR||0);
+  if(lancesPagos > 0) tblH += cmpRow('Lances pagos (fixo+livre)', 0, 0, lancesPagos, 'min');
   const temExtra = (fin.custoExtra||0) > 0.01 || (con.custoExtra||0) > 0.01;
   if(temExtra) tblH += cmpRow('Pago do bolso (invest. acabou)', av.custoExtra||0, fin.custoExtra||0, con.custoExtra||0, 'min');
 
@@ -10032,8 +10033,8 @@ function renderResults(av, fin, con, prazoM, valor){
     ? fmt(con.parcelaInic,0)+' → '+fmt(con.parcelaReduz,0)
     : fmt(con.parcelaInic,0);
   detH += '<div class="im-mini-grid" style="margin-top:10px">';
-  detH += miniCard('Consórcio','Carta de crédito', fmt(con.carta,0), 'v-con', 'h-con');
-  detH += miniCard('Consórcio','Parcela (ini→red)', conParc, 'v-con', '');
+  detH += miniCard('Consórcio','Parcela (ini→red)', conParc, 'v-con', 'h-con');
+  detH += miniCard('Consórcio','Lance fixo', fmt(con.lanceFixoR,0), 'v-con', '');
   detH += miniCard('Consórcio','Lance livre', fmt(con.lanceLivreR,0), 'v-con', '');
   detH += '</div>';
 
