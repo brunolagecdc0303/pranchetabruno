@@ -1533,6 +1533,15 @@
     #module-imovel .im-cmp-hcell,#module-imovel .im-cmp-cell{padding:8px 8px;font-size:11px}
     #module-imovel .im-toolbar{padding:12px 16px}
   }
+  /* toggle switch */
+  #module-imovel .im-toggle-row{display:flex;align-items:center;gap:10px;margin-top:8px}
+  #module-imovel .im-toggle-lbl{font-size:12px;color:var(--txt2);cursor:pointer;user-select:none}
+  #module-imovel .im-switch{position:relative;width:36px;height:20px;flex-shrink:0}
+  #module-imovel .im-switch input{opacity:0;width:0;height:0}
+  #module-imovel .im-switch .im-slider{position:absolute;inset:0;background:var(--border);border-radius:10px;cursor:pointer;transition:background .2s}
+  #module-imovel .im-switch .im-slider::before{content:'';position:absolute;left:2px;top:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s}
+  #module-imovel .im-switch input:checked+.im-slider{background:var(--c-con)}
+  #module-imovel .im-switch input:checked+.im-slider::before{transform:translateX(16px)}
   /* ===== MODULE:IMOVEL:CSS:END ===== */
 
   /* ===== MODULE:OPERACIONAL:CSS:START ===== */
@@ -3078,6 +3087,10 @@
                   <span class="im-suf">m</span>
                 </div>
               </div>
+            </div>
+            <div class="im-toggle-row">
+              <label class="im-switch"><input type="checkbox" id="im-con-reajuste" checked onchange="imCalcular()"><span class="im-slider"></span></label>
+              <label class="im-toggle-lbl" for="im-con-reajuste">Reajustar parcela pela valorização</label>
             </div>
           </div>
 
@@ -9879,12 +9892,16 @@ function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
   const lanceFixo  = n('im-con-lance-fixo')/100;
   const lanceLivre = n('im-con-lance-livre')/100;
   const mesContemp = ni('im-con-contemp');
+  const reajuste   = g('im-con-reajuste').checked;
 
   /* Carta = valor do imóvel (sem inflação por lance embutido) */
   const carta = valor;
-  const lanceFixoR  = carta * lanceFixo;   /* pago do saldo investido */
-  const lanceLivreR = carta * lanceLivre;   /* pago do saldo investido */
+  const lanceFixoR  = carta * lanceFixo;
+  const lanceLivreR = carta * lanceLivre;
   const lanceTotal  = lanceFixoR + lanceLivreR;
+
+  /* Valorização anual usada como índice de reajuste das parcelas */
+  const valAA = Math.pow(1+valMM,12)-1;
 
   const totalObrig    = carta * (1 + admTotal + fundoRes);
   const parcelaInic   = totalObrig / prazoConM;
@@ -9899,6 +9916,11 @@ function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
   const serie = [saldo];
 
   for(let m=1; m<=prazoM; m++){
+    /* reajuste anual da parcela (a cada 12 meses, antes da contemplação) */
+    if(reajuste && !temImovel && m > 1 && (m-1) % 12 === 0 && m <= prazoConM){
+      parcelaAtual *= (1 + valAA);
+    }
+
     /* ── contemplação no início do mês ── */
     if(m === mesContemp && !temImovel){
       /* lance fixo + livre saem do saldo investido */
@@ -9909,8 +9931,7 @@ function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
         saldo = 0;
       }
       /* recalcular parcela: restante após parcelas já pagas + lances */
-      const jaPago    = (mesContemp - 1) * parcelaInic;
-      const restante  = Math.max(totalObrig - jaPago - lanceTotal, 0);
+      const restante  = Math.max(totalObrig * (reajuste ? Math.pow(1+valAA, Math.floor(mesContemp/12)) : 1) - totalParcelas - lanceTotal, 0);
       const mRestante = prazoConM - mesContemp + 1;
       parcelaAtual = mRestante > 0 ? restante / mRestante : 0;
       temImovel = true;
@@ -9930,6 +9951,11 @@ function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
 
     /* parcela do consórcio */
     if(m <= prazoConM){
+      /* reajuste anual pós-contemplação */
+      if(reajuste && temImovel && m > mesContemp && (m - mesContemp) % 12 === 0){
+        parcelaAtual *= (1 + valAA);
+      }
+
       if(saldo >= parcelaAtual){
         saldo -= parcelaAtual;
       } else {
