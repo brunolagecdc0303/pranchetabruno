@@ -3071,7 +3071,7 @@
               <div>
                 <label class="im-lbl">Lance fixo (%)</label>
                 <div class="im-inp-wrap">
-                  <input type="number" class="pr" id="im-con-lance-fixo" value="40" min="0" max="100" step="5" oninput="imCalcular()">
+                  <input type="number" class="pr" id="im-con-lance-fixo" value="0" min="0" max="100" step="5" oninput="imCalcular()">
                   <span class="im-suf">%</span>
                 </div>
               </div>
@@ -9729,7 +9729,7 @@ const DEFAULTS = {
   'im-valor':500000,'im-valorizacao':3,'im-yield':6,'im-prazo':14,'im-rent':10,
   'im-fin-entrada':20,'im-fin-prazo':14,'im-fin-juros':10.5,
   'im-con-adm':18,'im-con-fundo':1,'im-con-prazo':14,
-  'im-con-lance-fixo':40,'im-con-lance-livre':60,'im-con-contemp':36
+  'im-con-lance-fixo':0,'im-con-lance-livre':60,'im-con-contemp':36
 };
 
 function limpar(){
