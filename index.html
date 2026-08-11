@@ -2978,10 +2978,10 @@
                 </div>
               </div>
               <div>
-                <label class="im-lbl">Prazo (anos)</label>
+                <label class="im-lbl">Prazo (meses)</label>
                 <div class="im-inp-wrap">
-                  <input type="number" class="pr" id="im-prazo" value="14" min="1" max="35" step="1" oninput="imCalcular()">
-                  <span class="im-suf">a</span>
+                  <input type="number" class="pr" id="im-prazo" value="168" min="1" max="420" step="1" oninput="imCalcular()">
+                  <span class="im-suf">m</span>
                 </div>
               </div>
             </div>
@@ -3011,10 +3011,10 @@
                 </div>
               </div>
               <div>
-                <label class="im-lbl">Prazo financ. (anos)</label>
+                <label class="im-lbl">Prazo financ. (meses)</label>
                 <div class="im-inp-wrap">
-                  <input type="number" class="pr" id="im-fin-prazo" value="14" min="1" max="35" step="1" oninput="imCalcular()">
-                  <span class="im-suf">a</span>
+                  <input type="number" class="pr" id="im-fin-prazo" value="168" min="1" max="420" step="1" oninput="imCalcular()">
+                  <span class="im-suf">m</span>
                 </div>
               </div>
             </div>
@@ -3060,10 +3060,10 @@
                 </div>
               </div>
               <div>
-                <label class="im-lbl">Prazo grupo (a)</label>
+                <label class="im-lbl">Prazo grupo (m)</label>
                 <div class="im-inp-wrap">
-                  <input type="number" class="pr" id="im-con-prazo" value="14" min="1" max="25" step="1" oninput="imCalcular()">
-                  <span class="im-suf">a</span>
+                  <input type="number" class="pr" id="im-con-prazo" value="168" min="1" max="300" step="1" oninput="imCalcular()">
+                  <span class="im-suf">m</span>
                 </div>
               </div>
             </div>
@@ -9726,9 +9726,9 @@ let imChartInst = null;
 
 /* ── defaults ── */
 const DEFAULTS = {
-  'im-valor':500000,'im-valorizacao':3,'im-yield':6,'im-prazo':14,'im-rent':14,
-  'im-fin-entrada':20,'im-fin-prazo':14,'im-fin-juros':10.5,
-  'im-con-adm':18,'im-con-fundo':1,'im-con-prazo':14,
+  'im-valor':500000,'im-valorizacao':3,'im-yield':6,'im-prazo':168,'im-rent':14,
+  'im-fin-entrada':20,'im-fin-prazo':168,'im-fin-juros':10.5,
+  'im-con-adm':18,'im-con-fundo':1,'im-con-prazo':168,
   'im-con-lance-fixo':0,'im-con-lance-livre':60,'im-con-contemp':36
 };
 
@@ -9759,8 +9759,7 @@ function calcular(){
   const valAA   = n('im-valorizacao')/100;
   const yieldAA = n('im-yield')/100;
   const rentAA  = n('im-rent')/100;
-  const prazoA  = ni('im-prazo');
-  const prazoM  = prazoA * 12;
+  const prazoM  = ni('im-prazo');
 
   if(valor<=0 || prazoM<=0) return;
 
@@ -9808,7 +9807,7 @@ function calcAVista(valor, valMM, yieldMM, rentMM, prazoM){
  */
 function calcFinanciamento(valor, valMM, yieldMM, rentMM, prazoM){
   const entradaPct = n('im-fin-entrada')/100;
-  const prazoFinM  = ni('im-fin-prazo') * 12;
+  const prazoFinM  = ni('im-fin-prazo');
   const jurosAA    = n('im-fin-juros')/100;
   const sistema    = g('im-fin-sistema').value;
 
@@ -9889,8 +9888,7 @@ function calcFinanciamento(valor, valMM, yieldMM, rentMM, prazoM){
 function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
   const admTotal   = n('im-con-adm')/100;
   const fundoRes   = n('im-con-fundo')/100;
-  const prazoConA  = ni('im-con-prazo');
-  const prazoConM  = prazoConA * 12;
+  const prazoConM  = ni('im-con-prazo');
   const lanceFixo  = n('im-con-lance-fixo')/100;
   const lanceLivre = n('im-con-lance-livre')/100;
   const mesContemp = ni('im-con-contemp');
@@ -10034,7 +10032,7 @@ function renderResults(av, fin, con, prazoM, valor){
 
   /* ── Chart ── */
   let chartH = '<div class="im-chart-box">';
-  chartH += '<div class="im-chart-ttl">Evolução patrimonial ('+Math.round(prazoM/12)+' anos)</div>';
+  chartH += '<div class="im-chart-ttl">Evolução patrimonial ('+prazoM+' meses)</div>';
   chartH += '<div class="im-chart-c"><canvas id="imChart"></canvas></div>';
   chartH += '<div class="im-chart-leg">';
   chartH += '<span class="im-cl"><span class="im-cl-dot" style="background:var(--c-av)"></span>À vista</span>';
