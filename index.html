@@ -530,6 +530,41 @@
   .carta-ver-field .lbl-sub{display:block;font-size:11px;color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;margin-top:2px}
   .carta-edit-banner{background:rgba(181,137,63,.1);border:1px solid rgba(181,137,63,.3);border-radius:8px;padding:9px 13px;font-size:12.5px;color:var(--brass-deep);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
   .carta-edit-banner button{appearance:none;border:none;background:none;color:var(--brass-deep);font-weight:700;cursor:pointer;text-decoration:underline;font-size:12.5px;padding:0}
+  /* abas topo: Cartas | Treinamentos */
+  .cartas-tabs{display:flex;gap:0;border-bottom:2px solid var(--line);margin-bottom:0}
+  .cartas-tabs button{appearance:none;border:none;background:none;font-family:var(--f-body);font-size:13.5px;font-weight:600;color:var(--muted);padding:10px 20px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s}
+  .cartas-tabs button:hover{color:var(--ink)}
+  .cartas-tabs button.active{color:var(--brass-deep);border-bottom-color:var(--brass)}
+  .cartas-tab-panel{display:none}
+  .cartas-tab-panel.active{display:block}
+
+  /* treinamentos */
+  .trein-list{display:grid;gap:14px;margin-top:16px}
+  .trein-card{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:16px 18px;display:flex;align-items:flex-start;gap:14px;transition:border-color .12s}
+  .trein-card:hover{border-color:var(--brass)}
+  .trein-card-icon{font-size:28px;flex-shrink:0;line-height:1}
+  .trein-card-body{flex:1;min-width:0}
+  .trein-card-title{font-weight:700;font-size:14px;color:var(--ink);margin-bottom:3px}
+  .trein-card-date{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-bottom:6px}
+  .trein-card-note{font-size:13px;color:var(--ink);line-height:1.5;margin-bottom:8px;white-space:pre-wrap}
+  .trein-card-file{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--paper);border:1px solid var(--line);border-radius:7px;font-size:12px;font-weight:600;color:var(--brass-deep);cursor:pointer;transition:background .12s}
+  .trein-card-file:hover{background:var(--line)}
+  .trein-card-actions{display:flex;gap:6px;flex-shrink:0}
+  .trein-card-actions button{appearance:none;border:none;background:none;cursor:pointer;font-size:15px;padding:3px;color:var(--muted);border-radius:5px}
+  .trein-card-actions button:hover{color:var(--ink);background:var(--paper)}
+  .trein-empty{color:var(--muted);font-style:italic;text-align:center;padding:40px 0;font-size:13.5px}
+
+  .trein-form{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:18px;margin-top:16px}
+  .trein-form h3{margin:0 0 14px;font-size:14px;font-weight:700;color:var(--ink)}
+  .trein-form .field{margin-bottom:12px}
+  .trein-form .field label .lbl{font-size:11px}
+  .trein-form .trein-upload-area{border:2px dashed var(--line);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s;position:relative}
+  .trein-form .trein-upload-area:hover{border-color:var(--brass);background:rgba(181,137,63,.04)}
+  .trein-form .trein-upload-area.has-file{border-color:var(--brass);border-style:solid;background:rgba(181,137,63,.06)}
+  .trein-form .trein-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .trein-upload-label{font-size:13px;color:var(--muted)}
+  .trein-upload-label b{color:var(--brass-deep)}
+  .trein-upload-name{font-size:13px;font-weight:600;color:var(--brass-deep)}
   /* ===== MODULE:CARTAS:CSS:END ===== */
 
   /* ===== MODULE:RECADOS:CSS:START ===== */
@@ -585,6 +620,14 @@
   .rec-orient{margin-top:8px;border:1px dashed var(--line-strong);border-radius:10px;padding:10px 12px;background:var(--paper)}
   .rec-orient-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--brass-deep);font-weight:700;margin-bottom:5px}
   .rec-orient-text{font-size:13px;line-height:1.55;color:var(--ink);white-space:pre-wrap;margin-bottom:8px}
+  /* Collapsible mensagem pronta in recado cards */
+  details.rec-orient{cursor:default}
+  details.rec-orient>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--brass-deep);font-weight:700;margin-bottom:0;user-select:none}
+  details.rec-orient>summary::-webkit-details-marker{display:none}
+  details.rec-orient>summary::before{content:'▸';font-size:12px;transition:transform .15s}
+  details.rec-orient[open]>summary::before{transform:rotate(90deg)}
+  details.rec-orient[open]>summary{margin-bottom:5px}
+  details.rec-orient .rec-orient-text{margin-top:0}
   .orient-block{margin-bottom:22px}
   .prod-mes-block{border-left:4px solid var(--brass);background:linear-gradient(90deg,rgba(181,137,63,.06),transparent 40%)}
   .prod-mes-block h3{display:flex;align-items:center;gap:6px}
@@ -1533,16 +1576,84 @@
     #module-imovel .im-cmp-hcell,#module-imovel .im-cmp-cell{padding:8px 8px;font-size:11px}
     #module-imovel .im-toolbar{padding:12px 16px}
   }
-  /* toggle switch */
-  #module-imovel .im-toggle-row{display:flex;align-items:center;gap:10px;margin-top:8px}
-  #module-imovel .im-toggle-lbl{font-size:12px;color:var(--txt2);cursor:pointer;user-select:none}
-  #module-imovel .im-switch{position:relative;width:36px;height:20px;flex-shrink:0}
+  /* toggle switch — footer discreto */
+  #module-imovel .im-toggle-footer{display:flex;align-items:center;gap:10px;padding:10px 16px;margin-top:4px;justify-content:flex-end;opacity:.55;transition:opacity .2s}
+  #module-imovel .im-toggle-footer:hover{opacity:.85}
+  #module-imovel .im-toggle-lbl{font-size:11px;color:var(--txt3);cursor:pointer;user-select:none}
+  #module-imovel .im-switch{position:relative;width:32px;height:18px;flex-shrink:0}
   #module-imovel .im-switch input{opacity:0;width:0;height:0}
-  #module-imovel .im-switch .im-slider{position:absolute;inset:0;background:var(--border);border-radius:10px;cursor:pointer;transition:background .2s}
-  #module-imovel .im-switch .im-slider::before{content:'';position:absolute;left:2px;top:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s}
-  #module-imovel .im-switch input:checked+.im-slider{background:var(--c-con)}
-  #module-imovel .im-switch input:checked+.im-slider::before{transform:translateX(16px)}
+  #module-imovel .im-switch .im-slider{position:absolute;inset:0;background:var(--border);border-radius:9px;cursor:pointer;transition:background .2s}
+  #module-imovel .im-switch .im-slider::before{content:'';position:absolute;left:2px;top:2px;width:14px;height:14px;background:#fff;border-radius:50%;transition:transform .2s}
+  #module-imovel .im-switch input:checked+.im-slider{background:var(--txt3)}
+  #module-imovel .im-switch input:checked+.im-slider::before{transform:translateX(14px)}
   /* ===== MODULE:IMOVEL:CSS:END ===== */
+
+  /* ===== MODULE:PIPE:CSS:START ===== */
+  #module-pipe{padding:0;display:flex;flex-direction:column;height:100%}
+  #module-pipe .pipe-toolbar{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+  #module-pipe .pipe-toolbar h2{margin:0;font-size:15px;font-weight:700;color:var(--txt1);flex:1;min-width:140px}
+  #module-pipe .pipe-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s}
+  #module-pipe .pipe-btn:active{transform:translateY(1px)}
+  #module-pipe .pipe-btn-add{background:var(--accent);color:#fff}
+  #module-pipe .pipe-btn-add:hover{opacity:.9}
+  #module-pipe .pipe-btn-sec{background:var(--bg2);color:var(--txt2);border:1px solid var(--border)}
+  #module-pipe .pipe-btn-sec:hover{background:var(--bg3,var(--border))}
+  #module-pipe .pipe-filters{display:flex;gap:8px;align-items:center}
+  #module-pipe .pipe-filter-sel{padding:5px 10px;border:1px solid var(--border);border-radius:6px;font-size:11px;background:var(--bg1);color:var(--txt1);font-family:inherit}
+
+  /* kanban board */
+  #module-pipe .pipe-board{display:flex;gap:14px;padding:16px 20px;overflow-x:auto;flex:1;align-items:flex-start}
+  #module-pipe .pipe-col{min-width:240px;max-width:280px;flex:0 0 240px;background:var(--bg2);border-radius:10px;display:flex;flex-direction:column;max-height:calc(100vh - 160px)}
+  #module-pipe .pipe-col-head{padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+  #module-pipe .pipe-col-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  #module-pipe .pipe-col-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--txt2);flex:1}
+  #module-pipe .pipe-col-count{font-size:10px;font-weight:700;color:var(--txt3);background:var(--bg1);border-radius:10px;padding:2px 7px;min-width:18px;text-align:center}
+  #module-pipe .pipe-col-body{padding:8px;overflow-y:auto;flex:1;min-height:60px}
+  #module-pipe .pipe-col-body.drag-over{background:rgba(44,107,102,.08);border-radius:0 0 10px 10px}
+
+  /* card */
+  #module-pipe .pipe-card{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px;cursor:grab;transition:box-shadow .15s,transform .1s;position:relative}
+  #module-pipe .pipe-card:active{cursor:grabbing}
+  #module-pipe .pipe-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  #module-pipe .pipe-card.dragging{opacity:.4;transform:scale(.96)}
+  #module-pipe .pipe-card-nome{font-size:13px;font-weight:600;color:var(--txt1);margin-bottom:4px}
+  #module-pipe .pipe-card-valor{font-size:12px;font-weight:700;color:var(--accent)}
+  #module-pipe .pipe-card-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  #module-pipe .pipe-card-tag{font-size:10px;padding:2px 7px;border-radius:4px;font-weight:600}
+  #module-pipe .pipe-card-tag.tag-imovel{background:#e8f4f3;color:#2C6B66}
+  #module-pipe .pipe-card-tag.tag-auto{background:#fef3e2;color:#B5893F}
+  #module-pipe .pipe-card-tag.tag-assessor{background:var(--bg2);color:var(--txt2)}
+  #module-pipe .pipe-card-nota{font-size:11px;color:var(--txt3);margin-top:5px;line-height:1.4}
+  #module-pipe .pipe-card-data{font-size:10px;color:var(--txt3);margin-top:4px}
+  #module-pipe .pipe-card-actions{position:absolute;top:6px;right:6px;display:none;gap:4px}
+  #module-pipe .pipe-card:hover .pipe-card-actions{display:flex}
+  #module-pipe .pipe-card-btn{background:none;border:none;cursor:pointer;padding:2px;color:var(--txt3);font-size:14px;line-height:1}
+  #module-pipe .pipe-card-btn:hover{color:var(--txt1)}
+
+  /* modal */
+  #module-pipe .pipe-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center}
+  #module-pipe .pipe-overlay.open{display:flex}
+  #module-pipe .pipe-modal{background:var(--bg1);border-radius:14px;padding:24px;width:420px;max-width:92vw;max-height:90vh;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.2)}
+  #module-pipe .pipe-modal h3{margin:0 0 18px;font-size:16px;font-weight:700;color:var(--txt1)}
+  #module-pipe .pipe-modal-field{margin-bottom:14px}
+  #module-pipe .pipe-modal-field label{display:block;font-size:11px;font-weight:600;color:var(--txt2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em}
+  #module-pipe .pipe-modal-field input,#module-pipe .pipe-modal-field select,#module-pipe .pipe-modal-field textarea{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;background:var(--bg1);color:var(--txt1);box-sizing:border-box}
+  #module-pipe .pipe-modal-field textarea{resize:vertical;min-height:50px}
+  #module-pipe .pipe-modal-field input:focus,#module-pipe .pipe-modal-field select:focus,#module-pipe .pipe-modal-field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(44,107,102,.15)}
+  #module-pipe .pipe-modal-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  #module-pipe .pipe-modal-foot{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+  #module-pipe .pipe-modal-foot .pipe-btn-del{margin-right:auto;background:none;color:#c0392b;border:1px solid #e6b0aa}
+  #module-pipe .pipe-modal-foot .pipe-btn-del:hover{background:#fdf2f2}
+
+  /* totals */
+  #module-pipe .pipe-totals{padding:10px 20px;border-top:1px solid var(--border);display:flex;gap:20px;font-size:12px;color:var(--txt2);flex-wrap:wrap}
+  #module-pipe .pipe-totals b{color:var(--txt1)}
+
+  @media(max-width:768px){
+    #module-pipe .pipe-col{min-width:200px;flex:0 0 200px}
+    #module-pipe .pipe-modal-row{grid-template-columns:1fr}
+  }
+  /* ===== MODULE:PIPE:CSS:END ===== */
 
   /* ===== MODULE:OPERACIONAL:CSS:START ===== */
   .op-lede{font-size:15px;color:var(--muted);margin-bottom:18px}
@@ -1771,11 +1882,11 @@
       </button>
       <button class="side-item" data-module="module-cartas" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Cartas mensais
+        Cartas / Treinamentos
       </button>
       <button class="side-item" data-module="module-recados" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M8 12h8"/><path d="M8 16h6"/></svg>
-        Recados importantes
+        Recados / Produtos do mês
       </button>
       <button class="side-item" data-module="module-links" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L11 4.93"/><path d="M14 11a5 5 0 0 0-7.07 0L4.81 13.12a5 5 0 0 0 7.07 7.07L13 19.07"/></svg>
@@ -1811,6 +1922,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         Compra de imóvel
       </button>
+      <button class="side-item" data-module="module-pipe" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Pipe consórcio
+      </button>
       <!-- MODULE:REGISTRY:SIDEBAR:END -->
       <span class="side-sec">Em breve</span>
       <span class="side-item soon">Mais módulos a caminho</span>
@@ -1825,8 +1940,8 @@
       <button class="mt-item active mt-hl" data-module="module-guia" type="button">Guia</button>
       <button class="mt-item mt-hl-amber" data-module="module-operacional" type="button">Operacional</button>
       <button class="mt-item" data-module="module-prev" type="button">Previdência</button>
-      <button class="mt-item" data-module="module-cartas" type="button">Cartas mensais</button>
-      <button class="mt-item" data-module="module-recados" type="button">Recados</button>
+      <button class="mt-item" data-module="module-cartas" type="button">Cartas / Treinamentos</button>
+      <button class="mt-item" data-module="module-recados" type="button">Recados / Produtos</button>
       <button class="mt-item" data-module="module-links" type="button">Links</button>
       <button class="mt-item" data-module="module-comparador" type="button">Isento vs. trib.</button>
       <button class="mt-item" data-module="module-dolar" type="button">Dolarizar</button>
@@ -1835,6 +1950,7 @@
       <button class="mt-item" data-module="module-sucessao" type="button">Sucessão BR</button>
       <!-- <button class="mt-item" data-module="module-consorcio" type="button">Consórcio</button> -->
       <button class="mt-item" data-module="module-imovel" type="button">Compra imóvel</button>
+      <button class="mt-item" data-module="module-pipe" type="button">Pipe consórcio</button>
       <!-- MODULE:REGISTRY:TOPBAR:END -->
       <span class="mt-item soon">Em breve</span>
     </div>
@@ -2477,13 +2593,21 @@
     <section class="module" id="module-cartas" hidden>
       <header class="masthead">
         <div class="wrap">
-          <p class="eyebrow">Comunicação com clientes · Carta mensal</p>
-          <h1>As cartas de mercado, <b>mês a mês</b> — para toda a equipe</h1>
-          <p class="lede">O gestor publica a carta pronta; a equipe inteira consulta o arquivo de qualquer dispositivo e copia o texto para enviar aos próprios clientes. Cada mês fica salvo para consulta posterior.</p>
+          <p class="eyebrow">Comunicação com clientes · Carta mensal & Treinamentos</p>
+          <h1>Cartas de mercado e <b>treinamentos da quinta</b></h1>
+          <p class="lede">Cartas mensais para os clientes e materiais de treinamento da equipe, tudo num lugar só.</p>
         </div>
       </header>
 
-      <main class="wrap" style="padding-top:26px;padding-bottom:60px">
+      <div class="wrap" style="padding-top:0">
+        <nav class="cartas-tabs">
+          <button class="active" onclick="cartasTab('cartas')" type="button" id="ct-tab-cartas">📨 Cartas mensais</button>
+          <button onclick="cartasTab('trein')" type="button" id="ct-tab-trein">🎓 Treinamentos quinta</button>
+        </nav>
+      </div>
+
+      <!-- PAINEL: CARTAS -->
+      <main class="wrap cartas-tab-panel active" id="ct-panel-cartas" style="padding-top:26px;padding-bottom:60px">
         <div class="cartas-layout">
           <div class="cartas-compose">
             <div class="block">
@@ -2546,6 +2670,40 @@
           </div>
         </div>
       </main>
+
+      <!-- PAINEL: TREINAMENTOS -->
+      <div class="wrap cartas-tab-panel" id="ct-panel-trein" style="padding-top:26px;padding-bottom:60px">
+        <div class="trein-form" id="treinForm">
+          <h3>Adicionar treinamento</h3>
+          <div class="field">
+            <label><span class="lbl">Título / Tema</span></label>
+            <input class="ipt" type="text" id="treinTitulo" placeholder="Ex.: Alocação de renda fixa" autocomplete="off">
+          </div>
+          <div class="field">
+            <label><span class="lbl">Data do treinamento</span></label>
+            <input class="ipt" type="date" id="treinData" style="max-width:200px">
+          </div>
+          <div class="field">
+            <label><span class="lbl">Anotações (opcional)</span></label>
+            <textarea class="ipt" id="treinNota" rows="3" placeholder="Pontos principais, resumo..." style="resize:vertical"></textarea>
+          </div>
+          <div class="field">
+            <label><span class="lbl">Apresentação (PowerPoint / PDF)</span></label>
+            <div class="trein-upload-area" id="treinUploadArea">
+              <input type="file" id="treinFile" accept=".ppt,.pptx,.pdf,.key" onchange="treinFileChanged()">
+              <div class="trein-upload-label" id="treinUploadLabel">Clique ou arraste o arquivo aqui<br><b>.pptx, .pdf, .key</b></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;margin-top:6px">
+            <input type="hidden" id="treinEditId">
+            <button class="btn btn-primary" onclick="treinSave()" type="button">Salvar treinamento</button>
+            <button class="btn btn-ghost" onclick="treinCancelEdit()" type="button" id="treinCancelBtn" style="display:none">Cancelar edição</button>
+          </div>
+        </div>
+
+        <div id="treinList" class="trein-list"></div>
+      </div>
+
     </section>
     <!-- MODULE:CARTAS:HTML:END -->
 
@@ -2554,8 +2712,8 @@
       <header class="masthead">
         <div class="wrap">
           <p class="eyebrow">Equipe &middot; Prioridades</p>
-          <h1>Recados <b>importantes</b></h1>
-          <p class="lede">Painel rapido para avisos, prazos e combinados que precisam ficar visiveis.</p>
+          <h1>Recados e <b>Produtos do mês</b></h1>
+          <p class="lede">Painel rápido para avisos, prazos, combinados e os produtos em destaque do mês.</p>
         </div>
       </header>
       <main class="wrap ops-main">
@@ -3090,10 +3248,6 @@
                 </div>
               </div>
             </div>
-            <div class="im-toggle-row">
-              <label class="im-switch"><input type="checkbox" id="im-con-reajuste" checked onchange="imCalcular()"><span class="im-slider"></span></label>
-              <label class="im-toggle-lbl" for="im-con-reajuste">Reajustar parcela pela valorização</label>
-            </div>
           </div>
 
         </div>
@@ -3105,8 +3259,93 @@
 
       </main>
       <div class="im-toast" id="imToast"></div>
+      <div class="im-toggle-footer">
+        <label class="im-switch"><input type="checkbox" id="im-con-reajuste" checked onchange="imCalcular()"><span class="im-slider"></span></label>
+        <label class="im-toggle-lbl" for="im-con-reajuste">Reajustar parcela do consórcio pela valorização</label>
+      </div>
     </section>
     <!-- MODULE:IMOVEL:HTML:END -->
+
+    <!-- MODULE:PIPE:HTML:START -->
+    <section id="module-pipe" class="module" hidden>
+      <div class="pipe-toolbar">
+        <h2>🔲 Pipe Consórcio</h2>
+        <div class="pipe-filters">
+          <select class="pipe-filter-sel" id="pipe-f-tipo" onchange="pipeRender()">
+            <option value="">Todos os tipos</option>
+            <option value="imovel">Imóvel</option>
+            <option value="auto">Automóvel</option>
+          </select>
+          <select class="pipe-filter-sel" id="pipe-f-assessor" onchange="pipeRender()">
+            <option value="">Todos assessores</option>
+          </select>
+        </div>
+        <button class="pipe-btn pipe-btn-sec" onclick="pipeExport()" type="button">📋 Copiar resumo</button>
+        <button class="pipe-btn pipe-btn-add" onclick="pipeOpenModal()" type="button">＋ Novo deal</button>
+      </div>
+
+      <div class="pipe-board" id="pipeBoard"></div>
+
+      <div class="pipe-totals" id="pipeTotals"></div>
+
+      <!-- Modal -->
+      <div class="pipe-overlay" id="pipeOverlay" onclick="if(event.target===this)pipeCloseModal()">
+        <div class="pipe-modal">
+          <h3 id="pipeModalTitle">Novo deal</h3>
+          <input type="hidden" id="pipe-edit-id">
+          <div class="pipe-modal-row">
+            <div class="pipe-modal-field">
+              <label>Cliente</label>
+              <input type="text" id="pipe-m-nome" placeholder="Nome do cliente">
+            </div>
+            <div class="pipe-modal-field">
+              <label>Valor da carta</label>
+              <input type="number" id="pipe-m-valor" placeholder="500000" min="0" step="1000">
+            </div>
+          </div>
+          <div class="pipe-modal-row">
+            <div class="pipe-modal-field">
+              <label>Tipo</label>
+              <select id="pipe-m-tipo">
+                <option value="imovel">Imóvel</option>
+                <option value="auto">Automóvel</option>
+              </select>
+            </div>
+            <div class="pipe-modal-field">
+              <label>Assessor</label>
+              <input type="text" id="pipe-m-assessor" placeholder="Nome do assessor">
+            </div>
+          </div>
+          <div class="pipe-modal-row">
+            <div class="pipe-modal-field">
+              <label>Etapa</label>
+              <select id="pipe-m-etapa">
+                <option value="prospeccao">Prospecção</option>
+                <option value="cotacao">Cotação enviada</option>
+                <option value="reuniao">Reunião</option>
+                <option value="negociacao">Negociação</option>
+                <option value="fechado">Fechado ✓</option>
+                <option value="perdido">Perdido</option>
+              </select>
+            </div>
+            <div class="pipe-modal-field">
+              <label>Data</label>
+              <input type="date" id="pipe-m-data">
+            </div>
+          </div>
+          <div class="pipe-modal-field">
+            <label>Nota</label>
+            <textarea id="pipe-m-nota" placeholder="Observações sobre o deal..."></textarea>
+          </div>
+          <div class="pipe-modal-foot">
+            <button class="pipe-btn pipe-btn-sec pipe-btn-del" id="pipeDelBtn" onclick="pipeDel()" type="button" style="display:none">Excluir</button>
+            <button class="pipe-btn pipe-btn-sec" onclick="pipeCloseModal()" type="button">Cancelar</button>
+            <button class="pipe-btn pipe-btn-add" onclick="pipeSave()" type="button">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- MODULE:PIPE:HTML:END -->
 
     <!-- MODULE:NOVO:INSIRA_AQUI_UMA_NOVA_SECTION_ANTES_DO_FECHAMENTO_DO_APP-MAIN -->
 
@@ -4695,6 +4934,16 @@ Abraço,
     <button class="wn-panel-close" id="wnClose" type="button" aria-label="Fechar">&times;</button>
   </div>
   <div class="wn-panel-body" id="wnBody">
+    <div class="wn-date">13 de agosto de 2026</div>
+    <ul class="wn-list">
+      <li>Novo módulo <b>Pipe Consórcio</b> &mdash; Kanban completo com arraste de cards entre etapas (prospecção → fechado/perdido), filtros por tipo e assessor, e exportação de resumo.</li>
+      <li>Nova aba <b>Treinamentos quinta</b> dentro de <b>Cartas / Treinamentos</b> &mdash; cadastro com título, data, anotações e anexo de PowerPoint (até 15 MB, salvo local).</li>
+      <li>Módulo <b>Cartas mensais</b> renomeado para <b>Cartas / Treinamentos</b>.</li>
+      <li>Módulo <b>Recados importantes</b> renomeado para <b>Recados / Produtos do mês</b>.</li>
+      <li>Em Recados, a <b>mensagem pronta</b> agora fica colapsada por padrão &mdash; clique para expandir, mantendo o visual dos cards limpo.</li>
+      <li>Correção em <b>Produtos do mês</b>: adicionar um novo produto não remove mais os já existentes.</li>
+      <li>Toggle de reajuste no <b>Compra de imóvel</b> movido para o rodapé, mais discreto.</li>
+    </ul>
     <div class="wn-date">07 de agosto de 2026</div>
     <ul class="wn-list">
       <li>Agora é preciso digitar o nome antes de entrar na Prancheta — sem senha, sem cadastro, só pra gente saber quem está usando (fica salvo no navegador, não pede de novo).</li>
@@ -6346,6 +6595,162 @@ $('cartasAdmin').addEventListener('toggle',()=>{ if($('cartasAdmin').open){ ADMI
 cartaLeitorVazio();
 renderCartasList();
 cartasFetchList();
+/* ── Abas Cartas / Treinamentos ── */
+function cartasTab(tab){
+  document.querySelectorAll('.cartas-tabs button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ct-tab-'+tab).classList.add('active');
+  document.querySelectorAll('.cartas-tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('ct-panel-'+tab).classList.add('active');
+  if(tab==='trein') treinRender();
+}
+window.cartasTab = cartasTab;
+
+/* ── Treinamentos: CRUD com localStorage ── */
+(function(){
+const TREIN_KEY = 'prancheta_treinamentos';
+const $ = id => document.getElementById(id);
+
+function load(){ try{return JSON.parse(localStorage.getItem(TREIN_KEY))||[];}catch(e){return [];} }
+function save(list){ localStorage.setItem(TREIN_KEY, JSON.stringify(list)); }
+
+let pendingFile = null; /* {name, type, data (base64)} */
+
+function fileChanged(){
+  const input = $('treinFile');
+  const area = $('treinUploadArea');
+  const label = $('treinUploadLabel');
+  if(input.files && input.files[0]){
+    const f = input.files[0];
+    if(f.size > 15*1024*1024){ alert('Arquivo muito grande (máx 15 MB)'); input.value=''; return; }
+    const reader = new FileReader();
+    reader.onload = function(e){
+      pendingFile = {name:f.name, type:f.type, data:e.target.result};
+      label.innerHTML = '<span class="trein-upload-name">📎 '+f.name+'</span>';
+      area.classList.add('has-file');
+    };
+    reader.readAsDataURL(f);
+  }
+}
+
+function render(){
+  const list = load().sort((a,b)=>(b.data||'').localeCompare(a.data||''));
+  const container = $('treinList');
+  if(list.length===0){
+    container.innerHTML = '<div class="trein-empty">Nenhum treinamento registrado ainda.</div>';
+    return;
+  }
+  container.innerHTML = list.map(t=>{
+    const fileBtn = t.file
+      ? '<a class="trein-card-file" href="'+t.file.data+'" download="'+t.file.name+'" title="Baixar apresentação">📎 '+t.file.name+'</a>'
+      : '';
+    const dataFmt = t.data ? new Date(t.data+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}) : '';
+    return '<div class="trein-card">'
+      +'<div class="trein-card-icon">🎓</div>'
+      +'<div class="trein-card-body">'
+      +'<div class="trein-card-title">'+esc(t.titulo)+'</div>'
+      +(dataFmt ? '<div class="trein-card-date">'+dataFmt+'</div>' : '')
+      +(t.nota ? '<div class="trein-card-note">'+esc(t.nota)+'</div>' : '')
+      +fileBtn
+      +'</div>'
+      +'<div class="trein-card-actions">'
+      +'<button onclick="treinEdit(\''+t.id+'\')" title="Editar">✏️</button>'
+      +'<button onclick="treinDel(\''+t.id+'\')" title="Excluir">🗑️</button>'
+      +'</div>'
+      +'</div>';
+  }).join('');
+}
+
+function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+function saveTrein(){
+  const titulo = $('treinTitulo').value.trim();
+  if(!titulo){ $('treinTitulo').focus(); return; }
+
+  const list = load();
+  const editId = $('treinEditId').value;
+  const entry = {
+    titulo,
+    data: $('treinData').value,
+    nota: $('treinNota').value.trim(),
+    file: pendingFile || null
+  };
+
+  if(editId){
+    const idx = list.findIndex(t=>t.id===editId);
+    if(idx>=0){
+      if(!pendingFile && list[idx].file) entry.file = list[idx].file; /* keep existing file if not replaced */
+      Object.assign(list[idx], entry);
+    }
+  } else {
+    entry.id = 'trein_'+Date.now()+'_'+Math.random().toString(36).slice(2,5);
+    list.push(entry);
+  }
+
+  try{
+    save(list);
+  } catch(e){
+    if(e.name==='QuotaExceededError'){
+      alert('Arquivo muito grande para o armazenamento do navegador. Tente um arquivo menor ou remova treinamentos antigos.');
+      return;
+    }
+    throw e;
+  }
+
+  clearForm();
+  render();
+}
+
+function clearForm(){
+  $('treinTitulo').value = '';
+  $('treinData').value = '';
+  $('treinNota').value = '';
+  $('treinFile').value = '';
+  $('treinEditId').value = '';
+  $('treinUploadLabel').innerHTML = 'Clique ou arraste o arquivo aqui<br><b>.pptx, .pdf, .key</b>';
+  $('treinUploadArea').classList.remove('has-file');
+  $('treinCancelBtn').style.display = 'none';
+  $('treinForm').querySelector('h3').textContent = 'Adicionar treinamento';
+  pendingFile = null;
+}
+
+function editTrein(id){
+  const list = load();
+  const t = list.find(x=>x.id===id);
+  if(!t) return;
+  $('treinTitulo').value = t.titulo||'';
+  $('treinData').value = t.data||'';
+  $('treinNota').value = t.nota||'';
+  $('treinEditId').value = t.id;
+  $('treinCancelBtn').style.display = '';
+  $('treinForm').querySelector('h3').textContent = 'Editar treinamento';
+  if(t.file){
+    pendingFile = null; /* will keep existing unless new file picked */
+    $('treinUploadLabel').innerHTML = '<span class="trein-upload-name">📎 '+t.file.name+' (atual)</span>';
+    $('treinUploadArea').classList.add('has-file');
+  } else {
+    pendingFile = null;
+    $('treinUploadLabel').innerHTML = 'Clique ou arraste o arquivo aqui<br><b>.pptx, .pdf, .key</b>';
+    $('treinUploadArea').classList.remove('has-file');
+  }
+  $('treinForm').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function delTrein(id){
+  if(!confirm('Excluir este treinamento?')) return;
+  const list = load().filter(t=>t.id!==id);
+  save(list);
+  render();
+}
+
+/* expose */
+window.treinFileChanged = fileChanged;
+window.treinSave = saveTrein;
+window.treinEdit = editTrein;
+window.treinDel = delTrein;
+window.treinCancelEdit = clearForm;
+window.treinRender = render;
+})();
+
 /* ===== MODULE:CARTAS:JS:END ===== */
 
 /* ===== MODULE:RECADOS:JS:START ===== */
@@ -6498,11 +6903,11 @@ function recCard(r){
   const state=r.done?'Arquivado':(r.category||'Geral');
   const toggle=r.done?'Reabrir':'Arquivar';
   const anexo=r.fileUrl?`<p class="rec-file"><a href="${esc(r.fileUrl)}" target="_blank" rel="noopener noreferrer">📎 ${esc(r.fileName||'Anexo')}</a></p>`:'';
-  const orient=r.orientacao?`<div class="rec-orient">
-      <div class="rec-orient-label">Mensagem pronta</div>
+  const orient=r.orientacao?`<details class="rec-orient">
+      <summary>Mensagem pronta</summary>
       <div class="rec-orient-text">${esc(r.orientacao)}</div>
       <button class="ops-action" data-rec-action="copyorient" type="button">Copiar mensagem</button>
-    </div>`:'';
+    </details>`:'';
   return `<article class="ops-card rec-card${r.done?' is-done':''}" data-rec-id="${esc(r.id)}">
     <div class="ops-card-top">
       <span class="ops-pill pri-${esc(r.priority)}">${esc(pri)}</span>
@@ -6858,15 +7263,20 @@ function pmHandleFile(idx,input){
 async function prodMesFetch(){
   if(!$('prodMesBlock')) return;
   if(!APS_WEBHOOK){ PRODMES_LOADED=true; prodMesRenderView(); return; }
+  const editBtn=$('prodMesEditToggle');
+  if(editBtn) editBtn.disabled=true;
   try{
     const items = await apsFetchList('produtos_mes');
-    const raw = (items && items[0] && items[0].text) || '';
+    const last = items && items.length ? items[items.length-1] : null;
+    const raw = (last && last.text) || '';
     PRODMES_ITEMS = pmParse(raw);
     PRODMES_LOADED = true;
     prodMesRenderView();
   }catch(e){
     PRODMES_LOADED = true;
     prodMesRenderView();
+  }finally{
+    if(editBtn) editBtn.disabled=false;
   }
 }
 
@@ -6877,6 +7287,10 @@ function prodMesStatus(msg,isErr){
 }
 
 function prodMesOpenEdit(){
+  if(!PRODMES_LOADED){
+    prodMesStatus('Aguarde o carregamento dos produtos…', true);
+    return;
+  }
   PRODMES_EDIT=PRODMES_ITEMS.map(x=>({...x, open:true}));
   if(!PRODMES_EDIT.length) PRODMES_EDIT.push({text:'',fileUrl:'',fileName:'',msg:'',open:true});
   pmRenderEditRows();
@@ -10173,6 +10587,245 @@ document.addEventListener('DOMContentLoaded', ()=>{
 });
 })();
 /* ===== MODULE:IMOVEL:JS:END ===== */
+
+// ===== MODULE:PIPE:JS:START =====
+(function(){
+const PIPE_KEY = 'prancheta_pipe_consorcio';
+const STAGES = [
+  {id:'prospeccao', label:'Prospecção',      color:'#7f8c8d'},
+  {id:'cotacao',    label:'Cotação enviada', color:'#2980b9'},
+  {id:'reuniao',    label:'Reunião',         color:'#B5893F'},
+  {id:'negociacao', label:'Negociação',      color:'#8e44ad'},
+  {id:'fechado',    label:'Fechado ✓',       color:'#2C6B66'},
+  {id:'perdido',    label:'Perdido',         color:'#c0392b'}
+];
+
+const g = id => document.getElementById(id);
+const fmtV = v => 'R$ '+Number(v||0).toLocaleString('pt-BR',{maximumFractionDigits:0});
+
+/* ── Storage ── */
+function load(){ try{return JSON.parse(localStorage.getItem(PIPE_KEY))||[];}catch(e){return [];} }
+function save(deals){ localStorage.setItem(PIPE_KEY, JSON.stringify(deals)); }
+
+/* ── Render ── */
+function render(){
+  const deals = load();
+  const fTipo = g('pipe-f-tipo').value;
+  const fAssessor = g('pipe-f-assessor').value;
+
+  const filtered = deals.filter(d=>{
+    if(fTipo && d.tipo !== fTipo) return false;
+    if(fAssessor && d.assessor !== fAssessor) return false;
+    return true;
+  });
+
+  /* update assessor filter options */
+  const assessores = [...new Set(deals.map(d=>d.assessor).filter(Boolean))].sort();
+  const selA = g('pipe-f-assessor');
+  const curA = selA.value;
+  selA.innerHTML = '<option value="">Todos assessores</option>';
+  assessores.forEach(a=>{
+    const o = document.createElement('option');
+    o.value = a; o.textContent = a;
+    selA.appendChild(o);
+  });
+  selA.value = curA;
+
+  /* board */
+  const board = g('pipeBoard');
+  board.innerHTML = '';
+
+  let totalGeral = 0, totalFechado = 0, countTotal = 0, countFechado = 0;
+
+  STAGES.forEach(st=>{
+    const col = document.createElement('div');
+    col.className = 'pipe-col';
+    col.dataset.stage = st.id;
+
+    const cards = filtered.filter(d=>d.etapa===st.id);
+    const soma = cards.reduce((s,d)=>s+(parseFloat(d.valor)||0),0);
+
+    col.innerHTML = '<div class="pipe-col-head">'
+      +'<span class="pipe-col-dot" style="background:'+st.color+'"></span>'
+      +'<span class="pipe-col-title">'+st.label+'</span>'
+      +'<span class="pipe-col-count">'+cards.length+'</span>'
+      +'</div>';
+
+    const body = document.createElement('div');
+    body.className = 'pipe-col-body';
+
+    /* drag & drop on column */
+    body.addEventListener('dragover', e=>{e.preventDefault();body.classList.add('drag-over');});
+    body.addEventListener('dragleave', ()=>body.classList.remove('drag-over'));
+    body.addEventListener('drop', e=>{
+      e.preventDefault();
+      body.classList.remove('drag-over');
+      const dealId = e.dataTransfer.getData('text/plain');
+      if(dealId) moveDeal(dealId, st.id);
+    });
+
+    cards.forEach(d=>{
+      const card = document.createElement('div');
+      card.className = 'pipe-card';
+      card.draggable = true;
+      card.dataset.id = d.id;
+
+      card.addEventListener('dragstart', e=>{
+        e.dataTransfer.setData('text/plain', d.id);
+        card.classList.add('dragging');
+      });
+      card.addEventListener('dragend', ()=>card.classList.remove('dragging'));
+      card.addEventListener('dblclick', ()=>openEdit(d.id));
+
+      const tagTipo = d.tipo==='auto'
+        ? '<span class="pipe-card-tag tag-auto">Auto</span>'
+        : '<span class="pipe-card-tag tag-imovel">Imóvel</span>';
+      const tagAssessor = d.assessor
+        ? '<span class="pipe-card-tag tag-assessor">'+d.assessor+'</span>'
+        : '';
+      const nota = d.nota ? '<div class="pipe-card-nota">'+d.nota+'</div>' : '';
+      const data = d.data ? '<div class="pipe-card-data">'+new Date(d.data+'T12:00:00').toLocaleDateString('pt-BR')+'</div>' : '';
+
+      card.innerHTML = '<div class="pipe-card-actions">'
+        +'<button class="pipe-card-btn" onclick="pipeEdit(\''+d.id+'\')" title="Editar">✏️</button>'
+        +'</div>'
+        +'<div class="pipe-card-nome">'+d.nome+'</div>'
+        +'<div class="pipe-card-valor">'+fmtV(d.valor)+'</div>'
+        +'<div class="pipe-card-meta">'+tagTipo+tagAssessor+'</div>'
+        +nota+data;
+
+      body.appendChild(card);
+    });
+
+    col.appendChild(body);
+    board.appendChild(col);
+
+    if(st.id !== 'perdido'){ totalGeral += soma; countTotal += cards.length; }
+    if(st.id === 'fechado'){ totalFechado += soma; countFechado += cards.length; }
+  });
+
+  /* totals bar */
+  g('pipeTotals').innerHTML =
+    '<span>Pipeline: <b>'+countTotal+' deals</b> · <b>'+fmtV(totalGeral)+'</b></span>'
+    +'<span>Fechados: <b>'+countFechado+' deals</b> · <b>'+fmtV(totalFechado)+'</b></span>';
+}
+
+function moveDeal(dealId, newStage){
+  const deals = load();
+  const d = deals.find(x=>x.id===dealId);
+  if(d){ d.etapa = newStage; save(deals); render(); }
+}
+
+/* ── Modal ── */
+function openModal(deal){
+  g('pipeModalTitle').textContent = deal ? 'Editar deal' : 'Novo deal';
+  g('pipe-edit-id').value = deal ? deal.id : '';
+  g('pipe-m-nome').value = deal ? deal.nome : '';
+  g('pipe-m-valor').value = deal ? deal.valor : '';
+  g('pipe-m-tipo').value = deal ? deal.tipo : 'imovel';
+  g('pipe-m-assessor').value = deal ? deal.assessor : '';
+  g('pipe-m-etapa').value = deal ? deal.etapa : 'prospeccao';
+  g('pipe-m-nota').value = deal ? deal.nota : '';
+  g('pipe-m-data').value = deal ? deal.data : new Date().toISOString().slice(0,10);
+  g('pipeDelBtn').style.display = deal ? '' : 'none';
+  g('pipeOverlay').classList.add('open');
+  setTimeout(()=>g('pipe-m-nome').focus(),100);
+}
+
+function closeModal(){
+  g('pipeOverlay').classList.remove('open');
+}
+
+function saveDeal(){
+  const nome = g('pipe-m-nome').value.trim();
+  if(!nome){ g('pipe-m-nome').focus(); return; }
+
+  const deals = load();
+  const editId = g('pipe-edit-id').value;
+  const data = {
+    nome,
+    valor: parseFloat(g('pipe-m-valor').value)||0,
+    tipo: g('pipe-m-tipo').value,
+    assessor: g('pipe-m-assessor').value.trim(),
+    etapa: g('pipe-m-etapa').value,
+    nota: g('pipe-m-nota').value.trim(),
+    data: g('pipe-m-data').value
+  };
+
+  if(editId){
+    const idx = deals.findIndex(d=>d.id===editId);
+    if(idx>=0) Object.assign(deals[idx], data);
+  } else {
+    data.id = 'deal_'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
+    deals.push(data);
+  }
+
+  save(deals);
+  closeModal();
+  render();
+}
+
+function delDeal(){
+  const editId = g('pipe-edit-id').value;
+  if(!editId) return;
+  if(!confirm('Excluir este deal?')) return;
+  const deals = load().filter(d=>d.id!==editId);
+  save(deals);
+  closeModal();
+  render();
+}
+
+function openEdit(dealId){
+  const deals = load();
+  const d = deals.find(x=>x.id===dealId);
+  if(d) openModal(d);
+}
+
+/* ── Export ── */
+function exportPipe(){
+  const deals = load();
+  let txt = 'PIPE CONSÓRCIO — '+new Date().toLocaleDateString('pt-BR')+'\n\n';
+  STAGES.forEach(st=>{
+    const cards = deals.filter(d=>d.etapa===st.id);
+    if(cards.length===0) return;
+    txt += st.label.toUpperCase()+' ('+cards.length+')\n';
+    cards.forEach(d=>{
+      txt += '  • '+d.nome+' — '+fmtV(d.valor)+' '+d.tipo;
+      if(d.assessor) txt += ' ['+d.assessor+']';
+      if(d.nota) txt += ' — '+d.nota;
+      txt += '\n';
+    });
+    txt += '\n';
+  });
+  navigator.clipboard.writeText(txt).then(()=>alert('Resumo copiado!')).catch(()=>{
+    prompt('Copie o resumo:', txt);
+  });
+}
+
+/* ── Expose ── */
+window.pipeRender    = render;
+window.pipeOpenModal = ()=>openModal(null);
+window.pipeCloseModal= closeModal;
+window.pipeSave      = saveDeal;
+window.pipeDel       = delDeal;
+window.pipeEdit      = openEdit;
+window.pipeExport    = exportPipe;
+
+/* auto-render ao abrir */
+document.addEventListener('DOMContentLoaded', ()=>{
+  /* MutationObserver como fallback */
+  const obs = new MutationObserver(()=>{
+    if(!g('module-pipe').hidden) render();
+  });
+  obs.observe(g('module-pipe'),{attributes:true,attributeFilter:['hidden']});
+
+  /* Hook nos botões de navegação para render imediato */
+  document.querySelectorAll('[data-module="module-pipe"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>setTimeout(render, 50));
+  });
+});
+})();
+// ===== MODULE:PIPE:JS:END =====
 
 /* ===== MODULE:OPERACIONAL:JS:START ===== */
 const OP_SCRIPTS = [];
