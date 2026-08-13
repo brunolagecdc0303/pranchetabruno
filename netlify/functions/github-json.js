@@ -6,7 +6,8 @@ const FILES = {
   dolar_ativos: 'dolar_ativos.json',
   produtos_mes: 'produtos_mes.json',
   sugestoes: 'sugestoes.json',
-  acessos: 'acessos.json'
+  acessos: 'acessos.json',
+  pipe: 'pipe.json'
 };
 
 const PREFIX = {
@@ -17,7 +18,8 @@ const PREFIX = {
   dolar_ativos: 'dlrat',
   produtos_mes: 'pm',
   sugestoes: 'sug',
-  acessos: 'acs'
+  acessos: 'acs',
+  pipe: 'pipe'
 };
 
 // Módulos que qualquer assessor pode escravar sem o PIN do gestor —
@@ -186,7 +188,7 @@ function mutateItems(items, body) {
     throw new Error('Acao invalida.');
   }
 
-  if (modulo === 'orientacao' || modulo === 'produtos_mes') {
+  if (modulo === 'orientacao' || modulo === 'produtos_mes' || modulo === 'pipe') {
     const item = buildItem(body, modulo, items[0]);
     return { items: [item], item, changedId: item.id };
   }

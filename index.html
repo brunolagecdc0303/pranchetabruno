@@ -1649,9 +1649,15 @@
   #module-pipe .pipe-totals{padding:10px 20px;border-top:1px solid var(--border);display:flex;gap:20px;font-size:12px;color:var(--txt2);flex-wrap:wrap}
   #module-pipe .pipe-totals b{color:var(--txt1)}
 
+  /* save bar (backend) */
+  .pipe-save-bar{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--paper);border:2px solid var(--brass);border-radius:10px;margin-top:10px;flex-wrap:wrap}
+  .pipe-save-label{font-size:13px;font-weight:600;color:var(--brass-deep)}
+  .pipe-pin-input{width:100px;padding:6px 10px;border:1px solid var(--line-strong);border-radius:6px;font-size:13px;background:var(--bg);color:var(--ink)}
+  .pipe-loading{text-align:center;padding:40px 20px;color:var(--txt3);font-size:14px}
   @media(max-width:768px){
     #module-pipe .pipe-col{min-width:200px;flex:0 0 200px}
     #module-pipe .pipe-modal-row{grid-template-columns:1fr}
+    .pipe-save-bar{flex-direction:column;align-items:stretch;gap:8px}
   }
   /* ===== MODULE:PIPE:CSS:END ===== */
 
@@ -3287,6 +3293,15 @@
       <div class="pipe-board" id="pipeBoard"></div>
 
       <div class="pipe-totals" id="pipeTotals"></div>
+
+      <!-- Save bar (backend) -->
+      <div class="pipe-save-bar" id="pipeSaveBar" hidden>
+        <span class="pipe-save-label">⚠ Alterações não salvas</span>
+        <input type="password" id="pipePin" placeholder="PIN gestor" maxlength="10" class="pipe-pin-input">
+        <button class="pipe-btn pipe-btn-add" id="pipeSaveBtn" onclick="pipeSaveServer()" type="button">Salvar</button>
+        <button class="pipe-btn pipe-btn-sec" onclick="pipeDiscard()" type="button">Descartar</button>
+        <span class="ops-status" id="pipeStatus" aria-live="polite"></span>
+      </div>
 
       <!-- Modal -->
       <div class="pipe-overlay" id="pipeOverlay" onclick="if(event.target===this)pipeCloseModal()">
@@ -5242,10 +5257,10 @@ const APS_UPLOAD = 'https://script.google.com/macros/s/AKfycbyi2FwFoOiZeyt8VOgfp
 const APS_FILES = {
   cartas:'cartas.json', recados:'recados.json', orientacao:'orientacao.json',
   links:'links.json', dolar_ativos:'dolar_ativos.json', produtos_mes:'produtos_mes.json',
-  sugestoes:'sugestoes.json', acessos:'acessos.json'
+  sugestoes:'sugestoes.json', acessos:'acessos.json', pipe:'pipe.json'
 };
 // Prefixo de id por módulo (mantém o padrão dos ids já existentes).
-const APS_PREFIX = { cartas:'carta', recados:'rec', orientacao:'orient', links:'link', dolar_ativos:'dlrat', produtos_mes:'pm', sugestoes:'sug', acessos:'acs' };
+const APS_PREFIX = { cartas:'carta', recados:'rec', orientacao:'orient', links:'link', dolar_ativos:'dlrat', produtos_mes:'pm', sugestoes:'sug', acessos:'acs', pipe:'pipe' };
 
 // ---- LEITURA: puxa o array do arquivo JSON versionado ----
 async function apsFetchList(modulo){
@@ -10590,7 +10605,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 // ===== MODULE:PIPE:JS:START =====
 (function(){
-const PIPE_KEY = 'prancheta_pipe_consorcio';
 const STAGES = [
   {id:'prospeccao', label:'Prospecção',      color:'#7f8c8d'},
   {id:'cotacao',    label:'Cotação enviada', color:'#2980b9'},
@@ -10603,24 +10617,94 @@ const STAGES = [
 const g = id => document.getElementById(id);
 const fmtV = v => 'R$ '+Number(v||0).toLocaleString('pt-BR',{maximumFractionDigits:0});
 
-/* ── Storage ── */
-function load(){ try{return JSON.parse(localStorage.getItem(PIPE_KEY))||[];}catch(e){return [];} }
-function save(deals){ localStorage.setItem(PIPE_KEY, JSON.stringify(deals)); }
+/* ── State (backend-backed) ── */
+let PIPE_DEALS = [];
+let PIPE_LOADED = false;
+let PIPE_DIRTY  = false;
+
+function markDirty(){
+  PIPE_DIRTY = true;
+  const bar = g('pipeSaveBar'); if(bar) bar.hidden = false;
+}
+function clearDirty(){
+  PIPE_DIRTY = false;
+  const bar = g('pipeSaveBar'); if(bar) bar.hidden = true;
+  pipeStatus('', false);
+}
+function pipeStatus(msg, isErr){
+  const el = g('pipeStatus'); if(!el) return;
+  el.textContent = msg || '';
+  el.style.color = isErr ? 'var(--clay)' : 'var(--good)';
+}
+
+/* ── Backend fetch / save ── */
+async function pipeFetch(){
+  if(!APS_WEBHOOK){ PIPE_LOADED = true; render(); return; }
+  try{
+    const items = await apsFetchList('pipe');
+    const last  = items && items.length ? items[items.length-1] : null;
+    const raw   = (last && last.text) || '';
+    try{ PIPE_DEALS = JSON.parse(raw) || []; }catch(e){ PIPE_DEALS = []; }
+  }catch(e){
+    /* pipe.json pode não existir ainda — começa vazio */
+    PIPE_DEALS = [];
+  }
+  PIPE_LOADED = true;
+  clearDirty();
+  render();
+}
+
+async function pipeSaveServerFn(){
+  if(!APS_WEBHOOK){ pipeStatus('Backend não configurado.', true); return; }
+  const pin = (g('pipePin').value || '').trim();
+  if(!pin){ pipeStatus('Informe o PIN do gestor.', true); g('pipePin').focus(); return; }
+  const btn = g('pipeSaveBtn');
+  if(btn) btn.disabled = true;
+  pipeStatus('Salvando…', false);
+  try{
+    const text = JSON.stringify(PIPE_DEALS);
+    const res  = await apsPost({modulo:'pipe', action:'save', pin, text});
+    if(res && res.ok){
+      clearDirty();
+      pipeStatus('Salvo ✓', false);
+      g('pipePin').value = '';
+      setTimeout(()=>pipeStatus('', false), 2000);
+    } else {
+      pipeStatus((res && res.error) ? res.error : 'PIN incorreto ou erro ao salvar.', true);
+    }
+  }catch(e){
+    pipeStatus('Erro de conexão ao salvar.', true);
+  }finally{
+    if(btn) btn.disabled = false;
+  }
+}
+
+function pipeDiscardFn(){
+  if(!confirm('Descartar todas as alterações não salvas?')) return;
+  pipeFetch();
+}
 
 /* ── Render ── */
 function render(){
-  const deals = load();
-  const fTipo = g('pipe-f-tipo').value;
+  const board = g('pipeBoard');
+  if(!board) return;
+
+  if(!PIPE_LOADED){
+    board.innerHTML = '<div class="pipe-loading">Carregando pipe…</div>';
+    return;
+  }
+
+  const fTipo     = g('pipe-f-tipo').value;
   const fAssessor = g('pipe-f-assessor').value;
 
-  const filtered = deals.filter(d=>{
+  const filtered = PIPE_DEALS.filter(d=>{
     if(fTipo && d.tipo !== fTipo) return false;
     if(fAssessor && d.assessor !== fAssessor) return false;
     return true;
   });
 
   /* update assessor filter options */
-  const assessores = [...new Set(deals.map(d=>d.assessor).filter(Boolean))].sort();
+  const assessores = [...new Set(PIPE_DEALS.map(d=>d.assessor).filter(Boolean))].sort();
   const selA = g('pipe-f-assessor');
   const curA = selA.value;
   selA.innerHTML = '<option value="">Todos assessores</option>';
@@ -10632,7 +10716,6 @@ function render(){
   selA.value = curA;
 
   /* board */
-  const board = g('pipeBoard');
   board.innerHTML = '';
 
   let totalGeral = 0, totalFechado = 0, countTotal = 0, countFechado = 0;
@@ -10643,7 +10726,7 @@ function render(){
     col.dataset.stage = st.id;
 
     const cards = filtered.filter(d=>d.etapa===st.id);
-    const soma = cards.reduce((s,d)=>s+(parseFloat(d.valor)||0),0);
+    const soma  = cards.reduce((s,d)=>s+(parseFloat(d.valor)||0),0);
 
     col.innerHTML = '<div class="pipe-col-head">'
       +'<span class="pipe-col-dot" style="background:'+st.color+'"></span>'
@@ -10711,22 +10794,21 @@ function render(){
 }
 
 function moveDeal(dealId, newStage){
-  const deals = load();
-  const d = deals.find(x=>x.id===dealId);
-  if(d){ d.etapa = newStage; save(deals); render(); }
+  const d = PIPE_DEALS.find(x=>x.id===dealId);
+  if(d){ d.etapa = newStage; markDirty(); render(); }
 }
 
 /* ── Modal ── */
 function openModal(deal){
   g('pipeModalTitle').textContent = deal ? 'Editar deal' : 'Novo deal';
   g('pipe-edit-id').value = deal ? deal.id : '';
-  g('pipe-m-nome').value = deal ? deal.nome : '';
+  g('pipe-m-nome').value  = deal ? deal.nome : '';
   g('pipe-m-valor').value = deal ? deal.valor : '';
-  g('pipe-m-tipo').value = deal ? deal.tipo : 'imovel';
+  g('pipe-m-tipo').value  = deal ? deal.tipo : 'imovel';
   g('pipe-m-assessor').value = deal ? deal.assessor : '';
   g('pipe-m-etapa').value = deal ? deal.etapa : 'prospeccao';
-  g('pipe-m-nota').value = deal ? deal.nota : '';
-  g('pipe-m-data').value = deal ? deal.data : new Date().toISOString().slice(0,10);
+  g('pipe-m-nota').value  = deal ? deal.nota : '';
+  g('pipe-m-data').value  = deal ? deal.data : new Date().toISOString().slice(0,10);
   g('pipeDelBtn').style.display = deal ? '' : 'none';
   g('pipeOverlay').classList.add('open');
   setTimeout(()=>g('pipe-m-nome').focus(),100);
@@ -10740,7 +10822,6 @@ function saveDeal(){
   const nome = g('pipe-m-nome').value.trim();
   if(!nome){ g('pipe-m-nome').focus(); return; }
 
-  const deals = load();
   const editId = g('pipe-edit-id').value;
   const data = {
     nome,
@@ -10753,14 +10834,14 @@ function saveDeal(){
   };
 
   if(editId){
-    const idx = deals.findIndex(d=>d.id===editId);
-    if(idx>=0) Object.assign(deals[idx], data);
+    const idx = PIPE_DEALS.findIndex(d=>d.id===editId);
+    if(idx>=0) Object.assign(PIPE_DEALS[idx], data);
   } else {
     data.id = 'deal_'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
-    deals.push(data);
+    PIPE_DEALS.push(data);
   }
 
-  save(deals);
+  markDirty();
   closeModal();
   render();
 }
@@ -10769,24 +10850,22 @@ function delDeal(){
   const editId = g('pipe-edit-id').value;
   if(!editId) return;
   if(!confirm('Excluir este deal?')) return;
-  const deals = load().filter(d=>d.id!==editId);
-  save(deals);
+  PIPE_DEALS = PIPE_DEALS.filter(d=>d.id!==editId);
+  markDirty();
   closeModal();
   render();
 }
 
 function openEdit(dealId){
-  const deals = load();
-  const d = deals.find(x=>x.id===dealId);
+  const d = PIPE_DEALS.find(x=>x.id===dealId);
   if(d) openModal(d);
 }
 
 /* ── Export ── */
 function exportPipe(){
-  const deals = load();
   let txt = 'PIPE CONSÓRCIO — '+new Date().toLocaleDateString('pt-BR')+'\n\n';
   STAGES.forEach(st=>{
-    const cards = deals.filter(d=>d.etapa===st.id);
+    const cards = PIPE_DEALS.filter(d=>d.etapa===st.id);
     if(cards.length===0) return;
     txt += st.label.toUpperCase()+' ('+cards.length+')\n';
     cards.forEach(d=>{
@@ -10803,15 +10882,17 @@ function exportPipe(){
 }
 
 /* ── Expose ── */
-window.pipeRender    = render;
-window.pipeOpenModal = ()=>openModal(null);
-window.pipeCloseModal= closeModal;
-window.pipeSave      = saveDeal;
-window.pipeDel       = delDeal;
-window.pipeEdit      = openEdit;
-window.pipeExport    = exportPipe;
+window.pipeRender      = render;
+window.pipeOpenModal   = ()=>openModal(null);
+window.pipeCloseModal  = closeModal;
+window.pipeSave        = saveDeal;
+window.pipeDel         = delDeal;
+window.pipeEdit        = openEdit;
+window.pipeExport      = exportPipe;
+window.pipeSaveServer  = pipeSaveServerFn;
+window.pipeDiscard     = pipeDiscardFn;
 
-/* auto-render ao abrir */
+/* auto-render ao abrir + fetch do backend */
 document.addEventListener('DOMContentLoaded', ()=>{
   /* MutationObserver como fallback */
   const obs = new MutationObserver(()=>{
@@ -10823,6 +10904,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.querySelectorAll('[data-module="module-pipe"]').forEach(btn=>{
     btn.addEventListener('click', ()=>setTimeout(render, 50));
   });
+
+  /* Fetch do backend */
+  pipeFetch();
 });
 })();
 // ===== MODULE:PIPE:JS:END =====
