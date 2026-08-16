@@ -4843,7 +4843,6 @@ Abraço,
   <div class="wn-panel-body" id="wnBody">
     <div class="wn-date">13 de agosto de 2026</div>
     <ul class="wn-list">
-      <li>Novo módulo <b>Pipe Consórcio</b> &mdash; Kanban completo com arraste de cards entre etapas (prospecção → fechado/perdido), filtros por tipo e assessor, e exportação de resumo.</li>
       <li>Nova aba <b>Treinamentos quinta</b> dentro de <b>Cartas / Treinamentos</b> &mdash; cadastro com título, data, anotações e anexo de PowerPoint (até 15 MB, salvo local).</li>
       <li>Módulo <b>Cartas mensais</b> renomeado para <b>Cartas / Treinamentos</b>.</li>
       <li>Módulo <b>Recados importantes</b> renomeado para <b>Recados / Produtos do mês</b>.</li>
@@ -5149,10 +5148,10 @@ const APS_UPLOAD = 'https://script.google.com/macros/s/AKfycbyi2FwFoOiZeyt8VOgfp
 const APS_FILES = {
   cartas:'cartas.json', recados:'recados.json', orientacao:'orientacao.json',
   links:'links.json', dolar_ativos:'dolar_ativos.json', produtos_mes:'produtos_mes.json',
-  sugestoes:'sugestoes.json', acessos:'acessos.json', pipe:'pipe.json'
+  sugestoes:'sugestoes.json', acessos:'acessos.json'
 };
 // Prefixo de id por módulo (mantém o padrão dos ids já existentes).
-const APS_PREFIX = { cartas:'carta', recados:'rec', orientacao:'orient', links:'link', dolar_ativos:'dlrat', produtos_mes:'pm', sugestoes:'sug', acessos:'acs', pipe:'pipe' };
+const APS_PREFIX = { cartas:'carta', recados:'rec', orientacao:'orient', links:'link', dolar_ativos:'dlrat', produtos_mes:'pm', sugestoes:'sug', acessos:'acs' };
 
 // ---- LEITURA: puxa o array do arquivo JSON versionado ----
 async function apsFetchList(modulo){
