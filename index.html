@@ -749,13 +749,28 @@
   .cmp-asset{border:1px solid var(--line);border-radius:11px;padding:11px 12px;background:var(--paper)}
   .cmp-asset-top{display:flex;gap:8px;align-items:center;margin-bottom:8px}
   .cmp-asset-top .ipt{flex:1}
-  .cmp-asset-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,.8fr);gap:7px}
+  .cmp-asset-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:7px}
+  .cmp-asset-veic{margin-bottom:7px}
+  .cmp-asset-veic .ipt{width:100%}
   .cmp-asset .ipt{font-size:12.5px;padding:7px 9px}
   .cmp-del{border:none;background:none;color:var(--clay);font-size:17px;line-height:1;cursor:pointer;padding:2px 5px;border-radius:6px}
   .cmp-del:hover{background:rgba(0,0,0,.05)}
   .cmp-tag{font-size:10px;text-transform:uppercase;letter-spacing:.04em;font-weight:700;padding:2px 7px;border-radius:999px;white-space:nowrap}
   .cmp-tag.isento{background:rgba(31,122,90,.12);color:var(--good)}
   .cmp-tag.trib{background:rgba(0,0,0,.06);color:var(--muted)}
+  .cmp-tag.cc{background:rgba(178,90,58,.13);color:var(--clay)}
+  .cmp-tag.rv{background:rgba(176,141,87,.16);color:var(--brass-deep)}
+  .cmp-tag.prev{background:rgba(43,109,143,.13);color:#2b6d8f}
+  /* faixa de imposto: "no caminho" x "no resgate" */
+  .cmp-bar{display:flex;height:7px;border-radius:999px;overflow:hidden;background:rgba(0,0,0,.07);margin-top:5px;min-width:64px}
+  .cmp-bar i{display:block;height:100%}
+  .cmp-bar i.dur{background:var(--clay)}
+  .cmp-bar i.res{background:var(--brass)}
+  .cmp-keys{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:12px;color:var(--muted)}
+  .cmp-keys span{display:flex;align-items:center;gap:6px}
+  .cmp-keys i{width:10px;height:10px;border-radius:3px;display:block}
+  .cmp-keys i.dur{background:var(--clay)}
+  .cmp-keys i.res{background:var(--brass)}
   .cmp-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
   .cmp-table{width:100%;border-collapse:collapse;font-size:13px;min-width:600px}
   .cmp-table th,.cmp-table td{padding:9px 11px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
@@ -1588,78 +1603,7 @@
   #module-imovel .im-switch input:checked+.im-slider::before{transform:translateX(14px)}
   /* ===== MODULE:IMOVEL:CSS:END ===== */
 
-  /* ===== MODULE:PIPE:CSS:START ===== */
-  #module-pipe{padding:0;display:flex;flex-direction:column;height:100%}
-  #module-pipe .pipe-toolbar{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap}
-  #module-pipe .pipe-toolbar h2{margin:0;font-size:15px;font-weight:700;color:var(--txt1);flex:1;min-width:140px}
-  #module-pipe .pipe-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s,transform .1s}
-  #module-pipe .pipe-btn:active{transform:translateY(1px)}
-  #module-pipe .pipe-btn-add{background:var(--accent);color:#fff}
-  #module-pipe .pipe-btn-add:hover{opacity:.9}
-  #module-pipe .pipe-btn-sec{background:var(--bg2);color:var(--txt2);border:1px solid var(--border)}
-  #module-pipe .pipe-btn-sec:hover{background:var(--bg3,var(--border))}
-  #module-pipe .pipe-filters{display:flex;gap:8px;align-items:center}
-  #module-pipe .pipe-filter-sel{padding:5px 10px;border:1px solid var(--border);border-radius:6px;font-size:11px;background:var(--bg1);color:var(--txt1);font-family:inherit}
-
-  /* kanban board */
-  #module-pipe .pipe-board{display:flex;gap:14px;padding:16px 20px;overflow-x:auto;flex:1;align-items:flex-start}
-  #module-pipe .pipe-col{min-width:240px;max-width:280px;flex:0 0 240px;background:var(--bg2);border-radius:10px;display:flex;flex-direction:column;max-height:calc(100vh - 160px)}
-  #module-pipe .pipe-col-head{padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
-  #module-pipe .pipe-col-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-  #module-pipe .pipe-col-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--txt2);flex:1}
-  #module-pipe .pipe-col-count{font-size:10px;font-weight:700;color:var(--txt3);background:var(--bg1);border-radius:10px;padding:2px 7px;min-width:18px;text-align:center}
-  #module-pipe .pipe-col-body{padding:8px;overflow-y:auto;flex:1;min-height:60px}
-  #module-pipe .pipe-col-body.drag-over{background:rgba(44,107,102,.08);border-radius:0 0 10px 10px}
-
-  /* card */
-  #module-pipe .pipe-card{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px;cursor:grab;transition:box-shadow .15s,transform .1s;position:relative}
-  #module-pipe .pipe-card:active{cursor:grabbing}
-  #module-pipe .pipe-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
-  #module-pipe .pipe-card.dragging{opacity:.4;transform:scale(.96)}
-  #module-pipe .pipe-card-nome{font-size:13px;font-weight:600;color:var(--txt1);margin-bottom:4px}
-  #module-pipe .pipe-card-valor{font-size:12px;font-weight:700;color:var(--accent)}
-  #module-pipe .pipe-card-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
-  #module-pipe .pipe-card-tag{font-size:10px;padding:2px 7px;border-radius:4px;font-weight:600}
-  #module-pipe .pipe-card-tag.tag-imovel{background:#e8f4f3;color:#2C6B66}
-  #module-pipe .pipe-card-tag.tag-auto{background:#fef3e2;color:#B5893F}
-  #module-pipe .pipe-card-tag.tag-assessor{background:var(--bg2);color:var(--txt2)}
-  #module-pipe .pipe-card-nota{font-size:11px;color:var(--txt3);margin-top:5px;line-height:1.4}
-  #module-pipe .pipe-card-data{font-size:10px;color:var(--txt3);margin-top:4px}
-  #module-pipe .pipe-card-actions{position:absolute;top:6px;right:6px;display:none;gap:4px}
-  #module-pipe .pipe-card:hover .pipe-card-actions{display:flex}
-  #module-pipe .pipe-card-btn{background:none;border:none;cursor:pointer;padding:2px;color:var(--txt3);font-size:14px;line-height:1}
-  #module-pipe .pipe-card-btn:hover{color:var(--txt1)}
-
-  /* modal */
-  #module-pipe .pipe-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center}
-  #module-pipe .pipe-overlay.open{display:flex}
-  #module-pipe .pipe-modal{background:var(--bg1);border-radius:14px;padding:24px;width:420px;max-width:92vw;max-height:90vh;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.2)}
-  #module-pipe .pipe-modal h3{margin:0 0 18px;font-size:16px;font-weight:700;color:var(--txt1)}
-  #module-pipe .pipe-modal-field{margin-bottom:14px}
-  #module-pipe .pipe-modal-field label{display:block;font-size:11px;font-weight:600;color:var(--txt2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em}
-  #module-pipe .pipe-modal-field input,#module-pipe .pipe-modal-field select,#module-pipe .pipe-modal-field textarea{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;background:var(--bg1);color:var(--txt1);box-sizing:border-box}
-  #module-pipe .pipe-modal-field textarea{resize:vertical;min-height:50px}
-  #module-pipe .pipe-modal-field input:focus,#module-pipe .pipe-modal-field select:focus,#module-pipe .pipe-modal-field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(44,107,102,.15)}
-  #module-pipe .pipe-modal-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  #module-pipe .pipe-modal-foot{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
-  #module-pipe .pipe-modal-foot .pipe-btn-del{margin-right:auto;background:none;color:#c0392b;border:1px solid #e6b0aa}
-  #module-pipe .pipe-modal-foot .pipe-btn-del:hover{background:#fdf2f2}
-
-  /* totals */
-  #module-pipe .pipe-totals{padding:10px 20px;border-top:1px solid var(--border);display:flex;gap:20px;font-size:12px;color:var(--txt2);flex-wrap:wrap}
-  #module-pipe .pipe-totals b{color:var(--txt1)}
-
-  /* save bar (backend) */
-  .pipe-save-bar{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--paper);border:2px solid var(--brass);border-radius:10px;margin-top:10px;flex-wrap:wrap}
-  .pipe-save-label{font-size:13px;font-weight:600;color:var(--brass-deep)}
-  .pipe-pin-input{width:100px;padding:6px 10px;border:1px solid var(--line-strong);border-radius:6px;font-size:13px;background:var(--bg);color:var(--ink)}
-  .pipe-loading{text-align:center;padding:40px 20px;color:var(--txt3);font-size:14px}
-  @media(max-width:768px){
-    #module-pipe .pipe-col{min-width:200px;flex:0 0 200px}
-    #module-pipe .pipe-modal-row{grid-template-columns:1fr}
-    .pipe-save-bar{flex-direction:column;align-items:stretch;gap:8px}
-  }
-  /* ===== MODULE:PIPE:CSS:END ===== */
+  
 
   /* ===== MODULE:OPERACIONAL:CSS:START ===== */
   .op-lede{font-size:15px;color:var(--muted);margin-bottom:18px}
@@ -1900,7 +1844,7 @@
       </button>
       <button class="side-item" data-module="module-comparador" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="4"/><polyline points="5,11 12,4 19,11"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
-        Isento vs. tributado
+        Comparativos
       </button>
       <button class="side-item" data-module="module-dolar" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -1926,11 +1870,7 @@
       -->
       <button class="side-item" data-module="module-imovel" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Compra de imóvel
-      </button>
-      <button class="side-item" data-module="module-pipe" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
-        Pipe consórcio
+        Comparador consórcio
       </button>
       <!-- MODULE:REGISTRY:SIDEBAR:END -->
       <span class="side-sec">Em breve</span>
@@ -1949,14 +1889,13 @@
       <button class="mt-item" data-module="module-cartas" type="button">Cartas / Treinamentos</button>
       <button class="mt-item" data-module="module-recados" type="button">Recados / Produtos</button>
       <button class="mt-item" data-module="module-links" type="button">Links</button>
-      <button class="mt-item" data-module="module-comparador" type="button">Isento vs. trib.</button>
+      <button class="mt-item" data-module="module-comparador" type="button">Comparativos</button>
       <button class="mt-item" data-module="module-dolar" type="button">Dolarizar</button>
       <button class="mt-item" data-module="module-etf" type="button">ETF</button>
       <button class="mt-item" data-module="module-exterior" type="button">Estruturas no exterior</button>
       <button class="mt-item" data-module="module-sucessao" type="button">Sucessão BR</button>
       <!-- <button class="mt-item" data-module="module-consorcio" type="button">Consórcio</button> -->
-      <button class="mt-item" data-module="module-imovel" type="button">Compra imóvel</button>
-      <button class="mt-item" data-module="module-pipe" type="button">Pipe consórcio</button>
+      <button class="mt-item" data-module="module-imovel" type="button">Comparador consórcio</button>
       <!-- MODULE:REGISTRY:TOPBAR:END -->
       <span class="mt-item soon">Em breve</span>
     </div>
@@ -2979,9 +2918,9 @@
     <section class="module" id="module-comparador" hidden>
       <header class="masthead">
         <div class="wrap">
-          <p class="eyebrow">Renda fixa &middot; Equivalencia tributaria</p>
-          <h1>Isento <b>vs. tributado</b></h1>
-          <p class="lede">Compara o liquido final de ativos isentos e tributados em varios prazos e calcula a taxa bruta equivalente.</p>
+          <p class="eyebrow">Arquitetura Patrimonial &middot; Comparacao entre veiculos</p>
+          <h1>Compara<b>tivos</b></h1>
+          <p class="lede">Poe lado a lado renda fixa, isentos, fundos com come-cotas, ETFs, acoes, FIIs e previdencia no mesmo cenario. Mostra <b style="color:#fff">quanto sobra no fim</b> e, separado, <b style="color:#fff">quanto de imposto foi pago no caminho</b> &mdash; com as regras de cada veiculo.</p>
         </div>
       </header>
       <main class="wrap" style="padding-top:26px;padding-bottom:60px">
@@ -3010,6 +2949,15 @@
             <div class="field">
               <label for="cmpValor"><span class="lbl">Valor aplicado</span></label>
               <input class="ipt" id="cmpValor" type="number" step="1000" value="100000">
+            </div>
+
+            <div class="field">
+              <label for="cmpCc"><span class="lbl">Come-cotas dos fundos</span></label>
+              <select class="ipt" id="cmpCc">
+                <option value="15">15% &mdash; fundo de longo prazo</option>
+                <option value="20">20% &mdash; fundo de curto prazo</option>
+              </select>
+              <div class="hint">Cobrado a cada semestre (maio e novembro) sobre o rendimento do periodo. So afeta os veiculos marcados como fundo com come-cotas.</div>
             </div>
 
             <div class="field">
@@ -3046,10 +2994,34 @@
                   <button data-cmp-view="liquido" class="on" type="button">Liquido final</button>
                   <button data-cmp-view="rent" type="button">Rent. liq. a.a.</button>
                   <button data-cmp-view="ganho" type="button">Ganho liquido</button>
+                  <button data-cmp-view="imposto" type="button">Imposto pago</button>
+                  <button data-cmp-view="custo" type="button">Custo real do IR</button>
                 </div>
               </div>
               <div class="cmp-table-wrap"><table class="cmp-table" id="cmpTable"></table></div>
               <p class="cmp-legend" id="cmpLegend"></p>
+            </div>
+
+            <div class="block" style="margin-top:20px">
+              <div class="block-head" style="flex-wrap:wrap;gap:10px">
+                <h3>Onde o imposto e pago</h3>
+                <button class="btn btn-ghost" id="cmpCopyImp" type="button" style="padding:7px 13px;font-size:13px">Copiar quadro</button>
+              </div>
+              <p class="note">Dois ativos podem pagar o <b>mesmo imposto</b> e terminar com valores diferentes. O que separa e <b>quando</b> o imposto sai: o que e cobrado no caminho deixa de render ate o fim.</p>
+
+              <div class="cmp-pairbar" style="margin-top:14px">
+                <div class="field">
+                  <label for="cmpImpPrazo"><span class="lbl">Prazo analisado</span></label>
+                  <select class="ipt" id="cmpImpPrazo"></select>
+                </div>
+              </div>
+
+              <div class="cmp-table-wrap" style="margin-top:4px"><table class="cmp-table" id="cmpImpTable"></table></div>
+              <div class="cmp-keys">
+                <span><i class="dur"></i> Imposto no caminho (come-cotas)</span>
+                <span><i class="res"></i> Imposto no resgate</span>
+              </div>
+              <div class="cmp-warn" id="cmpImpNota"></div>
             </div>
 
             <div class="block" style="margin-top:20px">
@@ -3093,8 +3065,8 @@
     <section class="module" id="module-imovel" hidden>
       <header class="masthead">
         <div class="wrap">
-          <p class="eyebrow">Imóveis &middot; Comparador de compra</p>
-          <h1>Comparador de <b>compra de imóvel</b></h1>
+          <p class="eyebrow">Consórcio &middot; Comparador de aquisição</p>
+          <h1>Comparador <b>consórcio</b></h1>
           <p class="lede">Dia 1 com o mesmo dinheiro: à vista, financiamento ou consórcio — qual gera mais patrimônio?</p>
         </div>
       </header>
@@ -3254,6 +3226,14 @@
                 </div>
               </div>
             </div>
+            <div>
+              <label class="im-lbl">Lance calculado sobre</label>
+              <select id="im-con-lance-base" onchange="imCalcular()">
+                <option value="credito">Crédito — só o valor da carta</option>
+                <option value="categoria">Categoria — carta + taxa adm. + fundo</option>
+              </select>
+              <div class="im-fn" id="im-lance-base-hint"></div>
+            </div>
           </div>
 
         </div>
@@ -3272,95 +3252,7 @@
     </section>
     <!-- MODULE:IMOVEL:HTML:END -->
 
-    <!-- MODULE:PIPE:HTML:START -->
-    <section id="module-pipe" class="module" hidden>
-      <div class="pipe-toolbar">
-        <h2>🔲 Pipe Consórcio</h2>
-        <div class="pipe-filters">
-          <select class="pipe-filter-sel" id="pipe-f-tipo" onchange="pipeRender()">
-            <option value="">Todos os tipos</option>
-            <option value="imovel">Imóvel</option>
-            <option value="auto">Automóvel</option>
-          </select>
-          <select class="pipe-filter-sel" id="pipe-f-assessor" onchange="pipeRender()">
-            <option value="">Todos assessores</option>
-          </select>
-        </div>
-        <button class="pipe-btn pipe-btn-sec" onclick="pipeExport()" type="button">📋 Copiar resumo</button>
-        <button class="pipe-btn pipe-btn-add" onclick="pipeOpenModal()" type="button">＋ Novo deal</button>
-      </div>
-
-      <div class="pipe-board" id="pipeBoard"></div>
-
-      <div class="pipe-totals" id="pipeTotals"></div>
-
-      <!-- Save bar (backend) -->
-      <div class="pipe-save-bar" id="pipeSaveBar" hidden>
-        <span class="pipe-save-label">⚠ Alterações não salvas</span>
-        <input type="password" id="pipePin" placeholder="PIN gestor" maxlength="10" class="pipe-pin-input">
-        <button class="pipe-btn pipe-btn-add" id="pipeSaveBtn" onclick="pipeSaveServer()" type="button">Salvar</button>
-        <button class="pipe-btn pipe-btn-sec" onclick="pipeDiscard()" type="button">Descartar</button>
-        <span class="ops-status" id="pipeStatus" aria-live="polite"></span>
-      </div>
-
-      <!-- Modal -->
-      <div class="pipe-overlay" id="pipeOverlay" onclick="if(event.target===this)pipeCloseModal()">
-        <div class="pipe-modal">
-          <h3 id="pipeModalTitle">Novo deal</h3>
-          <input type="hidden" id="pipe-edit-id">
-          <div class="pipe-modal-row">
-            <div class="pipe-modal-field">
-              <label>Cliente</label>
-              <input type="text" id="pipe-m-nome" placeholder="Nome do cliente">
-            </div>
-            <div class="pipe-modal-field">
-              <label>Valor da carta</label>
-              <input type="number" id="pipe-m-valor" placeholder="500000" min="0" step="1000">
-            </div>
-          </div>
-          <div class="pipe-modal-row">
-            <div class="pipe-modal-field">
-              <label>Tipo</label>
-              <select id="pipe-m-tipo">
-                <option value="imovel">Imóvel</option>
-                <option value="auto">Automóvel</option>
-              </select>
-            </div>
-            <div class="pipe-modal-field">
-              <label>Assessor</label>
-              <input type="text" id="pipe-m-assessor" placeholder="Nome do assessor">
-            </div>
-          </div>
-          <div class="pipe-modal-row">
-            <div class="pipe-modal-field">
-              <label>Etapa</label>
-              <select id="pipe-m-etapa">
-                <option value="prospeccao">Prospecção</option>
-                <option value="cotacao">Cotação enviada</option>
-                <option value="reuniao">Reunião</option>
-                <option value="negociacao">Negociação</option>
-                <option value="fechado">Fechado ✓</option>
-                <option value="perdido">Perdido</option>
-              </select>
-            </div>
-            <div class="pipe-modal-field">
-              <label>Data</label>
-              <input type="date" id="pipe-m-data">
-            </div>
-          </div>
-          <div class="pipe-modal-field">
-            <label>Nota</label>
-            <textarea id="pipe-m-nota" placeholder="Observações sobre o deal..."></textarea>
-          </div>
-          <div class="pipe-modal-foot">
-            <button class="pipe-btn pipe-btn-sec pipe-btn-del" id="pipeDelBtn" onclick="pipeDel()" type="button" style="display:none">Excluir</button>
-            <button class="pipe-btn pipe-btn-sec" onclick="pipeCloseModal()" type="button">Cancelar</button>
-            <button class="pipe-btn pipe-btn-add" onclick="pipeSave()" type="button">Salvar</button>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- MODULE:PIPE:HTML:END -->
+    
 
     <!-- MODULE:NOVO:INSIRA_AQUI_UMA_NOVA_SECTION_ANTES_DO_FECHAMENTO_DO_APP-MAIN -->
 
@@ -8056,6 +7948,48 @@ function cmpAliquota(dias){
 }
 function cmpAliqLabel(dias){ return PCT(cmpAliquota(dias)*100); }
 
+/* ---- Veiculos -----------------------------------------------------------
+   Cada veiculo carrega a sua propria regra de imposto:
+     tab  = tabela de aliquota aplicada no RESGATE
+     cc   = sofre come-cotas semestral (o IR sai do saldo e para de render)
+     base = sobre o que o IR do resgate incide: so o 'ganho' ou o 'total'
+     tag  = classe de cor da etiqueta                                      */
+const CMP_VEIC={
+  isento:     {nome:'Isento de IR (LCI, LCA, CRI, CRA, deb. incentivada)', curto:'Isento',    grupo:'Renda fixa',      tag:'isento', tab:'zero',      cc:false, base:'ganho'},
+  rf_direta:  {nome:'Renda fixa tributada (CDB, Tesouro, deb. comum)',     curto:'RF direta', grupo:'Renda fixa',      tag:'trib',   tab:'regr_rf',   cc:false, base:'ganho'},
+  fundo:      {nome:'Fundo com come-cotas (RF e multimercado)',            curto:'Fundo',     grupo:'Fundos',          tag:'cc',     tab:'regr_rf',   cc:true,  base:'ganho'},
+  fundo_acoes:{nome:'Fundo de acoes (sem come-cotas)',                     curto:'F. acoes',  grupo:'Fundos',          tag:'rv',     tab:'fixa15',    cc:false, base:'ganho'},
+  etf_rv:     {nome:'ETF de renda variavel',                               curto:'ETF RV',    grupo:'ETF',             tag:'rv',     tab:'fixa15',    cc:false, base:'ganho'},
+  etf_rf:     {nome:'ETF de renda fixa',                                   curto:'ETF RF',    grupo:'ETF',             tag:'rv',     tab:'etf_rf',    cc:false, base:'ganho'},
+  acoes:      {nome:'Acoes (carteira propria)',                            curto:'Acoes',     grupo:'Renda variavel',  tag:'rv',     tab:'fixa15',    cc:false, base:'ganho'},
+  fii:        {nome:'FII (ganho de capital na venda)',                     curto:'FII',       grupo:'Renda variavel',  tag:'rv',     tab:'fixa20',    cc:false, base:'ganho'},
+  vgbl:       {nome:'Previdencia VGBL',                                    curto:'VGBL',      grupo:'Previdencia',     tag:'prev',   tab:'regr_prev', cc:false, base:'ganho'},
+  pgbl:       {nome:'Previdencia PGBL',                                    curto:'PGBL',      grupo:'Previdencia',     tag:'prev',   tab:'regr_prev', cc:false, base:'total'}
+};
+function cmpVeic(a){ return CMP_VEIC[a.veiculo] || CMP_VEIC.rf_direta; }
+function cmpIsIsento(a){ return a.veiculo==='isento'; }
+
+// Aliquota do resgate, por tabela.
+function cmpAliqTab(tab, dias){
+  if(tab==='zero')   return 0;
+  if(tab==='fixa15') return 0.15;   // ETF de RV, fundo de acoes, acoes
+  if(tab==='fixa20') return 0.20;   // ganho de capital em FII
+  // ETF de renda fixa: pelo prazo medio da carteira (Lei 13.043/2014)
+  if(tab==='etf_rf') return dias<=180?0.25:(dias<=720?0.20:0.15);
+  // Previdencia, tabela regressiva (Lei 11.053/2004): 35% -> 10%
+  if(tab==='regr_prev'){
+    const anos=dias/CMP_DIAS_ANO;
+    if(anos<=2)  return 0.35;
+    if(anos<=4)  return 0.30;
+    if(anos<=6)  return 0.25;
+    if(anos<=8)  return 0.20;
+    if(anos<=10) return 0.15;
+    return 0.10;
+  }
+  return cmpAliquota(dias);         // regr_rf
+}
+function cmpAliqAtivo(a, dias){ return cmpAliqTab(cmpVeic(a).tab, dias); }
+
 // Conversao de calendario: 365,25/12 = 30,4375 dias por mes.
 // NAO usar 30: isso jogaria 6/12/24 meses exatamente em 180/360/720 dias
 // (as fronteiras) e, como as faixas sao inclusivas, escolheria sempre a
@@ -8077,23 +8011,29 @@ function cmpPrazoSub(p){
 }
 
 const CMP_DEFAULT={
-  selic:15.00, cdi:14.90, ipca:4.50, valor:100000,
+  selic:15.00, cdi:14.90, ipca:4.50, valor:100000, cc:15,
   prazos:[{t:'m',v:6},{t:'m',v:12},{t:'m',v:24},{t:'m',v:36},{t:'m',v:60}],
   view:'liquido',
   ativos:[
-    {id:'a1', nome:'LCI 90% do CDI',            isento:true,  modo:'cdi',  taxa:90},
-    {id:'a2', nome:'CDB 105% do CDI',           isento:false, modo:'cdi',  taxa:105},
-    {id:'a3', nome:'Debenture inc. IPCA+6,00%', isento:true,  modo:'ipca', taxa:6.00},
-    {id:'a4', nome:'Tesouro IPCA+ 6,50%',       isento:false, modo:'ipca', taxa:6.50}
+    {id:'a1', nome:'LCI 90% do CDI',        veiculo:'isento',    modo:'cdi',  taxa:90},
+    {id:'a2', nome:'CDB 105% do CDI',       veiculo:'rf_direta', modo:'cdi',  taxa:105},
+    {id:'a3', nome:'Fundo DI 100% do CDI',  veiculo:'fundo',     modo:'cdi',  taxa:100},
+    {id:'a4', nome:'ETF de acoes',          veiculo:'etf_rv',    modo:'pre',  taxa:12.00},
+    {id:'a5', nome:'VGBL 100% do CDI',      veiculo:'vgbl',      modo:'cdi',  taxa:100}
   ]
 };
 
 let CMP={};
 
-// migra o formato antigo (prazos como numeros de meses)
+// migra formatos antigos: prazos numericos e o par isento/tributado -> veiculo
 function cmpMigrar(o){
-  if(!o||!o.prazos) return o;
-  o.prazos=o.prazos.map(p=>(typeof p==='number')?{t:'m',v:p}:p);
+  if(!o) return o;
+  if(o.prazos) o.prazos=o.prazos.map(p=>(typeof p==='number')?{t:'m',v:p}:p);
+  if(o.ativos) o.ativos.forEach(a=>{
+    if(!a.veiculo) a.veiculo=a.isento?'isento':'rf_direta';
+    delete a.isento;
+  });
+  if(o.cc==null) o.cc=15;
   return o;
 }
 
@@ -8104,18 +8044,52 @@ function cmpTaxaNominal(ativo, cen){
   return 0;
 }
 
-// Nucleo do calculo. IR incide SO sobre o ganho, nunca sobre o principal:
-// liquido = P + ganho*(1-a)  ==  (1-a)*P*(1+i)^n + a*P
+// Nucleo do calculo, por veiculo.
+//
+// Sem come-cotas: um pedagio unico no resgate. Em geral so sobre o ganho
+// (liquido = P + ganho*(1-a)); no PGBL, sobre o total resgatado.
+//
+// Com come-cotas: a cada semestre o IR e retirado do saldo, entao alem do
+// imposto em si ha o juro que aquele dinheiro deixou de render ate o fim.
+// Por isso o resultado separa 'impostoTotal' (o que foi pago) de 'custoIR'
+// (bruto - liquido), que embute a perda de composicao.
 function cmpCore(ativo, anos, dias, cen){
   const P=cen.valor, n=anos;
   const i=cmpTaxaNominal(ativo,cen);
+  const v=cmpVeic(ativo);
+  const aliq=cmpAliqTab(v.tab,dias);
   const bruto=P*Math.pow(1+i,n);
   const ganhoBruto=bruto-P;
-  const aliq=ativo.isento?0:cmpAliquota(dias);
-  const ir=ganhoBruto*aliq;
-  const liquido=bruto-ir;
+
+  let liquido, irDurante=0, irResgate=0;
+
+  if(v.cc && n>0){
+    const aliqCC=(cen.cc||15)/100;
+    const fatorSem=Math.pow(1+i,0.5);
+    const nSem=Math.floor(n*2);
+    let s=P, custo=P, ganhoTributado=0;
+    for(let k=0;k<nSem;k++){
+      s*=fatorSem;
+      const g=s-custo;
+      if(g>0){ const t=g*aliqCC; irDurante+=t; s-=t; ganhoTributado+=g; }
+      custo=s;
+    }
+    s*=Math.pow(1+i,n-nSem/2);                       // resto do periodo
+    // No resgate paga a aliquota cheia sobre o ganho ainda nao tributado e
+    // complementa a diferenca sobre o ganho que ja passou pelo come-cotas.
+    irResgate=Math.max(0,s-custo)*aliq+Math.max(0,aliq-aliqCC)*ganhoTributado;
+    liquido=s-irResgate;
+  }else{
+    const baseIR=(v.base==='total')?bruto:ganhoBruto;
+    irResgate=Math.max(0,baseIR)*aliq;
+    liquido=bruto-irResgate;
+  }
+
+  const impostoTotal=irDurante+irResgate;
+  const custoIR=bruto-liquido;
   const rentLiqAA=n>0?Math.pow(liquido/P,1/n)-1:0;
-  return {i,bruto,ganhoBruto,aliq,ir,liquido,ganhoLiquido:liquido-P,rentLiqAA,dias};
+  return {i,bruto,ganhoBruto,aliq,irDurante,irResgate,ir:impostoTotal,impostoTotal,
+          custoIR,liquido,ganhoLiquido:liquido-P,rentLiqAA,dias,cc:v.cc};
 }
 function cmpCalcularP(ativo, p, cen){ return cmpCore(ativo,cmpPrazoAnos(p),cmpPrazoDias(p),cen); }
 // versao continua em meses, usada pela busca do ponto de virada
@@ -8134,7 +8108,8 @@ function cmpCenario(){
     selic:parseFloat($('cmpSelic').value)||0,
     cdi:parseFloat($('cmpCdi').value)||0,
     ipca:parseFloat($('cmpIpca').value)||0,
-    valor:parseFloat($('cmpValor').value)||0
+    valor:parseFloat($('cmpValor').value)||0,
+    cc:parseFloat($('cmpCc').value)||15
   };
 }
 
@@ -8143,6 +8118,7 @@ function cmpPersist(){
   CMP.cdi=parseFloat($('cmpCdi').value)||0;
   CMP.ipca=parseFloat($('cmpIpca').value)||0;
   CMP.valor=parseFloat($('cmpValor').value)||0;
+  CMP.cc=parseFloat($('cmpCc').value)||15;
   apsWrite(CMP_KEY,CMP);
 }
 
@@ -8166,6 +8142,19 @@ function renderCmpPrazos(){
   }).join('');
 }
 
+function cmpVeicOptions(sel){
+  const grupos={};
+  Object.keys(CMP_VEIC).forEach(k=>{
+    const v=CMP_VEIC[k];
+    (grupos[v.grupo]=grupos[v.grupo]||[]).push({k,v});
+  });
+  return Object.keys(grupos).map(g=>
+    '<optgroup label="'+esc(g)+'">'
+    +grupos[g].map(({k,v})=>'<option value="'+k+'"'+(k===sel?' selected':'')+'>'+esc(v.nome)+'</option>').join('')
+    +'</optgroup>'
+  ).join('');
+}
+
 function renderCmpAssets(){
   $('cmpAssets').innerHTML=CMP.ativos.map(a=>
     '<div class="cmp-asset" data-cmp-asset="'+esc(a.id)+'">'
@@ -8173,11 +8162,10 @@ function renderCmpAssets(){
     +'<input class="ipt" type="text" data-cmp-f="nome" value="'+esc(a.nome)+'" maxlength="40">'
     +'<button class="cmp-del" type="button" data-cmp-del="'+esc(a.id)+'" title="Remover">&times;</button>'
     +'</div>'
+    +'<div class="cmp-asset-veic">'
+    +'<select class="ipt" data-cmp-f="veiculo">'+cmpVeicOptions(a.veiculo)+'</select>'
+    +'</div>'
     +'<div class="cmp-asset-grid">'
-    +'<select class="ipt" data-cmp-f="isento">'
-      +'<option value="1"'+(a.isento?' selected':'')+'>Isento de IR</option>'
-      +'<option value="0"'+(!a.isento?' selected':'')+'>Tributado</option>'
-    +'</select>'
     +'<select class="ipt" data-cmp-f="modo">'
       +'<option value="cdi"'+(a.modo==='cdi'?' selected':'')+'>% do CDI</option>'
       +'<option value="pre"'+(a.modo==='pre'?' selected':'')+'>Prefixado</option>'
@@ -8191,6 +8179,13 @@ function renderCmpAssets(){
 function cmpFmt(val, view){
   if(view==='liquido') return BRL(val.liquido);
   if(view==='ganho')   return BRL(val.ganhoLiquido);
+  if(view==='imposto'){
+    if(val.irDurante<=0.5) return BRL(val.impostoTotal);
+    return BRL(val.impostoTotal)+'<span class="cmp-sub">'
+      +(val.irResgate<=0.5?'todo no caminho':BRL(val.irDurante)+' no caminho')+'</span>';
+  }
+  if(view==='custo')   return BRL(val.custoIR)
+    +(val.custoIR>val.impostoTotal+0.5?'<span class="cmp-sub">+'+BRL(val.custoIR-val.impostoTotal)+' de juros perdidos</span>':'');
   return PCT(val.rentLiqAA*100);
 }
 
@@ -8201,7 +8196,7 @@ function renderCmpTable(){
 
   let head='<thead><tr><th>Ativo</th>';
   prazos.forEach(p=>{
-    head+='<th>'+esc(cmpPrazoLabel(p))+'<span class="cmp-sub">'+cmpPrazoDias(p)+' d &middot; IR '+cmpAliqLabel(cmpPrazoDias(p))+'</span></th>';
+    head+='<th>'+esc(cmpPrazoLabel(p))+'<span class="cmp-sub">'+cmpPrazoDias(p)+' d &middot; RF '+cmpAliqLabel(cmpPrazoDias(p))+'</span></th>';
   });
   head+='</tr></thead>';
 
@@ -8217,8 +8212,9 @@ function renderCmpTable(){
 
   let body='<tbody>';
   CMP.ativos.forEach((a,idx)=>{
+    const v=cmpVeic(a);
     body+='<tr><td><div class="cmp-name"><span>'+esc(a.nome)+'</span>'
-      +'<span class="cmp-tag '+(a.isento?'isento':'trib')+'">'+(a.isento?'Isento':'Trib.')+'</span></div>'
+      +'<span class="cmp-tag '+v.tag+'">'+esc(v.curto)+'</span></div>'
       +'<span class="cmp-sub">'+esc(cmpModoLabel(a))+'</span></td>';
     prazos.forEach((p,pi)=>{
       const r=cmpCalcularP(a,p,cen);
@@ -8230,16 +8226,20 @@ function renderCmpTable(){
   body+='</tbody>';
   $('cmpTable').innerHTML=head+body;
 
-  const nIso=CMP.ativos.filter(a=>a.isento).length;
-  $('cmpLegend').innerHTML='Aplicado '+BRL(cen.valor)+' &middot; CDI '+PCT(cen.cdi)+' a.a. &middot; IPCA '+PCT(cen.ipca)
-    +' a.a. &middot; Verde = maior liquido final no prazo. '+nIso+' isento(s) e '+(CMP.ativos.length-nIso)+' tributado(s). '
+  const temCC=CMP.ativos.some(a=>cmpVeic(a).cc);
+  const oQue={liquido:'liquido final', rent:'rentabilidade liquida a.a.', ganho:'ganho liquido',
+              imposto:'imposto efetivamente pago', custo:'custo real do imposto (bruto &minus; liquido)'}[view]||'liquido final';
+  $('cmpLegend').innerHTML='Mostrando: <b>'+oQue+'</b>. Aplicado '+BRL(cen.valor)+' &middot; CDI '+PCT(cen.cdi)
+    +' a.a. &middot; IPCA '+PCT(cen.ipca)+' a.a.'+(temCC?' &middot; come-cotas '+PCT(cen.cc):'')
+    +' &middot; Verde = maior liquido final no prazo (mesmo nas colunas de imposto). '
+    +'Cabecalho mostra a aliquota da tabela de renda fixa; cada veiculo usa a sua propria regra. '
     +'Meses convertidos a 30,4375 dias (calendario), como manda a tabela do IR.';
 }
 
 function renderCmpEquiv(){
   const cen=cmpCenario();
   const prazos=cmpPrazosOrdenados();
-  const isentos=CMP.ativos.filter(a=>a.isento);
+  const isentos=CMP.ativos.filter(cmpIsIsento);
 
   if(!isentos.length){
     $('cmpEquivTable').innerHTML='<tbody><tr><td style="text-align:left;color:var(--muted)">Nenhum ativo isento na lista.</td></tr></tbody>';
@@ -8292,7 +8292,10 @@ function renderCmpEquiv(){
     +'Meses sao convertidos pelo calendario (30,4375 d/mes), entao 6 meses = 184 d (20%), 12 meses = 365 d (17,5%) '
     +'e 24 meses = 731 d (15%). Para travar uma faixa com exatidao, cadastre o prazo em dias. '
     +'Perto de uma fronteira, quem manda e a data real de liquidacao.'
-    +'<br><br><b>Nao considera.</b> IOF regressivo abaixo de 30 dias; carencia de LCI/LCA; come-cotas (fundos); '
+    +'<br><br><b>Escopo desta tabela.</b> A equivalencia e calculada contra a <b>tabela regressiva de renda fixa</b> '
+    +'(22,5% a 15%), que e o parametro de mercado. Para veiculos com regra propria &mdash; fundo com come-cotas, '
+    +'ETF, previdencia &mdash; a comparacao correta esta em "Resultado por prazo" e "Onde o imposto e pago".'
+    +'<br><br><b>Nao considera.</b> IOF regressivo abaixo de 30 dias; carencia de LCI/LCA; '
     +'marcacao a mercado em venda antecipada; risco de credito e FGC. '
     +'Em IPCA+ tributado, o IR incide tambem sobre a inflacao &mdash; ja refletido acima.';
 }
@@ -8322,8 +8325,8 @@ function cmpBreakeven(iso, trib, cen){
 }
 
 function cmpPares(){
-  const iso=CMP.ativos.filter(a=>a.isento);
-  const trb=CMP.ativos.filter(a=>!a.isento);
+  const iso=CMP.ativos.filter(cmpIsIsento);
+  const trb=CMP.ativos.filter(a=>!cmpIsIsento(a));
   const out=[];
   iso.forEach(i=>trb.forEach(t=>out.push({iso:i,trib:t})));
   return out;
@@ -8384,9 +8387,10 @@ function renderCmpVirada(){
   prazos.forEach(p2=>{
     const anos=cmpPrazoAnos(p2);
     const corte=cmpCorteAnos(iso,trib,anos,cen);
-    const al=cmpAliquota(cmpPrazoDias(p2));
+    const al=cmpAliqAtivo(trib,cmpPrazoDias(p2));
     if(corte===null) return;
-    const isoGanha=corte<al;
+    // decidido pelo liquido de verdade — com come-cotas a regra "corte < aliquota" nao vale
+    const isoGanha=cmpCalcularP(iso,p2,cen).liquido>cmpCalcularP(trib,p2,cen).liquido;
     const mEq=cmpPrazoMeses(p2);
     const vira=bk.tipo==='empata' && Math.abs(mEq-bk.meses)<=Math.max(1,mEq*0.06);
     h+='<tr><td'+(vira?' class="turn"':'')+'>'+esc(cmpPrazoLabel(p2))
@@ -8422,7 +8426,7 @@ function cmpCopyResumo(){
   const cen=cmpCenario();
   const prazos=cmpPrazosOrdenados();
   const L=[];
-  L.push('Comparativo isento x tributado');
+  L.push('Comparativo entre veiculos');
   L.push('Aplicado '+BRL(cen.valor)+' | CDI '+PCT(cen.cdi)+' a.a. | IPCA '+PCT(cen.ipca)+' a.a.');
   L.push('');
   prazos.forEach(p=>{
@@ -8430,12 +8434,13 @@ function cmpCopyResumo(){
     CMP.ativos.map(a=>({a,r:cmpCalcularP(a,p,cen)}))
       .sort((x,y)=>y.r.liquido-x.r.liquido)
       .forEach((row,idx)=>{
-        L.push('  '+(idx===0?'> ':'  ')+row.a.nome+' ('+(row.a.isento?'isento':'tributado')+'): '
-          +BRL(row.r.liquido)+' | '+PCT(row.r.rentLiqAA*100)+' a.a. liq.');
+        L.push('  '+(idx===0?'> ':'  ')+row.a.nome+' ('+cmpVeic(row.a).curto+'): '
+          +BRL(row.r.liquido)+' | '+PCT(row.r.rentLiqAA*100)+' a.a. liq.'
+          +' | IR '+BRL(row.r.impostoTotal)+(row.r.irDurante>0?' ('+BRL(row.r.irDurante)+' no caminho)':''));
       });
     L.push('');
   });
-  const isentos=CMP.ativos.filter(a=>a.isento);
+  const isentos=CMP.ativos.filter(cmpIsIsento);
   if(isentos.length){
     L.push('Taxa bruta equivalente (o que um tributado precisa render):');
     isentos.forEach(a=>{
@@ -8471,10 +8476,11 @@ function cmpCopyArgumento(){
   L.push('Prazo         | Corte no ganho | Aliquota IR | Sobra mais');
   prazos.forEach(p2=>{
     const c=cmpCorteAnos(iso,trib,cmpPrazoAnos(p2),cen);
-    const a=cmpAliquota(cmpPrazoDias(p2));
+    const a=cmpAliqAtivo(trib,cmpPrazoDias(p2));
     if(c===null) return;
+    const vence=cmpCalcularP(iso,p2,cen).liquido>cmpCalcularP(trib,p2,cen).liquido?iso.nome:trib.nome;
     L.push((cmpPrazoLabel(p2)+' ('+cmpPrazoDias(p2)+'d)').padEnd(14)
-      +'|     '+PCT(c*100).padStart(7)+'    |   '+PCT(a*100).padStart(6)+'    | '+(c<a?iso.nome:trib.nome));
+      +'|     '+PCT(c*100).padStart(7)+'    |   '+PCT(a*100).padStart(6)+'    | '+vence);
   });
   L.push('');
   if(bk.tipo==='empata'){
@@ -8490,7 +8496,7 @@ function cmpCopyArgumento(){
   L.push('Faixas de IR sao em dias corridos: ate 180 (22,5%), 181-360 (20%),');
   L.push('361-720 (17,5%), acima de 720 (15%). Meses convertidos pelo calendario.');
   L.push('Supoe indexador parado, sem resgate no meio, com reinvestimento.');
-  L.push('Nao considera IOF (<30 dias), carencia de LCI/LCA, come-cotas,');
+  L.push('Nao considera IOF (<30 dias), carencia de LCI/LCA,');
   L.push('marcacao a mercado, risco de credito nem FGC.');
 
   apsCopy(L.join('\n'), ()=>{
@@ -8499,9 +8505,111 @@ function cmpCopyArgumento(){
   });
 }
 
+// ---- Onde o imposto e pago ---------------------------------------------
+function cmpImpPrazoAtual(){
+  const prazos=cmpPrazosOrdenados();
+  const sel=$('cmpImpPrazo');
+  const antes=sel.value;
+  sel.innerHTML=prazos.map((p,i)=>
+    '<option value="'+i+'">'+esc(cmpPrazoLabel(p))+' &middot; '+cmpPrazoDias(p)+' dias</option>'
+  ).join('');
+  const idx=(antes!=='' && prazos[Number(antes)]) ? Number(antes) : prazos.length-1;
+  sel.value=idx;
+  return prazos[idx];
+}
+
+function renderCmpImposto(){
+  if(!$('cmpImpTable')) return;
+  const cen=cmpCenario();
+  const p=cmpImpPrazoAtual();
+  const linhas=CMP.ativos.map(a=>({a,r:cmpCalcularP(a,p,cen)}));
+  const maxImp=Math.max(1,...linhas.map(x=>x.r.impostoTotal));
+  const melhor=linhas.reduce((b,x)=>x.r.liquido>b.r.liquido?x:b,linhas[0]);
+
+  let h='<thead><tr><th>Ativo</th><th>Bruto sem IR</th><th>IR no caminho</th><th>IR no resgate</th>'
+       +'<th>Imposto pago</th><th>Custo real</th><th>Liquido final</th></tr></thead><tbody>';
+  linhas.forEach(({a,r})=>{
+    const v=cmpVeic(a);
+    const wD=(r.irDurante/maxImp)*100, wR=(r.irResgate/maxImp)*100;
+    const perda=r.custoIR-r.impostoTotal;
+    h+='<tr><td><div class="cmp-name"><span>'+esc(a.nome)+'</span>'
+      +'<span class="cmp-tag '+v.tag+'">'+esc(v.curto)+'</span></div>'
+      +'<div class="cmp-bar"><i class="dur" style="width:'+wD.toFixed(2)+'%"></i>'
+      +'<i class="res" style="width:'+wR.toFixed(2)+'%"></i></div></td>'
+      +'<td class="cmp-mono">'+BRL(r.bruto)+'</td>'
+      +'<td class="cmp-mono">'+(r.irDurante>0.5?BRL(r.irDurante):'&mdash;')+'</td>'
+      +'<td class="cmp-mono">'+(r.irResgate>0.5?BRL(r.irResgate)+'<span class="cmp-sub">'+PCT(r.aliq*100)+'</span>':'&mdash;')+'</td>'
+      +'<td class="cmp-mono">'+BRL(r.impostoTotal)+'</td>'
+      +'<td class="cmp-mono">'+BRL(r.custoIR)
+        +(perda>0.5?'<span class="cmp-sub">+'+BRL(perda)+' que deixou de render</span>':'')+'</td>'
+      +'<td class="'+(a===melhor.a?'win cmp-mono':'cmp-mono')+'">'+BRL(r.liquido)+'</td></tr>';
+  });
+  h+='</tbody>';
+  $('cmpImpTable').innerHTML=h;
+
+  const comCC=linhas.filter(x=>x.r.irDurante>0.5);
+  let nota='<b>Imposto pago x custo real.</b> "Imposto pago" e o que foi para a Receita. '
+    +'"Custo real" e o bruto menos o liquido &mdash; inclui o rendimento que o imposto '
+    +'deixou de gerar por ter saido antes da hora. Nos veiculos que so pagam no resgate os dois valores coincidem.';
+  if(comCC.length){
+    const pior=comCC.reduce((b,x)=>(x.r.custoIR-x.r.impostoTotal)>(b.r.custoIR-b.r.impostoTotal)?x:b,comCC[0]);
+    nota+='<br><br><b>O pedaco invisivel.</b> Em '+esc(cmpPrazoLabel(p))+', o '+esc(pior.a.nome)
+      +' pagou '+BRL(pior.r.impostoTotal)+' de imposto, mas custou '+BRL(pior.r.custoIR)
+      +' &mdash; '+BRL(pior.r.custoIR-pior.r.impostoTotal)+' a mais, que e o juro perdido '
+      +'sobre o que o come-cotas levou a cada semestre. Esse e o argumento central contra o fundo '
+      +'com come-cotas em prazos longos.';
+  }else{
+    nota+='<br><br>Nenhum ativo da lista sofre come-cotas. Inclua um <b>fundo</b> para ver o efeito do imposto semestral.';
+  }
+  if(CMP.ativos.some(a=>a.veiculo==='pgbl')){
+    nota+='<br><br><b>PGBL.</b> Aqui o IR incide sobre o <b>valor total</b> resgatado, nao so sobre o ganho &mdash; '
+      +'por isso ele aparece pior. O que compensa isso e a deducao de ate 12% da renda na entrada, '
+      +'que este quadro nao modela. Para a conta completa do PGBL, use o modulo Previdencia.';
+  }
+  nota+='<br><br><b>Regras aplicadas.</b> RF e fundos: tabela regressiva 22,5% a 15% por dias corridos. '
+    +'Come-cotas: '+PCT(cen.cc)+' a cada semestre, com complemento no resgate se a regressiva for maior. '
+    +'ETF de RV, fundo de acoes e acoes: 15%. ETF de RF: 25% / 20% / 15% pelo prazo medio. '
+    +'FII: 20% sobre o ganho de capital. Previdencia: regressiva 35% a 10% pelo prazo do aporte.'
+    +'<br><br><b>Nao considera.</b> IOF abaixo de 30 dias; isencao de R$ 20 mil/mes na venda de acoes '
+    +'(nao vale para ETF); dividendos e JCP; taxa de administracao e carregamento; '
+    +'compensacao de prejuizos; marcacao a mercado; risco de credito e FGC.';
+  $('cmpImpNota').innerHTML=nota;
+}
+
+function cmpCopyImposto(){
+  const cen=cmpCenario();
+  const prazos=cmpPrazosOrdenados();
+  const idx=Number($('cmpImpPrazo').value)||0;
+  const p=prazos[idx]||prazos[prazos.length-1];
+  const L=[];
+  L.push('Onde o imposto e pago — '+cmpPrazoLabel(p)+' ('+cmpPrazoDias(p)+' dias)');
+  L.push('Aplicado '+BRL(cen.valor)+' | CDI '+PCT(cen.cdi)+' a.a. | IPCA '+PCT(cen.ipca)+' a.a. | come-cotas '+PCT(cen.cc));
+  L.push('');
+  CMP.ativos.map(a=>({a,r:cmpCalcularP(a,p,cen)}))
+    .sort((x,y)=>y.r.liquido-x.r.liquido)
+    .forEach((row,i)=>{
+      const r=row.r;
+      L.push((i===0?'> ':'  ')+row.a.nome+' ('+cmpVeic(row.a).curto+')');
+      L.push('    Bruto sem IR: '+BRL(r.bruto));
+      L.push('    IR no caminho: '+(r.irDurante>0.5?BRL(r.irDurante):'—')
+            +' | IR no resgate: '+(r.irResgate>0.5?BRL(r.irResgate):'—'));
+      L.push('    Imposto pago: '+BRL(r.impostoTotal)+' | Custo real: '+BRL(r.custoIR));
+      L.push('    Liquido final: '+BRL(r.liquido)+' ('+PCT(r.rentLiqAA*100)+' a.a.)');
+      L.push('');
+    });
+  L.push('Custo real = bruto - liquido. A diferenca para o imposto pago e o');
+  L.push('rendimento que o imposto deixou de gerar por ter saido antes do fim.');
+
+  apsCopy(L.join('\n'), ()=>{
+    const b=$('cmpCopyImp'), o=b.textContent;
+    b.textContent='Copiado!'; setTimeout(()=>{b.textContent=o;},1600);
+  });
+}
+
 function renderComparador(){
   renderCmpPrazos();
   renderCmpTable();
+  renderCmpImposto();
   renderCmpEquiv();
   renderCmpVirada();
   document.querySelectorAll('[data-cmp-view]').forEach(b=>{
@@ -8519,6 +8627,7 @@ function initComparador(){
   $('cmpCdi').value=CMP.cdi;
   $('cmpIpca').value=CMP.ipca;
   $('cmpValor').value=CMP.valor;
+  $('cmpCc').value=CMP.cc||15;
 
   renderCmpAssets();
   renderComparador();
@@ -8526,6 +8635,7 @@ function initComparador(){
   ['cmpSelic','cmpCdi','cmpIpca','cmpValor'].forEach(id=>{
     $(id).addEventListener('input',()=>{ cmpPersist(); renderComparador(); });
   });
+  $('cmpCc').addEventListener('change',()=>{ cmpPersist(); renderComparador(); });
 
   $('cmpSyncCdi').addEventListener('click',()=>{
     const s=parseFloat($('cmpSelic').value)||0;
@@ -8552,7 +8662,7 @@ function initComparador(){
   });
 
   $('cmpAddAtivo').addEventListener('click',()=>{
-    CMP.ativos.push({id:apsUid('cmp'), nome:'Novo ativo', isento:false, modo:'cdi', taxa:100});
+    CMP.ativos.push({id:apsUid('cmp'), nome:'Novo ativo', veiculo:'rf_direta', modo:'cdi', taxa:100});
     apsWrite(CMP_KEY,CMP); renderCmpAssets(); renderComparador();
   });
 
@@ -8569,10 +8679,10 @@ function initComparador(){
     const a=CMP.ativos.find(x=>x.id===f.closest('[data-cmp-asset]').dataset.cmpAsset);
     if(!a) return;
     const campo=f.dataset.cmpF;
-    if(campo==='nome')        a.nome=f.value;
-    else if(campo==='taxa')   a.taxa=parseFloat(f.value)||0;
-    else if(campo==='isento') a.isento=(f.value==='1');
-    else if(campo==='modo')   a.modo=f.value;
+    if(campo==='nome')         a.nome=f.value;
+    else if(campo==='taxa')    a.taxa=parseFloat(f.value)||0;
+    else if(campo==='veiculo') a.veiculo=f.value;
+    else if(campo==='modo')    a.modo=f.value;
     apsWrite(CMP_KEY,CMP); renderComparador();
   });
   $('cmpAssets').addEventListener('change',e=>{
@@ -8594,12 +8704,15 @@ function initComparador(){
     apsWrite(CMP_KEY,CMP);
     $('cmpSelic').value=CMP.selic; $('cmpCdi').value=CMP.cdi;
     $('cmpIpca').value=CMP.ipca;  $('cmpValor').value=CMP.valor;
+    $('cmpCc').value=CMP.cc;
     renderCmpAssets(); renderComparador();
   });
 
   $('cmpCopy').addEventListener('click',cmpCopyResumo);
   $('cmpPar').addEventListener('change',renderCmpVirada);
   $('cmpCopyArg').addEventListener('click',cmpCopyArgumento);
+  $('cmpImpPrazo').addEventListener('change',renderCmpImposto);
+  $('cmpCopyImp').addEventListener('click',cmpCopyImposto);
 }
 initComparador();
 /* ===== MODULE:COMPARADOR:JS:END ===== */
@@ -10164,6 +10277,7 @@ const DEFAULTS = {
 function limpar(){
   Object.entries(DEFAULTS).forEach(([id,v])=>{const e=g(id);if(e)e.value=v;});
   g('im-fin-sistema').value='SAC';
+  g('im-con-lance-base').value='credito';
   calcular();
   toast('Valores restaurados');
 }
@@ -10325,9 +10439,25 @@ function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
 
   /* Carta = valor do imóvel (sem inflação por lance embutido) */
   const carta = valor;
-  const lanceFixoR  = carta * lanceFixo;
-  const lanceLivreR = carta * lanceLivre;
+
+  /* Base do lance:
+     - "credito"   → % sobre a carta (só o crédito)
+     - "categoria" → % sobre a categoria = carta + taxa adm. + fundo de reserva
+     A categoria é uma base maior, então o mesmo % vira mais dinheiro desembolsado. */
+  const lanceSobreCategoria = g('im-con-lance-base').value === 'categoria';
+  const baseLance = lanceSobreCategoria ? carta * (1 + admTotal + fundoRes) : carta;
+
+  const lanceFixoR  = baseLance * lanceFixo;
+  const lanceLivreR = baseLance * lanceLivre;
   const lanceTotal  = lanceFixoR + lanceLivreR;
+
+  const hintEl = g('im-lance-base-hint');
+  if(hintEl){
+    const pctTx = ((admTotal+fundoRes)*100).toFixed(1).replace('.',',');
+    hintEl.textContent = lanceSobreCategoria
+      ? 'Base ' + fmt(baseLance,0) + ' = carta + ' + pctTx + '% de taxas. Lance total: ' + fmt(lanceTotal,0) + '.'
+      : 'Base ' + fmt(baseLance,0) + ' = só o crédito. Lance total: ' + fmt(lanceTotal,0) + '.';
+  }
 
   /* Valorização anual usada como índice de reajuste das parcelas */
   const valAA = Math.pow(1+valMM,12)-1;
@@ -10407,6 +10537,7 @@ function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
   return { desembolsoInicial:0, totalParcelas, totalAluguel,
            imovelFinal, saldoInv:saldoFinal, patrimonio, serie,
            custoExtra, carta, lanceFixoR, lanceLivreR,
+           baseLance, lanceSobreCategoria,
            parcelaInic, parcelaReduz:parcelaAtual,
            mesContemp:temImovel?mesContemp:0 };
 }
@@ -10489,6 +10620,7 @@ function renderResults(av, fin, con, prazoM, valor){
     : fmt(con.parcelaInic,0);
   detH += '<div class="im-mini-grid" style="margin-top:10px">';
   detH += miniCard('Consórcio','Parcela (ini→red)', conParc, 'v-con', 'h-con');
+  detH += miniCard(con.lanceSobreCategoria?'Consórcio · s/ categoria':'Consórcio · s/ crédito','Base do lance', fmt(con.baseLance,0), 'v-con', '');
   detH += miniCard('Consórcio','Lance fixo', fmt(con.lanceFixoR,0), 'v-con', '');
   detH += miniCard('Consórcio','Lance livre', fmt(con.lanceLivreR,0), 'v-con', '');
   detH += '</div>';
@@ -10603,313 +10735,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 })();
 /* ===== MODULE:IMOVEL:JS:END ===== */
 
-// ===== MODULE:PIPE:JS:START =====
-(function(){
-const STAGES = [
-  {id:'prospeccao', label:'Prospecção',      color:'#7f8c8d'},
-  {id:'cotacao',    label:'Cotação enviada', color:'#2980b9'},
-  {id:'reuniao',    label:'Reunião',         color:'#B5893F'},
-  {id:'negociacao', label:'Negociação',      color:'#8e44ad'},
-  {id:'fechado',    label:'Fechado ✓',       color:'#2C6B66'},
-  {id:'perdido',    label:'Perdido',         color:'#c0392b'}
-];
 
-const g = id => document.getElementById(id);
-const fmtV = v => 'R$ '+Number(v||0).toLocaleString('pt-BR',{maximumFractionDigits:0});
-
-/* ── State (backend-backed) ── */
-let PIPE_DEALS = [];
-let PIPE_LOADED = false;
-let PIPE_DIRTY  = false;
-
-function markDirty(){
-  PIPE_DIRTY = true;
-  const bar = g('pipeSaveBar'); if(bar) bar.hidden = false;
-}
-function clearDirty(){
-  PIPE_DIRTY = false;
-  const bar = g('pipeSaveBar'); if(bar) bar.hidden = true;
-  pipeStatus('', false);
-}
-function pipeStatus(msg, isErr){
-  const el = g('pipeStatus'); if(!el) return;
-  el.textContent = msg || '';
-  el.style.color = isErr ? 'var(--clay)' : 'var(--good)';
-}
-
-/* ── Backend fetch / save ── */
-async function pipeFetch(){
-  if(!APS_WEBHOOK){ PIPE_LOADED = true; render(); return; }
-  try{
-    const items = await apsFetchList('pipe');
-    const last  = items && items.length ? items[items.length-1] : null;
-    const raw   = (last && last.text) || '';
-    try{ PIPE_DEALS = JSON.parse(raw) || []; }catch(e){ PIPE_DEALS = []; }
-  }catch(e){
-    /* pipe.json pode não existir ainda — começa vazio */
-    PIPE_DEALS = [];
-  }
-  PIPE_LOADED = true;
-  clearDirty();
-  render();
-}
-
-async function pipeSaveServerFn(){
-  if(!APS_WEBHOOK){ pipeStatus('Backend não configurado.', true); return; }
-  const pin = (g('pipePin').value || '').trim();
-  if(!pin){ pipeStatus('Informe o PIN do gestor.', true); g('pipePin').focus(); return; }
-  const btn = g('pipeSaveBtn');
-  if(btn) btn.disabled = true;
-  pipeStatus('Salvando…', false);
-  try{
-    const text = JSON.stringify(PIPE_DEALS);
-    const res  = await apsPost({modulo:'pipe', action:'save', pin, text});
-    if(res && res.ok){
-      clearDirty();
-      pipeStatus('Salvo ✓', false);
-      g('pipePin').value = '';
-      setTimeout(()=>pipeStatus('', false), 2000);
-    } else {
-      pipeStatus((res && res.error) ? res.error : 'PIN incorreto ou erro ao salvar.', true);
-    }
-  }catch(e){
-    pipeStatus('Erro de conexão ao salvar.', true);
-  }finally{
-    if(btn) btn.disabled = false;
-  }
-}
-
-function pipeDiscardFn(){
-  if(!confirm('Descartar todas as alterações não salvas?')) return;
-  pipeFetch();
-}
-
-/* ── Render ── */
-function render(){
-  const board = g('pipeBoard');
-  if(!board) return;
-
-  if(!PIPE_LOADED){
-    board.innerHTML = '<div class="pipe-loading">Carregando pipe…</div>';
-    return;
-  }
-
-  const fTipo     = g('pipe-f-tipo').value;
-  const fAssessor = g('pipe-f-assessor').value;
-
-  const filtered = PIPE_DEALS.filter(d=>{
-    if(fTipo && d.tipo !== fTipo) return false;
-    if(fAssessor && d.assessor !== fAssessor) return false;
-    return true;
-  });
-
-  /* update assessor filter options */
-  const assessores = [...new Set(PIPE_DEALS.map(d=>d.assessor).filter(Boolean))].sort();
-  const selA = g('pipe-f-assessor');
-  const curA = selA.value;
-  selA.innerHTML = '<option value="">Todos assessores</option>';
-  assessores.forEach(a=>{
-    const o = document.createElement('option');
-    o.value = a; o.textContent = a;
-    selA.appendChild(o);
-  });
-  selA.value = curA;
-
-  /* board */
-  board.innerHTML = '';
-
-  let totalGeral = 0, totalFechado = 0, countTotal = 0, countFechado = 0;
-
-  STAGES.forEach(st=>{
-    const col = document.createElement('div');
-    col.className = 'pipe-col';
-    col.dataset.stage = st.id;
-
-    const cards = filtered.filter(d=>d.etapa===st.id);
-    const soma  = cards.reduce((s,d)=>s+(parseFloat(d.valor)||0),0);
-
-    col.innerHTML = '<div class="pipe-col-head">'
-      +'<span class="pipe-col-dot" style="background:'+st.color+'"></span>'
-      +'<span class="pipe-col-title">'+st.label+'</span>'
-      +'<span class="pipe-col-count">'+cards.length+'</span>'
-      +'</div>';
-
-    const body = document.createElement('div');
-    body.className = 'pipe-col-body';
-
-    /* drag & drop on column */
-    body.addEventListener('dragover', e=>{e.preventDefault();body.classList.add('drag-over');});
-    body.addEventListener('dragleave', ()=>body.classList.remove('drag-over'));
-    body.addEventListener('drop', e=>{
-      e.preventDefault();
-      body.classList.remove('drag-over');
-      const dealId = e.dataTransfer.getData('text/plain');
-      if(dealId) moveDeal(dealId, st.id);
-    });
-
-    cards.forEach(d=>{
-      const card = document.createElement('div');
-      card.className = 'pipe-card';
-      card.draggable = true;
-      card.dataset.id = d.id;
-
-      card.addEventListener('dragstart', e=>{
-        e.dataTransfer.setData('text/plain', d.id);
-        card.classList.add('dragging');
-      });
-      card.addEventListener('dragend', ()=>card.classList.remove('dragging'));
-      card.addEventListener('dblclick', ()=>openEdit(d.id));
-
-      const tagTipo = d.tipo==='auto'
-        ? '<span class="pipe-card-tag tag-auto">Auto</span>'
-        : '<span class="pipe-card-tag tag-imovel">Imóvel</span>';
-      const tagAssessor = d.assessor
-        ? '<span class="pipe-card-tag tag-assessor">'+d.assessor+'</span>'
-        : '';
-      const nota = d.nota ? '<div class="pipe-card-nota">'+d.nota+'</div>' : '';
-      const data = d.data ? '<div class="pipe-card-data">'+new Date(d.data+'T12:00:00').toLocaleDateString('pt-BR')+'</div>' : '';
-
-      card.innerHTML = '<div class="pipe-card-actions">'
-        +'<button class="pipe-card-btn" onclick="pipeEdit(\''+d.id+'\')" title="Editar">✏️</button>'
-        +'</div>'
-        +'<div class="pipe-card-nome">'+d.nome+'</div>'
-        +'<div class="pipe-card-valor">'+fmtV(d.valor)+'</div>'
-        +'<div class="pipe-card-meta">'+tagTipo+tagAssessor+'</div>'
-        +nota+data;
-
-      body.appendChild(card);
-    });
-
-    col.appendChild(body);
-    board.appendChild(col);
-
-    if(st.id !== 'perdido'){ totalGeral += soma; countTotal += cards.length; }
-    if(st.id === 'fechado'){ totalFechado += soma; countFechado += cards.length; }
-  });
-
-  /* totals bar */
-  g('pipeTotals').innerHTML =
-    '<span>Pipeline: <b>'+countTotal+' deals</b> · <b>'+fmtV(totalGeral)+'</b></span>'
-    +'<span>Fechados: <b>'+countFechado+' deals</b> · <b>'+fmtV(totalFechado)+'</b></span>';
-}
-
-function moveDeal(dealId, newStage){
-  const d = PIPE_DEALS.find(x=>x.id===dealId);
-  if(d){ d.etapa = newStage; markDirty(); render(); }
-}
-
-/* ── Modal ── */
-function openModal(deal){
-  g('pipeModalTitle').textContent = deal ? 'Editar deal' : 'Novo deal';
-  g('pipe-edit-id').value = deal ? deal.id : '';
-  g('pipe-m-nome').value  = deal ? deal.nome : '';
-  g('pipe-m-valor').value = deal ? deal.valor : '';
-  g('pipe-m-tipo').value  = deal ? deal.tipo : 'imovel';
-  g('pipe-m-assessor').value = deal ? deal.assessor : '';
-  g('pipe-m-etapa').value = deal ? deal.etapa : 'prospeccao';
-  g('pipe-m-nota').value  = deal ? deal.nota : '';
-  g('pipe-m-data').value  = deal ? deal.data : new Date().toISOString().slice(0,10);
-  g('pipeDelBtn').style.display = deal ? '' : 'none';
-  g('pipeOverlay').classList.add('open');
-  setTimeout(()=>g('pipe-m-nome').focus(),100);
-}
-
-function closeModal(){
-  g('pipeOverlay').classList.remove('open');
-}
-
-function saveDeal(){
-  const nome = g('pipe-m-nome').value.trim();
-  if(!nome){ g('pipe-m-nome').focus(); return; }
-
-  const editId = g('pipe-edit-id').value;
-  const data = {
-    nome,
-    valor: parseFloat(g('pipe-m-valor').value)||0,
-    tipo: g('pipe-m-tipo').value,
-    assessor: g('pipe-m-assessor').value.trim(),
-    etapa: g('pipe-m-etapa').value,
-    nota: g('pipe-m-nota').value.trim(),
-    data: g('pipe-m-data').value
-  };
-
-  if(editId){
-    const idx = PIPE_DEALS.findIndex(d=>d.id===editId);
-    if(idx>=0) Object.assign(PIPE_DEALS[idx], data);
-  } else {
-    data.id = 'deal_'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
-    PIPE_DEALS.push(data);
-  }
-
-  markDirty();
-  closeModal();
-  render();
-}
-
-function delDeal(){
-  const editId = g('pipe-edit-id').value;
-  if(!editId) return;
-  if(!confirm('Excluir este deal?')) return;
-  PIPE_DEALS = PIPE_DEALS.filter(d=>d.id!==editId);
-  markDirty();
-  closeModal();
-  render();
-}
-
-function openEdit(dealId){
-  const d = PIPE_DEALS.find(x=>x.id===dealId);
-  if(d) openModal(d);
-}
-
-/* ── Export ── */
-function exportPipe(){
-  let txt = 'PIPE CONSÓRCIO — '+new Date().toLocaleDateString('pt-BR')+'\n\n';
-  STAGES.forEach(st=>{
-    const cards = PIPE_DEALS.filter(d=>d.etapa===st.id);
-    if(cards.length===0) return;
-    txt += st.label.toUpperCase()+' ('+cards.length+')\n';
-    cards.forEach(d=>{
-      txt += '  • '+d.nome+' — '+fmtV(d.valor)+' '+d.tipo;
-      if(d.assessor) txt += ' ['+d.assessor+']';
-      if(d.nota) txt += ' — '+d.nota;
-      txt += '\n';
-    });
-    txt += '\n';
-  });
-  navigator.clipboard.writeText(txt).then(()=>alert('Resumo copiado!')).catch(()=>{
-    prompt('Copie o resumo:', txt);
-  });
-}
-
-/* ── Expose ── */
-window.pipeRender      = render;
-window.pipeOpenModal   = ()=>openModal(null);
-window.pipeCloseModal  = closeModal;
-window.pipeSave        = saveDeal;
-window.pipeDel         = delDeal;
-window.pipeEdit        = openEdit;
-window.pipeExport      = exportPipe;
-window.pipeSaveServer  = pipeSaveServerFn;
-window.pipeDiscard     = pipeDiscardFn;
-
-/* auto-render ao abrir + fetch do backend */
-document.addEventListener('DOMContentLoaded', ()=>{
-  /* MutationObserver como fallback */
-  const obs = new MutationObserver(()=>{
-    if(!g('module-pipe').hidden) render();
-  });
-  obs.observe(g('module-pipe'),{attributes:true,attributeFilter:['hidden']});
-
-  /* Hook nos botões de navegação para render imediato */
-  document.querySelectorAll('[data-module="module-pipe"]').forEach(btn=>{
-    btn.addEventListener('click', ()=>setTimeout(render, 50));
-  });
-
-  /* Fetch do backend */
-  pipeFetch();
-});
-})();
-// ===== MODULE:PIPE:JS:END =====
 
 /* ===== MODULE:OPERACIONAL:JS:START ===== */
 const OP_SCRIPTS = [];
