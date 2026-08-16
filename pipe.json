@@ -1,8 +1,8 @@
 [
   {
-    "id": "pipe_initial",
+    "id": "pipe_msvvlcxx_78c8i",
     "text": "[{\"id\":\"p1\",\"nome\":\"Imóvel 400k\",\"valor\":400000,\"tipo\":\"imovel\",\"assessor\":\"Érica\",\"etapa\":\"prospeccao\",\"nota\":\"\",\"data\":\"2026-08-13\"},{\"id\":\"p2\",\"nome\":\"Auto 200k\",\"valor\":200000,\"tipo\":\"auto\",\"assessor\":\"Érica\",\"etapa\":\"prospeccao\",\"nota\":\"\",\"data\":\"2026-08-13\"},{\"id\":\"p3\",\"nome\":\"Imóvel 500k\",\"valor\":500000,\"tipo\":\"imovel\",\"assessor\":\"Inti\",\"etapa\":\"prospeccao\",\"nota\":\"\",\"data\":\"2026-08-13\"},{\"id\":\"p4\",\"nome\":\"Imóvel 500k\",\"valor\":500000,\"tipo\":\"imovel\",\"assessor\":\"Felipe\",\"etapa\":\"prospeccao\",\"nota\":\"\",\"data\":\"2026-08-13\"},{\"id\":\"p5\",\"nome\":\"Imóvel 1,4MM\",\"valor\":1400000,\"tipo\":\"imovel\",\"assessor\":\"Lau\",\"etapa\":\"prospeccao\",\"nota\":\"\",\"data\":\"2026-08-13\"},{\"id\":\"p6\",\"nome\":\"Danielle\",\"valor\":800000,\"tipo\":\"imovel\",\"assessor\":\"Bernardo\",\"etapa\":\"reuniao\",\"nota\":\"R$ 600.000 a R$ 1.000.000 – reunião realizada hoje\",\"data\":\"2026-08-13\"},{\"id\":\"p7\",\"nome\":\"Renato\",\"valor\":725000,\"tipo\":\"imovel\",\"assessor\":\"Bernardo\",\"etapa\":\"reuniao\",\"nota\":\"R$ 600.000 a R$ 850.000 – reunião realizada hoje\",\"data\":\"2026-08-13\"},{\"id\":\"p8\",\"nome\":\"Maritza\",\"valor\":140000,\"tipo\":\"auto\",\"assessor\":\"\",\"etapa\":\"cotacao\",\"nota\":\"Consórcio auto – cotação enviada hoje, aguardando retorno\",\"data\":\"2026-08-13\"}]",
     "createdAt": "2026-08-13T12:00:00.000Z",
-    "updatedAt": "2026-08-13T12:00:00.000Z"
+    "updatedAt": "2026-08-16T14:03:51.813Z"
   }
 ]
