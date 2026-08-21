@@ -122,11 +122,15 @@ async function readRepoJson(file) {
 
 async function writeRepoJson(file, sha, items, message) {
   const content = Buffer.from(`${JSON.stringify(items, null, 2)}\n`, 'utf8').toString('base64');
+  // "[skip ci]" impede que a gravacao de DADOS dispare um build no Netlify.
+  // Sem isso, cada recado/produto/acesso salvo consumia um deploy inteiro.
+  // Como o site deployado passa a ficar com os .json defasados, a LEITURA
+  // roda pela action "list" desta mesma funcao, que le direto do GitHub.
   return githubRequest(contentsUrl(file), {
     method: 'PUT',
     headers: githubHeaders(),
     body: JSON.stringify({
-      message,
+      message: `${message} [skip ci]`,
       content,
       sha,
       branch: BRANCH
@@ -218,10 +222,6 @@ exports.handler = async function handler(event) {
     return reply(500, { ok: false, error: 'GITHUB_TOKEN nao configurado no Netlify.' });
   }
 
-  if (!getPin()) {
-    return reply(500, { ok: false, error: 'OPS_GESTOR_PIN nao configurado no Netlify.' });
-  }
-
   let body = null;
   try {
     body = JSON.parse(event.body || '{}');
@@ -238,6 +238,35 @@ exports.handler = async function handler(event) {
     const expected = scope === 'acessos' ? getAccessReportPin() : null;
     const ok = expected !== null && String(body.pin || '') === String(expected);
     return reply(ok ? 200 : 401, { ok });
+  }
+
+  // LEITURA ao vivo (sem PIN - os .json ja eram servidos publicamente pelo
+  // site estatico). Necessaria porque as gravacoes usam "[skip ci]": o site
+  // deployado nao e mais reconstruido, entao a copia estatica fica velha.
+  // Aceita "modulos" (varios de uma vez) para gastar 1 invocacao por
+  // carregamento de pagina em vez de uma por modulo.
+  if (String(body.action || '') === 'list') {
+    const pedidos = Array.isArray(body.modulos)
+      ? body.modulos
+      : [body.modulo];
+    const nomes = pedidos.map((m) => String(m || '')).filter((m) => FILES[m]);
+    if (!nomes.length) {
+      return reply(400, { ok: false, error: 'Modulo invalido.' });
+    }
+    const data = {};
+    await Promise.all(nomes.map(async (nome) => {
+      try {
+        const current = await readRepoJson(FILES[nome]);
+        data[nome] = current.items;
+      } catch (error) {
+        data[nome] = []; // arquivo ainda nao existe no repo
+      }
+    }));
+    return reply(200, { ok: true, data });
+  }
+
+  if (!getPin()) {
+    return reply(500, { ok: false, error: 'OPS_GESTOR_PIN nao configurado no Netlify.' });
   }
 
   const modulo = String(body.modulo || '');

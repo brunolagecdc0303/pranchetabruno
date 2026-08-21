@@ -1,8 +1,21 @@
 [build]
   publish = "."
+  # Segunda barreira contra deploy desnecessario (a primeira e o "[skip ci]"
+  # que a function poe na mensagem de commit ao gravar dados).
+  # O comando roda a cada push: se sair 0, o build e PULADO.
+  # Sai 0 quando o commit mexeu SO nos .json de dados listados abaixo —
+  # esses o app le AO VIVO pela function, entao republicar nao muda nada.
+  # ATENCAO: etfs.json NAO entra na lista de propósito. Ele e lido como
+  # arquivo estatico (fetch direto, formato {data_atualizacao, etfs[]}), logo
+  # precisa de build pra chegar no ar. O refresh dele roda 1x por semana.
+  # Qualquer outra mudanca (index.html, functions, toml, arquivo novo) sai 1
+  # e o build acontece normalmente.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)acessos.json' ':(exclude)cartas.json' ':(exclude)dolar_ativos.json' ':(exclude)links.json' ':(exclude)orientacao.json' ':(exclude)pipe.json' ':(exclude)produtos_mes.json' ':(exclude)recados.json' ':(exclude)sugestoes.json'"
 
 [functions]
   directory = "netlify/functions"
 
-# Site 100% estático: index.html + arquivos .json versionados no repo.
+# Site estático: index.html + arquivos .json versionados no repo.
 # Alterações da área do gestor passam por Netlify Functions.
+# LEITURA dos dados: action "list" da function github-json (le direto do
+# GitHub, sempre atual). A copia .json publicada fica so como fallback.

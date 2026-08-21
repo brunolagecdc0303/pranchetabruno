@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Simulador de Acúmulo em Previdência — PGBL × VGBL × Fundo</title>
+<title>Prancheta Bruno</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1713,7 +1713,7 @@
     @page{size:A4;margin:14mm 14mm 16mm}
     body{background:#fff;font-size:11pt}
     /* PRINT:HIDE-MODULES:LIST — adicione aqui o #id do <section class="module"> de cada módulo novo (exceto o que efetivamente imprime) */
-    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#module-sucessao,#module-consorcio,#module-operacional,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions,.wn-fab,.wn-panel{display:none!important}
+    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#module-sucessao,#module-consorcio,#module-operacional,#module-imovel,#module-pipe,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions,.wn-fab,.wn-panel{display:none!important}
     .app,.app-main,.module{display:block!important}
     #report{display:block!important;color:#111;max-width:none}
     .rep-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:18px}
@@ -5153,14 +5153,51 @@ const APS_FILES = {
 // Prefixo de id por módulo (mantém o padrão dos ids já existentes).
 const APS_PREFIX = { cartas:'carta', recados:'rec', orientacao:'orient', links:'link', dolar_ativos:'dlrat', produtos_mes:'pm', sugestoes:'sug', acessos:'acs' };
 
-// ---- LEITURA: puxa o array do arquivo JSON versionado ----
-async function apsFetchList(modulo){
-  const file = APS_FILES[modulo];
-  if(!file) return [];
-  const resp = await fetch(file + '?t=' + Date.now(), {cache:'no-store'});
-  if(!resp.ok) throw new Error('Falha ao ler ' + file + ' (' + resp.status + ')');
-  const data = await resp.json();
-  return Array.isArray(data) ? data : (data.items || []);
+// ---- LEITURA: busca os dados AO VIVO pela Netlify Function ----
+// Por que não ler o .json estático do site: as gravações usam "[skip ci]" para
+// não gastar um deploy por recado/produto/acesso salvo. Com isso o site
+// deployado deixa de ser reconstruído e sua cópia estática fica velha — a
+// fonte da verdade passa a ser o GitHub, lido pela action "list".
+// As chamadas feitas no mesmo tick são agrupadas num único POST, então um
+// carregamento de página custa 1 invocação, não uma por módulo.
+let APS_READ_BATCH = null;
+
+async function apsRunReadBatch(batch){
+  try{
+    const resp = await fetch(APS_ENDPOINT, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ action:'list', modulos: batch.modulos })
+    });
+    let data=null; try{ data = await resp.json(); }catch(e){}
+    if(!resp.ok || !data || data.ok===false || !data.data) throw new Error('list falhou');
+    batch.resolve(data.data);
+  }catch(e){
+    // Fallback: cópia estática do deploy. Pode estar defasada, mas é melhor
+    // que a tela vazia se a function estiver fora do ar.
+    const out = {};
+    await Promise.all(batch.modulos.map(async m=>{
+      try{
+        const r = await fetch(APS_FILES[m] + '?t=' + Date.now(), {cache:'no-store'});
+        const d = await r.json();
+        out[m] = Array.isArray(d) ? d : (d.items || []);
+      }catch(err){ out[m] = []; }
+    }));
+    batch.resolve(out);
+  }
+}
+
+function apsFetchList(modulo){
+  if(!APS_FILES[modulo]) return Promise.resolve([]);
+  if(!APS_READ_BATCH){
+    const batch = { modulos: [] };
+    batch.promise = new Promise(res=>{ batch.resolve = res; });
+    APS_READ_BATCH = batch;
+    setTimeout(()=>{ APS_READ_BATCH = null; apsRunReadBatch(batch); }, 0);
+  }
+  const batch = APS_READ_BATCH;
+  if(batch.modulos.indexOf(modulo) < 0) batch.modulos.push(modulo);
+  return batch.promise.then(map => map[modulo] || []);
 }
 
 // Sobe SÓ o arquivo pro Google (base64 já vem pronto dos formulários) e
@@ -11495,11 +11532,18 @@ const WN_LATEST_DATE = '2026-08-07';
 /* ===== SHARED:JS:WHATSNEW:END ===== */
 
 /* ===== SHARED:JS:VISITORGATE:START (nome do assessor antes de entrar — sem senha, sem cadastro;
-   loga 1 acesso por carregamento de página no módulo Operacional > Acessos) ===== */
+   loga 1 acesso por DIA por pessoa no módulo Operacional > Acessos — não a cada carregamento de
+   página, pois cada log grava no GitHub e isso dispara um deploy no Netlify a cada chamada) ===== */
 const VISITOR_NAME_KEY='aps_visitor_name';
+const VISITOR_LASTLOG_KEY='aps_visitor_lastlog';
 function apsVisitorName(){ try{ return (localStorage.getItem(VISITOR_NAME_KEY)||'').trim(); }catch(e){ return ''; } }
 function apsLogAccess(name){
   if(!APS_WEBHOOK || !name) return;
+  const today = new Date().toISOString().slice(0,10);
+  try{
+    if(localStorage.getItem(VISITOR_LASTLOG_KEY) === today+'|'+name) return; /* já logado hoje — evita deploy repetido */
+    localStorage.setItem(VISITOR_LASTLOG_KEY, today+'|'+name);
+  }catch(e){}
   try{ apsPost({modulo:'acessos', action:'save', name:name}); }catch(e){}
 }
 function apsChangeVisitorName(){
