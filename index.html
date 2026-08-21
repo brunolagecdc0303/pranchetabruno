@@ -4841,6 +4841,12 @@ Abraço,
     <button class="wn-panel-close" id="wnClose" type="button" aria-label="Fechar">&times;</button>
   </div>
   <div class="wn-panel-body" id="wnBody">
+    <div class="wn-date">21 de agosto de 2026</div>
+    <ul class="wn-list">
+      <li><b>Pipe Consórcio</b> agora é compartilhado entre todos os assessores — antes ficava só no seu navegador. Qualquer um vê e organiza os cards; salvar as mudanças exige o PIN do gestor.</li>
+      <li>Corrigido o <b>PDF do Dolarizar carteira</b>: não sai mais junto com o comparador de Consórcio/Compra de imóvel.</li>
+      <li>Nome da aba do navegador atualizado para <b>Prancheta Bruno</b>.</li>
+    </ul>
     <div class="wn-date">13 de agosto de 2026</div>
     <ul class="wn-list">
       <li>Nova aba <b>Treinamentos quinta</b> dentro de <b>Cartas / Treinamentos</b> &mdash; cadastro com título, data, anotações e anexo de PowerPoint (até 15 MB, salvo local).</li>
@@ -11500,7 +11506,7 @@ function apsCloseOtherFabPanels(except){
 
 /* ===== SHARED:JS:WHATSNEW:START (botão + painel "Atualizações" fixo no topo direito — ao adicionar uma
    nova entrada no HTML, atualize também WN_LATEST_DATE abaixo para a data do bloco mais novo) ===== */
-const WN_LATEST_DATE = '2026-08-07';
+const WN_LATEST_DATE = '2026-08-21';
 (function(){
   const fab=$('wnFab'), panel=$('wnPanel'), closeBtn=$('wnClose'), dot=$('wnDot');
   if(!fab||!panel) return;
