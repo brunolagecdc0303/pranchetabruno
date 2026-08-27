@@ -4841,6 +4841,11 @@ Abraço,
     <button class="wn-panel-close" id="wnClose" type="button" aria-label="Fechar">&times;</button>
   </div>
   <div class="wn-panel-body" id="wnBody">
+    <div class="wn-date">27 de agosto de 2026</div>
+    <ul class="wn-list">
+      <li>Correção importante no <b>Comparador consórcio</b> (à vista &times; financiamento &times; consórcio): quando as parcelas estouravam o dinheiro investido, o que era pago do bolso sumia da conta e o <b>patrimônio final ficava empatado</b>. Agora esse valor entra no resultado &mdash; cenários com juros altos, rentabilidade baixa ou lance grande passam a mostrar patrimônio menor, e negativo quando é o caso.</li>
+      <li>No mesmo módulo, o dinheiro tirado do bolso passou a carregar o <b>mesmo custo de oportunidade</b> do capital investido, deixando os três cenários comparáveis. O gráfico de evolução também deixou de travar em zero.</li>
+    </ul>
     <div class="wn-date">21 de agosto de 2026</div>
     <ul class="wn-list">
       <li><b>Pipe Consórcio</b> agora é compartilhado entre todos os assessores — antes ficava só no seu navegador. Qualquer um vê e organiza os cards; salvar as mudanças exige o PIN do gestor.</li>
@@ -10414,7 +10419,9 @@ function calcFinanciamento(valor, valMM, yieldMM, rentMM, prazoM){
   const serie = [valor + saldo];
 
   for(let m=1; m<=prazoM; m++){
-    if(saldo > 0) saldo *= (1+rentMM);
+    /* saldo negativo tambem compoe: dinheiro tirado do bolso carrega o mesmo
+       custo de oportunidade do capital investido nos outros cenarios */
+    saldo *= (1+rentMM);
 
     /* aluguel (tem imóvel desde D+0) */
     const imovelAgora = valor * Math.pow(1+valMM, m);
@@ -10439,18 +10446,17 @@ function calcFinanciamento(valor, valMM, yieldMM, rentMM, prazoM){
       totalParcelas += parcela;
     }
 
-    if(saldo >= parcela){
-      saldo -= parcela;
-    } else {
-      custoExtra += parcela - Math.max(saldo,0);
-      saldo = 0;
-    }
+    /* custoExtra = quanto saiu do bolso (nominal, informativo).
+       O saldo NAO e travado em zero: se a carteira acaba ele fica negativo e
+       entra no patrimonio final — senao a parcela sairia de graca no balanco. */
+    if(saldo < parcela) custoExtra += parcela - Math.max(saldo,0);
+    saldo -= parcela;
 
-    serie.push(imovelAgora + Math.max(saldo,0));
+    serie.push(imovelAgora + saldo);
   }
 
   const imovelFinal = valor * Math.pow(1+valMM, prazoM);
-  const saldoFinal  = Math.max(saldo,0);
+  const saldoFinal  = saldo;
   const patrimonio  = imovelFinal + saldoFinal;
 
   return { desembolsoInicial:entrada, totalParcelas, totalAluguel,
@@ -10525,12 +10531,8 @@ function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
     /* ── contemplação no início do mês ── */
     if(m === mesContemp && !temImovel){
       /* lance fixo + livre saem do saldo investido */
-      if(saldo >= lanceTotal){
-        saldo -= lanceTotal;
-      } else {
-        custoExtra += lanceTotal - Math.max(saldo,0);
-        saldo = 0;
-      }
+      if(saldo < lanceTotal) custoExtra += lanceTotal - Math.max(saldo,0);
+      saldo -= lanceTotal;
       /* recalcular parcela: restante após parcelas já pagas + lances */
       const restante  = Math.max(totalObrig * (reajuste ? Math.pow(1+valAA, Math.floor(mesContemp/12)) : 1) - totalParcelas - lanceTotal, 0);
       const mRestante = prazoConM - mesContemp + 1;
@@ -10538,8 +10540,8 @@ function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
       temImovel = true;
     }
 
-    /* rendimento */
-    if(saldo > 0) saldo *= (1+rentMM);
+    /* rendimento (saldo negativo tambem compoe — ver calcFinanciamento) */
+    saldo *= (1+rentMM);
 
     /* aluguel (só após contemplação) */
     if(temImovel){
@@ -10557,23 +10559,19 @@ function calcConsorcio(valor, valMM, yieldMM, rentMM, prazoM){
         parcelaAtual *= (1 + valAA);
       }
 
-      if(saldo >= parcelaAtual){
-        saldo -= parcelaAtual;
-      } else {
-        custoExtra += parcelaAtual - Math.max(saldo,0);
-        saldo = 0;
-      }
+      if(saldo < parcelaAtual) custoExtra += parcelaAtual - Math.max(saldo,0);
+      saldo -= parcelaAtual;
       totalParcelas += parcelaAtual;
     }
 
     let imovelAgora = 0;
     if(temImovel) imovelAgora = valor * Math.pow(1+valMM, m - mesContemp);
-    serie.push(imovelAgora + Math.max(saldo,0));
+    serie.push(imovelAgora + saldo);
   }
 
   let imovelFinal = 0;
   if(temImovel) imovelFinal = valor * Math.pow(1+valMM, prazoM - mesContemp);
-  const saldoFinal = Math.max(saldo,0);
+  const saldoFinal = saldo;
   const patrimonio = imovelFinal + saldoFinal;
 
   return { desembolsoInicial:0, totalParcelas, totalAluguel,
@@ -11506,7 +11504,7 @@ function apsCloseOtherFabPanels(except){
 
 /* ===== SHARED:JS:WHATSNEW:START (botão + painel "Atualizações" fixo no topo direito — ao adicionar uma
    nova entrada no HTML, atualize também WN_LATEST_DATE abaixo para a data do bloco mais novo) ===== */
-const WN_LATEST_DATE = '2026-08-21';
+const WN_LATEST_DATE = '2026-08-27';
 (function(){
   const fab=$('wnFab'), panel=$('wnPanel'), closeBtn=$('wnClose'), dot=$('wnDot');
   if(!fab||!panel) return;
