@@ -1643,6 +1643,76 @@
     .op-script blockquote{font-size:13px}
   }
   /* ===== MODULE:OPERACIONAL:CSS:END ===== */
+  /* ===== MODULE:ALAVANCAGEM:CSS:START ===== */
+  #module-alavanc{--av-own:var(--teal);--av-own-soft:#DCE9E6;--av-rent:var(--brass);--av-rent-soft:#F2E8D6;--av-cash:var(--muted-2)}
+  #module-alavanc .av-sec{display:flex;flex-direction:column;gap:16px;margin-bottom:46px}
+  #module-alavanc .av-kicker{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0}
+  #module-alavanc h2{font-family:var(--f-display);font-weight:600;font-size:clamp(20px,2.6vw,26px);line-height:1.15;margin:0;letter-spacing:-.01em;text-wrap:balance}
+  #module-alavanc h3{font-family:var(--f-display);font-size:15px;font-weight:600;margin:0}
+  #module-alavanc p{margin:0;max-width:68ch}
+  #module-alavanc .av-muted{color:var(--muted)}
+  #module-alavanc .av-num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+  #module-alavanc .av-own{color:var(--av-own)}
+  #module-alavanc .av-head{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,3.2vw,32px);line-height:1.12;letter-spacing:-.015em;max-width:24ch;margin:0;text-wrap:balance}
+  #module-alavanc .av-bar{display:flex;height:56px;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+  #module-alavanc .av-bar>div{display:flex;align-items:center;padding:0 14px;font-weight:600;font-size:13.5px;white-space:nowrap;overflow:hidden;transition:flex-basis .3s}
+  #module-alavanc .av-b-own{background:var(--av-own);color:#fff}
+  #module-alavanc .av-b-rent{background:var(--av-rent-soft);color:var(--ink);background-image:repeating-linear-gradient(135deg,transparent 0 8px,rgba(181,137,63,.22) 8px 9px)}
+  #module-alavanc .av-legend{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:13px;color:var(--muted)}
+  #module-alavanc .av-legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+  #module-alavanc .av-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  #module-alavanc .av-step{border-top:2px solid var(--ink);padding-top:12px;display:flex;flex-direction:column;gap:6px;min-width:0;font-size:14px}
+  #module-alavanc .av-step .k{font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+  #module-alavanc .av-sim{display:grid;grid-template-columns:250px 1fr;gap:24px;align-items:start}
+  #module-alavanc .av-controls{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:15px;box-shadow:var(--shadow)}
+  #module-alavanc .av-field{display:flex;flex-direction:column;gap:6px}
+  #module-alavanc .av-field label{font-size:12.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+  #module-alavanc .av-field label output{font-family:var(--f-mono);font-weight:500;color:var(--av-own)}
+  #module-alavanc .av-field small{font-size:11.5px;color:var(--muted);line-height:1.35}
+  #module-alavanc input[type=range]{width:100%;accent-color:var(--av-own)}
+  #module-alavanc input[type=number]{width:100%;font:inherit;font-family:var(--f-mono);padding:8px 10px;border:1px solid var(--line-strong);border-radius:6px;background:#fff;color:var(--ink)}
+  #module-alavanc .av-reset{font:inherit;font-size:12.5px;background:none;border:1px solid var(--line-strong);color:var(--muted);border-radius:6px;padding:7px 10px;cursor:pointer}
+  #module-alavanc .av-reset:hover{color:var(--ink);border-color:var(--ink)}
+  #module-alavanc .av-results{display:flex;flex-direction:column;gap:20px;min-width:0}
+  #module-alavanc .av-tw{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow)}
+  #module-alavanc table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+  #module-alavanc th,#module-alavanc td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+  #module-alavanc th:first-child,#module-alavanc td:first-child{text-align:left;white-space:normal}
+  #module-alavanc thead th{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;vertical-align:bottom;white-space:normal}
+  #module-alavanc #av-t-sim thead th{min-width:110px}
+  #module-alavanc #av-t-sim td:first-child{min-width:130px}
+  #module-alavanc thead th.hl{color:var(--av-own)}
+  #module-alavanc td.hl{background:rgba(44,107,102,.07)}
+  #module-alavanc tr:last-child td{border-bottom:none}
+  #module-alavanc tr.total td{font-weight:600;font-size:14.5px}
+  #module-alavanc td .sub{display:block;font-size:11px;color:var(--muted);font-weight:400}
+  #module-alavanc .pos{color:var(--good)} #module-alavanc .negv{color:var(--bad)}
+  #module-alavanc .av-chart{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 12px 8px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow)}
+  #module-alavanc .av-chart svg{width:100%;height:auto;display:block}
+  #module-alavanc .av-note{font-size:13px;color:var(--muted)}
+  #module-alavanc .av-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  #module-alavanc .av-side{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0;box-shadow:var(--shadow)}
+  #module-alavanc .av-side.win{border-color:var(--av-own);box-shadow:inset 0 0 0 1px var(--av-own),var(--shadow)}
+  #module-alavanc .av-big{font-family:var(--f-mono);font-size:clamp(24px,3.6vw,32px);font-weight:500;letter-spacing:-.02em;line-height:1}
+  #module-alavanc .av-side dl{display:grid;grid-template-columns:1fr auto;gap:6px 12px;margin:0;font-size:13.5px}
+  #module-alavanc .av-side dt{color:var(--muted)} #module-alavanc .av-side dd{margin:0;font-family:var(--f-mono);text-align:right}
+  #module-alavanc .av-cap{max-width:260px}
+  #module-alavanc .av-hot td:first-child{font-weight:500;white-space:nowrap}
+  #module-alavanc .av-hot input[type=checkbox]{width:16px;height:16px;accent-color:var(--av-own);vertical-align:-3px;margin-right:8px}
+  #module-alavanc .av-hot tbody tr{cursor:pointer}
+  #module-alavanc .av-hot tbody tr.on td{background:rgba(44,107,102,.08)}
+  #module-alavanc .av-chip{display:inline-block;font-family:var(--f-mono);font-size:11.5px;padding:2px 8px;border-radius:99px;background:var(--av-own-soft);color:var(--av-own)}
+  #module-alavanc .av-chip.low{background:var(--av-rent-soft);color:var(--brass-deep)}
+  #module-alavanc .av-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  #module-alavanc .av-sum>div{background:var(--card);padding:13px 15px;display:flex;flex-direction:column;gap:4px;min-width:0}
+  #module-alavanc .av-sum .v{font-family:var(--f-mono);font-size:18px}
+  #module-alavanc .av-sum .l{font-size:11.5px;color:var(--muted)}
+  #module-alavanc .av-risks{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 32px}
+  #module-alavanc .av-risks p{font-size:13.5px;color:var(--muted)} #module-alavanc .av-risks b{color:var(--ink)}
+  #module-alavanc .av-foot{font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;max-width:none}
+  @media (max-width:900px){#module-alavanc .av-sim{grid-template-columns:1fr}}
+  @media (max-width:720px){#module-alavanc .av-steps,#module-alavanc .av-risks,#module-alavanc .av-kpis{grid-template-columns:1fr}#module-alavanc .av-sum{grid-template-columns:repeat(2,1fr)}}
+  /* ===== MODULE:ALAVANCAGEM:CSS:END ===== */
 
   /* ===== SHARED:CSS:VISITORGATE:START (tela de nome antes de entrar) ===== */
   .vg-overlay{position:fixed;inset:0;z-index:99999;background:radial-gradient(circle at 28% 18%, rgba(44,107,102,.30), transparent 55%), var(--ink);display:flex;align-items:center;justify-content:center;padding:20px}
@@ -1713,7 +1783,7 @@
     @page{size:A4;margin:14mm 14mm 16mm}
     body{background:#fff;font-size:11pt}
     /* PRINT:HIDE-MODULES:LIST — adicione aqui o #id do <section class="module"> de cada módulo novo (exceto o que efetivamente imprime) */
-    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#module-sucessao,#module-consorcio,#module-operacional,#module-imovel,#module-pipe,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions,.wn-fab,.wn-panel{display:none!important}
+    .sidebar,.mod-topbar,#module-cartas,#module-recados,#module-links,#module-guia,#module-comparador,#module-dolar,#module-etf,#module-exterior,#module-sucessao,#module-consorcio,#module-operacional,#module-imovel,#module-alavanc,#module-pipe,#report-dolar,.masthead,.tabbar,#panel-sim,#panel-guia,#panel-ajuda,#panel-cliente,footer,.actions,.wn-fab,.wn-panel{display:none!important}
     .app,.app-main,.module{display:block!important}
     #report{display:block!important;color:#111;max-width:none}
     .rep-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:18px}
@@ -1872,6 +1942,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         Comparador consórcio
       </button>
+      <button class="side-item" data-module="module-alavanc" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21h20"/><path d="M4 21V10l5-4 5 4v11"/><path d="M14 21V13l4-3 4 3v8"/><path d="M8 21v-4h2v4"/></svg>
+        Carteira de imóveis
+      </button>
       <!-- MODULE:REGISTRY:SIDEBAR:END -->
       <span class="side-sec">Em breve</span>
       <span class="side-item soon">Mais módulos a caminho</span>
@@ -1896,6 +1970,7 @@
       <button class="mt-item" data-module="module-sucessao" type="button">Sucessão BR</button>
       <!-- <button class="mt-item" data-module="module-consorcio" type="button">Consórcio</button> -->
       <button class="mt-item" data-module="module-imovel" type="button">Comparador consórcio</button>
+      <button class="mt-item" data-module="module-alavanc" type="button">Carteira de imóveis</button>
       <!-- MODULE:REGISTRY:TOPBAR:END -->
       <span class="mt-item soon">Em breve</span>
     </div>
@@ -4798,6 +4873,136 @@ Abraço,
       </main>
     </section>
     <!-- MODULE:OPERACIONAL:HTML:END -->
+    <!-- MODULE:ALAVANCAGEM:HTML:START -->
+    <section class="module" id="module-alavanc" hidden>
+      <header class="masthead">
+        <div class="wrap">
+          <p class="eyebrow">Consórcio &middot; Alavancagem imobiliária</p>
+          <h1>Imóvel pagando <b>uma fração</b></h1>
+          <p class="lede">O cliente entra com um lance, recebe o imóvel, aluga, e o aluguel paga a parcela. O dinheiro que não foi para o imóvel continua aplicado. Simulação para mostrar na reunião.</p>
+        </div>
+      </header>
+      <main class="wrap" style="padding-top:26px;padding-bottom:60px">
+
+        <div class="av-sec">
+          <p class="av-head">Um imóvel de <span id="av-h-val">R$ 300 mil</span>. Você paga <span id="av-h-own" class="av-own">metade</span>. O aluguel paga o resto.</p>
+          <div class="av-bar" aria-label="Composição do valor do imóvel">
+            <div class="av-b-own" id="av-bar-own" style="flex-basis:40%">Seu dinheiro</div>
+            <div class="av-b-rent" id="av-bar-rent" style="flex-basis:60%">Pago pelo aluguel</div>
+          </div>
+          <div class="av-legend">
+            <span style="--c:var(--av-own)">Recurso próprio: <b class="av-num" id="av-lg-own"></b></span>
+            <span style="--c:var(--av-rent)">Saldo coberto pelo próprio imóvel: <b class="av-num" id="av-lg-rent"></b></span>
+          </div>
+        </div>
+
+        <div class="av-sec">
+          <p class="av-kicker">Como funciona</p>
+          <div class="av-steps">
+            <div class="av-step"><span class="k">1 · Lance</span><h3>Você entra com uma parte</h3><p class="av-muted">Dá um lance de <span class="av-num" id="av-s-lance"></span> da carta. Parte desse lance sai da própria carta (lance embutido), então do seu bolso sai só <span class="av-num" id="av-s-own"></span>.</p></div>
+            <div class="av-step"><span class="k">2 · Imóvel</span><h3>Recebe e aluga</h3><p class="av-muted">Contemplado, compra o imóvel de <span class="av-num" id="av-s-val"></span> e coloca para render. Aluguel estimado: <span class="av-num" id="av-s-rent"></span> por mês.</p></div>
+            <div class="av-step"><span class="k">3 · Parcela</span><h3>O aluguel paga a parcela</h3><p class="av-muted">Parcela de <span class="av-num" id="av-s-parc"></span> em <span id="av-s-prazo"></span> meses. Sobram <span class="av-num" id="av-s-sobra"></span> por mês, que vão sendo reinvestidos.</p></div>
+          </div>
+        </div>
+
+        <div class="av-sec">
+          <p class="av-kicker">Simulação</p>
+          <h2>Mesmo capital, três caminhos</h2>
+          <p class="av-muted">Partindo do mesmo dinheiro disponível. No consórcio, o que não vai para o lance fica aplicado na taxa de investimento.</p>
+          <div class="av-sim">
+            <form class="av-controls" id="av-ctl" onsubmit="return false">
+              <div class="av-field"><label for="av-f-val">Valor do imóvel</label><input type="number" id="av-f-val" min="50000" step="5000" value="300000"></div>
+              <div class="av-field"><label for="av-f-al">Aluguel ao ano <output id="av-o-al"></output></label><input type="range" id="av-f-al" min="3" max="12" step="0.1" value="7"><small>Sobre o valor do imóvel.</small></div>
+              <div class="av-field"><label for="av-f-r">Taxa de investimento <output id="av-o-r"></output></label><input type="range" id="av-f-r" min="3" max="14" step="0.1" value="7"><small>Onde rendem o capital que sobrou e as sobras de aluguel.</small></div>
+              <div class="av-field"><label for="av-f-tx">Taxa de administração <output id="av-o-tx"></output></label><input type="range" id="av-f-tx" min="10" max="30" step="0.5" value="20"><small>Total do grupo, sobre a carta.</small></div>
+              <div class="av-field"><label for="av-f-l">Lance <output id="av-o-l"></output></label><input type="range" id="av-f-l" min="20" max="70" step="1" value="55"><small>Sobre carta + taxa.</small></div>
+              <div class="av-field"><label for="av-f-e">Lance embutido <output id="av-o-e"></output></label><input type="range" id="av-f-e" min="0" max="30" step="1" value="30"><small>Parte da carta usada no próprio lance.</small></div>
+              <div class="av-field"><label for="av-f-n">Prazo restante <output id="av-o-n"></output></label><input type="range" id="av-f-n" min="60" max="240" step="1" value="200"></div>
+              <button type="button" class="av-reset" id="av-reset">Voltar ao estudo original</button>
+            </form>
+            <div class="av-results">
+              <div class="av-tw"><table id="av-t-sim">
+                <thead><tr><th></th><th>Compra à vista</th><th class="hl">Consórcio com lance embutido</th><th>Consórcio sem embutido</th></tr></thead>
+                <tbody></tbody>
+              </table></div>
+              <div class="av-chart">
+                <span class="av-kicker" style="padding:0 6px">Patrimônio líquido ao longo do prazo</span>
+                <svg id="av-chart" viewBox="0 0 640 300" role="img" aria-label="Patrimônio líquido por ano nos três cenários"></svg>
+                <div class="av-legend" style="padding:0 6px">
+                  <span style="--c:var(--av-cash)">À vista</span>
+                  <span style="--c:var(--av-own)">Com embutido</span>
+                  <span style="--c:var(--av-rent)">Sem embutido</span>
+                </div>
+              </div>
+              <p class="av-note" id="av-chart-note"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="av-sec">
+          <p class="av-kicker">A carteira</p>
+          <h2>Com o mesmo dinheiro, quanto de imóvel você controla?</h2>
+          <p class="av-muted">À vista, cada real compra um real de imóvel. No consórcio, cada real de recurso próprio controla cerca de <b class="av-num" id="av-mult"></b> em imóveis. É assim que se monta uma carteira, e não só um imóvel.</p>
+          <div class="av-field av-cap"><label for="av-f-cap">Capital disponível</label><input type="number" id="av-f-cap" min="50000" step="10000" value="300000"></div>
+          <div class="av-kpis">
+            <div class="av-side">
+              <span class="av-kicker">Compra à vista</span>
+              <div><div class="av-big" id="av-c1-val"></div><span class="av-muted" style="font-size:12.5px">em imóveis</span></div>
+              <dl>
+                <dt>Aluguel por mês hoje</dt><dd id="av-c1-al"></dd>
+                <dt>Parcela por mês</dt><dd>—</dd>
+                <dt>Sobra por mês</dt><dd id="av-c1-sb"></dd>
+                <dt>Aluguel por mês no fim do prazo</dt><dd id="av-c1-alf"></dd>
+                <dt>Patrimônio no fim do prazo</dt><dd id="av-c1-fin"></dd>
+              </dl>
+            </div>
+            <div class="av-side win">
+              <span class="av-kicker av-own">Carteira via consórcio</span>
+              <div><div class="av-big av-own" id="av-c2-val"></div><span class="av-muted" style="font-size:12.5px">em imóveis</span></div>
+              <dl>
+                <dt>Aluguel por mês hoje</dt><dd id="av-c2-al"></dd>
+                <dt>Parcela por mês</dt><dd id="av-c2-pc"></dd>
+                <dt>Sobra por mês</dt><dd id="av-c2-sb"></dd>
+                <dt>Aluguel por mês no fim do prazo</dt><dd id="av-c2-alf"></dd>
+                <dt>Patrimônio no fim do prazo</dt><dd id="av-c2-fin"></dd>
+              </dl>
+            </div>
+          </div>
+          <p class="av-note">Usa as mesmas premissas do simulador acima, com lance embutido. No fim do prazo as cartas estão quitadas e todo o aluguel fica com você.</p>
+        </div>
+
+        <div class="av-sec">
+          <p class="av-kicker">Unidades hoteleiras à venda</p>
+          <h2>Monte a sua carteira</h2>
+          <p class="av-muted">Marque as unidades. Preço já com 5% de negociação; escritura e ITBI estimados em 5,5% e pagos com recurso próprio. Renda mensal pela média dos últimos repasses informados.</p>
+          <div class="av-tw"><table class="av-hot" id="av-t-hot">
+            <thead><tr><th>Unidade</th><th>Preço anunciado</th><th>Negociado</th><th>Escritura</th><th>Renda/mês</th><th>Rende a.a.</th><th>Entrada no consórcio</th><th>Parcela</th><th>Sobra/mês</th></tr></thead>
+            <tbody></tbody>
+          </table></div>
+          <div class="av-sum">
+            <div><span class="l">Imóveis na carteira</span><span class="v" id="av-hs-val"></span></div>
+            <div><span class="l">Sai do seu bolso</span><span class="v av-own" id="av-hs-own"></span></div>
+            <div><span class="l">Parcelas por mês</span><span class="v" id="av-hs-pc"></span></div>
+            <div><span class="l">Sobra por mês, já pagas as parcelas</span><span class="v" id="av-hs-sb"></span></div>
+          </div>
+        </div>
+
+        <div class="av-sec">
+          <p class="av-kicker">O que está por trás das contas</p>
+          <div class="av-risks">
+            <p><b>Contemplação não é garantida.</b> Lance de 55% costuma contemplar rápido, mas depende do grupo e de cada assembleia. Até contemplar, não há imóvel nem aluguel.</p>
+            <p><b>O custo do dinheiro.</b> A taxa de administração é o custo. No cenário atual, ela equivale a um financiamento de cerca de <span class="av-num" id="av-r-irr"></span> ao ano, contra <span class="av-num" id="av-r-al"></span> que o imóvel rende de aluguel. Essa diferença é o ganho.</p>
+            <p><b>Correção da carta.</b> Carta e parcelas são reajustadas por um índice (INCC ou IPCA). O aluguel também tende a acompanhar a inflação, então as contas estão em valores de hoje.</p>
+            <p><b>Aluguel varia.</b> Renda de hotel depende de ocupação e de diária. Um ano fraco reduz a sobra e pode exigir completar a parcela do bolso.</p>
+            <p><b>Valorização fora da conta.</b> Nenhum cenário considera valorização do imóvel ou reajuste real de aluguel. Se houver, ela soma para quem tem mais imóveis.</p>
+            <p><b>Patrimônio líquido.</b> O gráfico desconta o saldo devedor. Por isso o consórcio começa abaixo: a taxa de administração pesa no início e o ganho aparece com o tempo.</p>
+          </div>
+        </div>
+
+        <p class="av-foot">Simulação ilustrativa com base nas premissas indicadas. Não constitui promessa de rentabilidade nem recomendação individual. Condições de consórcio, contemplação, renda dos imóveis e custos de cartório podem variar.</p>
+      </main>
+    </section>
+    <!-- MODULE:ALAVANCAGEM:HTML:END -->
 
   </div>
 </div>
@@ -4841,6 +5046,10 @@ Abraço,
     <button class="wn-panel-close" id="wnClose" type="button" aria-label="Fechar">&times;</button>
   </div>
   <div class="wn-panel-body" id="wnBody">
+    <div class="wn-date">28 de outubro de 2026</div>
+    <ul class="wn-list">
+      <li>Novo módulo <b>Carteira de imóveis</b>: mostra ao cliente como comprar imóvel pelo consórcio com lance, pagando uma fração do valor e deixando o aluguel cobrir a parcela. Compara com a compra à vista, mostra quanto de imóvel o mesmo capital controla e traz as unidades hoteleiras à venda para montar a carteira.</li>
+    </ul>
     <div class="wn-date">27 de agosto de 2026</div>
     <ul class="wn-list">
       <li>Correção importante no <b>Comparador consórcio</b> (à vista &times; financiamento &times; consórcio): quando as parcelas estouravam o dinheiro investido, o que era pago do bolso sumia da conta e o <b>patrimônio final ficava empatado</b>. Agora esse valor entra no resultado &mdash; cenários com juros altos, rentabilidade baixa ou lance grande passam a mostrar patrimônio menor, e negativo quando é o caso.</li>
@@ -11476,6 +11685,81 @@ function initOperacional(){
   });
 }
 /* ===== MODULE:OPERACIONAL:JS:END ===== */
+/* ===== MODULE:ALAVANCAGEM:JS:START ===== */
+function initAlavanc(){
+  const g=id=>document.getElementById(id);
+  if(!g('module-alavanc')) return;
+  const BRL=v=>'R$ '+Math.round(v).toLocaleString('pt-BR');
+  const K=v=>{const a=Math.abs(v),s=v<0?'−':'';if(a>=1e6)return s+'R$ '+(a/1e6).toLocaleString('pt-BR',{maximumFractionDigits:2})+' mi';if(a>=1e3)return s+'R$ '+Math.round(a/1e3).toLocaleString('pt-BR')+' mil';return s+'R$ '+Math.round(a)};
+  const P=(v,d=1)=>(v*100).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d})+'%';
+  const fvf=(r,t)=>r===0?t:((1+r)**t-1)/r;
+  const DEF={val:300000,al:7,r:7,tx:20,l:55,e:30,n:200};
+  const HOT=[["Comfort Franca",100000,300],["Ibis Osasco",165000,(1161+1073)/2],["Ibis Campinas",195000,(1196+1091)/2],["Slaviero SP",300000,(1675+1528)/2],["Meliá SP",350000,(2225+2466)/2],["Mercure Nações Unidas",395000,(2783+2680)/2],["Ibis Budget Jardins",415000,(2905+2458)/2],["Ibis Paulista",575000,(4019+3486)/2]];
+  const sel=new Set([1,2]);
+  const params=()=>({A:Math.max(10000,+g('av-f-val').value||0),al:+g('av-f-al').value/100,r:+g('av-f-r').value/100,tx:+g('av-f-tx').value/100,l:+g('av-f-l').value/100,e:+g('av-f-e').value/100,m:+g('av-f-n').value});
+  // consórcio por R$ 1 de imóvel
+  function unit(p,emb){const carta=emb?1/(1-p.e):1,tot=carta*(1+p.tx),lance=tot*p.l;let own=lance-(carta-1);if(own<0)own=0;return{own,dev:tot-lance,taxa:carta*p.tx}}
+  function scen(p,emb){const u=unit(p,emb),n=p.m/12,A=p.A,own=u.own*A,dev=u.dev*A,C=A-own,sob=A*p.al-dev/n;
+    const at=t=>A+C*(1+p.r)**t+sob*fvf(p.r,t)-dev*(1-t/n);
+    return{own,dev,C,parc:dev/p.m,alM:A*p.al/12,sobraM:sob/12,fin:at(n),at,taxa:u.taxa*A}}
+  function avista(p){const n=p.m/12,a=p.A*p.al,at=t=>p.A+a*fvf(p.r,t);return{own:p.A,alM:a/12,sobraM:a/12,fin:at(n),at}}
+  function irr(cash,pay,n){let lo=-.5,hi=1;for(let i=0;i<120;i++){const m=(lo+hi)/2,pv=Math.abs(m)<1e-9?pay*n:pay*(1-(1+m)**-n)/m;if(pv>cash)lo=m;else hi=m}return(lo+hi)/2}
+  const sg=x=>`<span class="${x<0?'negv':''}">${BRL(x)}</span>`;
+
+  function render(){
+    const p=params(),n=p.m/12;
+    g('av-o-al').textContent=P(p.al);g('av-o-r').textContent=P(p.r);g('av-o-tx').textContent=P(p.tx);g('av-o-l').textContent=P(p.l,0);g('av-o-e').textContent=P(p.e,0);g('av-o-n').textContent=p.m+' meses';
+    const v=avista(p),c=scen(p,true),s=scen(p,false);
+    g('av-h-val').textContent=K(p.A);
+    const fr=c.own/p.A;g('av-h-own').textContent=fr>.45&&fr<.55?'metade':(fr<=.45?'menos da metade':P(fr,0));
+    const tot=c.own+c.dev;g('av-bar-own').style.flexBasis=(c.own/tot*100)+'%';g('av-bar-rent').style.flexBasis=(c.dev/tot*100)+'%';
+    g('av-lg-own').textContent=BRL(c.own);g('av-lg-rent').textContent=BRL(c.dev);
+    g('av-s-lance').textContent=P(p.l,0);g('av-s-own').textContent=BRL(c.own);g('av-s-val').textContent=BRL(p.A);g('av-s-rent').textContent=BRL(c.alM);g('av-s-parc').textContent=BRL(c.parc);g('av-s-prazo').textContent=p.m;g('av-s-sobra').textContent=BRL(c.sobraM);
+    const gain=x=>{const d=x/v.fin-1;return `<span class="${d>=0?'pos':'negv'}">${d>=0?'+':''}${BRL(x-v.fin)}<span class="sub">${d>=0?'+':''}${P(d)} vs à vista</span></span>`};
+    const rows=[['Sai do seu bolso',BRL(v.own),BRL(c.own),BRL(s.own)],['Fica aplicado',BRL(0),BRL(c.C),BRL(s.C)],['Aluguel por mês',BRL(v.alM),BRL(c.alM),BRL(s.alM)],['Parcela por mês','—',BRL(c.parc),BRL(s.parc)],['Sobra por mês',BRL(v.sobraM),sg(c.sobraM),sg(s.sobraM)],['Taxa de administração paga','—',BRL(c.taxa),BRL(s.taxa)]];
+    let h=rows.map(r=>`<tr><td>${r[0]}</td><td class="av-num">${r[1]}</td><td class="av-num hl">${r[2]}</td><td class="av-num">${r[3]}</td></tr>`).join('');
+    const yrs=n.toLocaleString('pt-BR',{maximumFractionDigits:1});
+    h+=`<tr class="total"><td>Patrimônio em ${yrs} anos<span class="sub">imóvel + aplicações, já quitado</span></td><td class="av-num">${BRL(v.fin)}<span class="sub">${P(v.fin/p.A-1,0)} sobre o imóvel</span></td><td class="av-num hl">${BRL(c.fin)}<span class="sub">${P(c.fin/p.A-1,0)} sobre o imóvel</span></td><td class="av-num">${BRL(s.fin)}<span class="sub">${P(s.fin/p.A-1,0)} sobre o imóvel</span></td></tr>`;
+    h+=`<tr><td>Diferença para o à vista</td><td class="av-num">—</td><td class="av-num hl">${gain(c.fin)}</td><td class="av-num">${gain(s.fin)}</td></tr>`;
+    g('av-t-sim').tBodies[0].innerHTML=h;
+    chart(p,[v,c,s]);
+    let cross=null;for(let t=0;t<=n;t+=1/12){if(c.at(t)>=v.at(t)){cross=t;break}}
+    g('av-chart-note').textContent=cross===null?'Com essas premissas o consórcio não supera a compra à vista dentro do prazo.':(cross<1/12?'O consórcio fica à frente desde o início.':`O consórcio com embutido passa a compra à vista por volta do ano ${Math.ceil(cross)}. Daí em diante, a distância só aumenta.`);
+    const cap=Math.max(10000,+g('av-f-cap').value||0),u=unit(p,true),mult=u.own>0?1/u.own:0;
+    g('av-mult').textContent='R$ '+mult.toLocaleString('pt-BR',{maximumFractionDigits:2});
+    const A2=cap*mult,pc=A2*u.dev/p.m,al2=A2*p.al/12,sb2=al2-pc,fin2=A2+sb2*12*fvf(p.r,n),fin1=cap+cap*p.al*fvf(p.r,n);
+    g('av-c1-val').textContent=K(cap);g('av-c1-al').textContent=BRL(cap*p.al/12);g('av-c1-sb').textContent=BRL(cap*p.al/12);g('av-c1-alf').textContent=BRL(cap*p.al/12);g('av-c1-fin').textContent=BRL(fin1);
+    g('av-c2-val').textContent=K(A2);g('av-c2-al').textContent=BRL(al2);g('av-c2-pc').textContent=BRL(pc);g('av-c2-sb').innerHTML=sg(sb2);g('av-c2-alf').textContent=BRL(al2);g('av-c2-fin').textContent=BRL(fin2);
+    g('av-r-irr').textContent=P(irr(c.C,c.dev/n,n));g('av-r-al').textContent=P(p.al);
+    hotels(p,u);
+  }
+  function hotels(p,u){
+    let h='';const T={val:0,own:0,pc:0,sb:0};
+    HOT.forEach((x,i)=>{const[nm,anun,renda]=x,neg=anun*.95,esc=neg*.055,yA=(1+renda/(neg+esc))**12-1,own=neg*u.own+esc,pc=neg*u.dev/p.m,sb=renda-pc,on=sel.has(i);
+      if(on){T.val+=neg;T.own+=own;T.pc+=pc;T.sb+=sb}
+      h+=`<tr data-i="${i}" class="${on?'on':''}"><td><input type="checkbox" id="av-h${i}" ${on?'checked':''}><label for="av-h${i}">${nm}</label></td><td class="av-num">${BRL(anun)}</td><td class="av-num">${BRL(neg)}</td><td class="av-num">${BRL(esc)}</td><td class="av-num">${BRL(renda)}</td><td><span class="av-chip ${yA<p.al?'low':''}">${P(yA)}</span></td><td class="av-num">${BRL(own)}</td><td class="av-num">${BRL(pc)}</td><td class="av-num ${sb<0?'negv':'pos'}">${BRL(sb)}</td></tr>`});
+    g('av-t-hot').tBodies[0].innerHTML=h;
+    g('av-hs-val').textContent=BRL(T.val);g('av-hs-own').textContent=BRL(T.own);g('av-hs-pc').textContent=BRL(T.pc);
+    g('av-hs-sb').innerHTML=`<span class="${T.sb<0?'negv':'pos'}">${BRL(T.sb)}</span>`;
+  }
+  function chart(p,S){
+    const svg=g('av-chart'),W=640,H=300,L=62,R=14,Tp=14,B=34,n=p.m/12,cols=['var(--av-cash)','var(--av-own)','var(--av-rent)'];
+    let mx=0,mn=Infinity;const pts=S.map(s=>{const a=[];for(let i=0;i<=120;i++){const t=n*i/120,y=s.at(t);a.push([t,y]);mx=Math.max(mx,y);mn=Math.min(mn,y)}return a});
+    const step=[50e3,100e3,200e3,250e3,500e3,1e6,2e6,5e6].find(s=>(mx-Math.min(0,mn))/s<=6)||1e7;
+    const y0=Math.min(0,Math.floor(mn/step)*step),y1=Math.ceil(mx/step)*step,X=t=>L+(W-L-R)*t/n,Y=v=>Tp+(H-Tp-B)*(1-(v-y0)/(y1-y0));
+    const tx='font-size:11px;font-family:var(--f-mono);fill:var(--muted)';
+    let o='';
+    for(let v=y0;v<=y1+1;v+=step){o+=`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--line);stroke-width:1"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end" style="${tx}">${K(v).replace('R$ ','')}</text>`}
+    const ys=n>12?4:2;for(let t=0;t<=n+1e-9;t+=ys){o+=`<text x="${X(t)}" y="${H-12}" text-anchor="middle" style="${tx}">${t===0?'hoje':'ano '+Math.round(t)}</text>`}
+    pts.forEach((a,i)=>{const d=a.map((q,j)=>(j?'L':'M')+X(q[0]).toFixed(1)+' '+Y(q[1]).toFixed(1)).join(' ');o+=`<path d="${d}" style="fill:none;stroke:${cols[i]};stroke-width:${i===1?3:2};stroke-linecap:round${i===0?';stroke-dasharray:5 4':''}"/>`;const e=a[a.length-1];o+=`<circle cx="${X(e[0])}" cy="${Y(e[1])}" r="4" style="fill:${cols[i]}"/>`});
+    svg.innerHTML=o;
+  }
+  ['av-f-val','av-f-al','av-f-r','av-f-tx','av-f-l','av-f-e','av-f-n','av-f-cap'].forEach(id=>g(id).addEventListener('input',render));
+  g('av-reset').addEventListener('click',()=>{g('av-f-val').value=DEF.val;g('av-f-al').value=DEF.al;g('av-f-r').value=DEF.r;g('av-f-tx').value=DEF.tx;g('av-f-l').value=DEF.l;g('av-f-e').value=DEF.e;g('av-f-n').value=DEF.n;render()});
+  g('av-t-hot').addEventListener('click',e=>{const tr=e.target.closest('tr[data-i]');if(!tr||e.target.tagName==='LABEL')return;const i=+tr.dataset.i;if(e.target.tagName==='INPUT'){e.target.checked?sel.add(i):sel.delete(i)}else{sel.has(i)?sel.delete(i):sel.add(i)}render()});
+  render();
+}
+/* ===== MODULE:ALAVANCAGEM:JS:END ===== */
 
 initRecados();
 initOrient();
@@ -11486,6 +11770,7 @@ initExterior();
 initSucessao();
 initConsorcio();
 initOperacional();
+initAlavanc();
 
 
 /* ===== SHARED:JS:START (restaura o último módulo aberto — genérico, não mexer) ===== */
@@ -11504,7 +11789,7 @@ function apsCloseOtherFabPanels(except){
 
 /* ===== SHARED:JS:WHATSNEW:START (botão + painel "Atualizações" fixo no topo direito — ao adicionar uma
    nova entrada no HTML, atualize também WN_LATEST_DATE abaixo para a data do bloco mais novo) ===== */
-const WN_LATEST_DATE = '2026-08-27';
+const WN_LATEST_DATE = '2026-10-28';
 (function(){
   const fab=$('wnFab'), panel=$('wnPanel'), closeBtn=$('wnClose'), dot=$('wnDot');
   if(!fab||!panel) return;
